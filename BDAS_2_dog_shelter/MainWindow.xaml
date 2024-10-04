@@ -12,7 +12,6 @@
         </Button>
         <TextBox HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Margin="29,207,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="18,18,0,0" VerticalAlignment="Top" Width="100" Source="Bitmap1.bmp"/>
-
+        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="18,18,0,0" VerticalAlignment="Top" Width="100" Source="/dog.png"/>
     </Grid>
 </Window>
