@@ -7,11 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="335" Width="249">
     <Grid>
-        <Label Content="Přihlašovaní" HorizontalAlignment="Left" Margin="29,107,0,0" VerticalAlignment="Top"/>
-        <Button Content="Přihlásit se" HorizontalAlignment="Left" Margin="29,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="Button_Click">
+        <Label Content="Přihlašovaní" HorizontalAlignment="Left" Margin="29,119,0,0" VerticalAlignment="Top"/>
+        <Button Content="Přihlásit se" HorizontalAlignment="Left" Margin="29,260,0,0" Padding="5" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="Button_Click">
         </Button>
-        <TextBox HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="174"/>
+        <TextBox HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <TextBox HorizontalAlignment="Left" Margin="29,207,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="18,18,0,0" VerticalAlignment="Top" Width="100" Source="Bitmap1.bmp"/>
 
     </Grid>
 </Window>

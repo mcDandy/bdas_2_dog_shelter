@@ -61,7 +61,9 @@ namespace BDAS_2_dog_shelter
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mw = new MainWindow();
+            this.Close();
+            mw.Show();
         }
     }
 }
