@@ -45,17 +45,23 @@ namespace BDAS_2_dog_shelter
                         OracleDataReader reader = cmd.ExecuteReader();
                         while (reader.Read())//for every row
                         {
-                             //await reader.GetString("name");
+                            //await reader.GetString("name");
                         }
 
                         reader.Dispose();
                     }
                     catch (Exception ex)//something went wrong
                     {
-                        
+
                     }
                 }
 
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
