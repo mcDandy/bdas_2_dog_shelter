@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="335" Width="249">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF1785EC"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Label Content="Přihlašovaní" HorizontalAlignment="Left" Margin="29,119,0,0" VerticalAlignment="Top"/>
         <Button Content="Přihlásit se" HorizontalAlignment="Left" Margin="29,260,0,0" Padding="5" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="Button_Click">
         </Button>
