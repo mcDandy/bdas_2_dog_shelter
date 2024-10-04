@@ -5,21 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter"
         mc:Ignorable="d"
-        Title="MainWindow" Height="335" Width="249">
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF1785EC"/>
-                <GradientStop Color="White" Offset="1"/>
-                <GradientStop Color="#FF0085FF" Offset="0.243"/>
-                <GradientStop Color="#FFC1E2FF" Offset="0.444"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Label Content="Přihlašovaní" HorizontalAlignment="Left" Margin="29,119,0,0" VerticalAlignment="Top"/>
-        <Button Content="Přihlásit se" HorizontalAlignment="Left" Margin="29,260,0,0" Padding="5" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="Button_Click">
-        </Button>
-        <TextBox HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="29,207,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="18,18,0,0" VerticalAlignment="Top" Width="100" Source="/dog.png"/>
-    </Grid>
+        Title="MainWindow" Height="450" Width="800">
+    <Frame x:Name="WindowContents" Source="DogRegistry.xaml">
+        
+    </Frame>
 </Window>
