@@ -15,7 +15,7 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dataGrid" 
-                    d:ItemsSource="{Binding Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAdd" Content="Add" Margin="5" Click="buttonAdd_Click"/>
                     <Button x:Name="buttonRemove" Content="Remove" Margin="5" Click="buttonRemove_Click"/>

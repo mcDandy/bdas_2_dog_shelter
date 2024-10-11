@@ -7,7 +7,7 @@ namespace BDAS_2_dog_shelter
         private string _name;
         public string Name
         {
-            get => _name="";
+            get => _name;
             set
             {
                 if (_name != value)
