@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS_2_dog_shelter"
+        xmlns:local="clr-namespace:BDAS_2_dog_shelter" 
+        d:DataContext="{d:DesignInstance Type=local:MainWindow}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <TabControl>
@@ -13,10 +14,11 @@
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dataGrid" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                <DataGrid x:Name="dataGrid" 
+                    d:ItemsSource="{Binding Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="button1" Content="Button" Margin="5"/>
-                    <Button x:Name="button" Content="Button" Margin="5"/>
+                    <Button x:Name="buttonAdd" Content="Add" Margin="5" Click="buttonAdd_Click"/>
+                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" Click="buttonRemove_Click"/>
                 </StackPanel>
 
             </Grid>
