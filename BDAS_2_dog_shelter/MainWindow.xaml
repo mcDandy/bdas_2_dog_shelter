@@ -6,7 +6,21 @@
         xmlns:local="clr-namespace:BDAS_2_dog_shelter"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Frame x:Name="WindowContents" Source="DogRegistry.xaml">
-        
-    </Frame>
+    <TabControl>
+        <TabItem Header="a" Name="a" Visibility="Visible">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="dataGrid" d:ItemsSource="{d:SampleData ItemCount=5}"/>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="button1" Content="Button" Margin="5"/>
+                    <Button x:Name="button" Content="Button" Margin="5"/>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+            <TabItem Header="b" Name="b" Visibility="Visible"/>
+    </TabControl>
 </Window>
