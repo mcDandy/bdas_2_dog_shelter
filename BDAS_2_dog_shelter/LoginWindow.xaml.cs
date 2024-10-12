@@ -1,15 +1,6 @@
-﻿using System.Data;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Oracle.ManagedDataAccess.Client;
+using static BDAS_2_dog_shelter.Secrets;
 
 namespace BDAS_2_dog_shelter
 {
@@ -18,12 +9,18 @@ namespace BDAS_2_dog_shelter
     /// </summary>
     public partial class LoginWindow : Window
     {
-        const string ConnectionString = "User Id=hr;Password=<password>;Data Source=<ip or hostname>:1521/<service name>;";
-
 
         public LoginWindow()
         {
             InitializeComponent();
+            try
+            {
+                if (ConnectionString == null) return;
+            }
+            catch (System.TypeInitializationException)
+            {
+                MessageBox.Show("Nenašel se soubor secrets.json s tajnými konstantami ve složce programu nebo formát souboru není JSON.","Chyba",MessageBoxButton.OK,MessageBoxImage.Error);
+            }
             using (OracleConnection con = new OracleConnection(ConnectionString))
             {
                 using (OracleCommand cmd = con.CreateCommand())
