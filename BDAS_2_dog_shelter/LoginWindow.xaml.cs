@@ -32,17 +32,17 @@ namespace BDAS_2_dog_shelter
 
                         //Use the command to display employee names from 
                         // the EMPLOYEES table
-                        cmd.CommandText = "select first_name from employees where department_id = :id";
+                        cmd.CommandText = "select jmeno from psi where vek > :id";
 
                         // Assign id to the department number 50 
-                        OracleParameter id = new OracleParameter("id", 50);
+                        OracleParameter id = new OracleParameter("id", 10_000_000+"; select 10 from dual as fail");
                         cmd.Parameters.Add(id);
 
                         //Execute the command and use DataReader to display the data
                         OracleDataReader reader = cmd.ExecuteReader();
                         while (reader.Read())//for every row
                         {
-                            //await reader.GetString("name");
+                            /*await*/ MessageBox.Show(reader.GetString(0));
                         }
 
                         reader.Dispose();
