@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace BDAS_2_dog_shelter
@@ -9,7 +10,7 @@ namespace BDAS_2_dog_shelter
     public partial class MainWindow : Window
     {
         public ObservableCollection <Dog> Dogs { get; set; } = new();
-
+       
         public MainWindow()
         {
             InitializeComponent();
@@ -23,9 +24,17 @@ namespace BDAS_2_dog_shelter
 
         private void buttonRemove_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in dataGrid.SelectedItems)
+            List<Dog> selectedDogs = new List<Dog>();
+
+
+            foreach (Dog dog in dataGrid.SelectedItems)
             {
-                ((Dog)item).Name = "Removed";
+                    selectedDogs.Add(dog);
+            }
+
+            foreach (Dog dog in selectedDogs)
+            {
+                Dogs.Remove(dog);
             }
         }
     }
