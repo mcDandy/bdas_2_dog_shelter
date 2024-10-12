@@ -6,11 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>dog.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="dog.png" />
+    <None Remove="icon.png" />
     <None Remove="secrets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="dog.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +25,9 @@
 
   <ItemGroup>
     <Resource Include="dog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="secrets.json">
