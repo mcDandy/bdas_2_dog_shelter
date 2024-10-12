@@ -13,7 +13,7 @@ namespace BDAS_2_dog_shelter
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new[] { Dogs };
+            DataContext = this;
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
