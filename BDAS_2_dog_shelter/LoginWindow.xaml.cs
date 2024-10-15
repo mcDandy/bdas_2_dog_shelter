@@ -54,7 +54,7 @@ namespace BDAS_2_dog_shelter
                         while (reader.Read())//for every row
                         {
                             /*await*/
-                            MessageBox.Show(reader.GetString(0));
+                            if (reader.GetInt32(0) == 0) { MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); reader.Dispose(); return; }
                         }
 
                         reader.Dispose();
