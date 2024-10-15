@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 
 namespace BDAS_2_dog_shelter
@@ -19,7 +20,15 @@ namespace BDAS_2_dog_shelter
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Dogs.Add(new Dog("test"));
+            Dog d = new Dog("test");
+            Dogs.Add(d);
+            d.PropertyChanged += DogChanged;
+        }
+
+        private void DogChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            Dog dog = (Dog)sender;
+            MessageBox.Show(e.PropertyName);
         }
 
         private void buttonRemove_Click(object sender, RoutedEventArgs e)
