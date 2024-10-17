@@ -18,8 +18,37 @@ namespace BDAS_2_dog_shelter
                 }
             }
         } 
-        public Dog() { _name = ""; }
-        public Dog(string name) { _name = name; }
+        private int _age;
+        public int Age
+        {
+            get => _age;
+            set
+            {
+                if (_age != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Age"));
+                    _age = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Age"));
+                }
+            }
+        }
+        public string _body_color;
+        public string BodyColor
+        {
+            get => _body_color;
+            set
+            {
+                if (_body_color != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("BodyColor"));
+                    _body_color = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BodyColor"));
+                }
+            }
+        }
+        public Dog() { _name = ""; _age = 0;_body_color = ""; }
+        public Dog(string name,int age,string bodycolor) { _name = name;_age = age;_body_color = bodycolor; }
+
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
