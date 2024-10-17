@@ -55,20 +55,21 @@ namespace BDAS_2_dog_shelter
                         {
                             /*await*/
                             if (reader.GetInt32(0) == 0) { MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); reader.Dispose(); return; }
+                            MainWindow mw = new MainWindow();
+                            this.Close();
+                            mw.Show();
                         }
 
                         reader.Dispose();
                     }
                     catch (Exception ex)//something went wrong
                     {
-
+                        MessageBox.Show(ex.Message);
                     }
                 }
 
             }
-            MainWindow mw = new MainWindow();
-            this.Close();
-            mw.Show();
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
