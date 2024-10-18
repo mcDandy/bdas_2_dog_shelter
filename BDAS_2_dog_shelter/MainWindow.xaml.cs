@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter
 
         private void DogChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Dog dog = (Dog)sender;
+            Dog? dog = sender as Dog;
             MessageBox.Show(e.PropertyName);
         }
 

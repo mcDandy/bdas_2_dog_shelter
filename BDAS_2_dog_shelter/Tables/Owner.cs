@@ -12,9 +12,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_name != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Name"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Name)));
                     _name = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 }
             }
         }
@@ -26,9 +26,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_surname != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Surname"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Surname)));
                     _surname = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Surname"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Surname)));
                 }
             }
         }
@@ -40,9 +40,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_phone != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Phone"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Phone)));
                     _phone = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Phone"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Phone)));
                 }
             }
         }
@@ -54,9 +54,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_email != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Email"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Email)));
                     _email = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Email"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Email)));
                 }
             }
         }

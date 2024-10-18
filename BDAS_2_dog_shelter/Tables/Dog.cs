@@ -5,6 +5,7 @@ namespace BDAS_2_dog_shelter.Tables
     public class Dog : INotifyPropertyChanged, INotifyPropertyChanging
     {
         private string _name;
+        internal int ID;
         public string Name
         {
             get => _name;
@@ -12,9 +13,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_name != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Name"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Name)));
                     _name = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 }
             }
         }
@@ -26,9 +27,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_age != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Age"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Age)));
                     _age = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Age"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Age)));
                 }
             }
         }
@@ -40,9 +41,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_body_color != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("BodyColor"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
                     _body_color = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BodyColor"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
                 }
             }
         }

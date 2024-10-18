@@ -12,9 +12,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_date_of_receipt != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("DateOfReceipt"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DateOfReceipt)));
                     _date_of_receipt = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateOfReceipt"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateOfReceipt)));
                 }
             }
         }
@@ -26,9 +26,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_date_of_transfer != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("DateOfTransfer"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DateOfTransfer)));
                     _date_of_transfer = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateOfTransfer"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DateOfTransfer)));
                 }
             }
         }

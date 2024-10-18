@@ -13,9 +13,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_street != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Street"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Street)));
                     _street = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Street"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Street)));
                 }
             }
         }
@@ -27,9 +27,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_city != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("City"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(City)));
                     _city = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("City"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(City)));
                 }
             }
         }
@@ -41,9 +41,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_psc != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Psc"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Psc)));
                     _psc = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Psc"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Psc)));
                 }
             }
         }
@@ -55,9 +55,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_number != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs("Number"));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Number)));
                     _number = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Number"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Number)));
                 }
             }
         }
