@@ -54,11 +54,11 @@ namespace BDAS_2_dog_shelter
                         while (reader.Read())//for every row
                         {
                             /*await*/ 
-                            if (!reader.HasRows) { MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); reader.Dispose(); return; }
                             MainWindow mw = new(reader.GetInt64(0));
                             this.Close();
                             mw.Show();
                         }
+                        if (!reader.HasRows) MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); 
 
                         reader.Dispose();
                     }
@@ -100,7 +100,7 @@ namespace BDAS_2_dog_shelter
                     }
                     catch (Exception ex)//something went wrong
                     {
-                        MessageBox.Show(ex.ToString());
+                        MessageBox.Show("Uživatel existuje.");
                     }
                 }
             }
