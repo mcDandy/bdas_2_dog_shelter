@@ -40,7 +40,7 @@ namespace BDAS_2_dog_shelter
 
                         //Use the command to display employee names from 
                         // the EMPLOYEES table
-                        cmd.CommandText = "select count(*) from USERS where UNAME = :id and PASSWD = :pw";
+                        cmd.CommandText = "select count(*),PERMS from USERS where UNAME = :id and PASSWD = :pw";
                         SHA256 sha256 = SHA256.Create();
 
                         // Assign id to the department number 50 
@@ -55,7 +55,7 @@ namespace BDAS_2_dog_shelter
                         {
                             /*await*/
                             if (reader.GetInt32(0) == 0) { MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); reader.Dispose(); return; }
-                            MainWindow mw = new MainWindow();
+                            MainWindow mw = new(reader.GetInt64(1));
                             this.Close();
                             mw.Show();
                         }
