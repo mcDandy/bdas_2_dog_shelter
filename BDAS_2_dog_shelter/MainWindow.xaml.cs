@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
+using BDAS_2_dog_shelter.Tables;
 
 namespace BDAS_2_dog_shelter
 {
@@ -20,7 +21,7 @@ namespace BDAS_2_dog_shelter
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Dog d = new Dog("test");
+            Dog d = new Dog("test",10,"Cyan");
             Dogs.Add(d);
             d.PropertyChanged += DogChanged;
         }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BDAS_2_dog_shelter
+namespace BDAS_2_dog_shelter.Tables
 {
     public class Dog : INotifyPropertyChanged, INotifyPropertyChanging
     {
@@ -17,7 +17,7 @@ namespace BDAS_2_dog_shelter
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Name"));
                 }
             }
-        } 
+        }
         private int _age;
         public int Age
         {
@@ -46,8 +46,8 @@ namespace BDAS_2_dog_shelter
                 }
             }
         }
-        public Dog() { _name = ""; _age = 0;_body_color = ""; }
-        public Dog(string name,int age,string bodycolor) { _name = name;_age = age;_body_color = bodycolor; }
+        public Dog() { _name = ""; _age = 0; _body_color = ""; }
+        public Dog(string name, int age, string bodycolor) { _name = name; _age = age; _body_color = bodycolor; }
 
 
         public event PropertyChangingEventHandler? PropertyChanging;

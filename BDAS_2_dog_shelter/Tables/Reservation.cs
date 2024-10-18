@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace BDAS_2_dog_shelter
+namespace BDAS_2_dog_shelter.Tables
 {
     public class Reservation : INotifyPropertyChanged, INotifyPropertyChanging
     {
