@@ -5,7 +5,7 @@ namespace BDAS_2_dog_shelter.Tables
     public class Dog : INotifyPropertyChanged, INotifyPropertyChanging
     {
         private string _name;
-        internal int ID;
+        internal readonly int ID;
         public string Name
         {
             get => _name;

@@ -37,17 +37,19 @@ namespace BDAS_2_dog_shelter
 
         private void buttonRemove_Click(object sender, RoutedEventArgs e)
         {
-            List<Dog> selectedDogs = new List<Dog>();
-
-
-            foreach (Dog dog in dataGrid.SelectedItems)
+            if ((permissions & (long)Permissions.DOGS_DELETE) > 0)
             {
+                List<Dog> selectedDogs = new List<Dog>();
+
+                foreach (Dog dog in dataGrid.SelectedItems)
+                {
                     selectedDogs.Add(dog);
-            }
+                }
 
-            foreach (Dog dog in selectedDogs)
-            {
-                Dogs.Remove(dog);
+                foreach (Dog dog in selectedDogs)
+                {
+                    Dogs.Remove(dog);
+                } 
             }
         }
     }

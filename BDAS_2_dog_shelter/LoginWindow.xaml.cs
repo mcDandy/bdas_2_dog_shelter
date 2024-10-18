@@ -40,7 +40,7 @@ namespace BDAS_2_dog_shelter
 
                         //Use the command to display employee names from 
                         // the EMPLOYEES table
-                        cmd.CommandText = "select count(*),PERMS from USERS where UNAME = :id and PASSWD = :pw";
+                        cmd.CommandText = "select PERMS from USERS where UNAME = :id and PASSWD = :pw";
                         SHA256 sha256 = SHA256.Create();
 
                         // Assign id to the department number 50 
@@ -53,9 +53,9 @@ namespace BDAS_2_dog_shelter
                         OracleDataReader reader = cmd.ExecuteReader();
                         while (reader.Read())//for every row
                         {
-                            /*await*/
-                            if (reader.GetInt32(0) == 0) { MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); reader.Dispose(); return; }
-                            MainWindow mw = new(reader.GetInt64(1));
+                            /*await*/ 
+                            if (!reader.HasRows) { MessageBox.Show("Nesprávné uživatelské jméno nebo heslo."); reader.Dispose(); return; }
+                            MainWindow mw = new(reader.GetInt64(0));
                             this.Close();
                             mw.Show();
                         }
