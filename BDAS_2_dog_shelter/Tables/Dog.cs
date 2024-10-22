@@ -47,8 +47,58 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Dog() { _name = ""; _age = 0; _body_color = ""; }
-        public Dog(string name, int age, string bodycolor) { _name = name; _age = age; _body_color = bodycolor; }
+        public DateTime _datum_prijeti;
+        public DateTime DatumPrijeti
+        {
+            get => _datum_prijeti;
+            set
+            {
+                if (_datum_prijeti != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
+                    _datum_prijeti = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
+                }
+            }
+        }
+        public string _duvod_prijeti;
+        public string DuvodPrijeti
+        {
+            get => _duvod_prijeti;
+            set
+            {
+                if (_duvod_prijeti != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
+                    _duvod_prijeti = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
+                }
+            }
+        }
+        public string _stav_pes;
+        public string StavPes
+        {
+            get => _stav_pes;
+            set
+            {
+                if (_stav_pes != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
+                    _stav_pes = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
+                }
+            }
+        }
+        public Dog() { _name = ""; _age = 0; _body_color = "";,_datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes="" }
+        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
+        { 
+            _name = name;
+            _age = age;
+            _body_color = bodycolor;
+            _datum_prijeti = datumPrijeti;
+            _duvod_prijeti = duvodPrijeti;
+            _stav_pes = stavPes;
+        }
 
 
         public event PropertyChangingEventHandler? PropertyChanging;

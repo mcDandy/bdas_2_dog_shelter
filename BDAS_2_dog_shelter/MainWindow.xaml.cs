@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter
         }
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Dog d = new Dog("test",10,"Cyan");
+            Dog d = new("test", 10, "Cyan", DateTime.Now,"Mirku, musíme si domluvit, co kdo dělá, jinak to nestihnem.","Naživu");
             Dogs.Add(d);
             d.PropertyChanged += DogChanged;
         }
