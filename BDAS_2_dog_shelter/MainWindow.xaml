@@ -15,7 +15,16 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dataGrid" CanUserAddRows="False"
-                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding BodyColor}"/>
+                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
+                        <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
+                        <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
+                    </DataGrid.Columns>
+                </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAdd" Content="Add" Margin="5" Click="buttonAdd_Click"/>
                     <Button x:Name="buttonRemove" Content="Remove" Margin="5" Click="buttonRemove_Click"/>

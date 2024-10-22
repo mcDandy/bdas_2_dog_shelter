@@ -55,9 +55,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_datum_prijeti != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DatumPrijeti)));
                     _datum_prijeti = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DatumPrijeti)));
                 }
             }
         }
@@ -69,9 +69,9 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_duvod_prijeti != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DuvodPrijeti)));
                     _duvod_prijeti = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DuvodPrijeti)));
                 }
             }
         }
@@ -83,13 +83,13 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_stav_pes != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(StavPes)));
                     _stav_pes = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(BodyColor)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StavPes)));
                 }
             }
         }
-        public Dog() { _name = ""; _age = 0; _body_color = "";,_datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes="" }
+        public Dog() { _name = ""; _age = 0; _body_color = ""; _datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes = ""; }
         public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
         { 
             _name = name;

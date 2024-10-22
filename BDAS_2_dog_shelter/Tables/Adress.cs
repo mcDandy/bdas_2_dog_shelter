@@ -5,6 +5,7 @@ namespace BDAS_2_dog_shelter.Tables
     //ulice,mesto,psc,cislopopisne
     public class Adress : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public readonly int id;
         private string _street;
         public string Street
         {
