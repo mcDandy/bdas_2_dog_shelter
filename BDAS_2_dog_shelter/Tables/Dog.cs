@@ -6,6 +6,7 @@ namespace BDAS_2_dog_shelter.Tables
     {
         private string _name;
         internal readonly int ID;
+        static int sequence = 0;
         public string Name
         {
             get => _name;
@@ -89,6 +90,20 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
+        public int _utulekId;
+        public int UtulekId
+        {
+            get => _utulekId;
+            set
+            {
+                if (_utulekId != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(UtulekId)));
+                    _utulekId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UtulekId)));
+                }
+            }
+        }
         public Dog() { _name = ""; _age = 0; _body_color = ""; _datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes = ""; }
         public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
         { 
@@ -98,6 +113,17 @@ namespace BDAS_2_dog_shelter.Tables
             _datum_prijeti = datumPrijeti;
             _duvod_prijeti = duvodPrijeti;
             _stav_pes = stavPes;
+            ID = sequence++;
+        }public Dog(int ID,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
+        { 
+            _name = name;
+            _age = age;
+            _body_color = bodycolor;
+            _datum_prijeti = datumPrijeti;
+            _duvod_prijeti = duvodPrijeti;
+            _stav_pes = stavPes;
+            this.ID = ID;
+            if(sequence<=ID)sequence = ID+1;
         }
 
 
