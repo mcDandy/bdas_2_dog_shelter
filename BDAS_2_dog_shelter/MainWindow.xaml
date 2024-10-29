@@ -14,7 +14,7 @@
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
                     ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Jméno" Binding="{Binding Name}"></DataGridTextColumn>

@@ -43,8 +43,8 @@ namespace BDAS_2_dog_shelter
                     MessageBox.Show(ex.Message);
                     return;
                 }
-
-                Dogs.CollectionChanged += Dogs_CollectionChanged;
+                if ((permissions & (long)Permissions.DOGS_UPDATE) == 0) //TODO: nějaká lepší prevence úpravy
+                    Dogs.CollectionChanged += Dogs_CollectionChanged;
 
             }
         }
@@ -95,9 +95,11 @@ namespace BDAS_2_dog_shelter
         }
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Dog d = new("test", 10, "Cyan", DateTime.Now,".","Naživu");
-            Dogs.Add(d);
-            d.PropertyChanged += DogChanged;
+            if ((permissions & (long)Permissions.DOGS_INSERT) > 0) {
+                    Dog d = new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                    Dogs.Add(d);
+                    d.PropertyChanged += DogChanged; 
+                }
         }
 
         private void DogChanged(object? sender, PropertyChangedEventArgs e)
@@ -112,7 +114,7 @@ namespace BDAS_2_dog_shelter
             {
                 List<Dog> selectedDogs = new List<Dog>();
 
-                foreach (Dog dog in dataGrid.SelectedItems)
+                foreach (Dog dog in dogDataGrid.SelectedItems)
                 {
                     selectedDogs.Add(dog);
                 }
