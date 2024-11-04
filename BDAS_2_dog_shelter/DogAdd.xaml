@@ -10,6 +10,10 @@
         <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop"/>
         <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="60,313,0,0" VerticalAlignment="Top" Click="buttonOK_Click"/>
         <Button x:Name="buttonCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="180,323,0,0" VerticalAlignment="Top" Click="buttonCancel_Click"/>
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="41,136,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>
+        <TextBox x:Name="age" HorizontalAlignment="Left" Margin="41,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="age_TextChanged" PreviewTextInput="age_PreviewTextInput"/>
+        <Label x:Name="label" Content="name" HorizontalAlignment="Left" Margin="0,132,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="age" HorizontalAlignment="Left" Margin="3,155,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

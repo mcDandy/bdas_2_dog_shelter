@@ -50,12 +50,28 @@ namespace BDAS_2_dog_shelter
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
-
+            Dog.Obrazek= (BitmapSource)image.Source;
+            this.DialogResult = true;
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void age_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void age_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text.Any(a => !Char.IsDigit(a))) e.Handled = true;
         }
     }
 }

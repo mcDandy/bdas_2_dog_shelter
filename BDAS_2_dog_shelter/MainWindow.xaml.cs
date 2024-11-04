@@ -97,7 +97,12 @@ namespace BDAS_2_dog_shelter
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0) {
                 DogAdd da = new();
-                if (da.ShowDialog()==true)
+                if (da.ShowDialog()==true
+                    && da.Dog.Name is not null 
+                    && da.Dog.BodyColor is not null 
+                    && da.Dog.DuvodPrijeti is not null 
+                    && da.Dog.StavPes is not null
+                    && da.Dog.Obrazek is not null)
                 {
                     //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                     Dogs.Add(da.Dog);
@@ -132,7 +137,7 @@ namespace BDAS_2_dog_shelter
 
         private void gridOnChangeDogUtulek(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            ((Dog)sender).UtulekId = 0; e.AddedItems[0].ToString();
+            ((Dog)sender).UtulekId = 0; e.AddedItems[0].ToString();//TODO: e.addedItems je typu který se tam přidával
         }
     }
 }
