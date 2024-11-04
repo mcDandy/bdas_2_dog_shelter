@@ -96,9 +96,13 @@ namespace BDAS_2_dog_shelter
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0) {
-                    Dog d = new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                    Dogs.Add(d);
-                    d.PropertyChanged += DogChanged; 
+                DogAdd da = new();
+                if (da.ShowDialog()==true)
+                {
+                    //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                    Dogs.Add(da.Dog);
+                    da.Dog.PropertyChanged += DogChanged;
+                }
                 }
         }
 

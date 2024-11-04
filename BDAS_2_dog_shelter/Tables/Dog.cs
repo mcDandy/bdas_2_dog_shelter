@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 namespace BDAS_2_dog_shelter.Tables
 {
@@ -7,6 +8,7 @@ namespace BDAS_2_dog_shelter.Tables
         private string _name;
         internal readonly int ID;
         static int sequence = 0;
+        private BitmapSource _obrazek;
         public string Name
         {
             get => _name;
@@ -17,6 +19,19 @@ namespace BDAS_2_dog_shelter.Tables
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Name)));
                     _name = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+                }
+            }
+        }
+        public BitmapSource Obrazek
+        {
+            get => _obrazek;
+            set
+            {
+                if (_obrazek != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Obrazek)));
+                    _obrazek = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Obrazek)));
                 }
             }
         }
