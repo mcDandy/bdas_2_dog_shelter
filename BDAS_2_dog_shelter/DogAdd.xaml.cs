@@ -28,6 +28,7 @@ namespace BDAS_2_dog_shelter
         public DogAdd (Dog d)
         {
             InitializeComponent();
+            
             image.Source = d.Obrazek;
             age.Text = d.Age.ToString();
             name.Text = d.Name.ToString();
@@ -35,8 +36,8 @@ namespace BDAS_2_dog_shelter
             datumprijeti.SelectedDate = d.DatumPrijeti;
             duvod.Text=d.DuvodPrijeti;
             stav.Text = d.StavPes;
-           // utulek.SelectedIndex = d.UtulekId;
-
+            utulek.SelectedIndex = d.UtulekId;
+            Dog = new(d.Name, d.Age, d.BodyColor, d.DatumPrijeti, d.DuvodPrijeti, d.StavPes); //TODO: chybí útulek a obrázek
         }
         public Dog Dog { get; internal set; }
 

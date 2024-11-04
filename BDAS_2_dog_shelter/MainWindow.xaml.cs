@@ -96,7 +96,7 @@ namespace BDAS_2_dog_shelter
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0) {
-                DogAdd da = new();
+                DogAdd da = new(new Dog());
                 if (da.ShowDialog()==true
                     && da.Dog.Name is not null 
                     && da.Dog.BodyColor is not null 
