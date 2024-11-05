@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using BDAS_2_dog_shelter.Tables;
 using Oracle.ManagedDataAccess.Client;
 using static BDAS_2_dog_shelter.Secrets;
@@ -16,6 +17,7 @@ namespace BDAS_2_dog_shelter
     public partial class MainWindow : Window
     {
         public ObservableCollection<Dog> Dogs { get; set; } = new();
+        public ObservableCollection<Dog> Shelters { get; set; } = new();
         private long permissions = 0;
         OracleConnection con;
         public MainWindow()
@@ -161,7 +163,7 @@ namespace BDAS_2_dog_shelter
 
         private void gridOnChangeDogUtulek(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            ((Dog)sender).UtulekId = 0; e.AddedItems[0].ToString();//TODO: e.addedItems je typu který se tam přidával
+            ((Dog)e.AddedItems[0]).UtulekId = ((ComboBox)sender).SelectedIndex;//TODO: e.addedItems je typu který se tam přidával
         }
     }
 }

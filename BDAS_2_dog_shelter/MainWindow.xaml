@@ -26,7 +26,7 @@
                         <DataGridTemplateColumn Header="ID">
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}" SelectionChanged="gridOnChangeDogUtulek"/>
+                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}" SelectionChanged="gridOnChangeDogUtulek"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
