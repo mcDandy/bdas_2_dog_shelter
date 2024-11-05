@@ -69,7 +69,7 @@ namespace BDAS_2_dog_shelter
             Dog.DatumPrijeti = datumprijeti.SelectedDate ?? DateTime.Now;
             Dog.UtulekId = utulek.SelectedIndex;
             Dog.Age = Convert.ToInt32(age.Text);
-            ¨Dog.DuvodPrijeti = duvod.Text.Trim();
+            Dog.DuvodPrijeti = duvod.Text.Trim();
             this.DialogResult = true;
         }
 
