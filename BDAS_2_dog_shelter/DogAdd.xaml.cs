@@ -20,6 +20,8 @@ namespace BDAS_2_dog_shelter
     /// </summary>
     public partial class DogAdd : Window
     {
+        Brush BackgroundOK = Brushes.White;
+        Brush BackgroundERR = Brushes.Pink;
         public DogAdd()
         {
             Dog = new();
@@ -80,12 +82,10 @@ namespace BDAS_2_dog_shelter
 
         private void textBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
-        }
-
-        private void age_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
+            TextBox t = ((TextBox)sender);
+            if (t.Text.Trim() is not null and not "") t.Background = BackgroundOK;
+            else t.Background = BackgroundERR;
+            buttonOK.IsEnabled = new[]{ stav,name, age,duvod}.Any(a=>a.Background==BackgroundERR)
         }
 
         private void age_PreviewTextInput(object sender, TextCompositionEventArgs e)
