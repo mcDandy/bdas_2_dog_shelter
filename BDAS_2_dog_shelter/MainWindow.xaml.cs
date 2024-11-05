@@ -83,6 +83,31 @@ namespace BDAS_2_dog_shelter
                     }
                 }
             }
+            foreach (Dog dog in e.OldItems ?? new List<Dog>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if(con.State==System.Data.ConnectionState.Closed)con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("ID", dog.ID));
+                        cmd.CommandText = "remove from pes where id_pes=ID";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        con.Rollback(); MessageBox.Show(ex.Message);
+
+                        return;
+                    }
+                }
+            }
             con.Commit();
         }
 
