@@ -121,7 +121,7 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         public Dog() { _name = ""; _age = 0; _body_color = ""; _datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes = ""; byte[] b = new byte[256 * 256 * 4]; new Random().NextBytes(b); _obrazek = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256*4); }
-        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
+        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int utulekid, BitmapSource OBRAZEK) 
         { 
             _name = name;
             _age = age;
@@ -130,7 +130,8 @@ namespace BDAS_2_dog_shelter.Tables
             _duvod_prijeti = duvodPrijeti;
             _stav_pes = stavPes;
             ID = sequence++;
-            _obrazek = null; 
+            _obrazek = OBRAZEK;
+            _utulekId = utulekid;
         }
         public Dog(int ID,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
         { 

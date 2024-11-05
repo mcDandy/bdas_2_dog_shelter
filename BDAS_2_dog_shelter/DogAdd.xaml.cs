@@ -37,7 +37,7 @@ namespace BDAS_2_dog_shelter
             duvod.Text=d.DuvodPrijeti;
             stav.Text = d.StavPes;
             utulek.SelectedIndex = d.UtulekId;
-            Dog = new(d.Name, d.Age, d.BodyColor, d.DatumPrijeti, d.DuvodPrijeti, d.StavPes); //TODO: chybí útulek a obrázek
+            Dog = new(d.Name, d.Age, d.BodyColor, d.DatumPrijeti, d.DuvodPrijeti, d.StavPes,d.UtulekId,d.Obrazek); 
         }
         public Dog Dog { get; internal set; }
 
@@ -64,6 +64,12 @@ namespace BDAS_2_dog_shelter
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
             Dog.Obrazek= (BitmapSource)image.Source;
+            Dog.StavPes= stav.Text.Trim();
+            Dog.Name= name.Text.Trim();
+            Dog.DatumPrijeti = datumprijeti.SelectedDate ?? DateTime.Now;
+            Dog.UtulekId = utulek.SelectedIndex;
+            Dog.Age = Convert.ToInt32(age.Text);
+            ¨Dog.DuvodPrijeti = duvod.Text.Trim();
             this.DialogResult = true;
         }
 
