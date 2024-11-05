@@ -32,8 +32,7 @@ namespace BDAS_2_dog_shelter
                     OracleDataReader v = cmd.ExecuteReader();
                     if (v.HasRows)
                     {
-                        for (int i = 0; i < cmd.ImplicitRefCursors.Length; i++)
-                        {
+                        while (v.Read()) {
                             Dogs.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6)));
                         }
                     }
