@@ -94,7 +94,7 @@ namespace BDAS_2_dog_shelter
 
                         // Assign id to the department number 50 
                         cmd.Parameters.Add(new("ID", dog.ID));
-                        cmd.CommandText = "remove from pes where id_pes=ID";
+                        cmd.CommandText = "delete from pes where id_pes=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 
