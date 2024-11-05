@@ -32,8 +32,7 @@ namespace BDAS_2_dog_shelter
                     OracleDataReader v = cmd.ExecuteReader();
                     if (v.HasRows)
                     {
-                        for (int i = 0; i < cmd.ImplicitRefCursors.Length; i++)
-                        {
+                        while (v.Read()) {
                             Dogs.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6)));
                         }
                     }
@@ -71,6 +70,31 @@ namespace BDAS_2_dog_shelter
                         cmd.Parameters.Add(new("duvod", dog.StavPes));
                         cmd.Parameters.Add(new("stav", dog.StavPes));
                         cmd.CommandText = "INSERT INTO pes (jmeno,vek,barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel) values (:jmeno,:age,:color,:prijeti,:duvod,:stav,0,0,0)";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        con.Rollback(); MessageBox.Show(ex.Message);
+
+                        return;
+                    }
+                }
+            }
+            foreach (Dog dog in e.OldItems ?? new List<Dog>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if(con.State==System.Data.ConnectionState.Closed)con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("ID", dog.ID));
+                        cmd.CommandText = "remove from pes where id_pes=ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 
