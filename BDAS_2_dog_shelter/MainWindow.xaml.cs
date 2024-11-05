@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter
             {
                 try
                 {
-                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes from psi";
+                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes from pes";
                     OracleDataReader v = cmd.ExecuteReader();
                     if (v.HasRows)
                     {
@@ -70,7 +70,7 @@ namespace BDAS_2_dog_shelter
                         cmd.Parameters.Add(new("duvod", dog.DatumPrijeti));
                         cmd.Parameters.Add(new("duvod", dog.StavPes));
                         cmd.Parameters.Add(new("stav", dog.StavPes));
-                        cmd.CommandText = "INSERT INTO psi (jmeno,vek,barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,zdravotni_zaznam_id_zaznam,karantena_id_karantena,historie_psa_id_historie,majitel_id_majitel) values (:jmeno,:age,:color,:prijeti,:duvod,:stav,0,0,0,0,0)";
+                        cmd.CommandText = "INSERT INTO pes (jmeno,vek,barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel) values (:jmeno,:age,:color,:prijeti,:duvod,:stav,0,0,0)";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 
