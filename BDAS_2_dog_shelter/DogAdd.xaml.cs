@@ -73,6 +73,7 @@ namespace BDAS_2_dog_shelter
             Dog.UtulekId = utulek.SelectedIndex;
             Dog.Age = Convert.ToInt32(age.Text);
             Dog.DuvodPrijeti = duvod.Text.Trim();
+            Dog.BodyColor=bodycolor.Text;
             this.DialogResult = true;
         }
 
@@ -86,7 +87,7 @@ namespace BDAS_2_dog_shelter
             TextBox t = ((TextBox)sender);
             if (t.Text.Trim() is not null and not "") t.Background = BackgroundOK;
             else t.Background = BackgroundERR;
-            buttonOK.IsEnabled = new[] { stav, name, age, duvod }.Any(a => a is not null && a.Background == BackgroundERR);
+            buttonOK.IsEnabled = !new[] { stav, name, age, duvod,bodycolor }.Any(a => a is not null && a.Background == BackgroundERR);
         }
 
         private void age_PreviewTextInput(object sender, TextCompositionEventArgs e)
