@@ -25,21 +25,21 @@ namespace BDAS_2_dog_shelter.Add.Dog
 
         private string bodycolor;
 
-        public string BodyColor { get => name; set => SetProperty(ref name, value); }
+        public string BodyColor { get => name; set => SetProperty(ref bodycolor, value); }
 
         private string duvod;
 
-        public string Duvod { get => name; set => SetProperty(ref name, value); }
+        public string Duvod { get => name; set => SetProperty(ref duvod, value); }
 
         private string stav;
 
-        public string Stav { get => name; set => SetProperty(ref name, value); }
+        public string Stav { get => name; set => SetProperty(ref stav, value); }
 
         private int age = 0;
 
-        public string Age { get => name; set => SetProperty(ref name, value); }
+        public int Age { get => age; set => SetProperty(ref age, value); }
 
-        public Tables.Dog dog { get => new Tables.Dog(Name,Age,BodyColor,Date,Duvod,Stav,Utulek.FirstOrDefault(a=>a.Item2==SelectedUT).Item1,Obrazek)} 
+        public Tables.Dog dog { get => new Tables.Dog(Name, Age, BodyColor, Date??DateTime.Now, Duvod, Stav, Utulek.FirstOrDefault(a => a.Item2 == SelectedUT).Item1, Obrazek); } 
 
         public List<Tuple<int?, string>> Utulek {
             get 
