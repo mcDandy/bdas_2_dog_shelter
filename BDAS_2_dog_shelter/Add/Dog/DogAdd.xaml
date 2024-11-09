@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS_2_dog_shelter"
+        xmlns:local="clr-namespace:BDAS_2_dog_shelter" xmlns:local1="clr-namespace:BDAS_2_dog_shelter.Add.Dog"
         mc:Ignorable="d"
         Title="DogAdd" Height="400" Width="300">
+    <Window.DataContext>
+        <local1:AddDogViewModel />
+    </Window.DataContext>
     <Grid>
         <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop"/>
         <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="60,313,0,0" VerticalAlignment="Top" Click="buttonOK_Click"/>
