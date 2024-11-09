@@ -4,25 +4,72 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter" xmlns:local1="clr-namespace:BDAS_2_dog_shelter.Add.Dog"
+        xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation"
+        xmlns:converters="clr-namespace:BDAS_2_dog_shelter.Conversion"
         mc:Ignorable="d"
         Title="DogAdd" Height="400" Width="300">
     <Window.DataContext>
         <local1:AddDogViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <converters:SecondItemConverter x:Key="SecondItemConverter"/>
+        <converters:StringToIntConverter x:Key="StringToIntConverter"/>
+    </Window.Resources>
     <Grid>
         <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop"/>
-        <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="60,313,0,0" VerticalAlignment="Top" Click="buttonOK_Click"/>
-        <Button x:Name="buttonCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="180,323,0,0" VerticalAlignment="Top" Click="buttonCancel_Click"/>
-        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="41,136,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>
-        <TextBox x:Name="age" HorizontalAlignment="Left" Margin="41,159,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" PreviewTextInput="age_PreviewTextInput" TextChanged="textBox_TextChanged"/>
+        <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="60,313,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}" Click="buttonOK_Click" />
+        <Button x:Name="buttonCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="180,323,0,0" VerticalAlignment="Top" />
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="41,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <TextBox.Text>
+                <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyStringRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="age" HorizontalAlignment="Left" Margin="41,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <Binding Path="Age" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnDataErrors="True" ValidatesOnExceptions="True"  
+                             ValidatesOnNotifyDataErrors="True">
+                <Binding.ValidationRules>
+                    <validators:NumericStringRule/>
+                </Binding.ValidationRules>
+                <Binding.Converter>
+                    <converters:StringToIntConverter/>
+                </Binding.Converter>
+            </Binding>
+        </TextBox>
         <Label x:Name="label" Content="name" HorizontalAlignment="Left" Margin="0,132,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="age" HorizontalAlignment="Left" Margin="3,155,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="bodycolor" HorizontalAlignment="Left" Margin="41,182,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>
-        <DatePicker x:Name="datumprijeti" HorizontalAlignment="Left" Margin="48,205,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="duvod" HorizontalAlignment="Left" Margin="41,234,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>
-        <TextBox x:Name="stav" HorizontalAlignment="Left" Margin="41,257,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="textBox_TextChanged"/>
-        <ComboBox x:Name="utulek" HorizontalAlignment="Left" Margin="48,280,0,0" VerticalAlignment="Top" Width="120"/>
-
-
+        <TextBox x:Name="bodycolor" HorizontalAlignment="Left" Margin="41,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" >
+            <TextBox.Text>
+                <Binding Path="BodyColor" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyStringRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <DatePicker x:Name="datumprijeti" HorizontalAlignment="Left" Margin="48,205,0,0" VerticalAlignment="Top" SelectedDate="{Binding Date,Mode=TwoWay}"/>
+        <TextBox x:Name="duvod" HorizontalAlignment="Left" Margin="41,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" >
+            <TextBox.Text>
+                <Binding Path="Duvod" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyStringRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="stav" HorizontalAlignment="Left" Margin="41,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" >
+            <TextBox.Text>
+                <Binding Path="Stav" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validators:NotEmptyStringRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox x:Name="utulek" HorizontalAlignment="Left" Margin="41,280,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Utulek, Converter={StaticResource SecondItemConverter}, Mode=OneTime}" SelectedItem="{Binding SelectedUT}">
+        </ComboBox>
     </Grid>
 </Window>

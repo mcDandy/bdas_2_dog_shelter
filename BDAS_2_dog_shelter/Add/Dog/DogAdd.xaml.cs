@@ -20,8 +20,6 @@ namespace BDAS_2_dog_shelter
     /// </summary>
     public partial class DogAdd : Window
     {
-        Brush BackgroundOK = Brushes.White;
-        Brush BackgroundERR = Brushes.Pink;
         public DogAdd()
         {
 
@@ -32,15 +30,6 @@ namespace BDAS_2_dog_shelter
         {
             InitializeComponent();
             
-            image.Source = d.Obrazek;
-            age.Text = d.Age.ToString();
-            name.Text = d.Name.ToString();
-            bodycolor.Text = d.BodyColor.ToString();
-            datumprijeti.SelectedDate = d.DatumPrijeti;
-            duvod.Text=d.DuvodPrijeti;
-            stav.Text = d.StavPes;
-            utulek.SelectedIndex = d.UtulekId;
-            Dog = new(d.Name, d.Age, d.BodyColor, d.DatumPrijeti, d.DuvodPrijeti, d.StavPes,d.UtulekId,d.Obrazek); 
         }
         public Dog Dog { get; internal set; }
 
@@ -66,33 +55,8 @@ namespace BDAS_2_dog_shelter
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
-            Dog.Obrazek= (BitmapSource)image.Source;
-            Dog.StavPes= stav.Text.Trim();
-            Dog.Name= name.Text.Trim();
-            Dog.DatumPrijeti = datumprijeti.SelectedDate ?? DateTime.Now;
-            Dog.UtulekId = utulek.SelectedIndex;
-            Dog.Age = Convert.ToInt32(age.Text);
-            Dog.DuvodPrijeti = duvod.Text.Trim();
-            Dog.BodyColor=bodycolor.Text;
-            this.DialogResult = true;
-        }
+        //    this.DialogResult = true;
 
-        private void buttonCancel_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void textBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox t = ((TextBox)sender);
-            if (t.Text.Trim() is not null and not "") t.Background = BackgroundOK;
-            else t.Background = BackgroundERR;
-            buttonOK.IsEnabled = !new[] { stav, name, age, duvod,bodycolor }.Any(a => a is not null && a.Background == BackgroundERR);
-        }
-
-        private void age_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            if (e.Text.Any(a => !Char.IsDigit(a))) e.Handled = true;
         }
     }
 }
