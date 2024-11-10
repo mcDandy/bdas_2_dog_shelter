@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using BDAS_2_dog_shelter.Add.Dog;
 using BDAS_2_dog_shelter.Tables;
 using Oracle.ManagedDataAccess.Client;
 using static BDAS_2_dog_shelter.Secrets;
@@ -123,16 +124,11 @@ namespace BDAS_2_dog_shelter
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0) {
                 DogAdd da = new(new Dog());
-                if (da.ShowDialog()==true
-                    && da.Dog.Name is not null 
-                    && da.Dog.BodyColor is not null 
-                    && da.Dog.DuvodPrijeti is not null 
-                    && da.Dog.StavPes is not null
-                    && da.Dog.Obrazek is not null)
+                if (da.ShowDialog()==true)
                 {
                     //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                    Dogs.Add(da.Dog);
-                    da.Dog.PropertyChanged += DogChanged;
+                    Dogs.Add(((AddDogViewModel)da.DataContext).Dog);
+                    Dogs.Last().PropertyChanged += DogChanged;
                 }
                 }
         }
