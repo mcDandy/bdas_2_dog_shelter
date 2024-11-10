@@ -11,13 +11,26 @@ using Oracle.ManagedDataAccess.Client;
 using static BDAS_2_dog_shelter.Secrets;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Diagnostics.Metrics;
+
 
 namespace BDAS_2_dog_shelter.Add.Dog
 {
     internal partial class AddDogViewModel : ObservableObject
     {
-        public AddDogViewModel() {
+        public AddDogViewModel(Tables.Dog d) {
+            Name = d.Name;
+            BodyColor = d.BodyColor;
+            Duvod = d.DuvodPrijeti;
+            Stav = d.StavPes;
+            Age = d.Age;
+            int i = 0;
+            SelectedUT = Utulek.Select(a => new Tuple<int?, int>(a.Item1, i++)).FirstOrDefault(a => a.Item1 == d.UtulekId).Item2;
+
         }
+
+        public delegate void OkDogAddEditDone();
+        public event OkDogAddEditDone? OkClickFinished;
 
         private string name;
 
@@ -39,17 +52,12 @@ namespace BDAS_2_dog_shelter.Add.Dog
 
         public int Age { get => age; set => SetProperty(ref age, value); }
 
-        public Tables.Dog dog { get => new Tables.Dog(Name, Age, BodyColor, Date??DateTime.Now, Duvod, Stav, Utulek.FirstOrDefault(a => a.Item2 == SelectedUT).Item1, Obrazek); } 
-
         public List<Tuple<int?, string>> Utulek {
             get 
             {
                 if (ulek == null)
                 {
-                    ulek = new List<Tuple<int?, string>>();
-                    ulek.Add(new(null, "<Žádný>"));
-
-
+                    ulek = [new(null, "<Žádný>")];
 
                     OracleConnection con = new OracleConnection(ConnectionString);
                     if (con.State == System.Data.ConnectionState.Closed) con.Open();
@@ -79,9 +87,9 @@ namespace BDAS_2_dog_shelter.Add.Dog
         }
         private List<Tuple<int?, string>> ulek;
 
-        private string selectedUT;
+        private int selectedUT;
 
-        public string SelectedUT { 
+        public int SelectedUT { 
             get => selectedUT;
             set => SetProperty(ref selectedUT, value); 
         }
@@ -91,7 +99,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
 
         private void Ok()
         {
-            
+            OkClickFinished?.Invoke();
         }
 
         private DateTime? date;

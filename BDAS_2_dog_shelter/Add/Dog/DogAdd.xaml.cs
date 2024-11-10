@@ -1,4 +1,5 @@
-﻿using BDAS_2_dog_shelter.Tables;
+﻿using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,16 @@ namespace BDAS_2_dog_shelter
         {
 
             InitializeComponent();
-            Dog = new();
+            Dog d = new();
+            this.DataContext = new AddDogViewModel(d);
         }
         public DogAdd (Dog d)
         {
             InitializeComponent();
-            
+            this.DataContext = new AddDogViewModel(d);
+            ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
+
         public Dog Dog { get; internal set; }
 
         private void image_Drop(object sender, DragEventArgs e)
@@ -55,7 +59,7 @@ namespace BDAS_2_dog_shelter
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
-        //    this.DialogResult = true;
+        //    
 
         }
     }

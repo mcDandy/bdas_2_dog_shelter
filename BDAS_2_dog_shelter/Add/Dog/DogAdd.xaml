@@ -8,9 +8,6 @@
         xmlns:converters="clr-namespace:BDAS_2_dog_shelter.Conversion"
         mc:Ignorable="d"
         Title="DogAdd" Height="400" Width="300">
-    <Window.DataContext>
-        <local1:AddDogViewModel />
-    </Window.DataContext>
     <Window.Resources>
         <converters:SecondItemConverter x:Key="SecondItemConverter"/>
         <converters:StringToIntConverter x:Key="StringToIntConverter"/>
@@ -69,7 +66,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <ComboBox x:Name="utulek" HorizontalAlignment="Left" Margin="41,280,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Utulek, Converter={StaticResource SecondItemConverter}, Mode=OneTime}" SelectedItem="{Binding SelectedUT}">
+        <ComboBox x:Name="utulek" HorizontalAlignment="Left" Margin="41,280,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Utulek, Converter={StaticResource SecondItemConverter}, Mode=OneTime}" SelectedIndex="{Binding SelectedUT}">
         </ComboBox>
     </Grid>
 </Window>
