@@ -1,0 +1,167 @@
+﻿using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Tables;
+using Oracle.ManagedDataAccess.Client;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using static BDAS_2_dog_shelter.Secrets;
+
+namespace BDAS_2_dog_shelter.MainWindow
+{
+    internal class MainWindowViewModel
+    {
+        private ulong permissions;
+        private OracleConnection con;
+        public ObservableCollection<Dog> Dogs { get; set; } = new();
+        public ObservableCollection<Dog> Shelters { get; set; } = new();
+
+        public MainWindowViewModel(ulong permissions)
+        {
+            this.permissions = permissions;
+            con = new OracleConnection(ConnectionString);
+            if (con.State == System.Data.ConnectionState.Closed) con.Open();
+            using (OracleCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes from pes";
+                    OracleDataReader v = cmd.ExecuteReader();
+                    if (v.HasRows)
+                    {
+                        while (v.Read())
+                        {
+                            Dogs.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6)));
+                        }
+                    }
+                }
+                catch (Exception ex)//something went wrong
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                if ((permissions & (long)Permissions.DOGS_UPDATE) == 0) //TODO: nějaká lepší prevence úpravy
+                    Dogs.CollectionChanged += Dogs_CollectionChanged;
+
+            }
+        }
+        private async void Dogs_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+
+
+            foreach (Dog dog in e.NewItems ?? new List<Dog>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("age", dog.Age));
+                        cmd.Parameters.Add(new("color", dog.BodyColor));
+                        cmd.Parameters.Add(new("jmeno", dog.Name));
+                        cmd.Parameters.Add(new("prijeti", dog.DatumPrijeti));
+                        cmd.Parameters.Add(new("duvod", dog.DatumPrijeti));
+                        cmd.Parameters.Add(new("duvod", dog.StavPes));
+                        cmd.Parameters.Add(new("stav", dog.StavPes));
+                        cmd.CommandText = "INSERT INTO pes (jmeno,vek,barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel) values (:jmeno,:age,:color,:prijeti,:duvod,:stav,0,0,0)";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        con.Rollback(); MessageBox.Show(ex.Message);
+
+                        return;
+                    }
+                }
+            }
+            foreach (Dog dog in e.OldItems ?? new List<Dog>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("ID", dog.ID));
+                        cmd.CommandText = "delete from pes where id_pes=:ID";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        con.Rollback(); MessageBox.Show(ex.Message);
+
+                        return;
+                    }
+                }
+            }
+            con.Commit();
+        }
+
+
+
+
+        public MainWindow(ulong permissions) : this()
+        {
+            this.permissions = permissions;
+        }
+        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if ((permissions & (long)Permissions.DOGS_INSERT) > 0)
+            {
+                DogAdd da = new(new Dog());
+                if (da.ShowDialog() == true)
+                {
+                    //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                    Dogs.Add(((AddDogViewModel)da.DataContext).Dog);
+                    Dogs.Last().PropertyChanged += DogChanged;
+                }
+            }
+        }
+
+        private void DogChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            Dog? dog = sender as Dog;
+            MessageBox.Show(e.PropertyName);
+        }
+
+        private void buttonRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if ((permissions & (long)Permissions.DOGS_DELETE) > 0)
+            {
+                List<Dog> selectedDogs = new List<Dog>();
+
+                foreach (Dog dog in dogDataGrid.SelectedItems)
+                {
+                    selectedDogs.Add(dog);
+                }
+
+                foreach (Dog dog in selectedDogs)
+                {
+                    Dogs.Remove(dog);
+                }
+            }
+        }
+
+        private void gridOnChangeDogUtulek(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ((Dog)e.AddedItems[0]).UtulekId = ((ComboBox)sender).SelectedIndex;//TODO: e.addedItems je typu který se tam přidával
+        }
+
+    }
+}
