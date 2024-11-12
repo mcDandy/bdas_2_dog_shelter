@@ -14,7 +14,7 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
-                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectedItems="{Binding Path=SelectedDogs}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Jméno" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
@@ -33,7 +33,7 @@
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=ButtonAdd_Click}"/>
-                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" Command="{Binding Path=ButtonRemove_Click}"/>
+                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter= "{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=ButtonRemove_Click}"/>
                 </StackPanel>
 
             </Grid>

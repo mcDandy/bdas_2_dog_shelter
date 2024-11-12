@@ -21,6 +21,7 @@ namespace BDAS_2_dog_shelter.Login
         private string _username;
         public string Uname { get => _username; set { if (value != _username) { _username = value; register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged(); } } }
         public string Pwd { get => _password; set { if (value != _password) { _password = value;  register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged();} } }
+        public List<Object> selectedDogs { get; set; }
         private ulong perms = 0;
         public LoginWindowViewModel()
         {
@@ -74,7 +75,7 @@ namespace BDAS_2_dog_shelter.Login
 
         private void PerformLogin()
         {
-            MainWindow mw = new(perms);
+            MainWindow.MainWindow mw = new(perms);
             OnCloaseRequest?.Invoke();
             mw.Show();
         }

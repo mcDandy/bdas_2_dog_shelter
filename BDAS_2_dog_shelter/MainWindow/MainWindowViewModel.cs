@@ -113,13 +113,6 @@ namespace BDAS_2_dog_shelter.MainWindow
             con.Commit();
         }
 
-
-
-
-        public MainWindow(ulong permissions) : this()
-        {
-            this.permissions = permissions;
-        }
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0)
@@ -140,18 +133,13 @@ namespace BDAS_2_dog_shelter.MainWindow
             MessageBox.Show(e.PropertyName);
         }
 
-        private void buttonRemove_Click(object sender, RoutedEventArgs e)
+        private void buttonRemove_Click(object SelectedDogs)
         {
             if ((permissions & (long)Permissions.DOGS_DELETE) > 0)
             {
-                List<Dog> selectedDogs = new List<Dog>();
 
-                foreach (Dog dog in dogDataGrid.SelectedItems)
-                {
-                    selectedDogs.Add(dog);
-                }
 
-                foreach (Dog dog in selectedDogs)
+                foreach (Dog dog in SelectedDogs as List<Dog>)
                 {
                     Dogs.Remove(dog);
                 }
