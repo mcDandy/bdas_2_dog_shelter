@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter"
+        xmlns:login="clr-namespace:BDAS_2_dog_shelter.Login"
         mc:Ignorable="d"
         Title="LoginWindow" Height="335" Width="249">
+    <Window.DataContext>
+        <login:LoginWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -16,10 +20,10 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Label Content="Přihlašovaní" HorizontalAlignment="Left" Margin="29,119,0,0" VerticalAlignment="Top"/>
-        <Button Content="Přihlásit se" HorizontalAlignment="Left" Margin="29,260,0,0" Padding="5" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="Button_Click"/>
-        <Button Content="Registrovat se" HorizontalAlignment="Left" Margin="102,260,0,0" Padding="5" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="Button_Click_1"/>
-        <TextBox x:Name="inp_username" HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="Uživatelské jméno" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="inp_password" HorizontalAlignment="Left" Margin="29,207,0,0" TextWrapping="Wrap" Text="Heslo" VerticalAlignment="Top" Width="90"/>
+        <Button Content="Přihlásit se" HorizontalAlignment="Left" Margin="29,260,0,0" Padding="5" VerticalAlignment="Top" Command="{Binding Path=Login}" RenderTransformOrigin="0.5,0.5"/>
+        <Button Content="Registrovat se" HorizontalAlignment="Left" Margin="102,260,0,0" Padding="5" VerticalAlignment="Top" Command="{Binding Path=Register}" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="inp_username" HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="{Binding Path=Uname, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="inp_password" HorizontalAlignment="Left" Margin="29,207,0,0" TextWrapping="Wrap" Text="{Binding Path=Pwd, Mode=TwoWay}" VerticalAlignment="Top" Width="90"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="18,18,0,0" VerticalAlignment="Top" Width="100" Source="../dog.png"/>
     </Grid>
 </Window>

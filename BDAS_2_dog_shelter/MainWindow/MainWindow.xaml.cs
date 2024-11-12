@@ -19,7 +19,7 @@ namespace BDAS_2_dog_shelter
     {
         public ObservableCollection<Dog> Dogs { get; set; } = new();
         public ObservableCollection<Dog> Shelters { get; set; } = new();
-        private long permissions = 0;
+        private ulong permissions = 0;
         OracleConnection con;
         public MainWindow()
         {
@@ -117,7 +117,7 @@ namespace BDAS_2_dog_shelter
 
 
 
-        public MainWindow(long permissions) : this() {
+        public MainWindow(ulong permissions) : this() {
             this.permissions = permissions;
         }
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
