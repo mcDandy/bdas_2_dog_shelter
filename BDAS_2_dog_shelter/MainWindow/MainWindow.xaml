@@ -14,7 +14,7 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
-                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectedItems="{Binding Path=SelectedDogs}">
+                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Jméno" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
@@ -25,15 +25,15 @@
                         <DataGridTemplateColumn Header="ID">
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}" SelectionChanged="gridOnChangeDogUtulek"/>
+                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=ButtonAdd_Click}"/>
-                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter= "{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=ButtonRemove_Click}"/>
+                    <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
+                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
                 </StackPanel>
 
             </Grid>

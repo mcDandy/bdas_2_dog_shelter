@@ -31,26 +31,29 @@ namespace BDAS_2_dog_shelter.Add.Dog
         public Tables.Dog Dog { get; }
         public delegate void OkDogAddEditDone();
         public event OkDogAddEditDone? OkClickFinished;
+        private RelayCommand okCommand;
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && bodycolor is not null and not "" && duvod is not null and not "" && stav is not null and not "");
+
 
         private string name;
 
-        public string Name { get => name; set => SetProperty(ref name, value); }
+        public string Name { get => name; set { SetProperty(ref name, value); if(okCommand is not null)okCommand.NotifyCanExecuteChanged(); } }
 
         private string bodycolor;
 
-        public string BodyColor { get => name; set => SetProperty(ref bodycolor, value); }
+        public string BodyColor { get => bodycolor; set { SetProperty(ref bodycolor, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
         private string duvod;
 
-        public string Duvod { get => name; set => SetProperty(ref duvod, value); }
+        public string Duvod { get => duvod; set { SetProperty(ref duvod, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
         private string stav;
 
-        public string Stav { get => name; set => SetProperty(ref stav, value); }
+        public string Stav { get => stav; set { SetProperty(ref stav, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
         private int age = 0;
 
-        public int Age { get => age; set => SetProperty(ref age, value); }
+        public int Age { get => age; set { SetProperty(ref age, value); } }
 
         public List<Tuple<int?, string>> Utulek {
             get 
@@ -94,8 +97,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             set => SetProperty(ref selectedUT, value); 
         }
 
-        private RelayCommand okCommand;
-        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok);
+ 
 
         private void Ok()
         {

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,13 +76,6 @@ namespace BDAS_2_dog_shelter.Login
 
         private void PerformLogin()
         {
-            MainWindow.MainWindow mw = new(perms);
-            OnCloaseRequest?.Invoke();
-            mw.Show();
-        }
-        private bool CanLogin() 
-        {
-            if (Uname is null || Pwd is null) return false;
             using (OracleConnection con = new OracleConnection(ConnectionString))
             {
                 using (OracleCommand cmd = con.CreateCommand())
@@ -107,8 +101,10 @@ namespace BDAS_2_dog_shelter.Login
                         while (reader.Read())//for every row
                         {
                             /*await*/
+            MainWindow.MainWindow mw = new(UInt64.Parse(((OracleDecimal)reader.GetOracleValue(0)).ToString())); 
+            OnCloaseRequest?.Invoke();
+            mw.Show();
 
-                            return true;
                         }
                         if (!reader.HasRows) MessageBox.Show("Nesprávné uživatelské jméno nebo heslo.");
                         reader.Dispose();
@@ -117,11 +113,17 @@ namespace BDAS_2_dog_shelter.Login
                     catch (Exception ex)//something went wrong
                     {
                         MessageBox.Show(ex.Message);
-                        return false;
+                        return;
                     }
                 }
             }
-            return false;
+
+        }
+        private bool CanLogin() 
+        {
+            if (Uname is null or "" || Pwd is null or "") return false;
+            
+            return true;
         }
     }
 }

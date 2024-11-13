@@ -1,7 +1,9 @@
 ﻿using BDAS_2_dog_shelter.Add.Dog;
 using BDAS_2_dog_shelter.Tables;
+using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using static BDAS_2_dog_shelter.Secrets;
 
 namespace BDAS_2_dog_shelter.MainWindow
@@ -112,8 +115,11 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             con.Commit();
         }
-
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        private RelayCommand addCMD;
+        public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click);
+        private RelayCommand<object> rmCMD;
+        public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click);
+        private void buttdonAdd_Click()
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0)
             {
@@ -139,7 +145,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
 
 
-                foreach (Dog dog in SelectedDogs as List<Dog>)
+                foreach (Dog dog in SelectedDogs as IEnumerable)
                 {
                     Dogs.Remove(dog);
                 }
