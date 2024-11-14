@@ -143,9 +143,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             if ((permissions & (long)Permissions.DOGS_DELETE) > 0)
             {
-
-
-                foreach (Dog dog in SelectedDogs as IEnumerable)
+                List<Dog> e = new List<Dog>();
+                foreach(Dog d in (IEnumerable)SelectedDogs) e.Add(d);
+                foreach (Dog dog in e)
                 {
                     Dogs.Remove(dog);
                 }
