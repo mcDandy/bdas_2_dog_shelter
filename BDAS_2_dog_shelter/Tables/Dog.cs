@@ -7,7 +7,7 @@ namespace BDAS_2_dog_shelter.Tables
     public class Dog : INotifyPropertyChanged, INotifyPropertyChanging
     {
         private string _name;
-        internal readonly int ID;
+        internal int ID;
         static int sequence = 0;
         private BitmapSource _obrazek;
         public string Name

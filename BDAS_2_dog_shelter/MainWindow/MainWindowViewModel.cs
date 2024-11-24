@@ -48,7 +48,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MessageBox.Show(ex.Message);
                     return;
                 }
-                if ((permissions & (long)Permissions.DOGS_UPDATE) == 0) //TODO: nějaká lepší prevence úpravy
+                if ((permissions & (long)Permissions.DOGS_UPDATE) != 0) //TODO: nějaká lepší prevence úpravy
                     Dogs.CollectionChanged += Dogs_CollectionChanged;
 
             }
@@ -65,8 +65,9 @@ namespace BDAS_2_dog_shelter.MainWindow
                     {
                         if (con.State == System.Data.ConnectionState.Closed) con.Open();
                         cmd.BindByName = true;
-
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("did",dog.ID));
                         cmd.Parameters.Add(new("age", dog.Age));
                         cmd.Parameters.Add(new("color", dog.BodyColor));
                         cmd.Parameters.Add(new("jmeno", dog.Name));
@@ -74,10 +75,11 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.Parameters.Add(new("duvod", dog.DatumPrijeti));
                         cmd.Parameters.Add(new("duvod", dog.StavPes));
                         cmd.Parameters.Add(new("stav", dog.StavPes));
-                        cmd.CommandText = "INSERT INTO pes (jmeno,vek,barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel) values (:jmeno,:age,:color,:prijeti,:duvod,:stav,0,0,0)";
+                        cmd.Parameters.Add(new("utulek", dog.UtulekId));
+                        cmd.CommandText = "ui_pes (:did,:jmeno,:age,:color,:prijeti,:duvod,:stav,:utulek,:utulek,:utulek)";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
-
+                        dog.ID = (int)cmd.Parameters[0].Value;
                     }
 
                     catch (Exception ex)//something went wrong
