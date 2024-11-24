@@ -76,10 +76,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.Parameters.Add(new("duvod", dog.StavPes));
                         cmd.Parameters.Add(new("stav", dog.StavPes));
                         cmd.Parameters.Add(new("utulek", dog.UtulekId));
-                        cmd.CommandText = "ui_pes (:did,:jmeno,:age,:color,:prijeti,:duvod,:stav,:utulek,:utulek,:utulek)";
+                        cmd.CommandText = "INS_SET.IU_PES (:did,:jmeno,:age,:color,:prijeti,:duvod,:stav,:utulek,:utulek,:utulek)";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
-                        dog.ID = (int)cmd.Parameters[0].Value;
+                        dog.ID =  (int)cmd.Parameters[0].Value;
                     }
 
                     catch (Exception ex)//something went wrong
