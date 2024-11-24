@@ -47,11 +47,10 @@ namespace BDAS_2_dog_shelter.Login
                         //Use the command to display employee names from 
                         // the EMPLOYEES table
                         cmd.CommandText = "insert into USERS (UNAME,PASSWD) VALUES (:id, :pw)";
-                        SHA256 sha256 = SHA256.Create();
 
                         // Assign id to the department number 50 
                         OracleParameter id = new OracleParameter("id", Uname);
-                        OracleParameter id1 = new OracleParameter("pw", sha256.ComputeHash(Encoding.UTF8.GetBytes(Pwd)));
+                        OracleParameter id1 = new OracleParameter("pw", SHA256.HashData(Encoding.UTF8.GetBytes(Pwd)));
                         cmd.Parameters.Add(id);
                         cmd.Parameters.Add(id1);
 
@@ -88,22 +87,21 @@ namespace BDAS_2_dog_shelter.Login
                         //Use the command to display employee names from 
                         // the EMPLOYEES table
                         cmd.CommandText = "select PERMS from USERS where UNAME = :id and PASSWD = :pw";
-                        SHA256 sha256 = SHA256.Create();
 
                         // Assign id to the department number 50 
                         OracleParameter id = new OracleParameter("id", Uname);
-                        OracleParameter id1 = new OracleParameter("pw", sha256.ComputeHash(Encoding.UTF8.GetBytes(Pwd)));
+                        OracleParameter id1 = new OracleParameter("pw", SHA256.HashData(Encoding.UTF8.GetBytes(Pwd)));
                         cmd.Parameters.Add(id);
                         cmd.Parameters.Add(id1);
 
                         //Execute the command and use DataReader to display the data
                         OracleDataReader reader = cmd.ExecuteReader();
-                        while (reader.Read())//for every row
+                        while (reader.Read())//for every row, only one row ever
                         {
                             /*await*/
-            MainWindow.MainWindow mw = new(UInt64.Parse(((OracleDecimal)reader.GetOracleValue(0)).ToString())); 
-            OnCloaseRequest?.Invoke();
-            mw.Show();
+                            MainWindow.MainWindow mw = new(UInt64.Parse(((OracleDecimal)reader.GetOracleValue(0)).ToString()));
+                            OnCloaseRequest?.Invoke();
+                            mw.Show();
 
                         }
                         if (!reader.HasRows) MessageBox.Show("Nesprávné uživatelské jméno nebo heslo.");
