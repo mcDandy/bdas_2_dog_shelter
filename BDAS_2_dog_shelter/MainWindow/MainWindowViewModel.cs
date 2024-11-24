@@ -72,11 +72,12 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.Parameters.Add(new("color", dog.BodyColor));
                         cmd.Parameters.Add(new("jmeno", dog.Name));
                         cmd.Parameters.Add(new("prijeti", dog.DatumPrijeti));
-                        cmd.Parameters.Add(new("duvod", dog.DatumPrijeti));
-                        cmd.Parameters.Add(new("duvod", dog.StavPes));
+                        cmd.Parameters.Add(new("duvod", dog.DuvodPrijeti));
                         cmd.Parameters.Add(new("stav", dog.StavPes));
-                        cmd.Parameters.Add(new("utulek", dog.UtulekId));
-                        cmd.CommandText = "INS_SET.IU_PES (:did,:jmeno,:age,:color,:prijeti,:duvod,:stav,:utulek,:utulek,:utulek)";
+                        cmd.Parameters.Add(new("utulek", dog.UtulekId??-1));
+                        cmd.Parameters.Add(new("karantena", dog.UtulekId??-1));
+                        cmd.Parameters.Add(new("majtel", dog.UtulekId??-1));
+                        cmd.CommandText = "INS_SET.IU_PES (:did,:jmeno,:age,:color,:prijeti,:duvod,:stav,:utulek,:karantena,:majtel)";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
                         dog.ID =  (int)cmd.Parameters[0].Value;

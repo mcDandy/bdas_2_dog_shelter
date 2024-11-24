@@ -101,6 +101,14 @@ namespace BDAS_2_dog_shelter.Add.Dog
 
         private void Ok()
         {
+            Dog.Obrazek = Obrazek;
+            Dog.UtulekId = SelectedUT;
+            Dog.StavPes = Stav;
+            Dog.Name = Name;
+            Dog.Age = Age;
+            Dog.BodyColor = BodyColor;
+            Dog.DatumPrijeti = Date??DateTime.Now;
+            Dog.DuvodPrijeti = Duvod;
             OkClickFinished?.Invoke();
         }
 
