@@ -67,7 +67,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.BindByName = true;
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("did",dog.ID));
+                        cmd.Parameters.Add(new("did",OracleDbType.Varchar2,dog.ID,System.Data.ParameterDirection.InputOutput));
                         cmd.Parameters.Add(new("age", dog.Age));
                         cmd.Parameters.Add(new("color", dog.BodyColor));
                         cmd.Parameters.Add(new("jmeno", dog.Name));
