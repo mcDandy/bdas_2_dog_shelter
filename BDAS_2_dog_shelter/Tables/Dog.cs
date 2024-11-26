@@ -190,7 +190,7 @@ namespace BDAS_2_dog_shelter.Tables
             _karatnenaID = karantenaid;
             _majtelID = majitelid;
             _otecID = otecid;
-            _majtelID2 = matkaid;
+            _majtelID = matkaid;
         }
         public Dog(int ID,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
         { 
