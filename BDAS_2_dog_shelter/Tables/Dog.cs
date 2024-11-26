@@ -119,9 +119,64 @@ namespace BDAS_2_dog_shelter.Tables
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UtulekId)));
                 }
             }
+        } 
+        private int? _karatnenaID;
+        public int? KarantenaId
+        {
+            get => _karatnenaID;
+            set
+            {
+                if (_karatnenaID != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(KarantenaId)));
+                    _karatnenaID = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(KarantenaId)));
+                }
+            }
+        }
+        private int? _majtelID;
+        public int? MajtelId
+        {
+            get => _majtelID;
+            set
+            {
+                if (_majtelID != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(MajtelId)));
+                    _majtelID = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MajtelId)));
+                }
+            }
+        }private int? _otecID;
+        public int? OtecId
+        {
+            get => _otecID;
+            set
+            {
+                if (_otecID != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(OtecId)));
+                    _otecID = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(OtecId)));
+                }
+            }
+        }
+        private int? _matkaID;
+        public int? MatkaId
+        {
+            get => _matkaID;
+            set
+            {
+                if (_matkaID != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(MatkaId)));
+                    _matkaID = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MatkaId)));
+                }
+            }
         }
         public Dog() { ID = sequence++; _name = ""; _age = 0; _body_color = ""; _datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes = ""; byte[] b = new byte[256 * 256 * 4]; new Random().NextBytes(b); _obrazek = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256*4); }
-        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int? utulekid, BitmapSource OBRAZEK) 
+        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int? utulekid, int? karantenaid, int? majitelid,int? otecid, int? matkaid, BitmapSource OBRAZEK) 
         { 
             _name = name;
             _age = age;
@@ -132,6 +187,10 @@ namespace BDAS_2_dog_shelter.Tables
             ID = sequence++;
             _obrazek = OBRAZEK;
             _utulekId = utulekid;
+            _karatnenaID = karantenaid;
+            _majtelID = majitelid;
+            _otecID = otecid;
+            _majtelID = matkaid;
         }
         public Dog(int ID,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
         { 
