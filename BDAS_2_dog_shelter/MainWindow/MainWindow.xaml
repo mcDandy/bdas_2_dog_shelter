@@ -15,8 +15,23 @@
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
                     ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow">
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <Menu>
+                                            <MenuItem Header="Strom" Command="{Binding Path=MenuDogCMD}" CommandParameter="{Binding}"/>
+                                        </Menu>
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.Resources>
+
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}"></DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Barva srsti" Binding="{Binding BodyColor}"/>
                         <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
@@ -34,6 +49,7 @@
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
                     <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
+                    <Button x:Name="button" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
                 </StackPanel>
 
             </Grid>

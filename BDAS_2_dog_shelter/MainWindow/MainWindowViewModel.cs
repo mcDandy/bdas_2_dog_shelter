@@ -35,13 +35,12 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes from pes";
                     OracleDataReader v = cmd.ExecuteReader();
-                    if (v.HasRows)
-                    {
+
                         while (v.Read())
                         {
                             Dogs.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6)));
                         }
-                    }
+                    
                 }
                 catch (Exception ex)//something went wrong
                 {
@@ -121,7 +120,14 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand addCMD;
         public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click);
         private RelayCommand<object> rmCMD;
-        public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click);
+        private RelayCommand<object> tr;
+        public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(MenuCommandDog);
+        public ICommand cmdTree => trCMD ??= new RelayCommand<object>(buttonRemove_Click);
+        private void MenuCommandDog(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
         private void buttdonAdd_Click()
         {
             if ((permissions & (long)Permissions.DOGS_INSERT) > 0)
