@@ -192,17 +192,24 @@ namespace BDAS_2_dog_shelter.Tables
             _otecID = otecid;
             _majtelID = matkaid;
         }
-        public Dog(int ID,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes) 
+        public Dog(int? id,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int? utulekid, int? karantenaid, int? majitelid,int? otecid, int? matkaid, BitmapSource OBRAZEK) 
         { 
+            ID = id;
             _name = name;
             _age = age;
             _body_color = bodycolor;
             _datum_prijeti = datumPrijeti;
             _duvod_prijeti = duvodPrijeti;
             _stav_pes = stavPes;
-            this.ID = ID;
-            if(sequence<=ID)sequence = ID+1;
+            ID = sequence++;
+            _obrazek = OBRAZEK;
+            _utulekId = utulekid;
+            _karatnenaID = karantenaid;
+            _majtelID = majitelid;
+            _otecID = otecid;
+            _majtelID = matkaid;
         }
+
 
 
         public event PropertyChangingEventHandler? PropertyChanging;

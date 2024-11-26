@@ -13,7 +13,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using static BDAS_2_dog_shelter.Secrets;
+using System.IO;
+using System.IO.Compression;
+System.IO.Compression;
 
 namespace BDAS_2_dog_shelter.MainWindow
 {
@@ -33,12 +37,18 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 try
                 {
-                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes from pes";
+                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel,id_otec,id_matka,imaage from dog_image";
                     OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
                         {
-                            Dogs.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6)));
+                        byte[] data = v.GetOracleBlob(12).Value;
+                        using (DeflateStream ds = new DeflateStream(new MemoryStream(data), CompressionMode.Decompress))
+                        {
+                           // data = ds.;
+                            ds.Write(data, 0, data.Length);
+                        }
+                            Dogs.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6), v.GetInt32(7), v.GetInt32(8), v.GetInt32(9), v.GetInt32(10), v.GetInt32(11), ByteUtils.FromByteArray<BitmapSource>()));
                         }
                     
                 }
@@ -122,7 +132,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand addCMD;
         public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click);
         private RelayCommand<object> rmCMD;
-        private RelayCommand<object> tr;
+        private RelayCommand<object> trCMD;
         public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(MenuCommandDog);
         public ICommand cmdTree => trCMD ??= new RelayCommand<object>(buttonRemove_Click);
         private void MenuCommandDog(object? obj)
