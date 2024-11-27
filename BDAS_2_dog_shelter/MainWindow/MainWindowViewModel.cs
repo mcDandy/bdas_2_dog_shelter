@@ -117,15 +117,15 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.CommandType = CommandType.StoredProcedure;
                     // Assign id to the department number 50 
 
-                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_ID_IMAGE", DBNull.Value) : new("V_ID_IMAGE", dog.Obrazek_Id));
-                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_FILENAME", "DBNull.Value") : new("V_FILENAME", "f"));
+                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_ID_IMAGE", OracleDbType.Int32, DBNull.Value, ParameterDirection.InputOutput) : new("V_ID_IMAGE", OracleDbType.Int32, dog.Obrazek_Id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME",OracleDbType.Varchar2, "DBNull.Value",ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, "fill", ParameterDirection.Input));
                     // cmd.Parameters.Add(new("imgid", dog.Obrazek.));
                     PngBitmapEncoder pe = new PngBitmapEncoder();
                     pe.Frames.Add(BitmapFrame.Create(dog.Obrazek));
                     MemoryStream ms = new MemoryStream();
                     pe.Save(ms);
                     byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_IMAAGE",b);
+                    cmd.Parameters.Add("V_IMAAGE",OracleDbType.Blob,b, ParameterDirection.Input);
                     // cmd.Parameters.Add(new("path"), dog.Obrazek.);
                     cmd.CommandText = "INS_SET.IU_DOG_IMAGE (:V_ID_IMAGE,:V_IMAAGE,:V_FILENAME)";
                     int j = await cmd.ExecuteNonQueryAsync();
@@ -137,7 +137,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(dog.ID is null ? new("did", OracleDbType.Varchar2, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("did", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(dog.ID is null ? new("did", OracleDbType.Int32, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("did", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("age", dog.Age));
                     cmd.Parameters.Add(new("color", dog.BodyColor));
                     cmd.Parameters.Add(new("jmeno", dog.Name));
