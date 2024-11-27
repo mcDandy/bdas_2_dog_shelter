@@ -24,9 +24,11 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Duvod = d.DuvodPrijeti;
             Stav = d.StavPes;
             Age = d.Age;
+            Obrazek = d.Obrazek;
             int i = 0;
             SelectedUT = Utulek.Select(a => new Tuple<int?, int>(a.Item1, i++)).FirstOrDefault(a => a.Item1 == d.UtulekId).Item2;
             Dog = d;
+            //if (Obrazek is null) Obrazek = new();
         }
         public Tables.Dog Dog { get; }
         public delegate void OkDogAddEditDone();
@@ -115,6 +117,6 @@ namespace BDAS_2_dog_shelter.Add.Dog
         private DateTime? date;
 
         public DateTime? Date { get => date; set => SetProperty(ref date, value); }
-        public BitmapSource Obrazek { get; private set; }
+        public BitmapSource Obrazek { get;  set; }
     }
 }

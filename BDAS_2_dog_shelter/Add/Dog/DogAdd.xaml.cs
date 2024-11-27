@@ -27,12 +27,16 @@ namespace BDAS_2_dog_shelter
             InitializeComponent();
             Dog d = new();
             this.DataContext = new AddDogViewModel(d);
+            image.Source = ((AddDogViewModel)this.DataContext).Obrazek;
         }
         public DogAdd (Dog d)
         {
             InitializeComponent();
             this.DataContext = new AddDogViewModel(d);
             ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            byte[] b = new byte[256*256*4];
+            new Random().NextBytes(b); 
+            image.Source = ((AddDogViewModel)this.DataContext).Obrazek?? BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256 * 4);
         }
 
         public Dog Dog { get; internal set; }
@@ -48,6 +52,7 @@ namespace BDAS_2_dog_shelter
                 image.UriSource = new Uri(o);
                 image.EndInit();
                 ((Image)sender).Source = image;
+                ((AddDogViewModel)this.DataContext).Obrazek = image;
             }
             catch (NotSupportedException ex)
             {

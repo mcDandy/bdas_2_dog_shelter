@@ -8,7 +8,6 @@ namespace BDAS_2_dog_shelter.Tables
     {
         private string _name;
         internal int? ID;
-        static int sequence = 0;
         private BitmapSource _obrazek;
         public string Name
         {
@@ -120,6 +119,20 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         } 
+        private int? _obrazek_id;
+        public int? Obrazek_Id
+        {
+            get => _obrazek_id;
+            set
+            {
+                if (_obrazek_id != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Obrazek_Id)));
+                    _obrazek_id = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Obrazek_Id)));
+                }
+            }
+        }
         private int? _karatnenaID;
         public int? KarantenaId
         {
@@ -175,8 +188,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Dog() { ID = sequence++; _name = ""; _age = 0; _body_color = ""; _datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes = ""; byte[] b = new byte[256 * 256 * 4]; new Random().NextBytes(b); _obrazek = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256*4); }
-        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int? utulekid, int? karantenaid, int? majitelid,int? otecid, int? matkaid, BitmapSource OBRAZEK) 
+        public Dog() { _name = ""; _age = 0; _body_color = ""; _datum_prijeti = DateTime.Now; _duvod_prijeti = ""; _stav_pes = ""; byte[] b = new byte[256 * 256 * 4]; new Random().NextBytes(b); _obrazek = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256*4); }
+        public Dog(string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti, string stavPes, int? utulekid, int? karantenaid, int? majitelid, int? otecid, int? matkaid, BitmapSource OBRAZEK ,int? OBRAZEK_ID) 
         { 
             _name = name;
             _age = age;
@@ -184,15 +197,16 @@ namespace BDAS_2_dog_shelter.Tables
             _datum_prijeti = datumPrijeti;
             _duvod_prijeti = duvodPrijeti;
             _stav_pes = stavPes;
-            ID = sequence++;
             _obrazek = OBRAZEK;
             _utulekId = utulekid;
             _karatnenaID = karantenaid;
             _majtelID = majitelid;
             _otecID = otecid;
             _majtelID = matkaid;
+            _obrazek_id = OBRAZEK_ID;
+
         }
-        public Dog(int? id,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int? utulekid, int? karantenaid, int? majitelid,int? otecid, int? matkaid, BitmapSource OBRAZEK) 
+        public Dog(int? id,string name, int age, string bodycolor, DateTime datumPrijeti, string duvodPrijeti,string stavPes, int? utulekid, int? karantenaid, int? majitelid,int? otecid, int? matkaid, BitmapSource? OBRAZEK, int? OBRAZEK_ID) 
         { 
             ID = id;
             _name = name;
@@ -201,13 +215,14 @@ namespace BDAS_2_dog_shelter.Tables
             _datum_prijeti = datumPrijeti;
             _duvod_prijeti = duvodPrijeti;
             _stav_pes = stavPes;
-            ID = sequence++;
             _obrazek = OBRAZEK;
             _utulekId = utulekid;
             _karatnenaID = karantenaid;
             _majtelID = majitelid;
             _otecID = otecid;
             _majtelID = matkaid;
+            _obrazek = OBRAZEK;
+            _obrazek_id = OBRAZEK_ID;
         }
 
 

@@ -69,6 +69,7 @@
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
+                    <Button x:Name="buttonEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdEd}"/>
                     <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
                     <Button x:Name="button" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
                 </StackPanel>

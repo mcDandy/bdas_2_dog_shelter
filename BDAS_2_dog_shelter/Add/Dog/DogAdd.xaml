@@ -13,7 +13,7 @@
         <converters:StringToIntConverter x:Key="StringToIntConverter"/>
     </Window.Resources>
     <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop" />
         <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="60,313,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}" Click="buttonOK_Click" />
         <Button x:Name="buttonCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="180,323,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="name" HorizontalAlignment="Left" Margin="41,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
