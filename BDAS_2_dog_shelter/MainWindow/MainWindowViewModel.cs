@@ -51,7 +51,23 @@ namespace BDAS_2_dog_shelter.MainWindow
                             MemoryStream ms = new MemoryStream(data);
                             decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.None, BitmapCacheOption.Default);
                         }
-                        Dogs.Add(new(v.IsDBNull(0) ? null : v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetString(3), v.GetDateTime(4), v.GetString(5), v.GetString(6), v.IsDBNull(7) ? null : v.GetInt32(7), v.IsDBNull(8) ? null : v.GetInt32(8), v.IsDBNull(9) ? null : v.GetInt32(9), v.IsDBNull(10) ? null : v.GetInt32(10), v.IsDBNull(11) ? null : v.GetInt32(11), decoder?.Frames[0], v.IsDBNull(13) ? null : v.GetInt32(13)));
+                        Dogs.Add
+                            (
+                            new(v.IsDBNull(0) ? null : v.GetInt32(0),
+                            v.GetString(1),
+                            v.GetInt32(2),
+                            v.GetString(3),
+                            v.GetDateTime(4),
+                            v.GetString(5),
+                            v.GetString(6),
+                            v.IsDBNull(7) ? null : v.GetInt32(7),
+                            v.IsDBNull(8) ? null : v.GetInt32(8),
+                            v.IsDBNull(9) ? null : v.GetInt32(9),
+                            v.IsDBNull(10) ? null : v.GetInt32(10),
+                            v.IsDBNull(11) ? null : v.GetInt32(11),
+                            decoder?.Frames[0],
+                            v.IsDBNull(13) ? null : v.GetInt32(13))
+                            );
 
                         if ((permissions & (ulong)Permissions.DOGS_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
                     }
@@ -118,7 +134,6 @@ namespace BDAS_2_dog_shelter.MainWindow
                     // Assign id to the department number 50 
 
                     cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_ID_IMAGE", OracleDbType.Int32, DBNull.Value, ParameterDirection.InputOutput) : new("V_ID_IMAGE", OracleDbType.Int32, dog.Obrazek_Id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME",OracleDbType.Varchar2, "DBNull.Value",ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, "fill", ParameterDirection.Input));
                     // cmd.Parameters.Add(new("imgid", dog.Obrazek.));
                     PngBitmapEncoder pe = new PngBitmapEncoder();
                     pe.Frames.Add(BitmapFrame.Create(dog.Obrazek));
@@ -127,31 +142,33 @@ namespace BDAS_2_dog_shelter.MainWindow
                     byte[] b = ms.ToArray();
                     cmd.Parameters.Add("V_IMAAGE",OracleDbType.Blob,b, ParameterDirection.Input);
                     // cmd.Parameters.Add(new("path"), dog.Obrazek.);
-                    cmd.CommandText = "INS_SET.IU_DOG_IMAGE (:V_ID_IMAGE,:V_IMAAGE,:V_FILENAME)";
+                    cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, "DBNull.Value", ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, "fill", ParameterDirection.Input));
+
+                    cmd.CommandText = "INS_SET.IU_DOG_IMAGES";
                     int j = await cmd.ExecuteNonQueryAsync();
 
-                    dog.Obrazek_Id = (int)cmd.Parameters[0].Value;
+                    dog.Obrazek_Id = (int)((OracleDecimal)cmd.Parameters[0].Value).ToInt64();
                 }
                 using (OracleCommand cmd = con.CreateCommand())
                 {
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(dog.ID is null ? new("did", OracleDbType.Int32, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("did", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("age", dog.Age));
-                    cmd.Parameters.Add(new("color", dog.BodyColor));
-                    cmd.Parameters.Add(new("jmeno", dog.Name));
-                    cmd.Parameters.Add(new("prijeti", dog.DatumPrijeti));
-                    cmd.Parameters.Add(new("duvod", dog.DuvodPrijeti));
-                    cmd.Parameters.Add(new("stav", dog.StavPes));
-                    cmd.Parameters.Add(dog.UtulekId is null ? new("utulek", DBNull.Value) : new("utulek", dog.UtulekId));
-                    cmd.Parameters.Add(dog.KarantenaId is null ? new("karantena", DBNull.Value) : new("karantena", dog.KarantenaId));
-                    cmd.Parameters.Add(dog.MajtelId is null ? new("majtel", DBNull.Value) : new("majtel", dog.MajtelId));
-                    cmd.Parameters.Add(dog.OtecId is null ? new("otec", DBNull.Value) : new("otec", dog.OtecId));
-                    cmd.Parameters.Add(dog.MatkaId is null ? new("matka", DBNull.Value) : new("matka", dog.MatkaId));
+                    cmd.Parameters.Add(dog.ID is null ? new("V_ID_PES", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("did", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_JMENO", dog.Name));
+                    cmd.Parameters.Add(new("V_VEK", dog.Age));
+                    cmd.Parameters.Add(new("V_BARVA_SRSTI", dog.BodyColor));
+                    cmd.Parameters.Add(new("V_DATUM_PRIJETI", dog.DatumPrijeti));
+                    cmd.Parameters.Add(new("V_DUVOD_PRIJETI", dog.DuvodPrijeti));
+                    cmd.Parameters.Add(new("V_STAV_PES", dog.StavPes));
+                    cmd.Parameters.Add(dog.UtulekId is null ? new("V_UTULEK_ID_UTULEK", DBNull.Value) : new("V_UTULEK_ID_UTULEK", dog.UtulekId));
+                    cmd.Parameters.Add(dog.KarantenaId is null ? new("V_KARANTENA_ID_KARANTENA", DBNull.Value) : new("V_KARANTENA_ID_KARANTENA", dog.KarantenaId));
+                    cmd.Parameters.Add(dog.MajtelId is null ? new("V_MAJITEL_ID_MAJITEL", DBNull.Value) : new("V_MAJITEL_ID_MAJITEL", dog.MajtelId));
+                    cmd.Parameters.Add(dog.OtecId is null ? new("V_ID_OTEC", DBNull.Value) : new("V_ID_OTEC", dog.OtecId));
+                    cmd.Parameters.Add(dog.MatkaId is null ? new("V_ID_MATKA", DBNull.Value) : new("V_ID_MATKA", dog.MatkaId));
                     cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_IMAGE_ID", DBNull.Value) : new("V_IMAGE_ID", dog.Obrazek_Id));
 
-                    cmd.CommandText = "INS_SET.IU_PES (:did,:jmeno,:age,:color,:prijeti,:duvod,:stav,:utulek,:karantena,:majtel,:otec,:matka,:imgid)";
+                    cmd.CommandText = "INS_SET.IU_PES";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
