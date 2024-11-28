@@ -78,7 +78,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MessageBox.Show(ex.Message);
                     return;
                 }
-                if ((permissions & (long)Permissions.DOGS_INSERT) != 0) //TODO: nějaká lepší prevence úpravy
+                if (Permission.HasPermissions(permissions,Permissions.DOGS_INSERT) { //TODO: nějaká lepší prevence úpravy
                     Dogs.CollectionChanged += Dogs_CollectionChanged;
 
             }
@@ -185,12 +185,12 @@ namespace BDAS_2_dog_shelter.MainWindow
 
 
 private RelayCommand addCMD;
-public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click);
+public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click,() => (Permission.HasPermissions(permissions, Permissions.DOGS_INSERT)));
 private RelayCommand<object> rmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> edCMD;
-public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click);
-public ICommand cmdEd => edCMD ??= new RelayCommand<object>(buttonEdit_Click);
+public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click,(p)=>(p is not null && Permission.HasPermissions(permissions,Permissions.DOGS_DELETE)));
+public ICommand cmdEd => edCMD ??= new RelayCommand<object>(buttonEdit_Click, (p) => (p is not null && Permission.HasPermissions(permissions, Permissions.DOGS_UPDATE)));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(MenuCommandDog);
 private void MenuCommandDog(object? obj)
 {
