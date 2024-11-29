@@ -69,7 +69,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             v.IsDBNull(13) ? null : v.GetInt32(13))
                             );
 
-                        if ((permissions & (ulong)Permissions.DOGS_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
+                        if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
                     }
 
                 }
@@ -78,10 +78,11 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MessageBox.Show(ex.Message);
                     return;
                 }
-                if (Permission.HasPermissions(permissions,Permissions.DOGS_INSERT) { //TODO: nějaká lepší prevence úpravy
+                if (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT) { //TODO: nějaká lepší prevence úpravy
                     Dogs.CollectionChanged += Dogs_CollectionChanged;
 
-            }
+                }
+            } 
         }
         private async void Dogs_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
@@ -185,12 +186,12 @@ namespace BDAS_2_dog_shelter.MainWindow
 
 
 private RelayCommand addCMD;
-public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click,() => (Permission.HasPermissions(permissions, Permissions.DOGS_INSERT)));
+public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click,() => (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)));
 private RelayCommand<object> rmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> edCMD;
-public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click,(p)=>(p is not null && Permission.HasPermissions(permissions,Permissions.DOGS_DELETE)));
-public ICommand cmdEd => edCMD ??= new RelayCommand<object>(buttonEdit_Click, (p) => (p is not null && Permission.HasPermissions(permissions, Permissions.DOGS_UPDATE)));
+public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click,(p)=>(p is not null && Permission.HasAnyPermission(permissions,Permissions.PES_DELETE)));
+public ICommand cmdEd => edCMD ??= new RelayCommand<object>(buttonEdit_Click, (p) => (p is not null && Permission.HasAnyPermission(permissions, Permissions.PES_UPDATE)));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(MenuCommandDog);
 private void MenuCommandDog(object? obj)
 {
@@ -199,21 +200,21 @@ private void MenuCommandDog(object? obj)
 
 private void buttdonAdd_Click()
 {
-    if ((permissions & (long)Permissions.DOGS_INSERT) > 0)
+    if ((permissions & (long)Permissions.PES_INSERT) > 0)
     {
         DogAdd da = new(new Dog());
         if (da.ShowDialog() == true)
         {
             //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
             Dogs.Add(((AddDogViewModel)da.DataContext).Dog);
-            if ((permissions & (ulong)Permissions.DOGS_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
+            if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
         }
     }
 }
 
 private void buttonEdit_Click(Object o)
 {
-    if ((permissions & (long)Permissions.DOGS_UPDATE) > 0)
+    if ((permissions & (long)Permissions.PES_UPDATE) > 0)
     {
         DogAdd da = new(((IEnumerable)o).Cast<Dog>().First());
         if (da.ShowDialog() == true)
@@ -246,7 +247,7 @@ private async void DogChanged(object? sender, PropertyChangedEventArgs e)
 
 private void buttonRemove_Click(object SelectedDogs)
 {
-    if ((permissions & (long)Permissions.DOGS_DELETE) > 0)
+    if ((permissions & (long)Permissions.PES_DELETE) > 0)
     {
         List<Dog> e = new List<Dog>();
         foreach (Dog d in (IEnumerable)SelectedDogs) e.Add(d);
