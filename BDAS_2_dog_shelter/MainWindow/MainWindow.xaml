@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.MainWindow" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+  
 
         <TabControl>
             <TabItem Header="Dog" Name="a" Visibility="{Binding AnyDogPerms}">
@@ -42,28 +42,28 @@
                             <DataGridTemplateColumn Header="Útulek">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Majtel">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Owners, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Owners, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Otec">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTemplateColumn Header="Matka">
                                 <DataGridTemplateColumn.CellTemplate >
                                     <DataTemplate>
-                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -74,14 +74,45 @@
                         <Button x:Name="buttonEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdEd}"/>
                         <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
                         <Button x:Name="buttonTree" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
+                        <Button x:Name="button1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                        <Button x:Name="button2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                     </StackPanel>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Utulek" Name="b" Visibility="Visible"/>
-        </TabControl>
-        <Button x:Name="button1" Content="Cancel &amp; Refresh" Height="20" Margin="689,150,8,264" Command="{Binding Path=cmdRst}"/>
-        <Button x:Name="button2" Content="Save" Height="20" Margin="689,180,8,234" Command="{Binding Path=cmdCom}"/>
+        <TabItem Header="Utulek" Name="b" Visibility="{Binding AnyDogPerms}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="utulekDataGrid" CanUserAddRows="False"
+        ItemsSource="{Binding Path=Shelters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
 
-    </Grid>
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding Telephone}"/>
+                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding Email}" />
+                        <DataGridTemplateColumn Header="Adresa">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonUAdd" Content="Add" Margin="5" Command="{Binding Path=cmdUAdd}"/>
+                    <Button x:Name="buttonUEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=utulekDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdUEd}"/>
+                    <Button x:Name="buttonURemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=utulekDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdURm}"/>
+                    <Button x:Name="buttonU1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonU2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+    </TabControl>
+
 </Window>

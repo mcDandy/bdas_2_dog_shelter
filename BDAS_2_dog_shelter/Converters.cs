@@ -34,5 +34,17 @@ namespace BDAS_2_dog_shelter.Conversion
             throw new NotImplementedException();
         }
     }
+   /* public class IDToDog : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((List<Dog>)parameter).Where((a) => a.ID == value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((Dog)value).ID;
+        }
+    }*/
 
 }

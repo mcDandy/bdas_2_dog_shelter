@@ -189,9 +189,9 @@ private RelayCommand addCMD;
 private RelayCommand<object> rmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> edCMD;
-public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyOf(permissions, Permissions.PES_INSERT)));
-public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyOf(permissions,Permissions.PES_DELETE)));
-public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.PES_UPDATE)));
+public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_INSERT)));
+public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_DELETE)));
+public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_UPDATE)));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)
