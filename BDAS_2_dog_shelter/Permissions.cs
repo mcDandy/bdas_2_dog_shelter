@@ -92,11 +92,11 @@
     }
     class Permission
     {
-        internal static bool HasAnyPermission(ulong userPermissions, params Permissions[] permission)
+        internal static bool HasAnyOf(ulong userPermissions, params Permissions[] permission)
         {
             return (permission.Aggregate<Permissions,ulong,ulong>(0ul, (b, c) =>  b | ((ulong)c),c=>c ) & userPermissions) > 0;
         }
-        internal static bool HasAllPermission(ulong userPermissions, params Permissions[] permission)
+        internal static bool HasAllOf(ulong userPermissions, params Permissions[] permission)
         {
             return (permission.Aggregate<Permissions,ulong,ulong>(0ul, (b, c) =>  b | ((ulong)c),c=>c ) | userPermissions) == userPermissions;
         }

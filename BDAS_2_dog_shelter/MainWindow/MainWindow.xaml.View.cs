@@ -33,7 +33,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             this.permissions = permissions;
             con = new OracleConnection(ConnectionString);
             LoadDogs(permissions);
-            if (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT))
+            if (Permission.HasAnyOf(permissions, Permissions.PES_INSERT))
             { //TODO: nějaká lepší prevence úpravy
                 Dogs.CollectionChanged += Dogs_CollectionChanged;
 
@@ -42,7 +42,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         RelayCommand rsCMD;
         RelayCommand cmCMD;
-        public ICommand cmdRst => rsCMD ??= new RelayCommand(CommandReset, () => (Permission.HasAnyPermission(permissions, Permissions.PES_DELETE, Permissions.PES_INSERT, Permissions.PES_UPDATE)));
+        public ICommand cmdRst => rsCMD ??= new RelayCommand(CommandReset, () => (Permission.HasAnyOf(permissions, Permissions.PES_DELETE, Permissions.PES_INSERT, Permissions.PES_UPDATE)));
         public ICommand cmdCom => cmCMD ??= new RelayCommand(CommandCommit);
 
         private void CommandCommit()

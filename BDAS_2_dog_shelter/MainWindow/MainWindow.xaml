@@ -78,7 +78,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="b" Name="b" Visibility="Visible"/>
+            <TabItem Header="Utulek" Name="b" Visibility="Visible"/>
         </TabControl>
         <Button x:Name="button1" Content="Cancel &amp; Refresh" Height="20" Margin="689,150,8,264" Command="{Binding Path=cmdRst}"/>
         <Button x:Name="button2" Content="Save" Height="20" Margin="689,180,8,234" Command="{Binding Path=cmdCom}"/>

@@ -27,7 +27,7 @@ namespace BDAS_2_dog_shelter.MainWindow
     {
         public ObservableCollection<Dog> Dogs { get; set; } = new();
 
-        public bool AnyDogPerms => Permission.HasAnyPermission(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
+        public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
 
         private void LoadDogs(ulong permissions)
         {
@@ -183,9 +183,9 @@ private RelayCommand addCMD;
 private RelayCommand<object> rmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> edCMD;
-public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)));
-public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyPermission(permissions,Permissions.PES_DELETE)));
-public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyPermission(permissions, Permissions.PES_UPDATE)));
+public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyOf(permissions, Permissions.PES_INSERT)));
+public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyOf(permissions,Permissions.PES_DELETE)));
+public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.PES_UPDATE)));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)
