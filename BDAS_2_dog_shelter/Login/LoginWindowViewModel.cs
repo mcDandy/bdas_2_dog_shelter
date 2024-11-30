@@ -29,7 +29,7 @@ namespace BDAS_2_dog_shelter.Login
 
         }
         public delegate void CloaseRequest();
-        public event CloaseRequest OnCloaseRequest;
+        public event CloaseRequest OnCloseRequest;
         private RelayCommand register;
         public ICommand Register => register ??= new RelayCommand(PerformRegister);
 
@@ -100,7 +100,7 @@ namespace BDAS_2_dog_shelter.Login
                         {
                             /*await*/
                             MainWindow.MainWindow mw = new(UInt64.Parse(((OracleDecimal)reader.GetOracleValue(0)).ToString()));
-                            OnCloaseRequest?.Invoke();
+                            OnCloseRequest?.Invoke();
                             mw.Show();
 
                         }
