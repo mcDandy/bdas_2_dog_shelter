@@ -23,7 +23,7 @@ using static BDAS_2_dog_shelter.Secrets;
 
 namespace BDAS_2_dog_shelter.MainWindow
 {
-    internal class MainWindowViewModel
+    internal partial class MainWindowViewModel
     {
         private ulong permissions;
         private OracleConnection con;
@@ -34,6 +34,15 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             this.permissions = permissions;
             con = new OracleConnection(ConnectionString);
+            LoadDogs(permissions);
+            if (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)) { //TODO: nějaká lepší prevence úpravy
+                Dogs.CollectionChanged += Dogs_CollectionChanged;
+
+            }
+        }
+
+        private void LoadDogs(ulong permissions)
+        {
             if (con.State == System.Data.ConnectionState.Closed) con.Open();
             using (OracleCommand cmd = con.CreateCommand())
             {
@@ -78,19 +87,16 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MessageBox.Show(ex.Message);
                     return;
                 }
-                if (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT) { //TODO: nějaká lepší prevence úpravy
-                    Dogs.CollectionChanged += Dogs_CollectionChanged;
 
-                }
-            } 
+            }
         }
+
         private async void Dogs_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
 
             foreach (Dog dog in e.NewItems ?? new List<Dog>())
             {
                 await SaveDog(dog);
-
 
              }
         
@@ -113,13 +119,13 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        con.Rollback(); MessageBox.Show(ex.Message);
-
+                        LoadDogs(permissions);
+                        MessageBox.Show(ex.Message);
                         return;
                     }
                 }
             }
-            con.Commit();
+            
         }
 
         private async Task SaveDog(Dog dog)
@@ -179,26 +185,44 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                con.Rollback(); MessageBox.Show(ex.Message);
+                LoadDogs(permissions); MessageBox.Show(ex.Message);
                 return;
             }
         }
 
 
 private RelayCommand addCMD;
-public ICommand cmdAdd => addCMD ??= new RelayCommand(buttdonAdd_Click,() => (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)));
 private RelayCommand<object> rmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> edCMD;
-public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(buttonRemove_Click,(p)=>(p is not null && Permission.HasAnyPermission(permissions,Permissions.PES_DELETE)));
-public ICommand cmdEd => edCMD ??= new RelayCommand<object>(buttonEdit_Click, (p) => (p is not null && Permission.HasAnyPermission(permissions, Permissions.PES_UPDATE)));
-public ICommand cmdTree => trCMD ??= new RelayCommand<object>(MenuCommandDog);
-private void MenuCommandDog(object? obj)
+private RelayCommand rsCMD;
+private RelayCommand cmCMD;
+public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)));
+public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyPermission(permissions,Permissions.PES_DELETE)));
+public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyPermission(permissions, Permissions.PES_UPDATE)));
+public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
+public ICommand cmdRst => rsCMD ??= new RelayCommand(CommandReset, () => ( Permission.HasAnyPermission(permissions, Permissions.PES_DELETE,Permissions.PES_INSERT,Permissions.PES_UPDATE)));
+public ICommand cmdCom => cmCMD ??= new RelayCommand(CommandCommit);
+
+        private void CommandCommit()
+        {
+            con.Commit();
+        }
+        private void CommandReset()
+        {
+            con.Rollback();
+            Dogs.CollectionChanged -= Dogs_CollectionChanged;
+            Dogs.Clear();
+            LoadDogs(permissions);
+            Dogs.CollectionChanged += Dogs_CollectionChanged;
+        }
+
+private void CommandShowTree(object? obj)
 {
     throw new NotImplementedException();
 }
 
-private void buttdonAdd_Click()
+private void CommandAdd()
 {
     if ((permissions & (long)Permissions.PES_INSERT) > 0)
     {
@@ -212,7 +236,7 @@ private void buttdonAdd_Click()
     }
 }
 
-private void buttonEdit_Click(Object o)
+private void CommandEdit(Object o)
 {
     if ((permissions & (long)Permissions.PES_UPDATE) > 0)
     {
@@ -245,7 +269,7 @@ private async void DogChanged(object? sender, PropertyChangedEventArgs e)
     }
 }
 
-private void buttonRemove_Click(object SelectedDogs)
+private void CommandRemove(object SelectedDogs)
 {
     if ((permissions & (long)Permissions.PES_DELETE) > 0)
     {

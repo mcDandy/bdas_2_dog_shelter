@@ -6,76 +6,82 @@
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.MainWindow" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <TabControl>
-        <TabItem Header="a" Name="a" Visibility="Visible">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"></ColumnDefinition>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
+    <Grid>
+
+        <TabControl>
+            <TabItem Header="a" Name="a" Visibility="Visible">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
                     ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-                    <DataGrid.Resources>
-                        <Style TargetType="DataGridRow">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
                                 <Setter Property="ContextMenu">
                                     <Setter.Value>
                                         <ContextMenu>
                                             <Menu>
-                                            <MenuItem Header="Strom" Command="{Binding Path=MenuDogCMD}" CommandParameter="{Binding}"/>
-                                        </Menu>
+                                                <MenuItem Header="Strom" Command="{Binding Path=MenuDogCMD}" CommandParameter="{Binding}"/>
+                                            </Menu>
                                         </ContextMenu>
                                     </Setter.Value>
                                 </Setter>
                             </Style>
                         </DataGrid.Resources>
 
-                    <DataGrid.Columns>
-                        
-                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding BodyColor}"/>
-                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
-                        <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
-                        <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
-                        <DataGridTemplateColumn Header="Útulek">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Majtel">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Owners, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Otec">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Matka">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
-                    <Button x:Name="buttonEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdEd}"/>
-                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
-                    <Button x:Name="button" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
-                </StackPanel>
+                        <DataGrid.Columns>
 
-            </Grid>
-        </TabItem>
+                            <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Barva srsti" Binding="{Binding BodyColor}"/>
+                            <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
+                            <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
+                            <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
+                            <DataGridTemplateColumn Header="Útulek">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Majtel">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Owners, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Otec">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Matka">
+                                <DataGridTemplateColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Dogs, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding ID}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Column="1">
+                        <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
+                        <Button x:Name="buttonEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdEd}"/>
+                        <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
+                        <Button x:Name="buttonTree" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
             <TabItem Header="b" Name="b" Visibility="Visible"/>
-    </TabControl>
+        </TabControl>
+        <Button x:Name="button1" Content="Cancel &amp; Refresh" Height="20" Margin="689,150,8,264" Command="{Binding Path=cmdRst}"/>
+        <Button x:Name="button2" Content="Save" Height="20" Margin="689,180,8,234" Command="{Binding Path=cmdCom}"/>
+
+    </Grid>
 </Window>
