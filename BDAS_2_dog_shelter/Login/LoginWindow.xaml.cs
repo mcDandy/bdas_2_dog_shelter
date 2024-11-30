@@ -24,11 +24,11 @@ namespace BDAS_2_dog_shelter
             {
                 MessageBox.Show("Nenašel se soubor secrets.json s tajnými konstantami ve složce programu nebo formát souboru není JSON.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            ((LoginWindowViewModel)DataContext).OnCloseRequest += Close;
+            ((LoginWindowViewModel)DataContext).OnCloaseRequest += Colse;
 
         }
 
-        private void Close()
+        private void Colse()
         {
             this.Close();
         }
