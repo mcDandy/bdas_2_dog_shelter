@@ -25,21 +25,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-        private ulong permissions;
-        private OracleConnection con;
         public ObservableCollection<Dog> Dogs { get; set; } = new();
-        public ObservableCollection<Dog> Shelters { get; set; } = new();
 
-        public MainWindowViewModel(ulong permissions)
-        {
-            this.permissions = permissions;
-            con = new OracleConnection(ConnectionString);
-            LoadDogs(permissions);
-            if (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)) { //TODO: nějaká lepší prevence úpravy
-                Dogs.CollectionChanged += Dogs_CollectionChanged;
-
-            }
-        }
+       
 
         private void LoadDogs(ulong permissions)
         {
@@ -195,27 +183,10 @@ private RelayCommand addCMD;
 private RelayCommand<object> rmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> edCMD;
-private RelayCommand rsCMD;
-private RelayCommand cmCMD;
 public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyPermission(permissions, Permissions.PES_INSERT)));
 public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyPermission(permissions,Permissions.PES_DELETE)));
 public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyPermission(permissions, Permissions.PES_UPDATE)));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
-public ICommand cmdRst => rsCMD ??= new RelayCommand(CommandReset, () => ( Permission.HasAnyPermission(permissions, Permissions.PES_DELETE,Permissions.PES_INSERT,Permissions.PES_UPDATE)));
-public ICommand cmdCom => cmCMD ??= new RelayCommand(CommandCommit);
-
-        private void CommandCommit()
-        {
-            con.Commit();
-        }
-        private void CommandReset()
-        {
-            con.Rollback();
-            Dogs.CollectionChanged -= Dogs_CollectionChanged;
-            Dogs.Clear();
-            LoadDogs(permissions);
-            Dogs.CollectionChanged += Dogs_CollectionChanged;
-        }
 
 private void CommandShowTree(object? obj)
 {
