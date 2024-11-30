@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -16,6 +17,7 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_name != value)
                 {
+                    Debug.WriteLine($"{_name} => ${value} ");
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Name)));
                     _name = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
@@ -41,6 +43,7 @@ namespace BDAS_2_dog_shelter.Tables
             get => _age;
             set
             {
+            Debug.WriteLine($"{_age} => ${value} ");
                 if (_age != value)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Age)));
@@ -55,6 +58,7 @@ namespace BDAS_2_dog_shelter.Tables
             get => _body_color;
             set
             {
+            Debug.WriteLine($"{_body_color} => ${value} ");
                 if (_body_color != value)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(BodyColor)));
@@ -66,9 +70,10 @@ namespace BDAS_2_dog_shelter.Tables
         private DateTime _datum_prijeti;
         public DateTime DatumPrijeti
         {
-            get => _datum_prijeti;
+    get => _datum_prijeti;
             set
             {
+    Debug.WriteLine($"{_datum_prijeti} => ${value} ");
                 if (_datum_prijeti != value)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DatumPrijeti)));
@@ -80,9 +85,10 @@ namespace BDAS_2_dog_shelter.Tables
         private string _duvod_prijeti;
         public string DuvodPrijeti
         {
-            get => _duvod_prijeti;
+    get => _duvod_prijeti;
             set
             {
+    Debug.WriteLine($"{_duvod_prijeti} => ${value} ");
                 if (_duvod_prijeti != value)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DuvodPrijeti)));
@@ -99,6 +105,7 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (_stav_pes != value)
                 {
+                    Debug.WriteLine($"{_stav_pes} => ${value} ");
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(StavPes)));
                     _stav_pes = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StavPes)));
@@ -112,7 +119,7 @@ namespace BDAS_2_dog_shelter.Tables
             set
             {
                 if (_utulekId != value)
-                {
+                {Debug.WriteLine($"{_utulekId} => ${value} ");
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(UtulekId)));
                     _utulekId = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UtulekId)));
@@ -126,7 +133,7 @@ namespace BDAS_2_dog_shelter.Tables
             set
             {
                 if (_obrazek_id != value)
-                {
+                {Debug.WriteLine($"{_obrazek_id} => ${value} ");
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Obrazek_Id)));
                     _obrazek_id = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Obrazek_Id)));
@@ -139,6 +146,7 @@ namespace BDAS_2_dog_shelter.Tables
             get => _karatnenaID;
             set
             {
+                Debug.WriteLine($"{_karatnenaID} => ${value} ");
                 if (_karatnenaID != value)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(KarantenaId)));
@@ -154,7 +162,7 @@ namespace BDAS_2_dog_shelter.Tables
             set
             {
                 if (_majtelID != value)
-                {
+                {Debug.WriteLine($"{_majtelID} => ${value} ");
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(MajtelId)));
                     _majtelID = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(MajtelId)));
@@ -167,7 +175,7 @@ namespace BDAS_2_dog_shelter.Tables
             set
             {
                 if (_otecID != value)
-                {
+                {Debug.WriteLine($"{_otecID} => ${value} ");
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(OtecId)));
                     _otecID = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(OtecId)));
@@ -180,6 +188,7 @@ namespace BDAS_2_dog_shelter.Tables
             get => _matkaID;
             set
             {
+                Debug.WriteLine($"{_matkaID} => ${value} ");
                 if (_matkaID != value)
                 {
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(MatkaId)));

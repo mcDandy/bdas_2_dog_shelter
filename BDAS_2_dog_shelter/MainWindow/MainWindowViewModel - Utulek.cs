@@ -56,7 +56,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
                 catch (Exception ex) 
                 {
-                    
+                    MessageBox.Show(ex.Message);
                 }
             }
         } 

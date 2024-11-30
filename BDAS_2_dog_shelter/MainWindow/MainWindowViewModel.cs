@@ -150,17 +150,17 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(dog.ID is null ? new("V_ID_PES", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("did", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_JMENO", dog.Name));
-                    cmd.Parameters.Add(new("V_VEK", dog.Age));
-                    cmd.Parameters.Add(new("V_BARVA_SRSTI", dog.BodyColor));
-                    cmd.Parameters.Add(new("V_DATUM_PRIJETI", dog.DatumPrijeti));
-                    cmd.Parameters.Add(new("V_DUVOD_PRIJETI", dog.DuvodPrijeti));
-                    cmd.Parameters.Add(new("V_STAV_PES", dog.StavPes));
-                    cmd.Parameters.Add(dog.UtulekId is null ? new("V_UTULEK_ID_UTULEK", DBNull.Value) : new("V_UTULEK_ID_UTULEK", dog.UtulekId));
-                    cmd.Parameters.Add(dog.KarantenaId is null ? new("V_KARANTENA_ID_KARANTENA", DBNull.Value) : new("V_KARANTENA_ID_KARANTENA", dog.KarantenaId));
-                    cmd.Parameters.Add(dog.MajtelId is null ? new("V_MAJITEL_ID_MAJITEL", DBNull.Value) : new("V_MAJITEL_ID_MAJITEL", dog.MajtelId));
-                    cmd.Parameters.Add(dog.OtecId is null ? new("V_ID_OTEC", DBNull.Value) : new("V_ID_OTEC", dog.OtecId));
-                    cmd.Parameters.Add(dog.MatkaId is null ? new("V_ID_MATKA", DBNull.Value) : new("V_ID_MATKA", dog.MatkaId));
+                    cmd.Parameters.Add(new("V_JMENO",OracleDbType.Varchar2, dog.Name,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_VEK",OracleDbType.Decimal, dog.Age,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_BARVA_SRSTI",OracleDbType.Varchar2, dog.BodyColor, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_DATUM_PRIJETI",OracleDbType.Varchar2, dog.DatumPrijeti, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_DUVOD_PRIJETI", OracleDbType.Varchar2, dog.DuvodPrijeti, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_STAV_PES", OracleDbType.Varchar2, dog.StavPes, ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.UtulekId is null ? new("V_UTULEK_ID_UTULEK",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_UTULEK_ID_UTULEK", OracleDbType.Varchar2, dog.UtulekId, ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.KarantenaId is null ? new("V_KARANTENA_ID_KARANTENA", OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_KARANTENA_ID_KARANTENA", OracleDbType.Decimal, dog.KarantenaId, ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.MajtelId is null ? new("V_MAJITEL_ID_MAJITEL",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_MAJITEL_ID_MAJITEL", OracleDbType.Decimal, dog.MajtelId, ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.OtecId is null ? new("V_ID_OTEC", OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_ID_OTEC", OracleDbType.Decimal, dog.OtecId, ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.MatkaId is null ? new("V_ID_MATKA",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_ID_MATKA",OracleDbType.Decimal, dog.MatkaId, ParameterDirection.Input));
                     cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_IMAGE_ID", DBNull.Value) : new("V_IMAGE_ID", dog.Obrazek_Id));
 
                     cmd.CommandText = "INS_SET.IU_PES";
