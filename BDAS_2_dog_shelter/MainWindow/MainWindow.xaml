@@ -9,7 +9,7 @@
     <Grid>
 
         <TabControl>
-            <TabItem Header="a" Name="a" Visibility="Visible">
+            <TabItem Header="Dog" Name="a" Visibility="{Binding AnyDogPerms}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*"></ColumnDefinition>

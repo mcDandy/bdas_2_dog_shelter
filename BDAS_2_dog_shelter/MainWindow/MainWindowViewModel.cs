@@ -27,7 +27,7 @@ namespace BDAS_2_dog_shelter.MainWindow
     {
         public ObservableCollection<Dog> Dogs { get; set; } = new();
 
-       
+        public bool AnyDogPerms => Permission.HasAnyPermission(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
 
         private void LoadDogs(ulong permissions)
         {
