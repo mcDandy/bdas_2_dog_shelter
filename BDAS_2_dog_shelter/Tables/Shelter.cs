@@ -18,7 +18,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-
+        int? ID { get; set; } = null;
         private string _telephone;
         public string Telephone
         {
@@ -34,8 +34,8 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
 
-        private string _email;
-        public string Email
+        private string? _email;
+        public string? Email
         {
             get => _email;
             set
@@ -48,6 +48,20 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
+        private int _addrID;
+        public int AddressID
+        {
+            get => _addrID;
+            set
+            {
+                if (_addrID != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(AddressID)));
+                    _addrID = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AddressID)));
+                }
+            }
+        }
 
         public Shelter()
         {
@@ -56,6 +70,19 @@ namespace BDAS_2_dog_shelter.Tables
             _email = "";
         }
 
+        public Shelter(int utId, string name, string telephone, string? email, int adrID)
+        {
+            ID = utId;
+            _name = name;
+            _telephone = telephone;
+            _email = email;
+            _addrID= adrID;
+            
+        }
+        public override string ToString()
+        {
+            return Name;
+        }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

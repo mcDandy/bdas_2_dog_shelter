@@ -229,5 +229,9 @@ namespace BDAS_2_dog_shelter.Tables
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
+        public override string ToString()
+        {
+            return $"{Name} ({Age})";
+        }
     }
 }

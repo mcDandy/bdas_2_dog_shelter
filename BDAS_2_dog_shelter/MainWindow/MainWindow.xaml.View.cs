@@ -32,7 +32,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             this.permissions = permissions;
             con = new OracleConnection(ConnectionString);
-            LoadDogs(permissions);
+            if(Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_SELECT))LoadDogs(permissions);
+            if(Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.UTULEK_SELECT))LoadShelters(permissions);
+
             if (Permission.HasAnyOf(permissions, Permissions.PES_INSERT))
             { //TODO: nějaká lepší prevence úpravy
                 Dogs.CollectionChanged += Dogs_CollectionChanged;
