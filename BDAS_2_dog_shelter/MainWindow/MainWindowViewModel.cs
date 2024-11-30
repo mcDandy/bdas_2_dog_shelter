@@ -84,7 +84,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
             foreach (Dog dog in e.NewItems ?? new List<Dog>())
             {
-                await SaveDog(dog);
+                await SaveDog(dog,true);
 
              }
         
@@ -107,7 +107,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
+                        Dogs.CollectionChanged -= Dogs_CollectionChanged;
                         LoadDogs(permissions);
+                        Dogs.CollectionChanged += Dogs_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
@@ -116,11 +118,12 @@ namespace BDAS_2_dog_shelter.MainWindow
             
         }
 
-        private async Task SaveDog(Dog dog)
+        private async Task SaveDog(Dog dog, bool saveImage)
         {
             if (con.State == System.Data.ConnectionState.Closed) con.Open();
             try
             {
+                if(saveImage)
                 using (OracleCommand cmd = con.CreateCommand())
                 {
 
@@ -149,11 +152,11 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(dog.ID is null ? new("V_ID_PES", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("did", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(dog.ID is null ? new("V_ID_PES", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_PES", OracleDbType.Varchar2, dog.ID, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_JMENO",OracleDbType.Varchar2, dog.Name,ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_VEK",OracleDbType.Decimal, dog.Age,ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_BARVA_SRSTI",OracleDbType.Varchar2, dog.BodyColor, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_DATUM_PRIJETI",OracleDbType.Varchar2, dog.DatumPrijeti, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_DATUM_PRIJETI",OracleDbType.Date, dog.DatumPrijeti, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_DUVOD_PRIJETI", OracleDbType.Varchar2, dog.DuvodPrijeti, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_STAV_PES", OracleDbType.Varchar2, dog.StavPes, ParameterDirection.Input));
                     cmd.Parameters.Add(dog.UtulekId is null ? new("V_UTULEK_ID_UTULEK",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_UTULEK_ID_UTULEK", OracleDbType.Varchar2, dog.UtulekId, ParameterDirection.Input));
@@ -167,13 +170,16 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    dog.ID = (int)cmd.Parameters[0].Value;
+                    dog.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
 
                 }
             }
             catch (Exception ex)//something went wrong
             {
-                LoadDogs(permissions); MessageBox.Show(ex.Message);
+                Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                LoadDogs(permissions); 
+                Dogs.CollectionChanged += Dogs_CollectionChanged;
+                MessageBox.Show(ex.Message);
                 return;
             }
         }
@@ -227,7 +233,7 @@ private async void DogChanged(object? sender, PropertyChangedEventArgs e)
     {
         try
         {
-            await SaveDog(dog);
+            await SaveDog(dog,e.PropertyName is nameof(dog.Obrazek) or nameof(dog.Obrazek_Id));
 
         }
 

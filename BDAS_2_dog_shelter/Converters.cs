@@ -13,7 +13,7 @@ namespace BDAS_2_dog_shelter.Conversion
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int i = Int32.Parse(value as string??"0");
+            int i = Int32.Parse(value.ToString()??"0");
             return i;
         }
 
