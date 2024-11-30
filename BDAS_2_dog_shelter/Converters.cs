@@ -13,7 +13,7 @@ namespace BDAS_2_dog_shelter.Conversion
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            int i = Int32.Parse(value as string??"0");
+            int i = Int32.Parse(value.ToString()??"0");
             return i;
         }
 
@@ -34,5 +34,17 @@ namespace BDAS_2_dog_shelter.Conversion
             throw new NotImplementedException();
         }
     }
+   /* public class IDToDog : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((List<Dog>)parameter).Where((a) => a.ID == value);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((Dog)value).ID;
+        }
+    }*/
 
 }

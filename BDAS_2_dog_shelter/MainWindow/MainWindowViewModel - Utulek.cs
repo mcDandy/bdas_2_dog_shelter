@@ -25,40 +25,70 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
+        private RelayCommand uadCMD;
+        private RelayCommand<object> urmCMD;
+        private RelayCommand<object> uedCMD;
+        public ICommand cmdUAdd => uadCMD ??= new RelayCommand(CommandUtulekAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
+        public ICommand cmdURm => urmCMD ??= new RelayCommand<object>(CommandUtulekRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
+        public ICommand cmdUEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
+
+        private void CommandUtulekEdit(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CommandUtulekRemove(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void CommandUtulekAdd()
+        {
+            throw new NotImplementedException();
+        }
 
         public ObservableCollection<Shelter> Shelters { get; set; } = new();
         private void LoadShelters(ulong permissions)
         {
             if (con.State == System.Data.ConnectionState.Closed) con.Open();
-            using (OracleCommand cmd = con.CreateCommand())
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT))
             {
-                try
+                using (OracleCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandText = "select id_utulek,nazev,telefon,email,id_adresa from utulek";
-                    OracleDataReader v = cmd.ExecuteReader();
-
-                    while (v.Read())
+                    try
                     {
-                        
-                        Shelters.Add
-                            (
-                            new(v.GetInt32(0),
-                            v.GetString(1),
-                            v.GetString(2),
-                            v.IsDBNull(3) ? null : v.GetString(3),
-                            v.GetInt32(4)
-                            )
-                            );
+                        cmd.CommandText = "select id_utulek,nazev,telefon,email,id_adresa from utulek";
+                        OracleDataReader v = cmd.ExecuteReader();
 
-                        if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
+                        while (v.Read())
+                        {
+
+                            Shelters.Add
+                                (
+                                new(
+                                    v.GetInt32(0),
+                                    v.GetString(1),
+                                    v.GetString(2),
+                                    v.IsDBNull(3) ? null : v.GetString(3),
+                                    v.GetInt32(4)
+                                ));
+
+                            if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Shelters.Last().PropertyChanged += ShelterChanged;
+                        }
+
                     }
-
-                }
-                catch (Exception ex) 
-                {
-                    MessageBox.Show(ex.Message);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
-        } 
+        }
+
+        private void ShelterChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     } 
 }
