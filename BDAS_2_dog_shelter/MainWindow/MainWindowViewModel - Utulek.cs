@@ -39,9 +39,17 @@ namespace BDAS_2_dog_shelter.MainWindow
             throw new NotImplementedException();
         }
 
-        private void CommandUtulekRemove(object? obj)
+        private void CommandUtulekRemove(object? SelectedShelters)
         {
-            throw new NotImplementedException();
+            if ((permissions & (long)Permissions.PES_DELETE) > 0)
+            {
+                List<Shelter> e = new List<Shelter>();
+                foreach (Shelter d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Shelter shelter in e)
+                {
+                    Shelters.Remove(shelter);
+                }
+            }
         }
 
 
@@ -89,7 +97,12 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private async void ShelterChanged(object? sender, PropertyChangedEventArgs e)
         {
-            await SaveUtulek(sender as Shelter);
+            Shelter? dog = sender as Shelter;
+            using (OracleCommand cmd = con.CreateCommand())
+            {
+
+                    await SaveUtulek(dog);
+            }
         }
 
         private async Task SaveUtulek(Shelter utulek)

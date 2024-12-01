@@ -231,18 +231,7 @@ private async void DogChanged(object? sender, PropertyChangedEventArgs e)
     Dog? dog = sender as Dog;
     using (OracleCommand cmd = con.CreateCommand())
     {
-        try
-        {
-            await SaveDog(dog,e.PropertyName is nameof(dog.Obrazek) or nameof(dog.Obrazek_Id));
-
-        }
-
-        catch (Exception ex)//something went wrong
-        {
-            con.Rollback(); MessageBox.Show(ex.Message);
-
-            return;
-        }
+        await SaveDog(dog,e.PropertyName is nameof(dog.Obrazek) or nameof(dog.Obrazek_Id));
     }
 }
 
