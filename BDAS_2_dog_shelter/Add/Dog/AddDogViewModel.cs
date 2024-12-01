@@ -25,6 +25,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Stav = d.StavPes;
             Age = d.Age;
             Obrazek = d.Obrazek;
+            Filename = d.FileName;
             int i = 0;
             SelectedUT = Utulek.Select(a => new Tuple<int?, int>(a.Item1, i++)).FirstOrDefault(a => a.Item1 == d.UtulekId).Item2;
             Dog = d;
@@ -111,6 +112,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Dog.BodyColor = BodyColor;
             Dog.DatumPrijeti = Date??DateTime.Now;
             Dog.DuvodPrijeti = Duvod;
+            Dog.FileName = Filename;
             OkClickFinished?.Invoke();
         }
 
@@ -118,5 +120,6 @@ namespace BDAS_2_dog_shelter.Add.Dog
 
         public DateTime? Date { get => date; set => SetProperty(ref date, value); }
         public BitmapSource Obrazek { get;  set; }
+        public string? Filename { get; internal set; }
     }
 }

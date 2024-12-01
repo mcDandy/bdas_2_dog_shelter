@@ -2,6 +2,7 @@
 using BDAS_2_dog_shelter.Tables;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace BDAS_2_dog_shelter
 {
@@ -53,6 +53,7 @@ namespace BDAS_2_dog_shelter
                 image.EndInit();
                 ((Image)sender).Source = image;
                 ((AddDogViewModel)this.DataContext).Obrazek = image;
+                ((AddDogViewModel)this.DataContext).Filename = Path.GetFileName(image.BaseUri.LocalPath)
             }
             catch (NotSupportedException ex)
             {
