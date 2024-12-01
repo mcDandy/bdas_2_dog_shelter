@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -28,18 +29,24 @@ namespace BDAS_2_dog_shelter.MainWindow
         private ulong permissions;
         private OracleConnection con;
 
+
         public MainWindowViewModel(ulong permissions)
         {
             this.permissions = permissions;
             con = new OracleConnection(ConnectionString);
             con.Open();
             con.BeginTransaction();
-            if (Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_SELECT))LoadDogs(permissions);
-            if(Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.UTULEK_SELECT))LoadShelters(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_SELECT)) LoadDogs(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT)) LoadShelters(permissions);
 
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT, Permissions.PES_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Dogs.CollectionChanged += Dogs_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT, Permissions.UTULEK_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Shelters.CollectionChanged += Utulek_CollectionChanged;
 
             }
         }

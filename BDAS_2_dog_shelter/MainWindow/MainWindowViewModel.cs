@@ -36,7 +36,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 try
                 {
-                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel,id_otec,id_matka,imAage,image_id from dog_image";
+                    cmd.CommandText = "select id_pes,jmeno,vek, barva_srsti,datum_prijeti,duvod_prijeti,stav_pes,utulek_id_utulek,karantena_id_karantena,majitel_id_majitel,id_otec,id_matka,dog_image,image_id from dog_image";
                     OracleDataReader v = cmd.ExecuteReader();
 
                     while (v.Read())
@@ -138,7 +138,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MemoryStream ms = new MemoryStream();
                     pe.Save(ms);
                     byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_IMAAGE",OracleDbType.Blob,b, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_IMAGE",OracleDbType.Blob,b, ParameterDirection.Input);
                     // cmd.Parameters.Add(new("path"), dog.Obrazek.);
                     cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, DBNull.Value, ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, Path.GetFileName(dog.FileName), ParameterDirection.Input));
 

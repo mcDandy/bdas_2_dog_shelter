@@ -4,6 +4,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Shelter : INotifyPropertyChanged, INotifyPropertyChanging
     {
+
         private string _name;
         public string Name
         {
@@ -18,7 +19,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        int? ID { get; set; } = null;
+        internal int? ID { get; set; } = null;
         private string _telephone;
         public string Telephone
         {

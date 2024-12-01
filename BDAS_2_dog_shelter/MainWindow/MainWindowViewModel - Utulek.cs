@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -31,6 +32,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdUAdd => uadCMD ??= new RelayCommand(CommandUtulekAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
         public ICommand cmdURm => urmCMD ??= new RelayCommand<object>(CommandUtulekRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
         public ICommand cmdUEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
+        public ObservableCollection<Shelter> Shelters { get; set; } = new();
 
         private void CommandUtulekEdit(object? obj)
         {
@@ -48,10 +50,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             throw new NotImplementedException();
         }
 
-        public ObservableCollection<Shelter> Shelters { get; set; } = new();
         private void LoadShelters(ulong permissions)
         {
-            if (con.State == System.Data.ConnectionState.Closed) con.Open();
+            if (con.State == ConnectionState.Closed) con.Open();
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
@@ -86,9 +87,79 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private void ShelterChanged(object? sender, PropertyChangedEventArgs e)
+        private async void ShelterChanged(object? sender, PropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            await SaveUtulek(sender as Shelter);
+        }
+
+        private async Task SaveUtulek(Shelter utulek)
+        {
+            if (con.State == System.Data.ConnectionState.Closed) con.Open();
+            try
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+
+                    cmd.BindByName = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(utulek.ID is null ? new("V_ID_UTULEK", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Varchar2, utulek.ID, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_TELEFON", OracleDbType.Varchar2, utulek.Telephone, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_ADRESA", OracleDbType.Decimal, utulek.AddressID, ParameterDirection.Input));
+                    
+                    cmd.CommandText = "INS_SET.IU_UTULEK";
+
+                    //Execute the command and use DataReader to display the data
+                    int i = await cmd.ExecuteNonQueryAsync();
+                    utulek.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+
+                }
+            }
+            catch (Exception ex)//something went wrong
+            {
+                Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                LoadDogs(permissions);
+                Dogs.CollectionChanged += Dogs_CollectionChanged;
+                MessageBox.Show(ex.Message);
+                return;
+            }
+        }
+        private async void Utulek_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Dog dog in e.NewItems ?? new List<Dog>())
+            {
+                await SaveDog(dog, true);
+
+            }
+
+            foreach (Dog dog in e.OldItems ?? new List<Dog>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("ID", dog.ID));
+                        cmd.CommandText = "delete from pes where id_pes=:ID";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                        LoadDogs(permissions);
+                        Dogs.CollectionChanged += Dogs_CollectionChanged;
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                }
+            }
         }
     } 
 }
