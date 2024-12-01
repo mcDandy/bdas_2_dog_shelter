@@ -49,8 +49,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private int _addrID;
-        public int AddressID
+        private int? _addrID;
+        public int? AddressID
         {
             get => _addrID;
             set

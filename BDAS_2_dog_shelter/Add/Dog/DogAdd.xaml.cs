@@ -28,6 +28,7 @@ namespace BDAS_2_dog_shelter
             Dog d = new();
             this.DataContext = new AddDogViewModel(d);
             image.Source = ((AddDogViewModel)this.DataContext).Obrazek;
+            ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
         public DogAdd (Dog d)
         {

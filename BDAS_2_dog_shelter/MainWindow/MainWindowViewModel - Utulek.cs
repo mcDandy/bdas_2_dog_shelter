@@ -1,5 +1,6 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
@@ -36,7 +37,8 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandUtulekEdit(object? obj)
         {
-            throw new NotImplementedException();
+            ShelterAdd s = new ShelterAdd((Shelter)obj);
+            s.ShowDialog();
         }
 
         private void CommandUtulekRemove(object? SelectedShelters)
@@ -55,7 +57,13 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandUtulekAdd()
         {
-            throw new NotImplementedException();
+            ShelterAdd s = new ShelterAdd();
+            if (s.ShowDialog() == true)
+            {
+                //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                Shelters.Add(((AddShelterViewModel)s.DataContext).Utulek);
+                if ((permissions & (ulong)Permissions.UTULEK_INSERT) != 0) Shelters.Last().PropertyChanged += DogChanged;
+            }
         }
 
         private void LoadShelters(ulong permissions)
@@ -107,7 +115,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private async Task SaveUtulek(Shelter utulek)
         {
-            if (con.State == System.Data.ConnectionState.Closed) con.Open();
+            if (con.State == ConnectionState.Closed) con.Open();
             try
             {
                 using (OracleCommand cmd = con.CreateCommand())
@@ -140,9 +148,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         }
         private async void Utulek_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (Dog dog in e.NewItems ?? new List<Dog>())
+            foreach (Shelter dog in e.NewItems ?? new List<Shelter>())
             {
-                await SaveDog(dog, true);
+                await SaveUtulek(dog);
 
             }
 
