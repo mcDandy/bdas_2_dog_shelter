@@ -140,7 +140,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     byte[] b = ms.ToArray();
                     cmd.Parameters.Add("V_IMAAGE",OracleDbType.Blob,b, ParameterDirection.Input);
                     // cmd.Parameters.Add(new("path"), dog.Obrazek.);
-                    cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, "DBNull.Value", ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, "fill", ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, DBNull.Value, ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, Path.GetFileName(dog.FileName), ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_DOG_IMAGES";
                     int j = await cmd.ExecuteNonQueryAsync();
@@ -162,9 +162,9 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(dog.UtulekId is null ? new("V_UTULEK_ID_UTULEK",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_UTULEK_ID_UTULEK", OracleDbType.Varchar2, dog.UtulekId, ParameterDirection.Input));
                     cmd.Parameters.Add(dog.KarantenaId is null ? new("V_KARANTENA_ID_KARANTENA", OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_KARANTENA_ID_KARANTENA", OracleDbType.Decimal, dog.KarantenaId, ParameterDirection.Input));
                     cmd.Parameters.Add(dog.MajtelId is null ? new("V_MAJITEL_ID_MAJITEL",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_MAJITEL_ID_MAJITEL", OracleDbType.Decimal, dog.MajtelId, ParameterDirection.Input));
+                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_IMAGE_ID", DBNull.Value) : new("V_IMAGE_ID", dog.Obrazek_Id));
                     cmd.Parameters.Add(dog.OtecId is null ? new("V_ID_OTEC", OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_ID_OTEC", OracleDbType.Decimal, dog.OtecId, ParameterDirection.Input));
                     cmd.Parameters.Add(dog.MatkaId is null ? new("V_ID_MATKA",OracleDbType.Decimal, DBNull.Value, ParameterDirection.Input) : new("V_ID_MATKA",OracleDbType.Decimal, dog.MatkaId, ParameterDirection.Input));
-                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_IMAGE_ID", DBNull.Value) : new("V_IMAGE_ID", dog.Obrazek_Id));
 
                     cmd.CommandText = "INS_SET.IU_PES";
 

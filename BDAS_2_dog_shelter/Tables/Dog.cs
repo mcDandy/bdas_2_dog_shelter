@@ -230,11 +230,10 @@ namespace BDAS_2_dog_shelter.Tables
             _majtelID = majitelid;
             _otecID = otecid;
             _majtelID = matkaid;
-            _obrazek = OBRAZEK;
             _obrazek_id = OBRAZEK_ID;
         }
 
-
+        public string? FileName { get; set; }
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -91,9 +91,12 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding Telephone}"/>
-                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding Email}" />
-                        <DataGridTemplateColumn Header="Adresa">
+                        <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding Telefor}"/>
+                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
+                        <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
+                        <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
+                        <DataGridTemplateColumn Header="Útulek">
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
                                     <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
