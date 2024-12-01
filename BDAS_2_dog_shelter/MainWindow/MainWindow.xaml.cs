@@ -23,5 +23,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             this.DataContext = new MainWindowViewModel(permissions);
         }
 
+        private void utulekDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

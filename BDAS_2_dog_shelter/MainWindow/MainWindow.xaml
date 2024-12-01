@@ -87,15 +87,12 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="utulekDataGrid" CanUserAddRows="False"
-        ItemsSource="{Binding Path=Shelters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+        ItemsSource="{Binding Path=Shelters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="utulekDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding Telefor}"/>
-                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
-                        <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
-                        <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
+                        <DataGridTextColumn Header="Název" Binding="{Binding Name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="telefon" Binding="{Binding Telefor}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding email}" />
                         <DataGridTemplateColumn Header="Útulek">
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
