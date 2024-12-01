@@ -53,7 +53,7 @@ namespace BDAS_2_dog_shelter
                 image.EndInit();
                 ((Image)sender).Source = image;
                 ((AddDogViewModel)this.DataContext).Obrazek = image;
-                ((AddDogViewModel)this.DataContext).Filename = Path.GetFileName(image.BaseUri.LocalPath)
+                ((AddDogViewModel)this.DataContext).Filename = Path.GetFileName(image.BaseUri.LocalPath); 
             }
             catch (NotSupportedException ex)
             {
