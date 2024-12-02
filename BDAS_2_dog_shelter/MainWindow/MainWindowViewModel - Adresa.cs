@@ -126,17 +126,17 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ADRESA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Varchar2, utulek.ID, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_TELEFON", OracleDbType.Varchar2, utulek.Telephone, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_ADRESA", OracleDbType.Decimal, utulek.AddressID, ParameterDirection.Input));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ADRESA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_ADRESA", OracleDbType.Varchar2, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_ULICE", OracleDbType.Varchar2, utulek.Street,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_MESTO", OracleDbType.Varchar2, utulek.City, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_PSC", OracleDbType.Varchar2, utulek.Psc, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_CISLOPOPISNE", OracleDbType.Decimal, utulek.Number, ParameterDirection.Input));
                     
                     cmd.CommandText = "INS_SET.IU_UTULEK";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
 
                 }
             }
@@ -151,7 +151,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         }
         private async void Adress_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (Adress dog in e.NewItems ?? new List<Shelter>())
+            foreach (Adress dog in e.NewItems ?? new List<Adress>())
             {
                 await SaveAdress(dog);
 
