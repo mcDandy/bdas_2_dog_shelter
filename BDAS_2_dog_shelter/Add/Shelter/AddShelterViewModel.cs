@@ -14,7 +14,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
         private int? addressID;
         RelayCommand okCommand;
 
-        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" /*&& addressID is not null and not < 0*/ && telephone is not null and not "");
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" /*&& addressID is not null and not < 0*/ && email is not null and not "");
 
         public delegate void OkUtulekAddEditDone();
         public event OkUtulekAddEditDone? OkClickFinished;
