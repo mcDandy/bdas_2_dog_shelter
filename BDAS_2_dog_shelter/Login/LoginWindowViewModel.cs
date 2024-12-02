@@ -99,6 +99,7 @@ namespace BDAS_2_dog_shelter.Login
                         while (reader.Read())//for every row, only one row ever
                         {
                             /*await*/
+                            
                             MainWindow.MainWindow mw = new(UInt64.Parse(((OracleDecimal)reader.GetOracleValue(0)).ToString()));
                             OnCloaseRequest?.Invoke();
                             mw.Show();

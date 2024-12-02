@@ -38,6 +38,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             con.BeginTransaction();
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_SELECT)) LoadDogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT)) LoadShelters(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_SELECT)) LoadAdresses(permissions);
 
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT, Permissions.PES_DELETE))
             { //TODO: nějaká lepší prevence úpravy
@@ -47,6 +48,12 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT, Permissions.UTULEK_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Shelters.CollectionChanged += Utulek_CollectionChanged;
+
+            }
+            
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT, Permissions.ADRESA_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Adresses.CollectionChanged += Adress_CollectionChanged;
 
             }
         }
@@ -67,6 +74,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             Dogs.Clear();
             LoadDogs(permissions);
             Dogs.CollectionChanged += Dogs_CollectionChanged;
+            Shelters.CollectionChanged -= Utulek_CollectionChanged;
+            Shelters.Clear();
+            LoadShelters(permissions);
+            Shelters.CollectionChanged += Utulek_CollectionChanged;
+            Adresses.CollectionChanged -= Adress_CollectionChanged;
+            Adresses.Clear();
+            LoadAdresses(permissions);
+            Adresses.CollectionChanged += Adress_CollectionChanged;
         }
     }
 }

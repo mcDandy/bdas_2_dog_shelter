@@ -1,4 +1,5 @@
 ﻿using BDAS_2_dog_shelter;
+using BDAS_2_dog_shelter.Add.Adress;
 using BDAS_2_dog_shelter.Add.Dog;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
@@ -37,7 +38,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandAdressEdit(object? obj)
         {
-            ShelterAdd s = new ShelterAdd((Shelter)obj);
+            AdressAdd s = new AdressAdd((Adress)obj);
             s.ShowDialog();
         }
 
@@ -45,11 +46,11 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             if ((Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.ADRESA_DELETE)))
             {
-                List<Shelter> e = new List<Shelter>();
-                foreach (Shelter d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Shelter shelter in e)
+                List<Adress> e = new List<Adress>();
+                foreach (Adress d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Adress shelter in e)
                 {
-                    Shelters.Remove(shelter);
+                    Adresses.Remove(shelter);
                 }
             }
         }
@@ -58,13 +59,13 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandAdressAdd()
         {
-            ShelterAdd s = new ShelterAdd();
+            AdressAdd s = new AdressAdd();
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Adresses.Add(((AddAdressViewModel)s.DataContext).Adresa);
                 if ((Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)))
-                    Shelters.Last().PropertyChanged += DogChanged;
+                    Adresses.Last().PropertyChanged += AdressChanged;
             }
         }
 
@@ -77,7 +78,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_adresa,psc,telefon,number,id_adresa from adresa";
+                        cmd.CommandText = "select id_adresa,ulice,mesto,psc,cislopopisne from adresa";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
@@ -86,20 +87,20 @@ namespace BDAS_2_dog_shelter.MainWindow
                             Adresses.Add
                                 (
                                 new(
-                                    v.GetInt32(0),
+                                    v.IsDBNull(0) ? null : v.GetInt32(0),
                                     v.GetString(1),
                                     v.GetString(2),
-                                    v.IsDBNull(3) ? null : v.GetString(3),
-                                    v.GetInt32(4)
+                                    v.IsDBNull(3)?null:v.GetString(3),
+                                    int.Parse(v.GetString(4))
                                 ));
 
-                            if ((Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)))
-                                Shelters.Last().PropertyChanged += AdressChanged;
+                            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE))
+                                Adresses.Last().PropertyChanged += AdressChanged;
                         }
 
                     }
                     catch (Exception ex)
-                    {
+                    {   
                         MessageBox.Show(ex.Message);
                     }
                 }
@@ -132,7 +133,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(new("V_PSC", OracleDbType.Varchar2, utulek.Psc, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_CISLOPOPISNE", OracleDbType.Decimal, utulek.Number, ParameterDirection.Input));
                     
-                    cmd.CommandText = "INS_SET.IU_UTULEK";
+                    cmd.CommandText = "INS_SET.IU_ADRESS";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
@@ -142,9 +143,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Dogs.CollectionChanged -= Dogs_CollectionChanged;
-                LoadDogs(permissions);
-                Dogs.CollectionChanged += Dogs_CollectionChanged;
+                Adresses.CollectionChanged -= Adress_CollectionChanged;
+                LoadAdresses(permissions);
+                Adresses.CollectionChanged += Adress_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -176,9 +177,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                        Adresses.CollectionChanged -= Adress_CollectionChanged;
                         LoadAdresses(permissions);
-                        Dogs.CollectionChanged += Dogs_CollectionChanged;
+                        Adresses.CollectionChanged += Adress_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }

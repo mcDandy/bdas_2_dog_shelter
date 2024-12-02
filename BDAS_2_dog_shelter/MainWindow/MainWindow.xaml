@@ -9,7 +9,7 @@
   
 
         <TabControl>
-            <TabItem Header="Dog" Name="a" Visibility="{Binding AnyDogPerms}">
+            <TabItem Header="Dog" Name="tabDog" Visibility="{Binding AnyDogPerms}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -80,7 +80,7 @@
 
                 </Grid>
             </TabItem>
-        <TabItem Header="Utulek" Name="b" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Utulek" Name="tabUtulek" Visibility="{Binding AnyDogPerms}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -91,7 +91,7 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Name}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="telefon" Binding="{Binding Telefor}"/>
+                        <DataGridTextColumn Header="telefon" Binding="{Binding Telefon}"/>
                         <DataGridTextColumn Header="Email" Binding="{Binding email}" />
                         <DataGridTemplateColumn Header="Útulek">
                             <DataGridTemplateColumn.CellTemplate >
@@ -109,6 +109,33 @@
                     <Button x:Name="buttonURemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=utulekDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdURm}"/>
                     <Button x:Name="buttonU1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonU2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+            <TabItem Header="Adresa" Name="tabAdress" Visibility="{Binding AnyDogPerms}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="adresaDataGrid" CanUserAddRows="False"
+        ItemsSource="{Binding Path=Adresses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="adresaDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding Ulice}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="telefon" Binding="{Binding CP}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Mesto}" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding PSC}" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonAAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAAdd}"/>
+                    <Button x:Name="buttonAEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdAEd}"/>
+                    <Button x:Name="buttonARemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdARm}"/>
+                    <Button x:Name="buttonA1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonA2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
 
             </Grid>

@@ -97,7 +97,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Shelters.Add(((AddShelterViewModel)s.DataContext).Utulek);
-                if ((permissions & (ulong)Permissions.UTULEK_INSERT) != 0) Shelters.Last().PropertyChanged += DogChanged;
+                if ((permissions & (ulong)Permissions.UTULEK_INSERT) != 0) Shelters.Last().PropertyChanged += ShelterChanged;
             }
         }
 
@@ -110,7 +110,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_utulek,nazev,telefon,number,id_adresa from utulek";
+                        cmd.CommandText = "select id_utulek,nazev,telefon,EMAIL,id_adresa from utulek";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
