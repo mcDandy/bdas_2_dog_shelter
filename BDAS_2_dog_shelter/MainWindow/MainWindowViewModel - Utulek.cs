@@ -53,6 +53,41 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
+        public List<Adress> Adresa
+        {
+            get
+            {
+                if (addr == null)
+                {
+                    addr = [];
+
+                    OracleConnection con = new OracleConnection(ConnectionString);
+                    if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                    using (OracleCommand cmd = con.CreateCommand())
+                    {
+                        try
+                        {
+                            cmd.CommandText = "select id_adresa,street,city,psc,number from ADRESA";
+                            OracleDataReader v = cmd.ExecuteReader();
+                            if (v.HasRows)
+                            {
+                                while (v.Read())
+                                {
+                                    addr.Add(new(v.GetInt32(0), v.GetString(1),v.GetString(2),v.GetString(3),v.GetInt32(4)));
+                                }
+                            }
+                        }
+                        catch (Exception ex)//something went wrong
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                }
+                return addr;
+            }
+        }
+        private List<Adress> addr;
 
 
         private void CommandUtulekAdd()
@@ -75,7 +110,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_utulek,nazev,telefon,email,id_adresa from utulek";
+                        cmd.CommandText = "select id_utulek,nazev,telefon,number,id_adresa from utulek";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())

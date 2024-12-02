@@ -1,4 +1,5 @@
 ﻿using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Add.Shelter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +15,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace BDAS_2_dog_shelter.Add.Shelter
+namespace BDAS_2_dog_shelter.Add.Adress
 {
     /// <summary>
     /// Interakční logika pro AdressAdd.xaml
     /// </summary>
-    public partial class ShelterAdd : Window
+    public partial class AdressAdd : Window
     {
-        public ShelterAdd()
+        public AdressAdd()
         {
             InitializeComponent();
-            Tables.Shelter d = new();
-            this.DataContext = new AddShelterViewModel(d);
-            ((AddShelterViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            Tables.Adress d = new();
+            this.DataContext = new AddAdressViewModel(d);
+            ((AddAdressViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
-        public ShelterAdd(Tables.Shelter d)
+        public AdressAdd(Tables.Adress d)
         {
             InitializeComponent();
-            this.DataContext = new AddShelterViewModel(d);
-            ((AddShelterViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            this.DataContext = new AddAdressViewModel(d);
+            ((AddAdressViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
     }
 }

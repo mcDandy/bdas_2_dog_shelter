@@ -26,7 +26,7 @@ namespace BDAS_2_dog_shelter.Validation
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            return new ValidationResult(value is string && (Regex.IsMatch(((string)value).Trim(), "[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\x2e[a-zA-Z0-9]+")||((string)value).Trim() is ""),"Not an email address or empty");
+            return new ValidationResult(value is string && (Regex.IsMatch(((string)value).Trim(), "[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\x2e[a-zA-Z0-9]+")||((string)value).Trim() is ""),"Not an number address or empty");
         }
     }
 }

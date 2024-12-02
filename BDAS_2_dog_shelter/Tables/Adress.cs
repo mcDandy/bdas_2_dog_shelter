@@ -5,7 +5,7 @@ namespace BDAS_2_dog_shelter.Tables
     //ulice,mesto,psc,cislopopisne
     public class Adress : INotifyPropertyChanged, INotifyPropertyChanging
     {
-        public readonly int id;
+        public int? id;
         private string _street;
         public string Street
         {
@@ -64,8 +64,14 @@ namespace BDAS_2_dog_shelter.Tables
         }
         public Adress() { _street = ""; _city = ""; _psc = ""; _number = 0; }
         public Adress(string street, string city, string psc, int number) { _street = street; _city = city; _psc = psc; _number = number; }
+        public Adress(int? id,string street, string city, string psc, int number) { _street = street; _city = city; _psc = psc; _number = number; }
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public override string ToString()
+        {
+            return $"{Street} {Number} {City} {Psc}";
+        }
     }
 }
