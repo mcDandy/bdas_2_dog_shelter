@@ -146,22 +146,22 @@
         </TabItem>
 
 
-    <TabItem Header="Hracka" Name="tabHracka" Visibility="{Binding AnyDogPerms}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"></ColumnDefinition>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <DataGrid x:Name="hrackaDataGrid" CanUserAddRows="False"
+        <TabItem Header="Hracka" Name="tabHracka" Visibility="{Binding AnyDogPerms}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="hrackaDataGrid" CanUserAddRows="False"
         ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
-                <DataGrid.Columns>
+                    <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="telefon" Binding="{Binding Pocet}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
+                        <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="telefon" Binding="{Binding Pocet}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
 
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonHAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
                     <Button x:Name="buttonHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
@@ -171,7 +171,38 @@
                 </StackPanel>
 
             </Grid>
-    </TabItem>
+        </TabItem>
+
+
+
+
+        <TabItem Header="Sklad" Name="tabSklad" Visibility="{Binding AnyDogPerms}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="skladDataGrid" CanUserAddRows="False"
+        ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Kapacita" Binding="{Binding Capacity}"/>
+                        <DataGridTextColumn Header="Popis" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonSAdd" Content="Add" Margin="5" Command="{Binding Path=cmdSAdd}"/>
+                    <Button x:Name="buttonSEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=skladDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdSEd}"/>
+                    <Button x:Name="buttonSRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=skladDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdSRm}"/>
+                    <Button x:Name="buttonS1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonS2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
     </TabControl>
 
 </Window>
