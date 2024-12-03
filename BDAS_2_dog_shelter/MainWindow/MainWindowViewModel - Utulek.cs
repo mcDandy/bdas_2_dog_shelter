@@ -97,7 +97,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Shelters.Add(((AddShelterViewModel)s.DataContext).Utulek);
-                if ((permissions & (ulong)Permissions.UTULEK_INSERT) != 0) Shelters.Last().PropertyChanged += ShelterChanged;
+                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_UPDATE)) Shelters.Last().PropertyChanged += ShelterChanged;
             }
         }
 
