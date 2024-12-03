@@ -15,23 +15,10 @@
                         <ColumnDefinition Width="30*"></ColumnDefinition>
                         <ColumnDefinition Width="5*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
                     ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-                        <DataGrid.Resources>
-                            <Style TargetType="DataGridRow">
-                                <Setter Property="ContextMenu">
-                                    <Setter.Value>
-                                        <ContextMenu>
-                                            <Menu>
-                                                <MenuItem Header="Strom" Command="{Binding Path=MenuDogCMD}" CommandParameter="{Binding}"/>
-                                            </Menu>
-                                        </ContextMenu>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGrid.Resources>
 
-                        <DataGrid.Columns>
+                    <DataGrid.Columns>
 
                             <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
                             <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
