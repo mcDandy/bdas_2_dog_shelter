@@ -123,23 +123,51 @@
         ItemsSource="{Binding Path=Adresses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="adresaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding Ulice}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="telefon" Binding="{Binding CP}"/>
-                        <DataGridTextColumn Header="Email" Binding="{Binding Mesto}" />
-                        <DataGridTextColumn Header="Email" Binding="{Binding PSC}" />
+                        <DataGridTextColumn Header="Ulice" Binding="{Binding Street}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Číslo popisné" Binding="{Binding Cp}"/>
+                        <DataGridTextColumn Header="Město" Binding="{Binding City}" />
+                        <DataGridTextColumn Header="PSČ" Binding="{Binding Psc}" />
 
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAAdd}"/>
-                    <Button x:Name="buttonAEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdAEd}"/>
-                    <Button x:Name="buttonARemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdARm}"/>
+                    <Button x:Name="buttonAEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonARemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
                     <Button x:Name="buttonA1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonA2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
 
             </Grid>
         </TabItem>
+
+
+    <TabItem Header="Hracka" Name="tabHracka" Visibility="{Binding AnyDogPerms}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="hrackaDataGrid" CanUserAddRows="False"
+        ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="telefon" Binding="{Binding Pocet}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
+
+                </DataGrid.Columns>
+            </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonHAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAAdd}"/>
+                    <Button x:Name="buttonHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdAEd}"/>
+                    <Button x:Name="buttonHRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdARm}"/>
+                    <Button x:Name="buttonH1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonH2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+    </TabItem>
     </TabControl>
 
 </Window>

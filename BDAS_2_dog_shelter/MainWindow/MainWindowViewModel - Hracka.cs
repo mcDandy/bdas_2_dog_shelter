@@ -1,5 +1,6 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Add.Hracka;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
@@ -27,41 +28,32 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-        private RelayCommand uadCMD;
-        private RelayCommand<object> urmCMD;
-        private RelayCommand<object> uedCMD;
-        public ICommand cmdHAdd => uadCMD ??= new RelayCommand(CommandUtulekAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
-        public ICommand cmdHRm => urmCMD ??= new RelayCommand<object>(CommandUtulekRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
-        public ICommand cmdHEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
-        public ObservableCollection<Shelter> Shelters { get; set; } = new();
+        private RelayCommand uadhCMD;
+        private RelayCommand<object> urmhCMD;
+        private RelayCommand<object> uedhCMD;
+        public ICommand cmdHAdd => uadhCMD ??= new RelayCommand(CommandHrackaAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
+        public ICommand cmdHRm => urmhCMD ??= new RelayCommand<object>(CommandHrackaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
+        public ICommand cmdHEd => uedhCMD ??= new RelayCommand<object>(CommandHrackaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
+        public ObservableCollection<Hracka> Hracky { get; set; } = new();
 
-        private void CommandUtulekEdit(object? obj)
+        private void CommandHrackaEdit(object? obj)
         {
-            ShelterAdd s = new ShelterAdd((Shelter)obj);
+            HrackaAdd s = new HrackaAdd((Hracka)obj);
             s.ShowDialog();
         }
 
-        private void CommandUtulekRemove(object? SelectedShelters)
+        private void CommandHrackaRemove(object? SelectedShelters)
         {
             if ((permissions & (long)Permissions.PES_DELETE) > 0)
             {
-                List<Shelter> e = new List<Shelter>();
-                foreach (Shelter d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Shelter shelter in e)
+                List<Hracka> e = new List<Hracka>();
+                foreach (Hracka d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Hracka shelter in e)
                 {
-                    Shelters.Remove(shelter);
+                    Hracky.Remove(shelter);
                 }
             }
         }
-        public List<Hracka> Hracky
-        {
-            get
-            {
-                hrack ?? { hrack = []; LoadHracky(permissions) return hrack; } 
-            }
-        }
-        private List<Hracka> hrack;
-
 
         private void CommandHrackaAdd()
         {
@@ -89,7 +81,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                hrack.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2),)v.GetInt32(3)));
+                                Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
                             }
                         }
                     }
@@ -111,7 +103,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private async Task SaveHracka(Shelter utulek)
+        private async Task SaveHracka(Hracka utulek)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             try
@@ -121,16 +113,16 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.ID is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Decimal, utulek.ID, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Telephone, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_KLADS", OracleDbType.Decimal, utulek.AddressID, ParameterDirection.Input));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HRACKA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
                     
                     cmd.CommandText = "INS_SET.IU_HRACKA";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
 
                 }
             }
@@ -161,7 +153,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("ID", dog.ID));
+                        cmd.Parameters.Add(new("ID", dog.id));
                         cmd.CommandText = "delete from hracka where id_hracka=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();

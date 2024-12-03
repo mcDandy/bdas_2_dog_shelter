@@ -32,5 +32,10 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
 
         }
+
+        private void hrackaDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

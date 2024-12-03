@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BDAS_2_dog_shelter.Tables
 {
-    internal class Hracka : INotifyPropertyChanged, INotifyPropertyChanging
+    public class Hracka : INotifyPropertyChanged, INotifyPropertyChanging
     {
-        public int id;
+        public int? id;
         private string _nazev;
         public string Nazev
         {
@@ -39,6 +39,19 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         private int _sklad;
+
+        public Hracka(int? id, string nazev, int pocet, int sklad_id)
+        {
+            this.id = id;
+            this._nazev = nazev;
+            this._pocet = pocet;
+            this._sklad = sklad_id;
+        }
+
+        public Hracka()
+        {
+            _nazev = "";
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangingEventHandler? PropertyChanging;

@@ -133,7 +133,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(new("V_PSC", OracleDbType.Varchar2, utulek.Psc, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_CISLOPOPISNE", OracleDbType.Decimal, utulek.Number, ParameterDirection.Input));
                     
-                    cmd.CommandText = "INS_SET.IU_ADRESS";
+                    cmd.CommandText = "INS_SET.IU_ADRESA";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();

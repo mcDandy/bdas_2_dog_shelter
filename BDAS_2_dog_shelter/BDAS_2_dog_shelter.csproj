@@ -40,6 +40,9 @@
     <Compile Update="Add\Address\AdressAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Add\Hracka\HrackaAdd.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -56,6 +59,12 @@
 
   <ItemGroup>
     <Folder Include="Themes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Add\Hracka\HrackaAdd.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>
