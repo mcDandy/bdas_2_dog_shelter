@@ -39,7 +39,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_SELECT)) LoadDogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT)) LoadShelters(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_SELECT)) LoadAdresses(permissions);
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT)) LoadPesHistory(permissions);
+            //if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT)) LoadPesHistory(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT)) LoadHracky(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
 
@@ -60,11 +60,11 @@ namespace BDAS_2_dog_shelter.MainWindow
 
             }
             
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE))
-            { //TODO: nějaká lepší prevence úpravy
-                Historie.CollectionChanged += DogHistory_CollectionChanged;
+            //if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE))
+            //{ //TODO: nějaká lepší prevence úpravy
+            //    Historie.CollectionChanged += DogHistory_CollectionChanged;
 
-            }
+            //}
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT, Permissions.HRACKA_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Hracky.CollectionChanged += Hracka_CollectionChanged;
