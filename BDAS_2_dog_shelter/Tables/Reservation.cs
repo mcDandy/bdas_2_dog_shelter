@@ -4,6 +4,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Reservation : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private string _date_of_receipt;
         public string DateOfReceipt
         {

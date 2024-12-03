@@ -4,6 +4,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Quarantine : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private string begin_of_date;
         public string BeginOfDate
         {

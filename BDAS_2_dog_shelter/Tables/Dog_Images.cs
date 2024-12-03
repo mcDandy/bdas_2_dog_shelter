@@ -9,6 +9,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Dog_Images : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private string event_description;
         public string EventDescription
         {

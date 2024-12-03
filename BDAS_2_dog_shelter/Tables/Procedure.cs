@@ -9,6 +9,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Procedure : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private string proc_name;
         public string ProcName
         {

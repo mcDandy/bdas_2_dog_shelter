@@ -9,6 +9,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Feed : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private string feed_name;
         public string FeedName
         {

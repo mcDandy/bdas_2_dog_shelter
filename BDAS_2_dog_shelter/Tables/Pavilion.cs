@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BDAS_2_dog_shelter.Tables
 {
+    public int? id;
     public class Pavilion : INotifyPropertyChanged, INotifyPropertyChanging
     {
         private string pav_name;
