@@ -19,7 +19,7 @@ namespace BDAS_2_dog_shelter.MainWindow
     {
         public MainWindow(ulong permissions)
         {
-            //InitializeComponent();
+            InitializeComponent();
             this.DataContext = new MainWindowViewModel(permissions);
         }
 

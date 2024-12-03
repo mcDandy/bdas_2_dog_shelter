@@ -103,7 +103,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void LoadShelters(ulong permissions)
         {
-            if (con.State == ConnectionState.Closed) con.Open();
+            if (con.State == ConnectionState.Closed) con.Open();    
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
