@@ -88,7 +88,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             Hracky.CollectionChanged += Hracka_CollectionChanged;
             Hracky.CollectionChanged -= Sklad_CollectionChanged;
             Storages.Clear();
-            LoadSklady(permissions);
+            LoadStorages(permissions);
             Hracky.CollectionChanged += Sklad_CollectionChanged;
         }
     }
