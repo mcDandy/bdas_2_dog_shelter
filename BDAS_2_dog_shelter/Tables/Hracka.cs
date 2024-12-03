@@ -9,7 +9,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     internal class Hracka : INotifyPropertyChanged, INotifyPropertyChanging
     {
-        public readonly int id;
+        public int id;
         private string _nazev;
         public string Nazev
         {

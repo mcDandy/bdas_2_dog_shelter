@@ -158,7 +158,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.ID is null ? new("V_ID_UTULEK", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Varchar2, utulek.ID, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(utulek.ID is null ? new("V_ID_UTULEK", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Decimal, utulek.ID, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_TELEFON", OracleDbType.Varchar2, utulek.Telephone, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
@@ -174,9 +174,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Dogs.CollectionChanged -= Dogs_CollectionChanged;
-                LoadDogs(permissions);
-                Dogs.CollectionChanged += Dogs_CollectionChanged;
+                Shelters.CollectionChanged -= Utulek_CollectionChanged;
+                LoadShelters(permissions);
+                Shelters.CollectionChanged += Utulek_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -189,7 +189,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
             }
 
-            foreach (Dog dog in e.OldItems ?? new List<Dog>())
+            foreach (Shelter dog in e.OldItems ?? new List<Shelter>())
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
@@ -200,7 +200,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                         // Assign id to the department number 50 
                         cmd.Parameters.Add(new("ID", dog.ID));
-                        cmd.CommandText = "delete from pes where id_pes=:ID";
+                        cmd.CommandText = "delete from utulek where id_utulek=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 
@@ -208,9 +208,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                        Shelter.CollectionChanged -= Utulek_CollectionChanged;
                         LoadDogs(permissions);
-                        Dogs.CollectionChanged += Dogs_CollectionChanged;
+                        Shelter.CollectionChanged += Utulek_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
