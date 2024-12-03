@@ -105,10 +105,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Hracky.Clear();
             LoadHracky(permissions);
             Hracky.CollectionChanged += Hracka_CollectionChanged;
-            Hracky.CollectionChanged -= Sklad_CollectionChanged;
+            Storages.CollectionChanged -= Sklad_CollectionChanged;
             Storages.Clear();
             LoadStorages(permissions);
-            Hracky.CollectionChanged += Sklad_CollectionChanged;
+            Storages.CollectionChanged += Sklad_CollectionChanged;
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
