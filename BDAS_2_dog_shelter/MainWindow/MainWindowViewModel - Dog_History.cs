@@ -100,7 +100,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             using (OracleCommand cmd = con.CreateCommand())
             {
 
-                await SaveHracka(dog);
+                //await SaveHracka(dog);
             }
         }
 
@@ -115,9 +115,9 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HRACKA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
+                    //cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
+                    //cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
+                    //cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_HISTORIE_PSA";
 
@@ -140,7 +140,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             foreach (Dog_History dog in e.NewItems ?? new List<Dog_History>())
             {
-                await SaveHracka(dog);
+                //await SaveHracka(dog);
 
             }
 

@@ -10,6 +10,8 @@ namespace BDAS_2_dog_shelter.Tables
     public class Dog_History : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public int? id;
+        public int? typid;
+
         private string date_of_event;
         public string DateOfEvent
         {
