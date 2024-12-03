@@ -15,59 +15,60 @@ namespace BDAS_2_dog_shelter.DogTree
     {
         private void LoadDogTree(int dogId)
         {
-            if (con.State == ConnectionState.Closed) con.Open();
+        //    if (con.State == ConnectionState.Closed) con.Open();
 
-            try
-            {
-                using (OracleCommand cmd = con.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                SELECT id_pes, id_otec, id_matka 
-                FROM pes 
-                CONNECT BY PRIOR id_pes = id_otec OR id_pes = id_matka 
-                START WITH id_pes = :DogId";
-                    cmd.Parameters.Add(new OracleParameter("DogId", dogId));
+        //    try
+        //    {
+        //        using (OracleCommand cmd = con.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //        SELECT id_pes, id_otec, id_matka 
+        //        FROM pes 
+        //        CONNECT BY PRIOR id_pes = id_otec OR id_pes = id_matka 
+        //        START WITH id_pes = :DogId";
+        //            cmd.Parameters.Add(new OracleParameter("DogId", dogId));
 
-                    using (OracleDataReader reader = cmd.ExecuteReader())
-                    {
-                        Dictionary<int, Dog> dogDictionary = new();
+        //            using (OracleDataReader reader = cmd.ExecuteReader())
+        //            {
+        //                Dictionary<int, Dog> dogDictionary = new();
 
-                        while (reader.Read())
-                        {
-                            int id = reader.GetInt32(0);
-                            int? fatherId = reader.IsDBNull(1) ? (int?)null : reader.GetInt32(1);
-                            int? motherId = reader.IsDBNull(2) ? (int?)null : reader.GetInt32(2);
+        //                while (reader.Read())
+        //                {
+        //                    int id = reader.GetInt32(0);
+        //                    int? fatherId = reader.IsDBNull(1) ? (int?)null : reader.GetInt32(1);
+        //                    int? motherId = reader.IsDBNull(2) ? (int?)null : reader.GetInt32(2);
 
-                            if (!dogDictionary.ContainsKey(id))
-                            {
-                                dogDictionary[id] = new Dog { Id = id };
-                            }
+        //                    if (!dogDictionary.ContainsKey(id))
+        //                    {
+        //                        dogDictionary[id] = new Dog { Id = id };
+        //                    }
 
-                            if (fatherId.HasValue && !dogDictionary.ContainsKey(fatherId.Value))
-                            {
-                                dogDictionary[fatherId.Value] = new Dog { Id = fatherId.Value };
-                            }
+        //                    if (fatherId.HasValue && !dogDictionary.ContainsKey(fatherId.Value))
+        //                    {
+        //                        dogDictionary[fatherId.Value] = new Dog { Id = fatherId.Value };
+        //                    }
 
-                            if (motherId.HasValue && !dogDictionary.ContainsKey(motherId.Value))
-                            {
-                                dogDictionary[motherId.Value] = new Dog { Id = motherId.Value };
-                            }
+        //                    if (motherId.HasValue && !dogDictionary.ContainsKey(motherId.Value))
+        //                    {
+        //                        dogDictionary[motherId.Value] = new Dog { Id = motherId.Value };
+        //                    }
 
-                            dogDictionary[id].Father = fatherId.HasValue ? dogDictionary[fatherId.Value] : null;
-                            dogDictionary[id].Mother = motherId.HasValue ? dogDictionary[motherId.Value] : null;
-                        }
+        //                    dogDictionary[id].Father = fatherId.HasValue ? dogDictionary[fatherId.Value] : null;
+        //                    dogDictionary[id].Mother = motherId.HasValue ? dogDictionary[motherId.Value] : null;
+        //                }
 
-                        if (dogDictionary.ContainsKey(dogId))
-                        {
-                            MainDog = dogDictionary[dogId];
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Chyba při načítání rodokmenu: {ex.Message}");
-            }
+        //                if (dogDictionary.ContainsKey(dogId))
+        //                {
+        //                    MainDog = dogDictionary[dogId];
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Chyba při načítání rodokmenu: {ex.Message}");
+        //    }
+        //
         }
 
     }

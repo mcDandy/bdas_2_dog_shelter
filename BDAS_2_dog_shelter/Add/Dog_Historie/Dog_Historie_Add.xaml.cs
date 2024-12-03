@@ -20,18 +20,18 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
     /// </summary>
     public partial class Dog_Historie_Add : Window
     {
-            public Dog_Historie_Add()
-            {
-                InitializeComponent();
-                Tables.Dog_History d = new();
-                this.DataContext = new AddDogHistorieViewModel(d);
-                ((AddDogHistorieViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
-            }
-            public Dog_Historie_Add(Tables.Dog_History d)
-            {
-                InitializeComponent();
-                this.DataContext = new AddDogHistorieViewModel(d);
-                ((AddDogHistorieViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
-            }
+            //public Dog_Historie_Add()
+            ////{
+            ////    InitializeComponent();
+            ////    Tables.Dog_History d = new();
+            ////    this.DataContext = new AddDogHistorieViewModel(d);
+            ////    ((AddDogHistorieViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            //}
+            //public Dog_Historie_Add(Tables.Dog_History d)
+            //{
+            //    //InitializeComponent();
+            //    //this.DataContext = new AddDogHistorieViewModel(d);
+            //    //((AddDogHistorieViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            //}
         }
     }

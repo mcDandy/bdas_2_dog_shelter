@@ -13,7 +13,7 @@ namespace BDAS_2_dog_shelter.Add.Storage
         private string name;
         private int? iD;
 
-        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => street is not null and not "" /*&& psc is not null and not < 0*/ );
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => stype is not null and not "" /*&& psc is not null and not < 0*/ );
 
         public delegate void OkUtulekAddEditDone();
         public event OkUtulekAddEditDone? OkClickFinished;

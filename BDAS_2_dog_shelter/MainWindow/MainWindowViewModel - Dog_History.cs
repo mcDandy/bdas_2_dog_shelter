@@ -39,8 +39,8 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandPesHistoryEdit(object? obj)
         {
-            Dog_Historie_Add s = new Dog_Historie_Add((Dog_History)obj);
-            s.ShowDialog();
+            //Dog_Historie_Add s = new Dog_Historie_Add((Dog_History)obj);
+            //s.ShowDialog();
         }
 
         private void CommandPesHistoryRemove(object? SelectedShelters)
