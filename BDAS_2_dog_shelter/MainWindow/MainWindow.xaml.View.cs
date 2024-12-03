@@ -39,6 +39,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_SELECT)) LoadDogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT)) LoadShelters(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_SELECT)) LoadAdresses(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT)) LoadPesHistory(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT)) LoadHracky(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
 
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT, Permissions.PES_DELETE))
             { //TODO: nějaká lepší prevence úpravy
@@ -54,6 +57,22 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT, Permissions.ADRESA_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Adresses.CollectionChanged += Adress_CollectionChanged;
+
+            }
+            
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Historie.CollectionChanged += DogHistory_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT, Permissions.HRACKA_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Hracky.CollectionChanged += Hracka_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_INSERT, Permissions.SKLAD_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Storages.CollectionChanged += Sklad_CollectionChanged;
 
             }
         }
