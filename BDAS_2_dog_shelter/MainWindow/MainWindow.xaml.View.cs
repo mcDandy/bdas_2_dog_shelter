@@ -79,7 +79,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         RelayCommand rsCMD;
         RelayCommand cmCMD;
-        public ICommand cmdRst => rsCMD ??= new RelayCommand(CommandReset, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_DELETE, Permissions.PES_INSERT, Permissions.PES_UPDATE)));
+        public ICommand cmdRst => rsCMD ??= new RelayCommand(CommandReset);
         public ICommand cmdCom => cmCMD ??= new RelayCommand(CommandCommit);
 
         private void CommandCommit()
@@ -110,6 +110,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             LoadStorages(permissions);
             Hracky.CollectionChanged += Sklad_CollectionChanged;
         }
+
+        public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
+
     }
 }
 
