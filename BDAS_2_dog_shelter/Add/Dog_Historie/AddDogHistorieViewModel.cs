@@ -4,13 +4,14 @@
     using CommunityToolkit.Mvvm.Input;
     using System.Windows.Input;
     using System.Xml.Linq;
+using System.Windows;
 namespace BDAS_2_dog_shelter.Add.Dog_Historie
 {
         internal class AddDogHistorieViewModel
         {
         private Tables.Dog_History d;
         private string name;
-        private int pocet;
+        private DateTime? pocet;
         private int? iD;
         private int? sklad;
         RelayCommand okCommand;
@@ -27,17 +28,17 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         }
 
         public string Nazev { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public int Pocet { get => pocet; set => pocet = value; }
+        public DateTime Pocet { get => pocet; set => pocet = value; }
         public int? ID { get => iD; set => iD = value; }
         public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public Tables.Dog_History historie => d;
 
-        public AddDogHistorieViewModel(Tables.Hracka d)
+        public AddDogHistorieViewModel(Tables.Dog_History d)
         {
-            Nazev = d.Nazev;
-            this.Pocet = d.Pocet;
+            Nazev = d.EventDescription;
+            this.Pocet = d.DateOfEvent;
             ID = d.id;
-            SkladID = d.SkladID;
+            SkladID = d.typid;
         }
     }
 }

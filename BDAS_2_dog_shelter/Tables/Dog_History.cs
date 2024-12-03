@@ -12,8 +12,8 @@ namespace BDAS_2_dog_shelter.Tables
         public int? id;
         public int? typid;
 
-        private string date_of_event;
-        public string DateOfEvent
+        private DateTime date_of_event;
+        public DateTime DateOfEvent
         {
             get => date_of_event;
             set
@@ -40,7 +40,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Dog_History() { date_of_event = ""; event_description = ""; }
+        public Dog_History() { date_of_event = DateTime.Now; event_description = ""; }
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
