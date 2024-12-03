@@ -4,6 +4,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Storage : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private int _capacity;
         public int Capacity
         {

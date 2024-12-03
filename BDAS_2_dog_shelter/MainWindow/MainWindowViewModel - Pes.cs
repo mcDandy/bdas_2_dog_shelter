@@ -237,7 +237,7 @@ private async void DogChanged(object? sender, PropertyChangedEventArgs e)
 
 private void CommandRemove(object SelectedDogs)
 {
-    if ((permissions & (long)Permissions.PES_DELETE) > 0)
+    if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_DELETE))
     {
         List<Dog> e = new List<Dog>();
         foreach (Dog d in (IEnumerable)SelectedDogs) e.Add(d);
