@@ -9,6 +9,7 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Medical_Equpment : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? id;
         private string medical_name;
         public string MedicalName
         {

@@ -17,8 +17,8 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
 
             public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && sklad is not null and not < 0 && pocet is not < 0);
 
-            public delegate void OkUtulekAddEditDone();
-            public event OkUtulekAddEditDone? OkClickFinished;
+            public delegate void OkHistorieAddEditDone();
+            public event OkHistorieAddEditDone? OkClickFinished;
 
             private void Ok()
             {
@@ -35,7 +35,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
             public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
             public Tables.Hracka Hracka => d;
 
-            public AddHrackaViewModel(Tables.Hracka d)
+            public AddDogHistorieViewModel(Tables.Hracka d)
             {
                 this.d = d;
                 Nazev = d.Nazev;
