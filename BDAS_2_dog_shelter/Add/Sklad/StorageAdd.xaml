@@ -10,14 +10,14 @@
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18">
-            <Binding Path="Street" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:NotEmptyStringRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="CP" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="Capacity" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:NumericStringRule/>
                 </Binding.ValidationRules>
@@ -31,17 +31,10 @@
             </Binding>
         </TextBox>
 
-        <Label x:Name="label" Content="Ulice" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat" Content="CP" HorizontalAlignment="Left" Margin="26,39,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat1" Content="Město" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat2" Content="PSČ" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tel_Kopírovat" HorizontalAlignment="Left" Margin="84,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="PSC" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NumericStringRule/>
-                </Binding.ValidationRules>
-            </Binding>
-        </TextBox>
+        <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Kopírovat" Content="Kapacita" HorizontalAlignment="Left" Margin="26,39,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Kopírovat1" Content="Popis" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
+
 
     </Grid>
 </Window>

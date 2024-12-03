@@ -6,13 +6,12 @@ namespace BDAS_2_dog_shelter.Add.Storage
 {
     internal class AddStorageViewModel
     {
-        private Tables.Adress d;
-        private int number;
-        private string street;
-        private string city;
-        private int? iD;
-        private string psc;
+        private Tables.Storage d;
         RelayCommand okCommand;
+        private string stype;
+        private int cap;
+        private string name;
+        private int? iD;
 
         public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => street is not null and not "" /*&& psc is not null and not < 0*/ );
 
@@ -21,29 +20,26 @@ namespace BDAS_2_dog_shelter.Add.Storage
 
         private void Ok()
         {
-           d.Number = number;
-            d.Street = street;
-            d.City = city;
-            d.Psc = psc;
-            d.id = iD;
+           d.Type = sType;
+            d.Capacity = Capacity;
+            d.Name = Name;
+            d.id = ID;
             OkClickFinished?.Invoke();
         }
 
-        public int CP { get => number;  set { number = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public string Street { get => street;  set { street = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public string City { get => city;  set => city = value; }
+        public string sType { get => stype;  set { stype = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public int Capacity { get => cap;  set { cap = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public string Name { get => name;  set => name = value; }
         public int? ID { get => iD;  set => iD = value; }
-        public string PSC { get => psc;  set => psc = value; }
-        public Tables.Adress Adresa => d;
+        public Tables.Storage Storage => d;
 
-        public AddStorageViewModel(Tables.Adress d)
+        public AddStorageViewModel(Tables.Storage d)
         {
             this.d = d;
-            Street = d.Street;
-            CP = d.Number;
-            City = d.City;
+            sType = d.Type;
+            Capacity = d.Capacity;
+            Name = d.Name;
             ID = d.id;
-            PSC = d.Psc;
         }
     }
 }

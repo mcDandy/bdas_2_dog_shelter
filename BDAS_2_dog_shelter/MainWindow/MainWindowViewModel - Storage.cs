@@ -31,9 +31,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand sadCMD;
         private RelayCommand<object> srmCMD;
         private RelayCommand<object> sedCMD;
-        public ICommand cmdSAdd => uadCMD ??= new RelayCommand(CommandSkladAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
-        public ICommand cmdSRm => urmCMD ??= new RelayCommand<object>(CommandSkladRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
-        public ICommand cmdSEd => uedCMD ??= new RelayCommand<object>(CommandSkladEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
+        public ICommand cmdSAdd => uadCMD ??= new RelayCommand(CommandSkladAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_INSERT)));
+        public ICommand cmdSEd => uedCMD ??= new RelayCommand<object>(CommandSkladEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN,   Permissions.SKLAD_UPDATE)));
+        public ICommand cmdSRm => urmCMD ??= new RelayCommand<object>(CommandSkladRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_DELETE)));
         public ObservableCollection<Tables.Storage> Storages { get; set; } = new();
 
         private void CommandSkladEdit(object? obj)
@@ -91,7 +91,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     v.IsDBNull(3) ? null : v.GetString(3)
                                 ));
 
-                            if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Shelters.Last().PropertyChanged += ShelterChanged;
+                            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_UPDATE)) Storages.Last().PropertyChanged += ShelterChanged;
                         }
 
                     }
