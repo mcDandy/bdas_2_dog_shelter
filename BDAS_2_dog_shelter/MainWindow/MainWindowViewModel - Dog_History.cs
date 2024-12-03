@@ -1,5 +1,6 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Add.Dog_Historie;
 using BDAS_2_dog_shelter.Add.Hracka;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
@@ -38,7 +39,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandPesHistoryEdit(object? obj)
         {
-            HrackaAdd s = new HrackaAdd((Dog_History)obj);
+            Dog_Historie_Add s = new Dog_Historie_Add((Dog_History)obj);
             s.ShowDialog();
         }
 
@@ -48,9 +49,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 List<Dog_History> e = new List<Dog_History>();
                 foreach (Dog_History d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Dog_History shelter in e)
+                foreach (Dog_History history in e)
                 {
-                    Hracky.Remove(shelter);
+                    Historie.Remove(history);
                 }
             }
         }
@@ -62,14 +63,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Hracky.Add(((AddHrackaViewModel)s.DataContext).Hracka);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)) Hracky.Last().PropertyChanged += HrackaChanged;
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Hracky.Last().PropertyChanged += HrackaChanged;
             }
         }
 
         private void LoadPesHistory(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
@@ -93,7 +94,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private async void HrackaChanged(object? sender, PropertyChangedEventArgs e)
+        private async void HistorieChanged(object? sender, PropertyChangedEventArgs e)
         {
             Dog_History? dog = sender as Dog_History;
             using (OracleCommand cmd = con.CreateCommand())
@@ -118,7 +119,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
 
-                    cmd.CommandText = "INS_SET.IU_HRACKA";
+                    cmd.CommandText = "INS_SET.IU_HISTORIE_PSA";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
@@ -128,14 +129,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Hracky.CollectionChanged -= Hracka_CollectionChanged;
-                LoadHracky(permissions);
-                Hracky.CollectionChanged += Hracka_CollectionChanged;
+                Hracky.CollectionChanged -= DogHistory_CollectionChanged;
+                LoadPesHistory(permissions);
+                Hracky.CollectionChanged += DogHistory_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
         }
-        private async void Hracka_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private async void DogHistory_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             foreach (Dog_History dog in e.NewItems ?? new List<Dog_History>())
             {

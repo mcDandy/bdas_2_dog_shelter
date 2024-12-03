@@ -22,7 +22,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
 
             private void Ok()
             {
-                d.Nazev = name;
+                d. = name;
                 d.Pocet = pocet;
                 d.SkladID = sklad ?? 0;
                 d.id = iD;
