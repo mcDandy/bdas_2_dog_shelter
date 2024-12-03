@@ -128,9 +128,9 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Ulice" Binding="{Binding Street}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Číslo popisné" Binding="{Binding Cp}"/>
+                        <DataGridTextColumn Header="Číslo popisné" Binding="{Binding Number}"/>
                         <DataGridTextColumn Header="Město" Binding="{Binding City}" />
-                        <DataGridTextColumn Header="PSČ" Binding="{Binding PSC}" />
+                        <DataGridTextColumn Header="PSČ" Binding="{Binding Psc}" />
 
                     </DataGrid.Columns>
                 </DataGrid>
