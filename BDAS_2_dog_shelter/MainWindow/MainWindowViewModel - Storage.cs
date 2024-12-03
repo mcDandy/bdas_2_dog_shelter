@@ -1,6 +1,7 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
 using BDAS_2_dog_shelter.Add.Shelter;
+using BDAS_2_dog_shelter.Add.Storage;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
@@ -33,11 +34,11 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdSAdd => uadCMD ??= new RelayCommand(CommandSkladAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
         public ICommand cmdSRm => urmCMD ??= new RelayCommand<object>(CommandSkladRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
         public ICommand cmdSEd => uedCMD ??= new RelayCommand<object>(CommandSkladEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
-        public ObservableCollection<Storage> Storages { get; set; } = new();
+        public ObservableCollection<Tables.Storage> Storages { get; set; } = new();
 
         private void CommandSkladEdit(object? obj)
         {
-            StorageAdd s = new StorageAdd((Storage)obj);
+            StorageAdd s = new StorageAdd((Tables.Storage)obj);
             s.ShowDialog();
         }
 
@@ -45,9 +46,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_DELETE))
             {
-                List<Storage> e = new List<Storage>();
-                foreach (Storage d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Storage shelter in e)
+                List<Tables.Storage> e = new List<Tables.Storage>();
+                foreach (Tables.Storage d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Tables.Storage shelter in e)
                 {
                     Storages.Remove(shelter);
                 }
@@ -75,7 +76,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_utulek,nazev,telefon,EMAIL,id_adresa from utulek";
+                        cmd.CommandText = "select id_utulek,nazev,telefon,EMAIL,id_adresa from sklad";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
@@ -103,17 +104,17 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private async void ShelterChanged(object? sender, PropertyChangedEventArgs e)
+        private async void StorageChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Shelter? dog = sender as Shelter;
+            Tables.Storage? dog = sender as Tables.Storage;
             using (OracleCommand cmd = con.CreateCommand())
             {
 
-                    await SaveUtulek(dog);
+                    await SaveStorage(dog);
             }
         }
 
-        private async Task SaveUtulek(Shelter utulek)
+        private async Task SaveStorage(Tables.Storage utulek)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             try
@@ -123,38 +124,37 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.ID is null ? new("V_ID_UTULEK", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Decimal, utulek.ID, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_TELEFON", OracleDbType.Varchar2, utulek.Telephone, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_ADRESA", OracleDbType.Decimal, utulek.AddressID, ParameterDirection.Input));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_SKLAD", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_SKLAD", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_KAPACITA", OracleDbType.Decimal, utulek.Capacity,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_NAZEV_SKLADU", OracleDbType.Varchar2, utulek.Name, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_TYP_SKLADU", OracleDbType.Varchar2, utulek.Type, ParameterDirection.Input));
                     
-                    cmd.CommandText = "INS_SET.IU_UTULEK";
+                    cmd.CommandText = "INS_SET.IU_SKLAD";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
 
                 }
             }
             catch (Exception ex)//something went wrong
             {
-                Shelters.CollectionChanged -= Utulek_CollectionChanged;
+                Shelters.CollectionChanged -= Sklad_CollectionChanged;
                 LoadShelters(permissions);
-                Shelters.CollectionChanged += Utulek_CollectionChanged;
+                Shelters.CollectionChanged += Sklad_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
         }
-        private async void Utulek_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private async void Sklad_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (Shelter dog in e.NewItems ?? new List<Storage>())
+            foreach (Tables.Storage dog in e.NewItems ?? new List<Tables.Storage>())
             {
-                await SaveUtulek(dog);
+                await SaveStorage(dog);
 
             }
 
-            foreach (Shelter dog in e.OldItems ?? new List<Storage>())
+            foreach (Tables.Storage dog in e.OldItems ?? new List<Tables.Storage>())
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
@@ -164,8 +164,8 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("ID", dog.ID));
-                        cmd.CommandText = "delete from utulek where id_utulek=:ID";
+                        cmd.Parameters.Add(new("ID", dog.id));
+                        cmd.CommandText = "delete from sklad where id_usklad=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 
@@ -173,9 +173,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Shelters.CollectionChanged -= Utulek_CollectionChanged;
-                        LoadDogs(permissions);
-                        Shelters.CollectionChanged += Utulek_CollectionChanged;
+                        Storages.CollectionChanged -= Sklad_CollectionChanged;
+                        LoadStorages(permissions);
+                        Storages.CollectionChanged += Sklad_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }

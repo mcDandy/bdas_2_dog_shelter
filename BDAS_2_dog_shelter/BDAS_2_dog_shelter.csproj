@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Add\Sklad\AdressAdd.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Add\Address\AdressAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
