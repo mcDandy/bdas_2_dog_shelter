@@ -76,20 +76,19 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_utulek,nazev,telefon,EMAIL,id_adresa from sklad";
+                        cmd.CommandText = "select id_utulek,kapacita,nazev_skladu,typ_skladu from sklad";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
                         {
 
-                            Shelters.Add
+                            Storages.Add
                                 (
                                 new(
                                     v.GetInt32(0),
-                                    v.GetString(1),
+                                    v.GetInt32(1),
                                     v.GetString(2),
-                                    v.IsDBNull(3) ? null : v.GetString(3),
-                                    v.GetInt32(4)
+                                    v.IsDBNull(3) ? null : v.GetString(3)
                                 ));
 
                             if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Shelters.Last().PropertyChanged += ShelterChanged;
