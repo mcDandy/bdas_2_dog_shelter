@@ -82,6 +82,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Adresses.Clear();
             LoadAdresses(permissions);
             Adresses.CollectionChanged += Adress_CollectionChanged;
+            Hracky.CollectionChanged -= Hracka_CollectionChanged;
+            Hracky.Clear();
+            LoadHracky(permissions);
+            Hracky.CollectionChanged += Hracka_CollectionChanged;
         }
     }
 }
