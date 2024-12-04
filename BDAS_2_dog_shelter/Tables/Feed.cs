@@ -1,46 +1,78 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BDAS_2_dog_shelter.Tables
 {
     public class Feed : INotifyPropertyChanged, INotifyPropertyChanging
     {
-        public int? id;
-        private string feed_name;
+        // Properties for the columns in the KRMIVO table
+        public int? IdKrmivo { get; set; }
+
+        private string feedName;
         public string FeedName
         {
-            get => feed_name;
+            get => feedName;
             set
             {
-                if (feed_name != value)
+                if (feedName != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(FeedName)));
-                    feed_name = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FeedName)));
-                }
-            }
-        }
-        private int count_feed;
-        public int CountFeed
-        {
-            get => count_feed;
-            set
-            {
-                if (count_feed != value)
-                {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(CountFeed)));
-                    count_feed = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CountFeed)));
+                    OnPropertyChanging(nameof(FeedName));
+                    feedName = value;
+                    OnPropertyChanged(nameof(FeedName));
                 }
             }
         }
 
-        public Feed() { feed_name = ""; count_feed= 0; }
-        public event PropertyChangingEventHandler? PropertyChanging;
+        private int countFeed;
+        public int CountFeed
+        {
+            get => countFeed;
+            set
+            {
+                if (countFeed != value)
+                {
+                    OnPropertyChanging(nameof(CountFeed));
+                    countFeed = value;
+                    OnPropertyChanged(nameof(CountFeed));
+                }
+            }
+        }
+
+        private int idSklad;
+        public int IdSklad
+        {
+            get => idSklad;
+            set
+            {
+                if (idSklad != value)
+                {
+                    OnPropertyChanging(nameof(IdSklad));
+                    idSklad = value;
+                    OnPropertyChanged(nameof(IdSklad));
+                }
+            }
+        }
+
+        // Constructor
+        public Feed()
+        {
+            feedName = string.Empty;
+            countFeed = 0;
+            idSklad = 0; // Assuming a default value for idSklad
+        }
+
+        // PropertyChanged and PropertyChanging event support
         public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangingEventHandler? PropertyChanging;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+        }
     }
 }
