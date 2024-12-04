@@ -150,7 +150,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MemoryStream ms = new MemoryStream();
                     pe.Save(ms);
                     byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_IMAGE",OracleDbType.Blob,b, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_DOG_IMAGE",OracleDbType.Blob,b, ParameterDirection.Input);
                     // cmd.Parameters.Add(new("path"), dog.Obrazek.);
                     cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, DBNull.Value, ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, Path.GetFileName(dog.FileName), ParameterDirection.Input));
 
@@ -217,7 +217,7 @@ private void CommandAdd()
 {
     if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_INSERT))
     {
-        DogAdd da = new(new Dog());
+        DogAdd da = new(new Dog(),Dogs.ToList());
         if (da.ShowDialog() == true)
         {
                     //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
@@ -233,7 +233,7 @@ private void CommandEdit(Object o)
 {
     if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_UPDATE))
     {
-        DogAdd da = new(((IEnumerable)o).Cast<Dog>().First());
+        DogAdd da = new(((IEnumerable)o).Cast<Dog>().First(),Dogs.ToList());
         if (da.ShowDialog() == true)
         {
                     Dog d = ((AddDogViewModel)da.DataContext).Dog;
