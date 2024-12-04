@@ -17,9 +17,7 @@ namespace BDAS_2_dog_shelter.Tables
             {
                 if (id != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(ID)));
                     id = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ID)));
                 }
             }
         }
@@ -84,11 +82,6 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
 
-        public int V1 { get; }
-        public DateTime DateTime { get; }
-        public string V2 { get; }
-        public int V3 { get; }
-        public int V4 { get; }
 
         public Dog_History()
         {
@@ -98,11 +91,11 @@ namespace BDAS_2_dog_shelter.Tables
 
         public Dog_History(int v1, DateTime dateTime, string v2, int v3, int v4)
         {
-            V1 = v1;
-            DateTime = dateTime;
-            V2 = v2;
-            V3 = v3;
-            V4 = v4;
+            id = v1;
+            date_of_event = dateTime;
+            event_description = v2;
+            typid = v3;
+            dogId = v4;
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;
