@@ -110,7 +110,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private async void ReservationChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Adress? dog = sender as Adress;
+            Reservation? dog = sender as Reservation;
             using (OracleCommand cmd = con.CreateCommand())
             {
 
@@ -130,7 +130,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_REZERVACE", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_REZERVACE", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_DATUM_REZERVACE", OracleDbType.Date, utulek.DateOfReceipt,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_PREVZETI_PSA", OracleDbType.Date, utulek.DateOfTransfer, ParameterDirection.Input))
+                    cmd.Parameters.Add(new("V_PREVZETI_PSA", OracleDbType.Date, utulek.DateOfTransfer, ParameterDirection.Input));
                     cmd.CommandText = "INS_SET.IU_REZERVACE";
 
                     //Execute the command and use DataReader to display the data

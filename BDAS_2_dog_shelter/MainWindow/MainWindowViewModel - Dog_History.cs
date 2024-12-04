@@ -56,7 +56,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Historie.Last().PropertyChanged += HistoryChanged;
             }
         }
-        private void LoadHistory(ulong permissions)
+        internal void LoadHistory(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT))
