@@ -78,12 +78,12 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Name}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="telefon" Binding="{Binding Telefon}"/>
-                        <DataGridTextColumn Header="Email" Binding="{Binding email}" />
+                        <DataGridTextColumn Header="telefon" Binding="{Binding Telephone}"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
                         <DataGridTemplateColumn Header="Útulek">
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
+                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=UtulekAdresa}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
 

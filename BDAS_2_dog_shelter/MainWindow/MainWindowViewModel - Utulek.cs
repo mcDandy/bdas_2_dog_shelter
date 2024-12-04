@@ -35,6 +35,8 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdUEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
         public ObservableCollection<Shelter> Shelters { get; set; } = new();
 
+        public Adress UtulekAdresa => Adresses.Where(a=> a.id == )
+
         private void CommandUtulekEdit(object? obj)
         {
             ShelterAdd s = new(((IEnumerable)obj).Cast<Shelter>().First());
@@ -53,41 +55,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-        public List<Adress> Adresa
-        {
-            get
-            {
-                if (addr == null)
-                {
-                    addr = [];
-
-                    OracleConnection con = new OracleConnection(ConnectionString);
-                    if (con.State == System.Data.ConnectionState.Closed) con.Open();
-                    using (OracleCommand cmd = con.CreateCommand())
-                    {
-                        try
-                        {
-                            cmd.CommandText = "select id_adresa,street,city,psc,number from ADRESA";
-                            OracleDataReader v = cmd.ExecuteReader();
-                            if (v.HasRows)
-                            {
-                                while (v.Read())
-                                {
-                                    addr.Add(new(v.GetInt32(0), v.GetString(1),v.GetString(2),v.GetString(3),v.GetInt32(4)));
-                                }
-                            }
-                        }
-                        catch (Exception ex)//something went wrong
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-
-                }
-                return addr;
-            }
-        }
-        private List<Adress> addr;
+   
 
 
         private void CommandUtulekAdd()
