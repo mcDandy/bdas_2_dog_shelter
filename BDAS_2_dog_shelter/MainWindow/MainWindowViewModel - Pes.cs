@@ -65,9 +65,22 @@ namespace BDAS_2_dog_shelter.MainWindow
                             v.IsDBNull(13) ? null : v.GetInt32(13))
                             );
 
-                        if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
+                        if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_UPDATE)) Dogs.Last().PropertyChanged += DogChanged;
                     }
-
+                    List<Dog> DogForest = Dogs.Select<Dog,Dog> 
+                        (a => { 
+                            a.Matka = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault(); 
+                            a.Otec = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault();
+                            a.Utulek = Shelters.Where(d => d.ID == a.UtulekId).FirstOrDefault();
+                            return a; 
+                        }).ToList();
+                    Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                    Dogs.Clear();
+                    foreach (var item in DogForest)
+                    {
+                        Dogs.Add(item);
+                    }
+                    Dogs.CollectionChanged += Dogs_CollectionChanged;
                 }
                 catch (Exception ex)//something went wrong
                 {
@@ -130,7 +143,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.CommandType = CommandType.StoredProcedure;
                     // Assign id to the department number 50 
 
-                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_ID_IMAGE", OracleDbType.Int32, DBNull.Value, ParameterDirection.InputOutput) : new("V_ID_IMAGE", OracleDbType.Int32, dog.Obrazek_Id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_ID_IMAGE", OracleDbType.Decimal, DBNull.Value, ParameterDirection.InputOutput) : new("V_ID_IMAGE", OracleDbType.Decimal, dog.Obrazek_Id, System.Data.ParameterDirection.InputOutput));
                     // cmd.Parameters.Add(new("imgid", dog.Obrazek.));
                     PngBitmapEncoder pe = new PngBitmapEncoder();
                     pe.Frames.Add(BitmapFrame.Create(dog.Obrazek));
@@ -170,7 +183,9 @@ namespace BDAS_2_dog_shelter.MainWindow
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
                     dog.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
-
+                    dog.Otec = Dogs.Where(g => g.ID == dog.OtecId).FirstOrDefault();
+                    dog.Matka = Dogs.Where(g => g.ID == dog.MatkaId).FirstOrDefault();
+                    dog.Utulek = Shelters.Where(g => g.ID == dog.UtulekId).FirstOrDefault();
                 }
             }
             catch (Exception ex)//something went wrong
@@ -205,8 +220,10 @@ private void CommandAdd()
         DogAdd da = new(new Dog());
         if (da.ShowDialog() == true)
         {
-            //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-            Dogs.Add(((AddDogViewModel)da.DataContext).Dog);
+                    //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                    Dog d = ((AddDogViewModel)da.DataContext).Dog;
+
+                    Dogs.Add(((AddDogViewModel)da.DataContext).Dog);
             if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
         }
     }
@@ -219,9 +236,12 @@ private void CommandEdit(Object o)
         DogAdd da = new(((IEnumerable)o).Cast<Dog>().First());
         if (da.ShowDialog() == true)
         {
-            //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                    Dog d = ((AddDogViewModel)da.DataContext).Dog;
+                    d.Otec = Dogs.Where(g => g.ID == d.OtecId).FirstOrDefault();
+                    d.Matka = Dogs.Where(g => g.ID == d.MatkaId).FirstOrDefault();
+                    d.Utulek = Shelters.Where(g => g.ID == d.UtulekId).FirstOrDefault();
 
-        }
+                }
     }
 }
 

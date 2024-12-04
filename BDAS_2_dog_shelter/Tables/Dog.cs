@@ -241,5 +241,33 @@ namespace BDAS_2_dog_shelter.Tables
         {
             return $"{Name} ({Age})";
         }
+
+        private Dog? _otec;
+        public Dog? Otec
+        {
+            get => _otec;
+            set
+            {
+                if (_otec != value)
+                {
+                    Debug.WriteLine($"{_otec} => ${value} ");
+                    _otec = value;                }
+            }
+        }
+        private Dog? _matka;
+        public Dog? Matka
+        {
+            get => _matka;
+            set
+            {
+                Debug.WriteLine($"{_matkaID} => ${value} ");
+                if (_matka != value)
+                {
+                    _matka = value;
+                }
+            }
+        }
+
+        public Shelter? Utulek { get; set; }
     }
 }

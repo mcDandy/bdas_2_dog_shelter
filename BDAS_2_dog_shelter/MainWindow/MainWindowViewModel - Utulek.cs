@@ -35,8 +35,6 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdUEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
         public ObservableCollection<Shelter> Shelters { get; set; } = new();
 
-        public Adress UtulekAdresa => Adresses.Where(a=> a.id == )
-
         private void CommandUtulekEdit(object? obj)
         {
             ShelterAdd s = new(((IEnumerable)obj).Cast<Shelter>().First());
