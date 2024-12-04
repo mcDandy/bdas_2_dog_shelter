@@ -37,13 +37,13 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandUtulekEdit(object? obj)
         {
-            ShelterAdd s = new ShelterAdd((Shelter)obj);
+            ShelterAdd s = new(((IEnumerable)obj).Cast<Shelter>().First());
             s.ShowDialog();
         }
 
         private void CommandUtulekRemove(object? SelectedShelters)
         {
-            if ((permissions & (long)Permissions.PES_DELETE) > 0)
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_DELETE))
             {
                 List<Shelter> e = new List<Shelter>();
                 foreach (Shelter d in (IEnumerable)SelectedShelters) e.Add(d);

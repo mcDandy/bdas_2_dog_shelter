@@ -200,7 +200,7 @@ private void CommandShowTree(object? obj)
 
 private void CommandAdd()
 {
-    if ((permissions & (long)Permissions.PES_INSERT) > 0)
+    if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_INSERT))
     {
         DogAdd da = new(new Dog());
         if (da.ShowDialog() == true)
@@ -214,7 +214,7 @@ private void CommandAdd()
 
 private void CommandEdit(Object o)
 {
-    if ((permissions & (long)Permissions.PES_UPDATE) > 0)
+    if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_UPDATE))
     {
         DogAdd da = new(((IEnumerable)o).Cast<Dog>().First());
         if (da.ShowDialog() == true)
