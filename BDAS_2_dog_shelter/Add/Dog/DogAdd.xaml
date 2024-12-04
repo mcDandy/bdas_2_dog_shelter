@@ -8,15 +8,15 @@
         xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation"
         xmlns:converters="clr-namespace:BDAS_2_dog_shelter.Conversion"
         mc:Ignorable="d"
-        Title="DogAdd" Height="500" Width="300">
+        Title="DogAdd" Height="465" Width="205">
     <Window.Resources>
         <converters:SecondItemConverter x:Key="SecondItemConverter"/>
         <converters:StringToIntConverter x:Key="StringToIntConverter"/>
     </Window.Resources>
     <Grid>
-        <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop" />
-        <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="40,429,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}" Click="buttonOK_Click" RenderTransformOrigin="0.142,2.348" />
-        <Button x:Name="buttonCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="176,424,0,0" VerticalAlignment="Top" />
+        <Image x:Name="image" HorizontalAlignment="Left" Source="/dog.png" Height="100" Margin="48,10,0,0" VerticalAlignment="Top" Width="100" AllowDrop="True" Drop="image_Drop" />
+        <Button x:Name="buttonOK" IsCancel="False" Content="OK" HorizontalAlignment="Left" Margin="40,414,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}" Click="buttonOK_Click" RenderTransformOrigin="0.142,2.348" />
+        <Button x:Name="buttonCancel" IsCancel="True" Content="Cancel" HorizontalAlignment="Left" Margin="129,414,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="name" HorizontalAlignment="Left" Margin="49,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <TextBox.Text>
                 <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
@@ -39,7 +39,7 @@
         </TextBox>
         <Label x:Name="label" Content="name" HorizontalAlignment="Left" Margin="0,132,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="age" HorizontalAlignment="Left" Margin="3,155,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="bodycolor" HorizontalAlignment="Left" Margin="49,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" >
+        <TextBox x:Name="bodycolor" HorizontalAlignment="Left" Margin="48,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" >
             <TextBox.Text>
                 <Binding Path="BodyColor" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                     <Binding.ValidationRules>
