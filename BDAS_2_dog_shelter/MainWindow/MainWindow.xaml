@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.MainWindow" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-  
 
-        <TabControl>
-            <TabItem Header="Dog" Name="tabDog" Visibility="{Binding AnyDogPerms}">
-                <Grid>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    </Window.Resources>
+    
+    <TabControl>
+        <TabItem Header="Dog" Name="tabDog" Visibility="{Binding AnyDogPerms, Converter={StaticResource BoolToVisConverter}}">
+            <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*"></ColumnDefinition>
                         <ColumnDefinition Width="5*"></ColumnDefinition>
@@ -158,7 +161,7 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="skladDataGrid" CanUserAddRows="False"
-        ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+    ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
@@ -178,6 +181,34 @@
 
             </Grid>
         </TabItem>
+
+        <TabItem Header="Sklad" Name="tabDHistory" Visibility="{Binding AnyDogPerms}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="dhDataGrid" CanUserAddRows="False"
+    ItemsSource="{Binding Path=Historie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dhDataGrid_SelectionChanged">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Kapacita" Binding="{Binding Capacity}"/>
+                    <DataGridTextColumn Header="Popis" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonDOGHAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHistoryAdd}"/>
+                <Button x:Name="buttonDOGHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryEd}"/>
+                    <Button x:Name="buttonDOGHRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryRm}"/>
+                <Button x:Name="buttonDOGH1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                <Button x:Name="buttonDOGH2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+            </StackPanel>
+
+        </Grid>
+    </TabItem>
     </TabControl>
 
 </Window>
