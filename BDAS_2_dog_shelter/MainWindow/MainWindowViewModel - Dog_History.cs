@@ -23,59 +23,49 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand HistoryadCMD;
         private RelayCommand<object> HistoryrmCMD;
         private RelayCommand<object> HistoryedCMD;
-        public ICommand cmdHistoryAdd => HistoryadCMD ??= new RelayCommand(CommandDogHistoryAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
-        public ICommand cmdHistoryRm => HistoryrmCMD ??= new RelayCommand<object>(CommandPesHistoryRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)));
-        public ICommand cmdHistoryEd => HistoryedCMD ??= new RelayCommand<object>(CommandPesHistoryEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)));
+        public ICommand cmdHistoryAdd => HistoryadCMD ??= new RelayCommand(CommandHistoryAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
+        public ICommand cmdHistoryRm => HistoryrmCMD ??= new RelayCommand<object>(CommandHistoryRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)));
+        public ICommand cmdHistoryEd => HistoryedCMD ??= new RelayCommand<object>(CommandHistoryEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)));
 
         public ObservableCollection<Dog_History> Historie { get; set; } = new();
 
-        private void CommandPesHistoryEdit(object? obj)
+        private void CommandHistoryEdit(object? obj)
         {
-            if (obj is Dog_History history)
-            {
-                Dog_Historie_Add editWindow = new Dog_Historie_Add(history);
-                editWindow.ShowDialog();
-            }
+            Dog_Historie_Add s = new Dog_Historie_Add((Dog_History)obj);
+            s.ShowDialog();
         }
-
-        private void CommandPesHistoryRemove(object? SelectedShelters)
+        private void CommandHistoryRemove(object? SelectedShelters)
         {
             if ((permissions & (long)Permissions.HISTORIE_PSA_DELETE) > 0)
             {
-                if (SelectedShelters is IEnumerable<Dog_History> selectedHistories)
+                List<Dog_History> e = new List<Dog_History>();
+                foreach (Dog_History d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Dog_History history in e)
                 {
-                    foreach (var history in selectedHistories)
-                    {
-                        Historie.Remove(history);
-                    }
+                    Historie.Remove(history);
                 }
             }
         }
-
-        private void CommandDogHistoryAdd()
+        private void CommandHistoryAdd()
         {
-            Dog_Historie_Add addWindow = new Dog_Historie_Add();
-            if (addWindow.ShowDialog() == true)
+            Dog_Historie_Add s = new Dog_Historie_Add();
+            if (s.ShowDialog() == true)
             {
-                Dog_History newHistory = ((AddDogHistorieViewModel)addWindow.DataContext).Historie;
-                Historie.Add(newHistory);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE))
-                {
-                    newHistory.PropertyChanged += HistorieChanged;
-                }
+                //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
+                Historie.Add(((AddDogHistorieViewModel)s.DataContext).Historie);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Historie.Last().PropertyChanged += HistoryChanged;
             }
         }
-
-        private void LoadPesHistory(ulong permissions)
+        private void LoadHistory(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
                     try
                     {
-                        cmd.CommandText = "SELECT ID_HISTORIE, DATUM_UDALOSTI, POPIS_UDALOSTI, TYP_UDALOSTI_ID_TYPU, ID_PSA FROM HISTORIE_PSA;";
+                        cmd.CommandText = "SELECT ID_HISTORIE, DATUM_UDALOSTI, POPIS_UDALOSTI, TYP_UDALOSTI_ID_TYPU, ID_PSA FROM HISTORIE_PSA";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
@@ -92,17 +82,17 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-
-        private void HistorieChanged(object? sender, PropertyChangedEventArgs e)
+        private async void HistoryChanged(object? sender, PropertyChangedEventArgs e)
         {
             Dog_History? history = sender as Dog_History;
-            if (history != null)
+            using (OracleCommand cmd = con.CreateCommand())
             {
-                _ = Savehistory(history);
+
+                await SaveHistory(history);
             }
         }
 
-        private async Task Savehistory(Dog_History history)
+        private async Task SaveHistory(Dog_History history)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             try
@@ -124,15 +114,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                LoadPesHistory(permissions);
+                LoadHistory(permissions);
             }
         }
-
         private async void DogHistory_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             foreach (Dog_History history in e.NewItems ?? Array.Empty<Dog_History>())
             {
-                await Savehistory(history);
+                await SaveHistory(history);
             }
 
             foreach (Dog_History history in e.OldItems ?? Array.Empty<Dog_History>())
@@ -148,10 +137,11 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        LoadPesHistory(permissions);
+                        LoadHistory(permissions);
                     }
                 }
             }
         }
     }
-}
+
+    }
