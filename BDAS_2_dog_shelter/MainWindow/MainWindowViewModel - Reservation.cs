@@ -1,6 +1,7 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Adress;
 using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Add.Reservation;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
@@ -28,51 +29,51 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-        private RelayCommand aadCMD;
-        private RelayCommand<object> armCMD;
-        private RelayCommand<object> aedCMD;
-        public ICommand cmdAAdd => aadCMD ??= new RelayCommand(CommandAdressAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
-        public ICommand cmdA0Rm => armCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
-        public ICommand cmdAEd => aedCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
-        public ObservableCollection<Adress> Adresses { get; set; } = new();
+        private RelayCommand radCMD;
+        private RelayCommand<object> rrmCMD;
+        private RelayCommand<object> redCMD;
+        public ICommand cmdRAdd => radCMD ??= new RelayCommand(CommandRezervaceAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT)));
+        public ICommand cmdR0Rm => armCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)));
+        public ICommand cmdREd => aedCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)));
+        public ObservableCollection<Reservation> Rezervace { get; set; } = new();
 
-        private void CommandAdressEdit(object? obj)
+        private void CommandRezervaceEdit(object? obj)
         {
-            AdressAdd s = new AdressAdd((Adress)obj);
+            ReservationAdd s = new ReservationAdd((Tables.Reservation)obj);
             s.ShowDialog();
         }
 
-        private void CommandAdressRemove(object? SelectedShelters)
+        private void CommandRezervaceRemove(object? SelectedShelters)
         {
             if ((Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.ADRESA_DELETE)))
             {
-                List<Adress> e = new List<Adress>();
-                foreach (Adress d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Adress shelter in e)
+                List<Reservation> e = new List<Reservation>();
+                foreach (Reservation d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Reservation shelter in e)
                 {
-                    Adresses.Remove(shelter);
+                    Rezervace.Remove(shelter);
                 }
             }
         }
         
 
 
-        private void CommandAdressAdd()
+        private void CommandRezervaceAdd()
         {
-            AdressAdd s = new AdressAdd();
+            ReservationAdd s = new ReservationAdd();
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Adresses.Add(((AddAdressViewModel)s.DataContext).Adresa);
-                if ((Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)))
-                    Adresses.Last().PropertyChanged += AdressChanged;
+                if ((Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT)))
+                    Adresses.Last().PropertyChanged += ReservationChanged;
             }
         }
 
-        private void LoadAdresses(ulong permissions)
+        private void LoadReservations(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_SELECT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
@@ -95,7 +96,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 ));
 
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE))
-                                Adresses.Last().PropertyChanged += AdressChanged;
+                                Adresses.Last().PropertyChanged += ReservationChanged;
                         }
 
                     }
@@ -107,17 +108,17 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private async void AdressChanged(object? sender, PropertyChangedEventArgs e)
+        private async void ReservationChanged(object? sender, PropertyChangedEventArgs e)
         {
             Adress? dog = sender as Adress;
             using (OracleCommand cmd = con.CreateCommand())
             {
 
-                    await SaveAdress(dog);
+                    await SaveReservation(dog);
             }
         }
 
-        private async Task SaveAdress(Adress utulek)
+        private async Task SaveReservation(Reservation utulek)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             try
@@ -127,13 +128,10 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ADRESA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_ADRESA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_ULICE", OracleDbType.Varchar2, utulek.Street,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_MESTO", OracleDbType.Varchar2, utulek.City, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_PSC", OracleDbType.Varchar2, utulek.Psc, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_CISLOPOPISNE", OracleDbType.Decimal, utulek.Number, ParameterDirection.Input));
-                    
-                    cmd.CommandText = "INS_SET.IU_ADRESA";
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_REZERVACE", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_REZERVACE", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_DATUM_REZERVACE", OracleDbType.Date, utulek.DateOfReceipt,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_PREVZETI_PSA", OracleDbType.Date, utulek.DateOfTransfer, ParameterDirection.Input))
+                    cmd.CommandText = "INS_SET.IU_REZERVACE";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
@@ -143,22 +141,22 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Adresses.CollectionChanged -= Adress_CollectionChanged;
-                LoadAdresses(permissions);
-                Adresses.CollectionChanged += Adress_CollectionChanged;
+                Rezervace.CollectionChanged -= Reservation_CollectionChanged;
+                LoadReservations(permissions);
+                Rezervace.CollectionChanged += Reservation_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
         }
-        private async void Adress_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private async void Reservation_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (Adress dog in e.NewItems ?? new List<Adress>())
+            foreach (Reservation dog in e.NewItems ?? new List<Reservation>())
             {
-                await SaveAdress(dog);
+                await SaveReservation(dog);
 
             }
 
-            foreach (Adress dog in e.OldItems ?? new List<Adress>())
+            foreach (Reservation dog in e.OldItems ?? new List<Reservation>())
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
@@ -169,7 +167,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                         // Assign id to the department number 50 
                         cmd.Parameters.Add(new("ID", dog.id));
-                        cmd.CommandText = "delete from adresa where id_adresa=:ID";
+                        cmd.CommandText = "delete from rezervace where id_rezervace=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 
@@ -177,9 +175,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Adresses.CollectionChanged -= Adress_CollectionChanged;
-                        LoadAdresses(permissions);
-                        Adresses.CollectionChanged += Adress_CollectionChanged;
+                        Rezervace.CollectionChanged -= Reservation_CollectionChanged;
+                        LoadReservations(permissions);
+                        Rezervace.CollectionChanged += Reservation_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
