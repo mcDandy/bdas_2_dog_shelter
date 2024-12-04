@@ -185,7 +185,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     dog.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
                     dog.Otec = Dogs.Where(g => g.ID == dog.OtecId).FirstOrDefault();
                     dog.Matka = Dogs.Where(g => g.ID == dog.MatkaId).FirstOrDefault();
-                    dog.Utulek = Shelters.Where(g => g.ID == dog.UtulekId).FirstOrDefault();
+                    dog.Utulek = Shelters.Where(g => g.ID == dog.UtulekId).FirstOrDefault(); //TODO: MAJTEL, KARANTENA
                 }
             }
             catch (Exception ex)//something went wrong

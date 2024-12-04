@@ -31,7 +31,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         public DateTime Pocet { get => pocet??DateTime.Now; set => pocet = value; }
         public int? ID { get => iD; set => iD = value; }
         public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public Tables.Dog_History historie => d;
+        public Tables.Dog_History Historie => d;
 
         public AddDogHistorieViewModel(Tables.Dog_History d)
         {

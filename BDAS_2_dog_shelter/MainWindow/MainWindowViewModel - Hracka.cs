@@ -163,7 +163,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Hracky.CollectionChanged -= Hracka_CollectionChanged;
-                        LoadDogs(permissions);
+                        LoadHracky(permissions);
                         Hracky.CollectionChanged += Hracka_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
