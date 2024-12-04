@@ -6,7 +6,6 @@ using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,16 +13,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using static BDAS_2_dog_shelter.Secrets;
-
 
 namespace BDAS_2_dog_shelter.MainWindow
 {
@@ -35,35 +26,43 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdHistoryAdd => HistoryadCMD ??= new RelayCommand(CommandDogHistoryAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
         public ICommand cmdHistoryRm => HistoryrmCMD ??= new RelayCommand<object>(CommandPesHistoryRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)));
         public ICommand cmdHistoryEd => HistoryedCMD ??= new RelayCommand<object>(CommandPesHistoryEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)));
+
         public ObservableCollection<Dog_History> Historie { get; set; } = new();
 
         private void CommandPesHistoryEdit(object? obj)
         {
-            Dog_Historie_Add s = new Dog_Historie_Add((Dog_History)obj);
-            s.ShowDialog();
+            if (obj is Dog_History history)
+            {
+                Dog_Historie_Add editWindow = new Dog_Historie_Add(history);
+                editWindow.ShowDialog();
+            }
         }
 
         private void CommandPesHistoryRemove(object? SelectedShelters)
         {
             if ((permissions & (long)Permissions.HISTORIE_PSA_DELETE) > 0)
             {
-                List<Dog_History> e = new List<Dog_History>();
-                foreach (Dog_History d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Dog_History history in e)
+                if (SelectedShelters is IEnumerable<Dog_History> selectedHistories)
                 {
-                    Historie.Remove(history);
+                    foreach (var history in selectedHistories)
+                    {
+                        Historie.Remove(history);
+                    }
                 }
             }
         }
 
         private void CommandDogHistoryAdd()
         {
-            Dog_Historie_Add s = new Dog_Historie_Add();
-            if (s.ShowDialog() == true)
+            Dog_Historie_Add addWindow = new Dog_Historie_Add();
+            if (addWindow.ShowDialog() == true)
             {
-                //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Historie.Add(((AddDogHistorieViewModel)s.DataContext).Historie);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Historie.Last().PropertyChanged += HistorieChanged;
+                Dog_History newHistory = ((AddDogHistorieViewModel)addWindow.DataContext).Historie;
+                Historie.Add(newHistory);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE))
+                {
+                    newHistory.PropertyChanged += HistorieChanged;
+                }
             }
         }
 
@@ -74,102 +73,82 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
-                    try
+                    cmd.CommandText = "SELECT ID_HISTORIE, DATUM_UDALOSTI, POPIS_UDALOSTI, TYP_UDALOSTI_ID_TYPU, ID_PSA FROM HISTORIE_PSA;";
+
+                    using (OracleDataReader reader = cmd.ExecuteReader())
                     {
-                        cmd.CommandText = "select id_hracka,nazev,pocet,id_sklad from HRACKA";
-                        OracleDataReader v = cmd.ExecuteReader();
-                        if (v.HasRows)
+                        while (reader.Read())
                         {
-                            while (v.Read())
+                            Historie.Add(new Dog_History
                             {
-                                Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
-                            }
+                                ID = reader.GetInt32(0),
+                                DateOfEvent = reader.GetDateTime(1),
+                                EventDescription = reader.GetString(2),
+                                TypeId = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
+                                DogId = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4)
+                            });
                         }
-                    }
-                    catch (Exception ex)//something went wrong
-                    {
-                        MessageBox.Show(ex.Message);
                     }
                 }
             }
         }
 
-        private async void HistorieChanged(object? sender, PropertyChangedEventArgs e)
+        private void HistorieChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Dog_History? dog = sender as Dog_History;
-            using (OracleCommand cmd = con.CreateCommand())
+            Dog_History? history = sender as Dog_History;
+            if (history != null)
             {
-
-                //await SaveHracka(dog);
+                _ = Savehistory(history);
             }
         }
 
-        private async Task Savehistory(Dog_History utulek)
+        private async Task Savehistory(Dog_History history)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             try
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
-
                     cmd.BindByName = true;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_HISTORIE", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HISTORIE", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_DATUM_UDALOSTI", OracleDbType.Date, utulek.DateOfEvent, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POPIS_UDALOSTI", OracleDbType.Varchar2, utulek.EventDescription, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("v_typ_udalosti_id_typu".ToUpper(), OracleDbType.Decimal, utulek.typid, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("id_psa".ToUpper(), OracleDbType.Decimal, utulek.typid, ParameterDirection.Input));
+                    cmd.CommandText = "INSERT_OR_UPDATE_HISTORIE_PSA"; // Replace this with your actual stored procedure
+                    cmd.Parameters.Add("V_ID_HISTORIE", OracleDbType.Decimal, history.ID ?? (object)DBNull.Value, ParameterDirection.InputOutput);
+                    cmd.Parameters.Add("V_DATUM_UDALOSTI", OracleDbType.Date, history.DateOfEvent, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_POPIS_UDALOSTI", OracleDbType.Varchar2, history.EventDescription, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_TYP_UDALOSTI_ID_TYPU", OracleDbType.Decimal, history.TypeId ?? (object)DBNull.Value, ParameterDirection.Input);
+                    cmd.Parameters.Add("ID_PSA", OracleDbType.Decimal, history.DogId ?? (object)DBNull.Value, ParameterDirection.Input);
 
-
-                    cmd.CommandText = "INS_SET.IU_HISTORIE_PSA";
-
-                    //Execute the command and use DataReader to display the data
-                    int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
-
+                    await cmd.ExecuteNonQueryAsync();
+                    history.ID = Convert.ToInt32(cmd.Parameters["V_ID_HISTORIE"].Value);
                 }
             }
-            catch (Exception ex)//something went wrong
+            catch (Exception ex)
             {
-                Historie.CollectionChanged -= DogHistory_CollectionChanged;
-                LoadPesHistory(permissions);
-                Historie.CollectionChanged += DogHistory_CollectionChanged;
                 MessageBox.Show(ex.Message);
-                return;
+                LoadPesHistory(permissions);
             }
         }
+
         private async void DogHistory_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach (Dog_History doghistory in e.NewItems ?? new List<Dog_History>())
+            foreach (Dog_History history in e.NewItems ?? Array.Empty<Dog_History>())
             {
-                await Savehistory(doghistory);
-
+                await Savehistory(history);
             }
 
-            foreach (Dog_History dog in e.OldItems ?? new List<Dog_History>())
+            foreach (Dog_History history in e.OldItems ?? Array.Empty<Dog_History>())
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
                     try
                     {
-                        if (con.State == ConnectionState.Closed) con.Open();
-                        cmd.BindByName = true;
-
-                        // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("ID", dog.id));
-                        cmd.CommandText = "delete from historie_psa where id_historie=:ID";
-                        //Execute the command and use DataReader to display the data
-                        int i = await cmd.ExecuteNonQueryAsync();
-
+                        cmd.CommandText = "DELETE FROM HISTORIE_PSA WHERE ID_HISTORIE = :ID";
+                        cmd.Parameters.Add("ID", OracleDbType.Decimal, history.ID, ParameterDirection.Input);
+                        await cmd.ExecuteNonQueryAsync();
                     }
-
-                    catch (Exception ex)//something went wrong
+                    catch (Exception ex)
                     {
-                        Hracky.CollectionChanged -= Hracka_CollectionChanged;
-                        LoadHracky(permissions);
-                        Hracky.CollectionChanged += Hracka_CollectionChanged;
                         MessageBox.Show(ex.Message);
-                        return;
+                        LoadPesHistory(permissions);
                     }
                 }
             }

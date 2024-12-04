@@ -1,44 +1,52 @@
 ﻿using System;
+using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
+using System.Threading.Tasks;
+using BDAS_2_dog_shelter.Tables;
 
-    using BDAS_2_dog_shelter.Tables;
-    using CommunityToolkit.Mvvm.Input;
-    using System.Windows.Input;
-    using System.Xml.Linq;
-using System.Windows;
 namespace BDAS_2_dog_shelter.Add.Dog_Historie
 {
-        internal class AddDogHistorieViewModel
-        {
-        private Tables.Dog_History d;
-        private string name;
-        private DateTime? pocet;
-        private int? iD;
-        private int? sklad;
-        RelayCommand okCommand;
+    internal class AddDogHistorieViewModel
+    {
+        private Dog_History historyEntry; // Instance historie psa
 
-        public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok);
+        // Příkaz pro potvrzení
+        private RelayCommand okCommand;
+
+        public ICommand OkCommand => okCommand ??= new RelayCommand(async () => await OkAsync(), CanExecuteOk);
 
         public delegate void OkHistorieAddEditDone();
         public event OkHistorieAddEditDone? OkClickFinished;
 
-        private void Ok()
+        // Asynchronní metoda pro vykonání příkazu
+        private async Task OkAsync()
         {
-            d.id = iD;
+            // Vyvolání události pro potvrzení vytvoření nebo úpravy historie psa
             OkClickFinished?.Invoke();
+
+            // Uložení změn (pokud je potřeba, můžete implementovat asynchronní logiku pro uložení)
+            // await SaveHistoryAsync(historyEntry);
         }
 
-        public string Nazev { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public DateTime Pocet { get => pocet??DateTime.Now; set => pocet = value; }
-        public int? ID { get => iD; set => iD = value; }
-        public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public Tables.Dog_History Historie => d;
-
-        public AddDogHistorieViewModel(Tables.Dog_History d)
+        // Podmínka pro aktivaci příkazu
+        private bool CanExecuteOk()
         {
-            Nazev = d.EventDescription;
-            this.Pocet = d.DateOfEvent;
-            ID = d.id;
-            SkladID = d.typid;
+            return !string.IsNullOrWhiteSpace(historyEntry.EventDescription) && historyEntry.DateOfEvent != default && historyEntry.TypeId.HasValue;
+        }
+
+        // Instance historie pro binding
+        public Dog_History Historie => historyEntry;
+
+        // Konstruktor pro inicializaci ViewModelu
+        public AddDogHistorieViewModel(Dog_History entry)
+        {
+            historyEntry = entry ?? throw new ArgumentNullException(nameof(entry)); // Ověření, že entry není null
+
+            // Zaregistrujte změny v historických datech
+            historyEntry.PropertyChanged += (s, e) =>
+            {
+                // Pokud došlo k změní v `Dog_History`, můžete provést další akce (např. aktualizaci UI)
+            };
         }
     }
 }
