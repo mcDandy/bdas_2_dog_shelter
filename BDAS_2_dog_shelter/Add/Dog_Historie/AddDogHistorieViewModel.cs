@@ -31,7 +31,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         // Podmínka pro aktivaci příkazu
         private bool CanExecuteOk()
         {
-            return !string.IsNullOrWhiteSpace(historyEntry.EventDescription) && historyEntry.DateOfEvent != default && historyEntry.TypeId.HasValue;
+            return !string.IsNullOrWhiteSpace(historyEntry.EventDescription) && historyEntry.DateOfEvent != default && historyEntry.EventDescription is not null;
         }
 
         // Instance historie pro binding

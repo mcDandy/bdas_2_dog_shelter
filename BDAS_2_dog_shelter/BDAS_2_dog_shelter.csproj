@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Add\Reservation\AddReservation.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Add\Sklad\StorageAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

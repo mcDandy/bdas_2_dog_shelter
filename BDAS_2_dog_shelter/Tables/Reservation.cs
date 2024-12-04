@@ -5,8 +5,8 @@ namespace BDAS_2_dog_shelter.Tables
     public class Reservation : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public int? id;
-        private string _date_of_receipt;
-        public string DateOfReceipt
+        private DateTime _date_of_receipt;
+        public DateTime DateOfReceipt
         {
             get => _date_of_receipt;
             set
@@ -19,8 +19,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private string _date_of_transfer;
-        public string DateOfTransfer
+        private DateTime _date_of_transfer;
+        public DateTime DateOfTransfer
         {
             get => _date_of_transfer;
             set
@@ -33,8 +33,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Reservation() { _date_of_receipt = ""; _date_of_transfer = ""; }
-        public Reservation(string dateofreceipt, string dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
+        public Reservation() { _date_of_receipt = DateTime.Now; _date_of_transfer = DateTime.Now; }
+        public Reservation(DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }
