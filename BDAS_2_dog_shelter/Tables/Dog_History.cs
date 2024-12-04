@@ -84,10 +84,25 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
 
+        public int V1 { get; }
+        public DateTime DateTime { get; }
+        public string V2 { get; }
+        public int V3 { get; }
+        public int V4 { get; }
+
         public Dog_History()
         {
             date_of_event = DateTime.Now;
             event_description = "";
+        }
+
+        public Dog_History(int v1, DateTime dateTime, string v2, int v3, int v4)
+        {
+            V1 = v1;
+            DateTime = dateTime;
+            V2 = v2;
+            V3 = v3;
+            V4 = v4;
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;

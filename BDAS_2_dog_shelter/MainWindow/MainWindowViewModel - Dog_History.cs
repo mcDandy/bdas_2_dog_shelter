@@ -69,25 +69,25 @@ namespace BDAS_2_dog_shelter.MainWindow
         private void LoadPesHistory(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT ID_HISTORIE, DATUM_UDALOSTI, POPIS_UDALOSTI, TYP_UDALOSTI_ID_TYPU, ID_PSA FROM HISTORIE_PSA;";
-
-                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    try
                     {
-                        while (reader.Read())
+                        cmd.CommandText = "SELECT ID_HISTORIE, DATUM_UDALOSTI, POPIS_UDALOSTI, TYP_UDALOSTI_ID_TYPU, ID_PSA FROM HISTORIE_PSA;";
+                        OracleDataReader v = cmd.ExecuteReader();
+                        if (v.HasRows)
                         {
-                            Historie.Add(new Dog_History
+                            while (v.Read())
                             {
-                                ID = reader.GetInt32(0),
-                                DateOfEvent = reader.GetDateTime(1),
-                                EventDescription = reader.GetString(2),
-                                TypeId = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3),
-                                DogId = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4)
-                            });
+                                Historie.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetString(2), v.GetInt32(3), v.GetInt32(4)));
+                            }
                         }
+                    }
+                    catch (Exception ex)//something went wrong
+                    {
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }
