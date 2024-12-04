@@ -18,7 +18,9 @@ namespace BDAS_2_dog_shelter.Add.Dog
 {
     internal partial class AddDogViewModel : ObservableObject
     {
-        public AddDogViewModel(Tables.Dog d) {
+        internal List<Tables.Dog> Psi;
+        public AddDogViewModel(Tables.Dog d, List<Tables.Dog> psi) {
+            Psi = psi;
             Name = d.Name;
             BodyColor = d.BodyColor;
             Duvod = d.DuvodPrijeti;
@@ -91,6 +93,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
                 return ulek;
             }
         }
+
         private List<Tuple<int?, string>> ulek;
 
         private int selectedUT;
@@ -99,6 +102,13 @@ namespace BDAS_2_dog_shelter.Add.Dog
             get => selectedUT;
             set => SetProperty(ref selectedUT, value); 
         }
+        private Tables.Dog selectedM;
+
+        public Tables.Dog SelectedM { 
+            get => selectedM;
+            set => SetProperty(ref selectedM, value); 
+        }
+
 
  
 
@@ -113,6 +123,9 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Dog.DatumPrijeti = Date??DateTime.Now;
             Dog.DuvodPrijeti = Duvod;
             Dog.FileName = Filename;
+            Dog.MatkaId = SelectedM?.ID;
+            Dog.OtecId = SelectedM?.ID;
+
             OkClickFinished?.Invoke();
         }
 
