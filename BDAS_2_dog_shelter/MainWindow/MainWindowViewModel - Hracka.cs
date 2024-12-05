@@ -38,7 +38,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandHrackaEdit(object? obj)
         {
-            HrackaAdd s = new HrackaAdd((Hracka)obj);
+            HrackaAdd s = new(((IEnumerable)o).Cast<Hracka>().First());
             s.ShowDialog();
         }
 

@@ -70,9 +70,8 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void EditFeed(object obj)
         {
-            if (obj is Feed feed)
-            {
-                Feed_Add editWindow = new Feed_Add(feed);
+            Feed feed = new(((IEnumerable)o).Cast<Feed>().First());
+            Feed_Add editWindow = new Feed_Add(feed);
                 editWindow.ShowDialog();
             }
         }

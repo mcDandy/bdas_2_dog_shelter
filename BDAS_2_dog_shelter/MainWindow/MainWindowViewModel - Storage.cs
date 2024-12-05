@@ -38,7 +38,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandSkladEdit(object? obj)
         {
-            StorageAdd s = new StorageAdd((Tables.Storage)obj);
+            StorageAdd da = new(((IEnumerable)o).Cast<Storage>().First());
             s.ShowDialog();
         }
 

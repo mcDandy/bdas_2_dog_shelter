@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -81,7 +82,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-
+        public Dog Pes { get; set; }
+        public string Typ {  get; set; }
 
         public Dog_History()
         {

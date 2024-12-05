@@ -31,7 +31,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandHistoryEdit(object? obj)
         {
-            Dog_Historie_Add s = new Dog_Historie_Add((Dog_History)obj);
+            Dog_Historie_Add da = new(((IEnumerable)o).Cast<Dog_History>().First(), Dogs.ToList());
             s.ShowDialog();
         }
         private void CommandHistoryRemove(object? SelectedShelters)
@@ -72,7 +72,22 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Historie.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetString(2), v.GetInt32(3), v.GetInt32(4)));
+
+                                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Dogs.Last().PropertyChanged += DogChanged;
                             }
+                            List<Dog_History> DogForest = Historie.Select<Dog_History, Dog_History>
+                                (a => {
+                                    a.Pes = Dogs.Where(d => d.ID == a.DogId).FirstOrDefault();
+                                   
+                                    return a;
+                                }).ToList();
+                            Historie.CollectionChanged -= DogHistory_CollectionChanged;
+                            Historie.Clear();
+                            foreach (var item in DogForest)
+                            {
+                                Historie.Add(item);
+                            }
+                            Historie.CollectionChanged += DogHistory_CollectionChanged;
                         }
                     }
                     catch (Exception ex)//something went wrong

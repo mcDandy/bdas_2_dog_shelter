@@ -38,7 +38,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandAdressEdit(object? obj)
         {
-            AdressAdd s = new AdressAdd((Adress)obj);
+            AdressAdd da = new(((IEnumerable)o).Cast<Adress>().First());
             s.ShowDialog();
         }
 

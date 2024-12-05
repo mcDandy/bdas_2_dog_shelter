@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,11 +18,11 @@ namespace BDAS_2_dog_shelter.DogTree
     /// <summary>
     /// Interakční logika pro DogEdit.xaml
     /// </summary>
-    public partial class DogEdit : Window
+    public partial class DogTree : Window
     {
-        public DogEdit()
+        public DogTree(Dog d)
         {
-            DataContext = new DogTreeViewModel();
+            DataContext = new DogTreeViewModel(d);
             InitializeComponent();
         }
     }

@@ -39,7 +39,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandRezervaceEdit(object? obj)
         {
-            ReservationAdd s = new ReservationAdd((Tables.Reservation)obj);
+            ReservationAdd s = new(((IEnumerable)o).Cast<Reservation>().First());
             s.ShowDialog();
         }
 

@@ -13,7 +13,9 @@ namespace BDAS_2_dog_shelter.DogTree
 {
     internal class DogTreeViewModel
     {
-        private void LoadDogTree(int dogId)
+        private Dog dog;
+        public DogTreeViewModel(Dog d) { dog = d; }
+        private void LoadDogTree()
         {
         //    if (con.State == ConnectionState.Closed) con.Open();
 

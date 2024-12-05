@@ -182,7 +182,7 @@
             </Grid>
         </TabItem>
 
-        <TabItem Header="Sklad" Name="tabDHistory" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Historie psa" Name="tabDHistory" Visibility="{Binding AnyDogPerms}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -192,10 +192,10 @@
     ItemsSource="{Binding Path=Historie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dhDataGrid_SelectionChanged">
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Kapacita" Binding="{Binding Capacity}"/>
+                        <DataGridTextColumn Header="Název" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Kapacita" Binding="{Binding EventDescription}"/>
                     <DataGridTextColumn Header="Popis" Binding="{Binding Type}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
+                    <DataGridTextColumn Header="Email" Binding="{Binding Pes}" />
 
                 </DataGrid.Columns>
             </DataGrid>
