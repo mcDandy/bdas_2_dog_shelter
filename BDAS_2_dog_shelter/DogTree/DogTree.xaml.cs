@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BDAS_2_dog_shelter.Tables;
 
 namespace BDAS_2_dog_shelter.DogTree
 {

@@ -1,73 +1,45 @@
 ﻿using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace BDAS_2_dog_shelter.Add.feed
+using System.Windows.Input;
+using System.Xml.Linq;
+namespace BDAS_2_dog_shelter.Add.Food
 {
-    internal class AddFeedViewModel : INotifyPropertyChanged
+    internal class AddFoodViewModel
     {
-        // Property for the Feed object being edited/added
-        public Feed Feed { get; private set; }
+        private Tables.Feed d;
 
-        // Constructor for adding a new Feed
-        public AddFeedViewModel()
+        RelayCommand okCommand;
+        private int count;
+        private string name;
+
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && count>0 /*&& psc is not null and not < 0*/ );
+
+        public delegate void OkUtulekAddEditDone();
+        public event OkUtulekAddEditDone? OkClickFinished;
+
+        private void Ok()
         {
-            Feed = new Feed(); // Initialize a new Feed
+            d.Count = Count;
+            d.FeedName = Name;
+            OkClickFinished?.Invoke();
         }
 
-        // Constructor for editing an existing Feed
-        public AddFeedViewModel(Feed feed)
+        public string Name { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+
+        public Tables.Storage Sklad;
+        public List<Tables.Storage> Sklady;
+
+
+        public int Count { get => count; set => count = value; }
+        public Tables.Feed Food => d;
+
+        public AddFoodViewModel(Tables.Feed d, List<Tables.Storage> storages)
         {
-            Feed = feed; // Set the existing Feed
-        }
-
-        // Commands for saving and canceling
-        private RelayCommand saveCommand;
-        public RelayCommand SaveCommand => saveCommand ??= new RelayCommand(SaveFeed);
-
-        private RelayCommand cancelCommand;
-        public RelayCommand CancelCommand => cancelCommand ??= new RelayCommand(Cancel);
-
-        // Method to save the Feed entry
-        private void SaveFeed()
-        {
-            if (ValidateFeed())
-            {
-                // Logic to save the feed to the database can go here
-                // For example, notifying the MainWindowViewModel to refresh data, etc.
-                MessageBox.Show("Feed saved successfully!");
-            }
-            else
-            {
-                MessageBox.Show("Please fill in all required fields.");
-            }
-        }
-
-        // Method to validate input data
-        private bool ValidateFeed()
-        {
-            return !string.IsNullOrWhiteSpace(Feed.FeedName) && Feed.CountFeed >= 0 && Feed.IdSklad > 0;
-        }
-
-        // Method to handle cancel action
-        private void Cancel()
-        {
-            // Logic to close the dialog/window can go here
-            MessageBox.Show("Operation canceled.");
-        }
-
-        // INotifyPropertyChanged implementation
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Sklady = storages;
+            this.d = d;
+            Count = d.Count;
+            Name = d.FeedName;
+            Sklad = d.Sklad;
         }
     }
 }

@@ -38,8 +38,8 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandSkladEdit(object? obj)
         {
-            StorageAdd da = new(((IEnumerable)o).Cast<Storage>().First());
-            s.ShowDialog();
+            StorageAdd da = new(((IEnumerable)obj).Cast<Tables.Storage>().First());
+            da.ShowDialog();
         }
 
         private void CommandSkladRemove(object? SelectedShelters)

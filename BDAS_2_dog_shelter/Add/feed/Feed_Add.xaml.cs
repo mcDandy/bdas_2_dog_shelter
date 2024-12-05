@@ -13,23 +13,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BDAS_2_dog_shelter.Add.feed
+namespace BDAS_2_dog_shelter.Add.Food
 {
     /// <summary>
     /// Interakční logika pro Feed_Add.xaml
     /// </summary>
-    public partial class Feed_Add : Window
+    public partial class FeedAdd : Window
     {
-        public Feed_Add()
+        public FeedAdd()
         {
             InitializeComponent();
         }
 
-        public Feed_Add(Feed feed)
+        public FeedAdd(Feed feed, List<Tables.Storage> storages)
         {
-            Feed = feed;
+            this.DataContext = new AddFoodViewModel(feed,storages);
         }
 
-        public Feed Feed { get; }
+
     }
 }

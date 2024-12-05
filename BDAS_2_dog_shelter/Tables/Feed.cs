@@ -8,32 +8,32 @@ namespace BDAS_2_dog_shelter.Tables
         // Properties for the columns in the KRMIVO table
         public int? IdKrmivo { get; set; }
 
-        private string feedName;
+        private string Name;
         public string FeedName
         {
-            get => feedName;
+            get => Name;
             set
             {
-                if (feedName != value)
+                if (Name != value)
                 {
                     OnPropertyChanging(nameof(FeedName));
-                    feedName = value;
+                    Name = value;
                     OnPropertyChanged(nameof(FeedName));
                 }
             }
         }
 
         private int countFeed;
-        public int CountFeed
+        public int Count
         {
             get => countFeed;
             set
             {
                 if (countFeed != value)
                 {
-                    OnPropertyChanging(nameof(CountFeed));
+                    OnPropertyChanging(nameof(Count));
                     countFeed = value;
-                    OnPropertyChanged(nameof(CountFeed));
+                    OnPropertyChanged(nameof(Count));
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace BDAS_2_dog_shelter.Tables
         // Constructor
         public Feed()
         {
-            feedName = string.Empty;
+            Name = string.Empty;
             countFeed = 0;
             idSklad = 0; // Assuming a default value for idSklad
         }
@@ -74,5 +74,6 @@ namespace BDAS_2_dog_shelter.Tables
         {
             PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
         }
+        public Storage Sklad;
     }
 }

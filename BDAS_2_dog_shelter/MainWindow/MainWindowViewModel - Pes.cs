@@ -210,7 +210,8 @@ public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)
 {
-    DogTree DT = new BDAS_2_dog_shelter.DogTree((Dog obj));
+    DogTree.DogTree DT = new DogTree.DogTree((Dog) obj);
+            DT.ShowDialog();
 }
 
 private void CommandAdd()

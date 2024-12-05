@@ -1,7 +1,7 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
 using BDAS_2_dog_shelter.Add.Dog_Historie;
-using BDAS_2_dog_shelter.Add.feed;
+using BDAS_2_dog_shelter.Add.Food;
 using BDAS_2_dog_shelter.Add.Hracka;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
@@ -49,7 +49,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             {
                                 IdKrmivo = reader.GetInt32(0),
                                 FeedName = reader.GetString(1),
-                                CountFeed = reader.GetInt32(2),
+                                Count = reader.GetInt32(2),
                                 IdSklad = reader.GetInt32(3)
                             });
                         }
@@ -60,20 +60,19 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void AddFeed()
         {
-            Feed_Add addWindow = new Feed_Add(); // Assuming you have a Feed_Add window similar to Dog_Historie_Add
+            FeedAdd addWindow = new FeedAdd(new Feed(),Storages.ToList()); // Assuming you have a Feed_Add window similar to Dog_Historie_Add
             if (addWindow.ShowDialog() == true)
             {
-                Feed newFeed = ((AddFeedViewModel)addWindow.DataContext).Feed; // Assuming your Feed_Add has a corresponding ViewModel
+                Feed newFeed = ((AddFoodViewModel)addWindow.DataContext).Food; // Assuming your Feed_Add has a corresponding ViewModel
                 Feeds.Add(newFeed);
             }
         }
 
         private void EditFeed(object obj)
         {
-            Feed feed = new(((IEnumerable)o).Cast<Feed>().First());
-            Feed_Add editWindow = new Feed_Add(feed);
+            FeedAdd editWindow = new(((IEnumerable)obj).Cast<Feed>().First(), Storages.ToList());
                 editWindow.ShowDialog();
-            }
+            
         }
 
         private void RemoveFeed(object selectedFeed)
