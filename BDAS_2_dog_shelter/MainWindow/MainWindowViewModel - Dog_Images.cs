@@ -68,7 +68,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "SELECT ID_IMAGES,IMAGE,FILENAME FROM DOG_IMAGES";
+                        cmd.CommandText = "SELECT ID_IMAGE,IMAGE,FILENAME FROM DOG_IMAGES";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
