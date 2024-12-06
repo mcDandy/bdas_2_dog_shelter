@@ -5,8 +5,8 @@ namespace BDAS_2_dog_shelter.Tables
     public class Quarantine : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public int? id;
-        private string begin_of_date;
-        public string BeginOfDate
+        private DateTime begin_of_date;
+        public DateTime BeginOfDate
         {
             get => begin_of_date;
             set
@@ -19,8 +19,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private string end_of_date;
-        public string EndOfDate
+        private DateTime end_of_date;
+        public DateTime EndOfDate
         {
             get => end_of_date;
             set
@@ -33,7 +33,11 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Quarantine() { begin_of_date = ""; end_of_date = ""; }
+        public Quarantine() { begin_of_date = DateTime.MinValue; end_of_date = DateTime.MaxValue; }
+
+        public Quarantine(int v, DateTime dateTime1, DateTime dateTime2)
+        {
+        }
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Add\Karantena\KarantenaAdd.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Add\Medical_Equipment\MedicalEquipmentAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
