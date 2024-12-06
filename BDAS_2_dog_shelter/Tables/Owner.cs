@@ -47,17 +47,17 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private int _adresa;
-        public int Adresa
+        private int? _adresa;
+        public int? AdresaId
         {
             get => _adresa;
             set
             {
                 if (_adresa != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Adresa)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(AdresaId)));
                     _adresa = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Adresa)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AdresaId)));
                 }
             }
         }
@@ -75,6 +75,9 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
+
+        public Adress? Adresa { get; internal set; }
+
         public Owner() { _name = ""; _surname = ""; _phone = ""; _email = ""; }
         public Owner(string name, string surname, string phone, string email) { _name = name; _surname = surname; _phone = phone; _email = email; }
 
@@ -83,7 +86,7 @@ namespace BDAS_2_dog_shelter.Tables
             this.id = id;
             Name = name;
             Surname = surname;
-            Adresa = adresa;
+            AdresaId = adresa;
             Phone = phone;
             Email = email;
         }

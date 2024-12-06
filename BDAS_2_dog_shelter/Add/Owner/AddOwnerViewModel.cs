@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.Add.Owner
         {
             d.Name = jmeno;
             d.Surname = prijmeni;
-            d.Adresa = adresa;
+            d.AdresaId = adresa;
             d.Phone = telefon;
             d.Email = email;
             d.id = iD;
@@ -45,7 +45,7 @@ namespace BDAS_2_dog_shelter.Add.Owner
             ID = d.id;
             Name = d.Name;
             Surname = d.Surname;
-            Adresa = d.Adresa;
+            Adresa = d.AdresaId;
             Phone = d.Phone;
             Email = d.Email;
         }
