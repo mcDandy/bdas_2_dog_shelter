@@ -31,7 +31,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandHistoryEdit(object? obj)
         {
-            Dog_Historie_Add da = new(((IEnumerable)obj).Cast<Dog_History>().First(), Dogs.ToList());
+            Dog_Historie_Add da = new(((IEnumerable)obj).Cast<Dog_History>().First(), Dogs.ToList(),Typy.ToList());
             da.ShowDialog();
         }
         private void CommandHistoryRemove(object? SelectedShelters)
@@ -48,11 +48,11 @@ namespace BDAS_2_dog_shelter.MainWindow
         }
         private void CommandHistoryAdd()
         {
-            Dog_Historie_Add s = new Dog_Historie_Add(Dogs.ToList());
+            Dog_Historie_Add s = new Dog_Historie_Add(Dogs.ToList(),Typy.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Historie.Add(((AddDogHistorieViewModel)s.DataContext).Historie);
+                Historie.Add(((AddDogHistoryViewModel)s.DataContext).Historie);
                 if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Historie.Last().PropertyChanged += HistoryChanged;
             }
         }

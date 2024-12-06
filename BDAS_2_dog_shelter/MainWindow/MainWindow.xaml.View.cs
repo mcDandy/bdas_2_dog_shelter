@@ -36,6 +36,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             con = new OracleConnection(ConnectionString);
             con.Open();
             con.BeginTransaction();
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadTypes(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT)) LoadHracky(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_SELECT)) LoadAdresses(permissions);
@@ -133,7 +134,13 @@ namespace BDAS_2_dog_shelter.MainWindow
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
-
+        public bool AnyAdressPerms => Permission.HasAnyOf(permissions, Permissions.ADRESA_SELECT, Permissions.ADRESA_INSERT, Permissions.ADRESA_DELETE, Permissions.ADRESA_UPDATE, Permissions.ADMIN);
+        public bool AnyUtulekPerms => Permission.HasAnyOf(permissions, Permissions.UTULEK_SELECT, Permissions.UTULEK_INSERT, Permissions.UTULEK_DELETE, Permissions.UTULEK_UPDATE, Permissions.ADMIN);
+        public bool AnyHrackaPerms => Permission.HasAnyOf(permissions, Permissions.HRACKA_SELECT, Permissions.HRACKA_INSERT, Permissions.HRACKA_DELETE, Permissions.HRACKA_UPDATE, Permissions.ADMIN);
+        public bool AnyKrmivoPerms => Permission.HasAnyOf(permissions, Permissions.KRMIVO_SELECT, Permissions.KRMIVO_INSERT, Permissions.KRMIVO_DELETE, Permissions.KRMIVO_UPDATE, Permissions.ADMIN);
+        public bool AnySkladPerms => Permission.HasAnyOf(permissions, Permissions.SKLAD_SELECT, Permissions.SKLAD_INSERT, Permissions.SKLAD_DELETE, Permissions.SKLAD_UPDATE, Permissions.ADMIN);
+        public bool AnyDogHistoryPerms => Permission.HasAnyOf(permissions, Permissions.HISTORIE_PSA_SELECT, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE, Permissions.HISTORIE_PSA_UPDATE, Permissions.ADMIN);
+        public bool isAdmin => Permission.HasAnyOf(permissions, Permissions.ADMIN);
     }
 }
 

@@ -1,33 +1,31 @@
-﻿using System;
+﻿using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Threading.Tasks;
-using BDAS_2_dog_shelter.Tables;
-using System.Reflection.PortableExecutable;
+using System.Xml.Linq;
 
 namespace BDAS_2_dog_shelter.Add.Dog_Historie
 {
-    internal class AddDogHistorieViewModel
+    internal class AddDogHistoryViewModel
     {
-        private Dog_History historyEntry; // Instance historie psa
+        private Tables.Dog_History d;
+        private int? id;
 
-        // Příkaz pro potvrzení
-        private RelayCommand okCommand;
+        public DateTime DateOfEvent { get; set; }
 
-        public ICommand OkCommand => okCommand ??= new RelayCommand(async () => await OkAsync(), CanExecuteOk);
+        RelayCommand okCommand;
+
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => { return true; });
 
         public delegate void OkHistorieAddEditDone();
         public event OkHistorieAddEditDone? OkClickFinished;
 
-        // Asynchronní metoda pro vykonání příkazu
-        private async Task OkAsync()
+        private void Ok()
         {
-            // Vyvolání události pro potvrzení vytvoření nebo úpravy historie psa
+            Historie.DateOfEvent = DateOfEvent;
+            Historie.TypeId = Typ.id;
             OkClickFinished?.Invoke();
             Historie.EventDescription = EventDescription;
             Historie.DogId = SelectedPes.ID;
-            // Uložení změn (pokud je potřeba, můžete implementovat asynchronní logiku pro uložení)
-            // await SaveHistoryAsync(historyEntry);
         }
 
         // Podmínka pro aktivaci příkazu
@@ -36,22 +34,29 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
             return !string.IsNullOrWhiteSpace(historyEntry.EventDescription) && historyEntry.DateOfEvent != default && historyEntry.EventDescription is not null;
         }
         private string ed;
+        private Dog_History historyEntry;
+        private Tables.KeyValueUS Typ;
+
+
         public string EventDescription { get => ed; set { if (value != ed) { ed = value; okCommand.NotifyCanExecuteChanged(); } } }
         // Instance historie pro binding
         public Dog_History Historie => historyEntry;
 
-        public Tables.Dog SelectedPes { get; private set; }
+        public Tables.Dog SelectedPes { get; set; }
+        public List<KeyValueUS> Typy { get; set; }
 
-        // Konstruktor pro inicializaci ViewModelu
-        public AddDogHistorieViewModel(Dog_History entry, List<Tables.Dog> dogs)
+        public Tables.Dog_History DogHistory => d;
+
+        private List<Tables.Dog> dogs;
+
+        public AddDogHistoryViewModel(Tables.Dog_History d, List<Tables.Dog> dogs, List<KeyValueUS> Types)
         {
-            historyEntry = entry ?? throw new ArgumentNullException(nameof(entry)); // Ověření, že entry není null
-
-            // Zaregistrujte změny v historických datech
-            historyEntry.PropertyChanged += (s, e) =>
-            {
-                // Pokud došlo k změní v `Dog_History`, můžete provést další akce (např. aktualizaci UI)
-            };
+            this.dogs = dogs;
+            this.d = d;
+            id = d.DogId;
+            DateOfEvent = d.DateOfEvent;
+            SelectedPes = d.Pes;
+            this.Typy = Types;
         }
     }
 }
