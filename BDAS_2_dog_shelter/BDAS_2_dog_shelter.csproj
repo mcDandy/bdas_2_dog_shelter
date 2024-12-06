@@ -43,6 +43,9 @@
     <Compile Update="Add\Owner\OwnerAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Add\Pavilon\PavilonAdd.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Add\Reservation\AddReservation.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
