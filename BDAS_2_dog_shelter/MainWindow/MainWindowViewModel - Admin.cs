@@ -28,7 +28,33 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-               public ObservableCollection<KeyValueUS> Typy { get; set; } = [];
+        KeyValueUS SelectedType;
+
+        private RelayCommand tadCMD;
+        private RelayCommand<object> trmCMD;
+        private RelayCommand<object> tedCMD;
+        public ICommand cmdTAdd => tadCMD ??= new RelayCommand        (CommandTypesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
+        public ICommand cmdTRm => trmCMD ??= new RelayCommand<object> (CommandTypesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
+        public ICommand cmdTEd => tedCMD ??= new RelayCommand<object> (CommandTypesOK, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
+
+        private void CommandTypesRemove(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void CommandTypesOK(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CommandTypesAdd()
+        {
+            Typy.Add(new(null, "<prázdné>"));
+        }
+
+
+        public ObservableCollection<KeyValueUS> Typy { get; set; } = [];
         private void LoadTypes(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
