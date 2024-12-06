@@ -41,6 +41,13 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         public Pavilion() { pav_name = ""; capacity_pav = 0; }
+        public Pavilion(int? id, string pavName, int capacity_pav)
+        {
+            this.id = id;
+            PavName = pavName;
+            this.capacity_pav = capacity_pav;
+        }
+
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }
