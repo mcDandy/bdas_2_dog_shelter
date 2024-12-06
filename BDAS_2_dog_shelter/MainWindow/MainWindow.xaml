@@ -264,6 +264,46 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                 </StackPanel>
             </Grid>
         </TabItem>
+        
+        
+        
+        
+        
+        <TabItem Header="Obrazek" Name="tabDImage" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="imdDataGrid" CanUserAddRows="False"
+    ItemsSource="{Binding Path=Images, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="diDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Datum" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Pes" Binding="{Binding Filename}" />
+                        <DataGridTemplateColumn Header="Obrazek">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <BitmapImage StreamSource="{Binding Path=Image}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button  Content="Add" Margin="5" Command="{Binding Path=cmdImageAdd}"/>
+                    <Button  Content="Edit" Margin="5" CommandParameter="{Binding ElementName=imdDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdImageEd}"/>
+                    <Button  Content="Remove" Margin="5" CommandParameter="{Binding ElementName=imdDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdImageRm}"/>
+                    <Button  Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button  Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        
+        
+        
         <TabItem Header="ADMIN" Name="tabAdmin" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}" >
             <Grid Background="LightPink">
                 <Grid.ColumnDefinitions>

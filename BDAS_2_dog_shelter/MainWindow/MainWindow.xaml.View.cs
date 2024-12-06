@@ -36,6 +36,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             con = new OracleConnection(ConnectionString);
             con.Open();
             con.BeginTransaction();
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadImages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.TYPES_SELECT)) LoadTypes(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)) LoadMedical(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
@@ -48,6 +49,11 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_SELECT)) LoadFood(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT)) LoadMedical(permissions);
 
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN))
+            { //TODO: nějaká lepší prevence úpravy
+                Images.CollectionChanged += DogImages_CollectionChanged;
+
+            }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT, Permissions.PES_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Dogs.CollectionChanged += Dogs_CollectionChanged;

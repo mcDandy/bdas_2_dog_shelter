@@ -73,7 +73,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             {
                                 Historie.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetString(2), v.GetInt32(3), v.GetInt32(4)));
 
-                                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Dogs.Last().PropertyChanged += DogChanged;
+                                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) Historie.Last().PropertyChanged += HistoryChanged;
                             }
                             List<Dog_History> DogForest = Historie.Select<Dog_History, Dog_History>
                                 (a => {
