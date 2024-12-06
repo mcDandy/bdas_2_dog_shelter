@@ -31,9 +31,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand uadhCMD;
         private RelayCommand<object> urmhCMD;
         private RelayCommand<object> uedhCMD;
-        public ICommand cmdHAdd => uadhCMD ??= new RelayCommand(CommandHrackaAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
-        public ICommand cmdHRm => urmhCMD ??= new RelayCommand<object>(CommandHrackaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
-        public ICommand cmdHEd => uedhCMD ??= new RelayCommand<object>(CommandHrackaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
+        public ICommand cmdHAdd => uadhCMD ??= new RelayCommand(CommandHrackaAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT)));
+        public ICommand cmdHRm => urmhCMD ??= new RelayCommand<object>(CommandHrackaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_DELETE)));
+        public ICommand cmdHEd => uedhCMD ??= new RelayCommand<object>(CommandHrackaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)));
         public ObservableCollection<Hracka> Hracky { get; set; } = new();
 
         private void CommandHrackaEdit(object? obj)
@@ -44,7 +44,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandHrackaRemove(object? SelectedShelters)
         {
-            if ((permissions & (long)Permissions.PES_DELETE) > 0)
+            if ((permissions & (long)Permissions.HRACKA_DELETE) > 0)
             {
                 List<Hracka> e = new List<Hracka>();
                 foreach (Hracka d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -169,6 +169,38 @@ namespace BDAS_2_dog_shelter.MainWindow
                         return;
                     }
                 }
+            }
+        }
+        private async Task SaveFood(Hracka utulek)
+        {
+            if (con.State == ConnectionState.Closed) con.Open();
+            try
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+
+                    cmd.BindByName = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HRACKA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
+
+                    cmd.CommandText = "INS_SET.IU_HRACKA";
+
+                    //Execute the command and use DataReader to display the data
+                    int i = await cmd.ExecuteNonQueryAsync();
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+
+                }
+            }
+            catch (Exception ex)//something went wrong
+            {
+                Hracky.CollectionChanged -= Hracka_CollectionChanged;
+                LoadHracky(permissions);
+                Hracky.CollectionChanged += Hracka_CollectionChanged;
+                MessageBox.Show(ex.Message);
+                return;
             }
         }
     } 
