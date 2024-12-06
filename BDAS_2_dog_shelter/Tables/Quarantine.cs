@@ -37,6 +37,9 @@ namespace BDAS_2_dog_shelter.Tables
 
         public Quarantine(int v, DateTime dateTime1, DateTime dateTime2)
         {
+            id = v;
+            begin_of_date = dateTime1;
+            end_of_date = dateTime2;
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;
