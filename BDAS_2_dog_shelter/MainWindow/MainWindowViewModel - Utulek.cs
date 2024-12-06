@@ -43,7 +43,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandUtulekRemove(object? SelectedShelters)
         {
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_DELETE))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE))
             {
                 List<Shelter> e = new List<Shelter>();
                 foreach (Shelter d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -70,7 +70,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         private void LoadShelters(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();    
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
