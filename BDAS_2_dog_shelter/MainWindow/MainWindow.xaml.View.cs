@@ -36,14 +36,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             con = new OracleConnection(ConnectionString);
             con.Open();
             con.BeginTransaction();
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadTypes(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.TYPES_SELECT)) LoadTypes(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)) LoadMedical(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT)) LoadHracky(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_SELECT)) LoadAdresses(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT)) LoadShelters(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_SELECT)) LoadDogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT)) LoadHistory(permissions);
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_SELECT)) LoadReservations(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_SELECT)) LoadFood(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT)) LoadMedical(permissions);
@@ -95,6 +95,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
 
             }
+                           if(Permission.HasAnyOf(permissions, Permissions.ADMIN)) Typy.CollectionChanged += Typy_CollectionChanged;
         }
 
         RelayCommand rsCMD;

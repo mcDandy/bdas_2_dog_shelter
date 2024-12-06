@@ -62,7 +62,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Hracky.Add(((AddHrackaViewModel)s.DataContext).Hracka);
-                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.HRACKA_UPDATE)) Hracky.Last().PropertyChanged += HrackaChanged;
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)) Hracky.Last().PropertyChanged += HrackaChanged;
             }
         }
 
@@ -85,7 +85,8 @@ namespace BDAS_2_dog_shelter.MainWindow
                             }
                         }
                         List<Hracka> DogForest = Hracky.Select<Hracka, Hracka>
-                               (a => {
+                               (a =>
+                               {
                                    a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();
 
                                    return a;
@@ -102,7 +103,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         MessageBox.Show(ex.Message);
                     }
                 }
-            }  
+            }
         }
 
         private async void HrackaChanged(object? sender, PropertyChangedEventArgs e)
@@ -111,7 +112,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             using (OracleCommand cmd = con.CreateCommand())
             {
 
-                    await SaveHracka(dog);
+                await SaveHracka(dog);
             }
         }
 
@@ -126,10 +127,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HRACKA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
-                    
+
                     cmd.CommandText = "INS_SET.IU_HRACKA";
 
                     //Execute the command and use DataReader to display the data
@@ -183,37 +184,5 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-        private async Task SaveFood(Hracka utulek)
-        {
-            if (con.State == ConnectionState.Closed) con.Open();
-            try
-            {
-                using (OracleCommand cmd = con.CreateCommand())
-                {
-
-                    cmd.BindByName = true;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HRACKA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
-
-                    cmd.CommandText = "INS_SET.IU_HRACKA";
-
-                    //Execute the command and use DataReader to display the data
-                    int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
-
-                }
-            }
-            catch (Exception ex)//something went wrong
-            {
-                Hracky.CollectionChanged -= Hracka_CollectionChanged;
-                LoadHracky(permissions);
-                Hracky.CollectionChanged += Hracka_CollectionChanged;
-                MessageBox.Show(ex.Message);
-                return;
-            }
-        }
-    } 
+    }
 }

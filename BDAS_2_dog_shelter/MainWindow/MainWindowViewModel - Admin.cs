@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-               public ObservableCollection<KeyValueUS> Typy { get; set; } = new();
+               public ObservableCollection<KeyValueUS> Typy { get; set; } = [];
         private void LoadTypes(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
@@ -62,6 +62,48 @@ namespace BDAS_2_dog_shelter.MainWindow
                     }
                 }
             }
+        }
+
+        private async void Typy_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (KeyValueUS dog in e.NewItems ?? new List<KeyValueUS>())
+            {
+                await SaveTypy(dog);
+
+            }
+
+            foreach (KeyValueUS dog in e.OldItems ?? new List<KeyValueUS>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("ID", dog.Id));
+                        cmd.CommandText = "delete from typ_udalosti where id_typu=:ID";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        Typy.CollectionChanged -= Typy_CollectionChanged;
+                        LoadFood(permissions);
+                        Typy.CollectionChanged += Typy_CollectionChanged;
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                }
+            }
+
+        }
+
+        private async Task SaveTypy(KeyValueUS dog)
+        {
+            throw new NotImplementedException();
         }
     }
     } 

@@ -274,7 +274,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <RowDefinition Height="9*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <ListBox x:Name="listBox" d:ItemsSource="{Binding Types}" />
+                <ListBox x:Name="listBox" ItemsSource="{Binding Typy}"  />
 
             </Grid>
         </TabItem>
