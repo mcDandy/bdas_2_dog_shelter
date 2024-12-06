@@ -1,6 +1,6 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Food;
+using BDAS_2_dog_shelter.Add.feed;
 using BDAS_2_dog_shelter.Add.Hracka;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
@@ -33,13 +33,13 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> urmfCMD;
         private RelayCommand<object> uedfCMD;
         public ICommand cmdFAdd => uadfCMD ??= new RelayCommand(CommandFoodAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_INSERT)));
-        public ICommand cmdFRm => urmfCMD ??= new RelayCommand<object>(CommandFoodRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
-        public ICommand cmdFEd => uedfCMD ??= new RelayCommand<object>(CommandFoodEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
+        public ICommand cmdFRm => urmfCMD ??= new RelayCommand<object>(CommandFoodRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_DELETE)));
+        public ICommand cmdFEd => uedfCMD ??= new RelayCommand<object>(CommandFoodEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_UPDATE)));
         public ObservableCollection<Feed> Krmiva { get; set; } = new();
 
         private void CommandFoodEdit(object? obj)
         {
-            FeedAdd s = new(((IEnumerable)obj).Cast<Feed>().First(),Storages.ToList());
+            FeedAdd s = new(((IEnumerable)obj).Cast<Feed>().First(), Storages.ToList());
             s.ShowDialog();
         }
 
@@ -58,12 +58,12 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandFoodAdd()
         {
-            HrackaAdd s = new HrackaAdd();
+            FeedAdd s = new FeedAdd();
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Hracky.Add(((AddHrackaViewModel)s.DataContext).Hracka);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)) Hracky.Last().PropertyChanged += FoodChanged;
+                Krmiva.Add(((AddFeedViewModel)s.DataContext).Krmiva);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_UPDATE)) Krmiva.Last().PropertyChanged += FoodChanged;
             }
         }
 
@@ -114,16 +114,16 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.IdKrmivo is null ? new("V_ID_KRMIVO", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_KRMIVO", OracleDbType.Decimal, utulek.IdKrmivo, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.FeedName, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Count, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.IdSklad, ParameterDirection.Input));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_KRMIVO", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_KRMIVO", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_KRMIVO";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.IdKrmivo = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
 
                 }
             }
@@ -154,7 +154,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("ID", dog.IdKrmivo));
+                        cmd.Parameters.Add(new("ID", dog.id));
                         cmd.CommandText = "delete from krmivo where id_krmivo=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();

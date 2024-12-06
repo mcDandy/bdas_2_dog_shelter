@@ -1,4 +1,5 @@
-﻿using BDAS_2_dog_shelter.Tables;
+﻿using BDAS_2_dog_shelter.Add.Hracka;
+using BDAS_2_dog_shelter.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace BDAS_2_dog_shelter.Add.Food
+namespace BDAS_2_dog_shelter.Add.feed
 {
     /// <summary>
     /// Interakční logika pro Feed_Add.xaml
@@ -23,13 +24,16 @@ namespace BDAS_2_dog_shelter.Add.Food
         public FeedAdd()
         {
             InitializeComponent();
+            Tables.Feed d = new();
+            this.DataContext = new AddFeedViewModel(d);
+            ((AddFeedViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
-
-        public FeedAdd(Feed feed, List<Tables.Storage> storages)
+        public FeedAdd(Tables.Feed d, List<Tables.Storage> storages)
         {
-            this.DataContext = new AddFoodViewModel(feed,storages);
+            InitializeComponent();
+            this.DataContext = new AddFeedViewModel(d);
+            ((AddFeedViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
-
-
+      
     }
 }

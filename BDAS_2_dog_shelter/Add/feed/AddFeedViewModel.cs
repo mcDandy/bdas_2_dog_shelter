@@ -2,44 +2,55 @@
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 using System.Xml.Linq;
-namespace BDAS_2_dog_shelter.Add.Food
+namespace BDAS_2_dog_shelter.Add.feed
 {
-    internal class AddFoodViewModel
+    internal class AddFeedViewModel
     {
         private Tables.Feed d;
 
         RelayCommand okCommand;
-        private int count;
         private string name;
+        private int pocet;
+        private int? iD;
+        private int? sklad;
 
-        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && count>0 /*&& psc is not null and not < 0*/ );
+        public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && sklad is not null and not < 0 && pocet is not < 0);
 
         public delegate void OkUtulekAddEditDone();
         public event OkUtulekAddEditDone? OkClickFinished;
 
         private void Ok()
         {
-            d.Count = Count;
-            d.FeedName = Name;
+            d.Nazev = name;
+            d.Pocet= pocet;
+            d.SkladID= sklad ?? 0;
+            d.id = iD;
             OkClickFinished?.Invoke();
         }
 
-        public string Name { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public string Nazev { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public int Pocet { get => pocet; set => pocet = value; }
+        public int? ID { get => iD; set => iD = value; }
+        public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public Tables.Feed feed => d;
 
-        public Tables.Storage Sklad;
-        public List<Tables.Storage> Sklady;
+        public Feed Krmiva { get; internal set; }
 
-
-        public int Count { get => count; set => count = value; }
-        public Tables.Feed Food => d;
-
-        public AddFoodViewModel(Tables.Feed d, List<Tables.Storage> storages)
+        public AddFeedViewModel(Tables.Feed d, List<Tables.Storage> storages)
         {
-            Sklady = storages;
             this.d = d;
-            Count = d.Count;
-            Name = d.FeedName;
-            Sklad = d.Sklad;
+            Nazev = d.Nazev;
+            this.Pocet = d.Pocet;
+            ID = d.id;
+            SkladID = d.SkladID;
+        }
+        public AddFeedViewModel(Tables.Feed d)
+        {
+            this.d = d;
+            Nazev = d.Nazev;
+            this.Pocet = d.Pocet;
+            ID = d.id;
+            SkladID = d.SkladID;
         }
     }
 }

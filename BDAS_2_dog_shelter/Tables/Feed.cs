@@ -5,75 +5,66 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Feed : INotifyPropertyChanged, INotifyPropertyChanging
     {
-        // Properties for the columns in the KRMIVO table
-        public int? IdKrmivo { get; set; }
-
-        private string Name;
-        public string FeedName
+        public int? id;
+        private string _nazev;
+        public string Nazev
         {
-            get => Name;
+            get => _nazev;
             set
             {
-                if (Name != value)
+                if (_nazev != value)
                 {
-                    OnPropertyChanging(nameof(FeedName));
-                    Name = value;
-                    OnPropertyChanged(nameof(FeedName));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Nazev)));
+                    _nazev = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nazev)));
                 }
             }
         }
-
-        private int countFeed;
-        public int Count
+        private int _pocet;
+        public int Pocet
         {
-            get => countFeed;
+            get => _pocet;
             set
             {
-                if (countFeed != value)
+                if (_pocet != value)
                 {
-                    OnPropertyChanging(nameof(Count));
-                    countFeed = value;
-                    OnPropertyChanged(nameof(Count));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Pocet)));
+                    _pocet = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Pocet)));
                 }
             }
         }
+        private int _sklad;
 
-        private int idSklad;
-        public int IdSklad
+        public Feed(int? id, string nazev, int pocet, int sklad_id)
         {
-            get => idSklad;
-            set
-            {
-                if (idSklad != value)
-                {
-                    OnPropertyChanging(nameof(IdSklad));
-                    idSklad = value;
-                    OnPropertyChanged(nameof(IdSklad));
-                }
-            }
+            this.id = id;
+            this._nazev = nazev;
+            this._pocet = pocet;
+            this._sklad = sklad_id;
         }
 
-        // Constructor
         public Feed()
         {
-            Name = string.Empty;
-            countFeed = 0;
-            idSklad = 0; // Assuming a default value for idSklad
+            _nazev = "";
         }
 
-        // PropertyChanged and PropertyChanging event support
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangingEventHandler? PropertyChanging;
 
-        protected void OnPropertyChanged(string propertyName)
+        public int SkladID
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _sklad;
+            set
+            {
+                if (_sklad != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(SkladID)));
+                    _sklad = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SkladID)));
+                }
+            }
         }
-
-        protected void OnPropertyChanging(string propertyName)
-        {
-            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
-        }
-        public Storage Sklad;
+        public Tables.Storage Sklad { get; set; }
     }
 }
