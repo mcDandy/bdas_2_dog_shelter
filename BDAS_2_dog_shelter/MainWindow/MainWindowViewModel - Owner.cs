@@ -44,7 +44,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandOwnerRemove(object? SelectedShelters)
         {
-            if ((permissions & (long)Permissions.HRACKA_DELETE) > 0)
+            if ((permissions & (long)Permissions.MAJITEL_DELETE) > 0)
             {
                 List<Owner> e = new List<Owner>();
                 foreach (Owner d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -62,14 +62,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 owner.Add(((AddOwnerViewModel)s.DataContext).Owner);
-                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.HRACKA_UPDATE)) owner.Last().PropertyChanged += OwnerChanged;
+                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.MAJITEL_UPDATE)) owner.Last().PropertyChanged += OwnerChanged;
             }
         }
 
         private void LoadOwner(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_SELECT))
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
