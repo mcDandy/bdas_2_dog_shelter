@@ -42,5 +42,10 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
 
         }
+
+        private void MedicalDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

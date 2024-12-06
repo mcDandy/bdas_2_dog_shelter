@@ -46,6 +46,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_SELECT)) LoadReservations(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_SELECT)) LoadFood(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT)) LoadMedical(permissions);
 
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT, Permissions.PES_DELETE))
             { //TODO: nějaká lepší prevence úpravy
@@ -87,6 +88,11 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_INSERT, Permissions.KRMIVO_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Krmiva.CollectionChanged += Food_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
 
             }
         }
@@ -131,6 +137,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Krmiva.Clear();
             LoadFood(permissions);
             Krmiva.CollectionChanged += Food_CollectionChanged;
+            Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
+            Medical_Equipment.Clear();
+            LoadMedical(permissions);
+            Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
@@ -140,6 +150,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public bool AnyKrmivoPerms => Permission.HasAnyOf(permissions, Permissions.KRMIVO_SELECT, Permissions.KRMIVO_INSERT, Permissions.KRMIVO_DELETE, Permissions.KRMIVO_UPDATE, Permissions.ADMIN);
         public bool AnySkladPerms => Permission.HasAnyOf(permissions, Permissions.SKLAD_SELECT, Permissions.SKLAD_INSERT, Permissions.SKLAD_DELETE, Permissions.SKLAD_UPDATE, Permissions.ADMIN);
         public bool AnyDogHistoryPerms => Permission.HasAnyOf(permissions, Permissions.HISTORIE_PSA_SELECT, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE, Permissions.HISTORIE_PSA_UPDATE, Permissions.ADMIN);
+        public bool AnyMedicalPerms => Permission.HasAnyOf(permissions, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE, Permissions.ADMIN);
         public bool isAdmin => Permission.HasAnyOf(permissions, Permissions.ADMIN);
     }
 }
