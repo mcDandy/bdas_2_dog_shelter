@@ -8,11 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
     
     <TabControl>
-        <TabItem Header="Dog" Name="tabDog" Visibility="{Binding AnyDogPerms, Converter={StaticResource BoolToVisConverter}}">
+        <TabItem Header="Dog" Name="tabDog" Visibility="{Binding AnyDogPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -58,7 +58,7 @@
 
                 </Grid>
             </TabItem>
-        <TabItem Header="Utulek" Name="tabUtulek" Visibility="Visible">
+        <TabItem Header="Utulek" Name="tabUtulek" Visibility="{Binding AnyUtulekPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -95,7 +95,7 @@
             
             
         </TabItem>
-            <TabItem Header="Adresa" Name="tabAdress" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Adresa" Name="tabAdress" Visibility="{Binding AnyAdressPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -124,7 +124,7 @@
         </TabItem>
 
 
-        <TabItem Header="Hracka" Name="tabHracka" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Hracka" Name="tabHracka" Visibility="{Binding AnyHrackaPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -153,7 +153,7 @@ ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
 
 
-        <TabItem Header="Krmivo" Name="tabKrmivo" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Krmivo" Name="tabKrmivo" Visibility="{Binding AnyKrmivoPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -183,7 +183,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
 
 
-        <TabItem Header="Sklad" Name="tabSklad" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Sklad" Name="tabSklad" Visibility="{Binding AnySkladPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -211,7 +211,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
             </Grid>
         </TabItem>
 
-        <TabItem Header="Historie psa" Name="tabDHistory" Visibility="{Binding AnyDogPerms}">
+        <TabItem Header="Historie psa" Name="tabDHistory" Visibility="{Binding AnyDogHistoryPerms, Converter={StaticResource BoolToVis}}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -228,15 +228,16 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
                 </DataGrid.Columns>
             </DataGrid>
-            <StackPanel Grid.Column="1">
+                <StackPanel Grid.Column="1">
                     <Button x:Name="buttonDOGHAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHistoryAdd}"/>
-                <Button x:Name="buttonDOGHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryEd}"/>
+                    <Button x:Name="buttonDOGHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryEd}"/>
                     <Button x:Name="buttonDOGHRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryRm}"/>
-                <Button x:Name="buttonDOGH1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
-                <Button x:Name="buttonDOGH2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
-            </StackPanel>
-
-        </Grid>
+                    <Button x:Name="buttonDOGH1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonDOGH2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+            </Grid>
+    </TabItem>
+    <TabItem Header="ADMIN" Name="tabAdmin" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}">
     </TabItem>
     </TabControl>
 
