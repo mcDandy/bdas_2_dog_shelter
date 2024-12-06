@@ -115,12 +115,12 @@ namespace BDAS_2_dog_shelter.MainWindow
                 using (OracleCommand cmd = con.CreateCommand())
                 {
                     cmd.BindByName = true;
-                    cmd.CommandText = "INSERT_OR_UPDATE_HISTORIE_PSA"; // Replace this with your actual stored procedure
+                    cmd.CommandText = "INS_SET.IU_HISTORIE_PSA"; // Replace this with your actual stored procedure
                     cmd.Parameters.Add("V_ID_HISTORIE", OracleDbType.Decimal, history.ID ?? (object)DBNull.Value, ParameterDirection.InputOutput);
                     cmd.Parameters.Add("V_DATUM_UDALOSTI", OracleDbType.Date, history.DateOfEvent, ParameterDirection.Input);
                     cmd.Parameters.Add("V_POPIS_UDALOSTI", OracleDbType.Varchar2, history.EventDescription, ParameterDirection.Input);
                     cmd.Parameters.Add("V_TYP_UDALOSTI_ID_TYPU", OracleDbType.Decimal, history.TypeId ?? (object)DBNull.Value, ParameterDirection.Input);
-                    cmd.Parameters.Add("ID_PSA", OracleDbType.Decimal, history.DogId ?? (object)DBNull.Value, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_ID_PSA", OracleDbType.Decimal, history.DogId ?? (object)DBNull.Value, ParameterDirection.Input);
 
                     await cmd.ExecuteNonQueryAsync();
                     history.ID = Convert.ToInt32(cmd.Parameters["V_ID_HISTORIE"].Value);
@@ -129,7 +129,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Historie.CollectionChanged -= DogHistory_CollectionChanged;
                 LoadHistory(permissions);
+                Historie.CollectionChanged += DogHistory_CollectionChanged;
+
             }
         }
         private async void DogHistory_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)

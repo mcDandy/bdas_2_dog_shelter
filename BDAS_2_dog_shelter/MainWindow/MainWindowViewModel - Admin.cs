@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-        KeyValueUS SelectedType;
+        public KeyValueUS SelectedType { get; set; }
 
         private RelayCommand tadCMD;
         private RelayCommand<object> trmCMD;
@@ -78,7 +78,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 ));
 
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN))
-                                Typy.Last().PropertyChanged += AdressChanged;
+                                Typy.Last().PropertyChanged += TypyChanged;
                         }
 
                     }
@@ -87,6 +87,16 @@ namespace BDAS_2_dog_shelter.MainWindow
                         MessageBox.Show(ex.Message);
                     }
                 }
+            }
+        }
+
+        private async void TypyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            KeyValueUS? history = sender as KeyValueUS;
+            using (OracleCommand cmd = con.CreateCommand())
+            {
+
+                await SaveTypy(history);
             }
         }
 
@@ -117,7 +127,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Typy.CollectionChanged -= Typy_CollectionChanged;
-                        LoadFood(permissions);
+                        LoadTypes(permissions);
                         Typy.CollectionChanged += Typy_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
@@ -129,7 +139,28 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private async Task SaveTypy(KeyValueUS dog)
         {
-            throw new NotImplementedException();
+            if (con.State == ConnectionState.Closed) con.Open();
+            try
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    cmd.BindByName = true;
+                    cmd.CommandText = "INS_SET.IU_TYP_UDALOSTI"; // Replace this with your actual stored procedure
+                    cmd.Parameters.Add("V_ID_TYPU", OracleDbType.Decimal, dog.Id ?? (object)DBNull.Value, ParameterDirection.InputOutput);
+                    cmd.Parameters.Add("V_ID_NAZEV", OracleDbType.Varchar2, dog.Nazev ?? (object)DBNull.Value, ParameterDirection.Input);
+
+                    await cmd.ExecuteNonQueryAsync();
+                    dog.Id = Convert.ToInt32(cmd.Parameters["V_ID_TYPU"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Typy.CollectionChanged -= Typy_CollectionChanged;
+                LoadTypes(permissions);
+                Typy.CollectionChanged += Typy_CollectionChanged;
+
+            }
         }
     }
     } 

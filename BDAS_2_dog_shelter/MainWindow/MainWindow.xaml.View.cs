@@ -142,6 +142,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Medical_Equipment.Clear();
             LoadMedical(permissions);
             Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
+            Typy.CollectionChanged -= Typy_CollectionChanged;
+            Typy.Clear();
+            LoadTypes(permissions);
+            Typy.CollectionChanged += Typy_CollectionChanged;
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
