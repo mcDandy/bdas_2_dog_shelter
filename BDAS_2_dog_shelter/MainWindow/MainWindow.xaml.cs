@@ -19,8 +19,9 @@ namespace BDAS_2_dog_shelter.MainWindow
     {
         public MainWindow(ulong permissions)
         {
-            InitializeComponent();
+
             this.DataContext = new MainWindowViewModel(permissions);
+            InitializeComponent();
         }
 
         private void utulekDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

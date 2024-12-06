@@ -28,7 +28,33 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-               public ObservableCollection<KeyValueUS> Typy { get; set; } = new();
+        public KeyValueUS SelectedType { get; set; }
+
+        private RelayCommand tadCMD;
+        private RelayCommand<object> trmCMD;
+        private RelayCommand<object> tedCMD;
+        public ICommand cmdTAdd => tadCMD ??= new RelayCommand        (CommandTypesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
+        public ICommand cmdTRm => trmCMD ??= new RelayCommand<object> (CommandTypesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
+        public ICommand cmdTEd => tedCMD ??= new RelayCommand<object> (CommandTypesOK, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
+
+        private void CommandTypesRemove(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void CommandTypesOK(object? obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CommandTypesAdd()
+        {
+            Typy.Add(new(null, "<prázdné>"));
+        }
+
+
+        public ObservableCollection<KeyValueUS> Typy { get; set; } = [];
         private void LoadTypes(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
@@ -52,7 +78,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 ));
 
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN))
-                                Typy.Last().PropertyChanged += AdressChanged;
+                                Typy.Last().PropertyChanged += TypyChanged;
                         }
 
                     }
@@ -61,6 +87,79 @@ namespace BDAS_2_dog_shelter.MainWindow
                         MessageBox.Show(ex.Message);
                     }
                 }
+            }
+        }
+
+        private async void TypyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            KeyValueUS? history = sender as KeyValueUS;
+            using (OracleCommand cmd = con.CreateCommand())
+            {
+
+                await SaveTypy(history);
+            }
+        }
+
+        private async void Typy_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (KeyValueUS dog in e.NewItems ?? new List<KeyValueUS>())
+            {
+                await SaveTypy(dog);
+
+            }
+
+            foreach (KeyValueUS dog in e.OldItems ?? new List<KeyValueUS>())
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    try
+                    {
+                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        cmd.BindByName = true;
+
+                        // Assign id to the department number 50 
+                        cmd.Parameters.Add(new("ID", dog.Id));
+                        cmd.CommandText = "delete from typ_udalosti where id_typu=:ID";
+                        //Execute the command and use DataReader to display the data
+                        int i = await cmd.ExecuteNonQueryAsync();
+                    }
+
+                    catch (Exception ex)//something went wrong
+                    {
+                        Typy.CollectionChanged -= Typy_CollectionChanged;
+                        LoadTypes(permissions);
+                        Typy.CollectionChanged += Typy_CollectionChanged;
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                }
+            }
+
+        }
+
+        private async Task SaveTypy(KeyValueUS dog)
+        {
+            if (con.State == ConnectionState.Closed) con.Open();
+            try
+            {
+                using (OracleCommand cmd = con.CreateCommand())
+                {
+                    cmd.BindByName = true;
+                    cmd.CommandText = "INS_SET.IU_TYP_UDALOSTI"; // Replace this with your actual stored procedure
+                    cmd.Parameters.Add("V_ID_TYPU", OracleDbType.Decimal, dog.Id ?? (object)DBNull.Value, ParameterDirection.InputOutput);
+                    cmd.Parameters.Add("V_ID_NAZEV", OracleDbType.Varchar2, dog.Nazev ?? (object)DBNull.Value, ParameterDirection.Input);
+
+                    await cmd.ExecuteNonQueryAsync();
+                    dog.Id = Convert.ToInt32(cmd.Parameters["V_ID_TYPU"].Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Typy.CollectionChanged -= Typy_CollectionChanged;
+                LoadTypes(permissions);
+                Typy.CollectionChanged += Typy_CollectionChanged;
+
             }
         }
     }
