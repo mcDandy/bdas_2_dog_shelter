@@ -32,9 +32,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand MedicaladhCMD;
         private RelayCommand<object> MedicalrmhCMD;
         private RelayCommand<object> MedicaledhCMD;
-        public ICommand cmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT)));
-        public ICommand MedicalHRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_DELETE)));
-        public ICommand cmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)));
+        public ICommand cmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)));
+        public ICommand MedicalHRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE)));
+        public ICommand cmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE)));
         public ObservableCollection<Medical_Equipment> Medical_Equipment { get; set; } = new();
 
         private void CommandMedicalEdit(object? obj)
@@ -45,7 +45,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandMedicalRemove(object? Selectedmedical)
         {
-            if ((permissions & (long)Permissions.HRACKA_DELETE) > 0)
+            if ((permissions & (long)Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) > 0)
             {
                 List<Medical_Equipment> e = new List<Medical_Equipment>();
                 foreach (Medical_Equipment d in (IEnumerable)Selectedmedical) e.Add(d);
