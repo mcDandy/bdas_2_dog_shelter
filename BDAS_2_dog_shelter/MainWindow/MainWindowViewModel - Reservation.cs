@@ -45,7 +45,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandRezervaceRemove(object? SelectedShelters)
         {
-            if ((Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.ADRESA_DELETE)))
+            if ((Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.REZERVACE_DELETE)))
             {
                 List<Reservation> e = new List<Reservation>();
                 foreach (Reservation d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -95,7 +95,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     int.Parse(v.GetString(4))
                                 ));
 
-                            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE))
+                            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE))
                                 Adresses.Last().PropertyChanged += ReservationChanged;
                         }
 
