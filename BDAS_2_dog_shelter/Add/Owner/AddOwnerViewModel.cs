@@ -10,7 +10,7 @@ namespace BDAS_2_dog_shelter.Add.Owner
         private int? iD;
         private string jmeno;
         private string prijmeni;
-        private int adresa;
+        private int? adresa;
         private string telefon;
         private string? email;
         RelayCommand okCommand;
@@ -33,7 +33,7 @@ namespace BDAS_2_dog_shelter.Add.Owner
 
         public string Name { get => jmeno; set { jmeno = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string Surname { get => prijmeni; set { prijmeni = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public int Adresa { get => adresa; set { adresa = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public int? Adresa { get => adresa; set { adresa = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string Phone { get => telefon; set { telefon = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string Email { get => email; set { email = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public int? ID { get => iD; set => iD = value; }
