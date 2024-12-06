@@ -22,7 +22,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         private void Ok()
         {
             Historie.DateOfEvent = DateOfEvent;
-            Historie.TypeId = Typ.id;
+            Historie.TypeId = Typ.Id;
             OkClickFinished?.Invoke();
             Historie.EventDescription = EventDescription;
             Historie.DogId = SelectedPes.ID;

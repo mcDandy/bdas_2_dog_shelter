@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace BDAS_2_dog_shelter.Add.Hracka
+namespace BDAS_2_dog_shelter.Add.Medical_Equipment
 {
     /// <summary>
     /// Interakční logika pro AdressAdd.xaml
