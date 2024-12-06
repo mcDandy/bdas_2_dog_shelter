@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BDAS_2_dog_shelter.Tables
 {
-    public class Medical_Equpment : INotifyPropertyChanged, INotifyPropertyChanging
+    public class Medical_Equipment : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public int? id;
         private string medical_name;
@@ -38,8 +38,30 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Medical_Equpment() { medical_name = ""; count_medical = 0; }
+        public Medical_Equipment() { medical_name = ""; count_medical = 0; }
+        public Medical_Equipment(int? id, string nazev, int pocet, int sklad_id)
+        {
+            this.id = id;
+            this.medical_name = nazev;
+            this.count_medical = pocet;
+            this._sklad = sklad_id;
+        }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
+        private int _sklad;
+        public int SkladID
+        {
+            get => _sklad;
+            set
+            {
+                if (_sklad != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(SkladID)));
+                    _sklad = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SkladID)));
+                }
+            }
+        }
+        public Tables.Storage Sklad { get; set; }
     }
 }
