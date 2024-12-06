@@ -11,7 +11,6 @@ using Oracle.ManagedDataAccess.Client;
 using static BDAS_2_dog_shelter.Secrets;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Diagnostics.Metrics;
 
 
 namespace BDAS_2_dog_shelter.Add.Dog

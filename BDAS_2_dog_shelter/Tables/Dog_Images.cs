@@ -4,23 +4,25 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace BDAS_2_dog_shelter.Tables
 {
     public class Dog_Images : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public int? id;
-        private string event_description;
-        public string EventDescription
+        private BitmapSource _obrazek;
+        public BitmapSource Image
         {
-            get => event_description;
+            get => _obrazek;
             set
             {
-                if (event_description != value)
+                if (_obrazek != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(EventDescription)));
-                    event_description = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EventDescription)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Image)));
+                    _obrazek = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Image)));
                 }
             }
         }
@@ -38,7 +40,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Dog_Images() { event_description = ""; file_name = ""; }
+        public Dog_Images() { byte[] b = new byte[256 * 256 * 4]; new Random().NextBytes(b); _obrazek = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256 * 4); ; file_name = ""; }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }
