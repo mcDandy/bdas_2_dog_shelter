@@ -10,32 +10,32 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
-    
+
     <TabControl>
         <TabItem Header="Dog" Name="tabDog" Visibility="{Binding AnyDogPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"></ColumnDefinition>
-                        <ColumnDefinition Width="5*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
                     ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
 
                     <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Barva srsti" Binding="{Binding BodyColor}"/>
-                            <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
-                            <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
-                            <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
-                            <DataGridTemplateColumn Header="Útulek">
-                                <DataGridTemplateColumn.CellTemplate >
-                                    <DataTemplate>
-                                        <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Věk" Binding="{Binding Age}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Barva srsti" Binding="{Binding BodyColor}"/>
+                        <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
+                        <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
+                        <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
+                        <DataGridTemplateColumn Header="Útulek">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate>
+                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Majtel">
                             <DataGridTemplateColumn.CellTemplate >
                                 <DataTemplate>
@@ -46,18 +46,18 @@
                         <DataGridTextColumn Header="Otec" Binding="{Binding Otec}"/>
                         <DataGridTextColumn Header="Matka" Binding="{Binding Matka}"/>
                     </DataGrid.Columns>
-                    </DataGrid>
-                    <StackPanel Grid.Column="1">
-                        <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
-                        <Button x:Name="buttonEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdEd}"/>
-                        <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
-                        <Button x:Name="buttonTree" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
-                        <Button x:Name="button1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
-                        <Button x:Name="button2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
-                    </StackPanel>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAdd}"/>
+                    <Button x:Name="buttonEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdEd}"/>
+                    <Button x:Name="buttonRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRm}"/>
+                    <Button x:Name="buttonTree" Content="Family tree" Margin="5" CommandParameter="{Binding ElementName=dogDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdTree}"/>
+                    <Button x:Name="button1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="button2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
 
-                </Grid>
-            </TabItem>
+            </Grid>
+        </TabItem>
         <TabItem Header="Utulek" Name="tabUtulek" Visibility="{Binding AnyUtulekPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -90,10 +90,10 @@
                 </StackPanel>
 
             </Grid>
-            
-            
-            
-            
+
+
+
+
         </TabItem>
         <TabItem Header="Adresa" Name="tabAdress" Visibility="{Binding AnyAdressPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
@@ -239,22 +239,22 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
         </TabItem>
 
         <TabItem Header="Historie psa" Name="tabDHistory" Visibility="{Binding AnyDogHistoryPerms, Converter={StaticResource BoolToVis}}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*"></ColumnDefinition>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <DataGrid x:Name="dhDataGrid" CanUserAddRows="False"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="dhDataGrid" CanUserAddRows="False"
     ItemsSource="{Binding Path=Historie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dhDataGrid_SelectionChanged">
-                <DataGrid.Columns>
+                    <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Datum" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Popis" Binding="{Binding EventDescription}"/>
-                    <DataGridTextColumn Header="Typ" Binding="{Binding Type}"/>
-                    <DataGridTextColumn Header="Pes" Binding="{Binding Pes}" />
+                        <DataGridTextColumn Header="Typ" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="Pes" Binding="{Binding Pes}" />
 
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonDOGHAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHistoryAdd}"/>
                     <Button x:Name="buttonDOGHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryEd}"/>
@@ -263,9 +263,21 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <Button x:Name="buttonDOGH2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
             </Grid>
-    </TabItem>
-    <TabItem Header="ADMIN" Name="tabAdmin" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}">
-    </TabItem>
+        </TabItem>
+        <TabItem Header="ADMIN" Name="tabAdmin" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}" >
+            <Grid Background="LightPink">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ListBox x:Name="listBox" d:ItemsSource="{Binding Types}" />
+
+            </Grid>
+        </TabItem>
     </TabControl>
 
 </Window>

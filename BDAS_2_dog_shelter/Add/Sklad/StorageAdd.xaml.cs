@@ -25,14 +25,14 @@ namespace BDAS_2_dog_shelter.Add.Storage
     {
         public StorageAdd()
         {
-            //InitializeComponent();
+            InitializeComponent();
             Tables.Storage d = new();
             this.DataContext = new AddStorageViewModel(d);
             ((AddStorageViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
         public StorageAdd(Tables.Storage d)
         {
-            //InitializeComponent();
+            InitializeComponent();
             this.DataContext = new AddStorageViewModel(d);
             ((AddStorageViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
