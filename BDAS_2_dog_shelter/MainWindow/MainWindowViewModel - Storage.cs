@@ -31,9 +31,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand sadCMD;
         private RelayCommand<object> srmCMD;
         private RelayCommand<object> sedCMD;
-        public ICommand cmdSAdd => uadCMD ??= new RelayCommand(CommandSkladAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_INSERT)));
-        public ICommand cmdSEd => uedCMD ??= new RelayCommand<object>(CommandSkladEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN,   Permissions.SKLAD_UPDATE)));
-        public ICommand cmdSRm => urmCMD ??= new RelayCommand<object>(CommandSkladRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_DELETE)));
+        public ICommand cmdSAdd => sadCMD ??= new RelayCommand(CommandSkladAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_INSERT)));
+        public ICommand cmdSEd => sedCMD ??= new RelayCommand<object>(CommandSkladEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN,   Permissions.SKLAD_UPDATE)));
+        public ICommand cmdSRm => srmCMD ??= new RelayCommand<object>(CommandSkladRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_DELETE)));
         public ObservableCollection<Tables.Storage> Storages { get; set; } = new();
 
         private void CommandSkladEdit(object? obj)
@@ -58,7 +58,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandSkladAdd()
         {
-            ShelterAdd s = new ShelterAdd();
+            StorageAdd s = new StorageAdd();
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");

@@ -131,12 +131,12 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="hrackaDataGrid" CanUserAddRows="False"
-        ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="telefon" Binding="{Binding Pocet}"/>
-                        <DataGridTextColumn Header="Email" Binding="{Binding SkladID}" />
+                        <DataGridTextColumn Header="Počet" Binding="{Binding Pocet}"/>
+                        <DataGridTextColumn Header="OPRAVIT" Binding="{Binding Sklad}" />
 
                     </DataGrid.Columns>
                 </DataGrid>
@@ -146,6 +146,35 @@
                     <Button x:Name="buttonHRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
                     <Button x:Name="buttonH1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonH2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+
+
+
+        <TabItem Header="Krmivo" Name="tabKrmivo" Visibility="{Binding AnyDogPerms}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="krmivoDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding Pocet}"/>
+                        <DataGridTextColumn Header="OPRAVIT" Binding="{Binding Sklad}" />
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonKAdd" Content="Add" Margin="5" Command="{Binding Path=cmdKAdd}"/>
+                    <Button x:Name="buttonKEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=krmivoDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdKEd}"/>
+                    <Button x:Name="buttonKRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=krmivoDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdKRm}"/>
+                    <Button x:Name="buttonK1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonK2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
 
             </Grid>
@@ -192,10 +221,10 @@
     ItemsSource="{Binding Path=Historie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dhDataGrid_SelectionChanged">
                 <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Kapacita" Binding="{Binding EventDescription}"/>
-                    <DataGridTextColumn Header="Popis" Binding="{Binding Type}"/>
-                    <DataGridTextColumn Header="Email" Binding="{Binding Pes}" />
+                        <DataGridTextColumn Header="Datum" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Popis" Binding="{Binding EventDescription}"/>
+                    <DataGridTextColumn Header="Typ" Binding="{Binding Type}"/>
+                    <DataGridTextColumn Header="Pes" Binding="{Binding Pes}" />
 
                 </DataGrid.Columns>
             </DataGrid>

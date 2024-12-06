@@ -42,6 +42,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_SELECT)) LoadShelters(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_SELECT)) LoadDogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_SELECT)) LoadHistory(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_SELECT)) LoadReservations(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_SELECT)) LoadFood(permissions);
 
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_INSERT, Permissions.PES_DELETE))
             { //TODO: nějaká lepší prevence úpravy
@@ -73,6 +76,16 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_INSERT, Permissions.SKLAD_DELETE))
             { //TODO: nějaká lepší prevence úpravy
                 Storages.CollectionChanged += Sklad_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT, Permissions.REZERVACE_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Rezervace.CollectionChanged += Reservation_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_INSERT, Permissions.KRMIVO_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                Krmiva.CollectionChanged += Food_CollectionChanged;
 
             }
         }
@@ -109,7 +122,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             Hracky.Clear();
             LoadHracky(permissions);
             Hracky.CollectionChanged += Hracka_CollectionChanged;
-            Feeds.CollectionChanged -=
+            Rezervace.CollectionChanged -= Reservation_CollectionChanged;
+            Rezervace.Clear();
+            LoadReservations(permissions);
+            Rezervace.CollectionChanged += Reservation_CollectionChanged;
+            Krmiva.CollectionChanged -= Food_CollectionChanged;
+            Krmiva.Clear();
+            LoadFood(permissions);
+            Krmiva.CollectionChanged += Food_CollectionChanged;
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);

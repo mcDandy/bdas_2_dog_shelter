@@ -84,6 +84,18 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
                             }
                         }
+                        List<Hracka> DogForest = Hracky.Select<Hracka, Hracka>
+                               (a => {
+                                   a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();
+
+                                   return a;
+                               }).ToList();
+
+                        Hracky.Clear();
+                        foreach (var item in DogForest)
+                        {
+                            Hracky.Add(item);
+                        }
                     }
                     catch (Exception ex)//something went wrong
                     {
