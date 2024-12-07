@@ -37,6 +37,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             con.Open();
             con.BeginTransaction();
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadImages(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadLogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.TYPES_SELECT)) LoadTypes(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)) LoadMedical(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);

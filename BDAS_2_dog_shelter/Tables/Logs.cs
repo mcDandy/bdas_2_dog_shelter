@@ -38,6 +38,8 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         private string table_name;
+        private int? id;
+
         public string TableName
         {
             get => table_name;
@@ -93,7 +95,22 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
+
+        public int? Id { get => id; set => id = value; }
+
         public Logs(){ c_user = ""; event_time = DateTime.Now; table_name = ""; _operation = ""; old_value = ""; new_value = ""; }
+
+        public Logs(int id, string user, DateTime eventTime, string tableName, string operation, string oldValue, string nevValue)
+        {
+            this._operation = operation;
+            this.new_value = nevValue;
+            this.old_value = oldValue;
+            this.c_user = user;
+            this.event_time = eventTime;
+            this.table_name = tableName;
+            this.id = id;
+        }
+
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

@@ -18,6 +18,7 @@ namespace BDAS_2_dog_shelter.Add.Logy
         private string oldvalue;
         private string newvalue;
         private string udalost;
+        private string tablename;
 
         public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => /*Validation.TimeRule.RegexClock().IsMatch(EventTime) &&*/ true);
 
@@ -41,20 +42,22 @@ namespace BDAS_2_dog_shelter.Add.Logy
 
         public int? ID { get => iD;  set => iD = value; }
 
-        public Tables.Logs Hracka => d;
+        public Tables.Logs Log => d;
 
         public string OldValue { get => oldvalue; set => oldvalue = value; }
         public string NewValue { get => newvalue; set => newvalue = value; }
+        public string TableName { get => tablename; set => tablename = value; }
         public DateTime EventDateTime { get => eventdate.ToDateTime(eventtime); set { eventtime = TimeOnly.FromDateTime(value); eventdate = DateOnly.FromDateTime(value); } }
 
         public AddLogsViewModel(Tables.Logs logs)
         {
             this.d = logs;
             EventDateTime = logs.EventTime;
-            this.User = d.CUser;
-            this.newvalue = d.NewValue;
-            this.oldvalue = d.OldValue;
-            Udalost = d.Operation;
+            this.User = logs.CUser;
+            this.newvalue = logs.NewValue;
+            tablename = logs.TableName;
+            this.oldvalue = logs.OldValue;
+            Udalost = logs.Operation;
         }
     }
 }

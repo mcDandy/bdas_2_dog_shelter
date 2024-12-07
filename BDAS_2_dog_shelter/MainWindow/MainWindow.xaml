@@ -294,6 +294,34 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
             </Grid>
         </TabItem>
         
+        <TabItem Header="Logs" Name="tabLogs" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="logDataGrid" CanUserAddRows="False"
+    ItemsSource="{Binding Path=Logs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Uživatel" Binding="{Binding CUser}" />
+                        <DataGridTextColumn Header="Časové razítko" Binding="{Binding EventTime}" />
+                        <DataGridTextColumn Header="Tabulka" Binding="{Binding TableName}" />
+                        <DataGridTextColumn Header="Operace" Binding="{Binding Operation}" />
+                        <DataGridTextColumn Header="Staré hodnoty" Binding="{Binding OldValue}" />
+                        <DataGridTextColumn Header="Nové hodnoty" Binding="{Binding NewValue}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button  Content="Add" Margin="5" Command="{Binding Path=cmdLAdd}"/>
+                    <Button  Content="Edit" Margin="5" CommandParameter="{Binding ElementName=logDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdLEd}"/>
+                    <Button  Content="Remove" Margin="5" CommandParameter="{Binding ElementName=logDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdLRm}"/>
+                    <Button  Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button  Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+        
         
         
         <TabItem Header="ADMIN" Name="tabAdmin" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}" >

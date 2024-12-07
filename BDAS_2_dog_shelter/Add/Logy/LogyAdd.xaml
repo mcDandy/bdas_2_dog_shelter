@@ -15,9 +15,9 @@
             <ComboBoxItem Content="DELETE"/>
         </ComboBox>
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="77,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="User" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="TableName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
-                    <validators:NumericStringRule/>
+                    <validators:NotEmptyStringRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
@@ -30,7 +30,7 @@
         </TextBox>
         <Label x:Name="label" Content="Uživatel" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="DatumČas" HorizontalAlignment="Left" Margin="13,40,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat1" Content="Uživatel" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Kopírovat1" Content="Tabulka" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat2" Content="UDALOST" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="77,42,0,0" VerticalAlignment="Top" SelectedDate="{Binding EventDate}"/>
         <TextBox x:Name="time" HorizontalAlignment="Left" Margin="189,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35">
