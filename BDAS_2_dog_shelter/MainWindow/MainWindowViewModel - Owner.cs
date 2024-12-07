@@ -34,7 +34,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdOwnerAdd => OwneradhCMD ??= new RelayCommand(CommandOwnerAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_INSERT)));
         public ICommand cmdOwnerRm => OwnerrmhCMD ??= new RelayCommand<object>(CommandOwnerRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_DELETE)));
         public ICommand cmdOwnerEd => OwneredhCMD ??= new RelayCommand<object>(CommandOwnerEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_UPDATE)));
-        public ObservableCollection<Owner> owner { get; set; } = new();
+        public ObservableCollection<Owner> Owners { get; set; } = new();
 
         private void CommandOwnerEdit(object? obj)
         {
@@ -50,7 +50,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 foreach (Owner d in (IEnumerable)SelectedShelters) e.Add(d);
                 foreach (Owner shelter in e)
                 {
-                    owner.Remove(shelter);
+                    Owners.Remove(shelter);
                 }
             }
         }
@@ -61,8 +61,8 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                owner.Add(((AddOwnerViewModel)s.DataContext).Owner);
-                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.MAJITEL_UPDATE)) owner.Last().PropertyChanged += OwnerChanged;
+                Owners.Add(((AddOwnerViewModel)s.DataContext).Owner);
+                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.MAJITEL_UPDATE)) Owners.Last().PropertyChanged += OwnerChanged;
             }
         }
 
@@ -81,20 +81,20 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                owner.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3), v.GetString(4), v.GetString(5)));
+                                Owners.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3), v.GetString(4), v.GetString(5)));
                             }
                         }
-                        List<Owner> DogForest = owner.Select<Owner, Owner>
+                        List<Owner> DogForest = Owners.Select<Owner, Owner>
                                (a => {
                                    a.Adresa = Adresses.Where(d => d.id == a.AdresaId).FirstOrDefault();
 
                                    return a;
                                }).ToList();
 
-                        owner.Clear();
+                        Owners.Clear();
                         foreach (var item in DogForest)
                         {
-                            owner.Add(item);
+                            Owners.Add(item);
                         }
                     }
                     catch (Exception ex)//something went wrong
@@ -143,9 +143,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                owner.CollectionChanged -= Owner_CollectionChanged;
+                Owners.CollectionChanged -= Owner_CollectionChanged;
                 LoadOwner(permissions);
-                owner.CollectionChanged += Owner_CollectionChanged;
+                Owners.CollectionChanged += Owner_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -177,9 +177,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        owner.CollectionChanged -= Owner_CollectionChanged;
+                        Owners.CollectionChanged -= Owner_CollectionChanged;
                         LoadOwner(permissions);
-                        owner.CollectionChanged += Owner_CollectionChanged;
+                        Owners.CollectionChanged += Owner_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
@@ -213,9 +213,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                owner.CollectionChanged -= Owner_CollectionChanged;
+                Owners.CollectionChanged -= Owner_CollectionChanged;
                 LoadOwner(permissions);
-                owner.CollectionChanged += Owner_CollectionChanged;
+                Owners.CollectionChanged += Owner_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }

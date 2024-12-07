@@ -234,7 +234,7 @@ private void CommandEdit(Object o)
 {
     if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_UPDATE))
     {
-        DogAdd da = new(((IEnumerable)o).Cast<Dog>().First(),Dogs.ToList());
+        DogAdd da = new(((IEnumerable)o).Cast<Dog>().First(),Dogs.ToList(),Owners.ToList(),Karanteny.ToList());
         if (da.ShowDialog() == true)
         {
                     Dog d = ((AddDogViewModel)da.DataContext).Dog;

@@ -269,5 +269,6 @@ namespace BDAS_2_dog_shelter.Tables
         }
 
         public Shelter? Utulek { get; set; }
+        public Owner Majitel { get; internal set; }
     }
 }

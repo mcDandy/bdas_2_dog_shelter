@@ -18,8 +18,13 @@ namespace BDAS_2_dog_shelter.Add.Dog
     internal partial class AddDogViewModel : ObservableObject
     {
         public List<Tables.Dog> Psi { get; private set; }
-        public AddDogViewModel(Tables.Dog d, List<Tables.Dog> psi) {
+        public List<Tables.Quarantine> Karanteny { get; internal set; }
+        public List<Tables.Owner> Majitele { get; internal set; }
+        public AddDogViewModel(Tables.Dog d, List<Tables.Dog> psi, List<Tables.Owner> owners, List<Tables.Quarantine> quarantines) {
             Psi = psi;
+            Majitele = owners;
+            Majitele.Prepend(null);
+            Karanteny = quarantines;
             Name = d.Name;
             BodyColor = d.BodyColor;
             Duvod = d.DuvodPrijeti;
@@ -27,6 +32,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Age = d.Age;
             Obrazek = d.Obrazek;
             Filename = d.FileName;
+            Majtel = d.Majitel;
             int i = 0;
             SelectedUT = Utulek.Select(a => new Tuple<int?, int>(a.Item1, i++)).FirstOrDefault(a => a.Item1 == d.UtulekId).Item2;
             Dog = d;
@@ -131,6 +137,8 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Dog.FileName = Filename;
             Dog.MatkaId = SelectedM?.ID;
             Dog.OtecId = SelectedO?.ID;
+            Dog.MajtelId = Majtel?.id;
+            Dog.KarantenaId = Karantena?.id;
 
             OkClickFinished?.Invoke();
         }
@@ -140,5 +148,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
         public DateTime? Date { get => date; set => SetProperty(ref date, value); }
         public BitmapSource Obrazek { get;  set; }
         public string? Filename { get; internal set; }
+        public Tables.Owner Majtel { get; internal set; }
+        public Tables.Owner Karantena { get; internal set; }
     }
 }

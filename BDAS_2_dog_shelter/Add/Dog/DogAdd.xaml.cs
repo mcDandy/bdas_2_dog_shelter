@@ -21,19 +21,19 @@ namespace BDAS_2_dog_shelter
     /// </summary>
     public partial class DogAdd : Window
     {
-        public DogAdd(List<Tables.Dog> psi)
+        public DogAdd(List<Tables.Dog> psi, List<Owner> owners, List<Quarantine> quarantines)
         {
 
             InitializeComponent();
             Dog d = new();
-            this.DataContext = new AddDogViewModel(d,psi);
+            this.DataContext = new AddDogViewModel(d,psi,owners,quarantines);
             image.Source = ((AddDogViewModel)this.DataContext).Obrazek;
             ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
-        public DogAdd (Dog d, List<Tables.Dog> psi)
+        public DogAdd (Dog d, List<Tables.Dog> psi, List<Owner> owners, List<Quarantine> quarantines)
         {
             InitializeComponent();
-            this.DataContext = new AddDogViewModel(d,psi);
+            this.DataContext = new AddDogViewModel(d,psi,owners,quarantines);
             ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
             byte[] b = new byte[256*256*4];
             new Random().NextBytes(b); 

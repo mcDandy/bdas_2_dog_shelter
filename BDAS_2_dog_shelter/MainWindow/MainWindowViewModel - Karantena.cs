@@ -34,7 +34,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdKarantenaAdd => KarantenaadhCMD ??= new RelayCommand(CommandKarantenaAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT)));
         public ICommand cmdKarantenaRm => KarantenarmhCMD ??= new RelayCommand<object>(CommandKarantenaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)));
         public ICommand cmdKarantenaEd => KarantenaedhCMD ??= new RelayCommand<object>(CommandKarantenaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_UPDATE)));
-        public ObservableCollection<Quarantine> karantena { get; set; } = new();
+        public ObservableCollection<Quarantine> Karanteny { get; set; } = new();
 
         private void CommandKarantenaEdit(object? obj)
         {
@@ -50,7 +50,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 foreach (Quarantine d in (IEnumerable)SelectedShelters) e.Add(d);
                 foreach (Quarantine shelter in e)
                 {
-                    karantena.Remove(shelter);
+                    Karanteny.Remove(shelter);
                 }
             }
         }
@@ -61,8 +61,8 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                karantena.Add(((AddKarantenaViewModel)s.DataContext).karantena);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)) karantena.Last().PropertyChanged += KarantenaChanged;
+                Karanteny.Add(((AddKarantenaViewModel)s.DataContext).karantena);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)) Karanteny.Last().PropertyChanged += KarantenaChanged;
             }
         }
 
@@ -81,7 +81,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                karantena.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetDateTime(2)));
+                                Karanteny.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetDateTime(2)));
                             }
                         }
                     }
@@ -127,9 +127,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                karantena.CollectionChanged -= Karantena_CollectionChanged;
+                Karanteny.CollectionChanged -= Karantena_CollectionChanged;
                 LoadKarantena(permissions);
-                karantena.CollectionChanged += Karantena_CollectionChanged;
+                Karanteny.CollectionChanged += Karantena_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -161,9 +161,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        karantena.CollectionChanged -= Karantena_CollectionChanged;
+                        Karanteny.CollectionChanged -= Karantena_CollectionChanged;
                         LoadKarantena(permissions);
-                        karantena.CollectionChanged += Karantena_CollectionChanged;
+                        Karanteny.CollectionChanged += Karantena_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
