@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -160,7 +161,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.Parameters.Add(new("ID", dog.id));
                         cmd.CommandText = "delete from adresa where id_adresa=:ID";
                         //Execute the command and use DataReader to display the data
-                        int i = await cmd.ExecuteNonQueryAsync();
+                        Debug.WriteLine(await cmd.ExecuteNonQueryAsync());
 
                     }
 

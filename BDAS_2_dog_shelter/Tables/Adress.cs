@@ -64,7 +64,7 @@ namespace BDAS_2_dog_shelter.Tables
         }
         public Adress() { _street = ""; _city = ""; _psc = ""; _number = 0; }
         public Adress(string street, string city, string psc, int number) { _street = street; _city = city; _psc = psc; _number = number; }
-        public Adress(int? id,string street, string city, string psc, int number) { _street = street; _city = city; _psc = psc; _number = number; }
+        public Adress(int? id,string street, string city, string psc, int number) { this.id = id; _street = street; _city = city; _psc = psc; _number = number; }
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
