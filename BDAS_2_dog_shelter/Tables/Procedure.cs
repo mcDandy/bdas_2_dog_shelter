@@ -38,20 +38,6 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private string type_proc;
-        public string TypeProc
-        {
-            get => type_proc;
-            set
-            {
-                if (type_proc != value)
-                {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(TypeProc)));
-                   type_proc = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeProc)));
-                }
-            }
-        }
         private int? zdrZaznam;
         public int? ZdrZaznam
         {
@@ -67,7 +53,16 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         public Tables.Medical_Record record { get; set; }
-        public Procedure() { proc_name = ""; descr_name = "";type_proc = ""; }
+        public Procedure() { proc_name = ""; descr_name = ""; }
+
+        public Procedure(int v1, string v2, string v3, int v4)
+        {
+            id = v1;
+            ProcName = v2;
+            descr_name = v3;
+            ZdrZaznam = v4;
+        }
+
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }
