@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="DogEdit" Height="427" Width="506">
     <Grid>
-        <Label x:Name="Dog_main" Content="Label" HorizontalAlignment="Center" Margin="0,343,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left" Content="Label" HorizontalAlignment="Left" Margin="120,310,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right" Content="Label" HorizontalAlignment="Left" Margin="347,310,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_main" Content="{Binding DogName}" HorizontalAlignment="Center" Margin="0,343,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left" Content="{Binding MotherName}" HorizontalAlignment="Left" Margin="120,310,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right" Content="{Binding FatherName}" HorizontalAlignment="Left" Margin="347,310,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Dog_Left2" Content="Label" HorizontalAlignment="Left" Margin="71,233,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Dog_Right2" Content="Label" HorizontalAlignment="Left" Margin="170,233,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Dog_Left3" Content="Label" HorizontalAlignment="Left" Margin="292,233,0,0" VerticalAlignment="Top"/>
