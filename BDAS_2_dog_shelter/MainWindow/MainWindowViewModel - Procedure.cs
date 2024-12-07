@@ -75,13 +75,13 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_procedura,nazev,pocet,id_sklad from PROCEDURA";
+                        cmd.CommandText = "select id_procedura,nazev_procedury,popis_procedury,zdr_zaznam_id_zaznam from PROCEDURA";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
                             while (v.Read())
                             {
-                                Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
+                                procedure.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3)));
                             }
                         }
                         List<Procedure> DogForest = procedure.Select<Procedure, Procedure>
@@ -129,7 +129,6 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_PROCEDURA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_PROCEDURA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_NAZEV_PROCEDURY", OracleDbType.Varchar2, utulek.ProcName, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_POPIS_PROCEDURY", OracleDbType.Varchar2, utulek.DescrName, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_TYP_PROCEDURY", OracleDbType.Varchar2, utulek.TypeProc, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_ID_ZDR_ZAZNAM_ID_ZAZNAM", OracleDbType.Decimal, utulek.ZdrZaznam, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_PROCEDURA";
