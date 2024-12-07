@@ -129,9 +129,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Hracky.CollectionChanged -= Food_CollectionChanged;
+                Krmiva.CollectionChanged -= Food_CollectionChanged;
+                Krmiva.Clear();
                 LoadFood(permissions);
-                Hracky.CollectionChanged += Food_CollectionChanged;
+                Krmiva.CollectionChanged += Food_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -163,6 +164,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Krmiva.CollectionChanged -= Food_CollectionChanged;
+                        Krmiva.Clear();
                         LoadFood(permissions);
                         Krmiva.CollectionChanged += Food_CollectionChanged;
                         MessageBox.Show(ex.Message);

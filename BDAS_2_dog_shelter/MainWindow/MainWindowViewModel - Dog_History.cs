@@ -130,6 +130,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 MessageBox.Show(ex.Message);
                 Historie.CollectionChanged -= DogHistory_CollectionChanged;
+                Historie.Clear();
                 LoadHistory(permissions);
                 Historie.CollectionChanged += DogHistory_CollectionChanged;
 
@@ -155,7 +156,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
+                        Historie.CollectionChanged -= DogHistory_CollectionChanged;
+                        Historie.Clear();
                         LoadHistory(permissions);
+                        Historie.CollectionChanged += DogHistory_CollectionChanged;
                     }
                 }
             }

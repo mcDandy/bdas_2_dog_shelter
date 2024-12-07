@@ -142,6 +142,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Shelters.CollectionChanged -= Utulek_CollectionChanged;
+                Shelters.Clear();
                 LoadShelters(permissions);
                 Shelters.CollectionChanged += Utulek_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -176,6 +177,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Shelters.CollectionChanged -= Utulek_CollectionChanged;
+                        Shelters.Clear();
                         LoadShelters(permissions);
                         Shelters.CollectionChanged += Utulek_CollectionChanged;
                         MessageBox.Show(ex.Message);

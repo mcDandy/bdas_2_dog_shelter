@@ -34,7 +34,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdPavilonAdd => PavilonadhCMD ??= new RelayCommand(CommandPavilonAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_INSERT)));
         public ICommand cmdPavilonRm => PavilonrmhCMD ??= new RelayCommand<object>(CommandPavilonRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_DELETE)));
         public ICommand cmdPavilonEd => PavilonedhCMD ??= new RelayCommand<object>(CommandPavilonEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE)));
-        public ObservableCollection<Pavilion> pavilon { get; set; } = new();
+        public ObservableCollection<Pavilion> Pavilony { get; set; } = new();
 
         private void CommandPavilonEdit(object? obj)
         {
@@ -50,7 +50,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 foreach (Pavilion d in (IEnumerable)SelectedShelters) e.Add(d);
                 foreach (Pavilion shelter in e)
                 {
-                    pavilon.Remove(shelter);
+                    Pavilony.Remove(shelter);
                 }
             }
         }
@@ -61,8 +61,8 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                pavilon.Add(((AddPavilonViewModel)s.DataContext).pavilon);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE)) pavilon.Last().PropertyChanged += PavilonChanged;
+                Pavilony.Add(((AddPavilonViewModel)s.DataContext).pavilon);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE)) Pavilony.Last().PropertyChanged += PavilonChanged;
             }
         }
 
@@ -81,7 +81,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                pavilon.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2)));
+                                Pavilony.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2)));
                             }
                         }
                     }
@@ -127,9 +127,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Hracky.CollectionChanged -= Pavilon_CollectionChanged;
+                Pavilony.CollectionChanged -= Pavilon_CollectionChanged;
+                Pavilony.Clear();
                 LoadPavilon(permissions);
-                Hracky.CollectionChanged += Pavilon_CollectionChanged;
+                Pavilony.CollectionChanged += Pavilon_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -161,9 +162,10 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Hracky.CollectionChanged -= Pavilon_CollectionChanged;
+                        Pavilony.CollectionChanged -= Pavilon_CollectionChanged;
+                        Pavilony.Clear();
                         LoadPavilon(permissions);
-                        Hracky.CollectionChanged += Pavilon_CollectionChanged;
+                        Pavilony.CollectionChanged += Pavilon_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }

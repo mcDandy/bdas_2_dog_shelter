@@ -142,6 +142,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Hracky.CollectionChanged -= Hracka_CollectionChanged;
+                Hracky.Clear();
                 LoadHracky(permissions);
                 Hracky.CollectionChanged += Hracka_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -176,6 +177,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Hracky.CollectionChanged -= Hracka_CollectionChanged;
+                        Hracky.Clear();
                         LoadHracky(permissions);
                         Hracky.CollectionChanged += Hracka_CollectionChanged;
                         MessageBox.Show(ex.Message);

@@ -143,6 +143,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
+                Medical_Equipment.Clear();
                 LoadMedical(permissions);
                 Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -177,6 +178,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
+                        Medical_Equipment.Clear();
                         LoadMedical(permissions);
                         Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
                         MessageBox.Show(ex.Message);

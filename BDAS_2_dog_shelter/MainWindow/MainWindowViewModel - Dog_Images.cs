@@ -131,6 +131,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 MessageBox.Show(ex.Message);
                 Images.CollectionChanged -= DogImages_CollectionChanged;
+                Images.Clear();
                 LoadImages(permissions);
                 Historie.CollectionChanged += DogImages_CollectionChanged;
 
@@ -157,6 +158,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     {
                         MessageBox.Show(ex.Message);
                         Images.CollectionChanged -= DogImages_CollectionChanged;
+                        Images.Clear();
                         LoadImages(permissions);
                         Images.CollectionChanged += DogImages_CollectionChanged;
                     }

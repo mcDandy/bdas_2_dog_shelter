@@ -144,6 +144,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Adresses.CollectionChanged -= Adress_CollectionChanged;
+                Adresses.Clear();
                 LoadAdresses(permissions);
                 Adresses.CollectionChanged += Adress_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -178,6 +179,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Adresses.CollectionChanged -= Adress_CollectionChanged;
+                        Adresses.Clear();
                         LoadAdresses(permissions);
                         Adresses.CollectionChanged += Adress_CollectionChanged;
                         MessageBox.Show(ex.Message);

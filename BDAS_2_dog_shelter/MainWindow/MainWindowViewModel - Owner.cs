@@ -144,6 +144,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Owners.CollectionChanged -= Owner_CollectionChanged;
+                Owners.Clear();
                 LoadOwner(permissions);
                 Owners.CollectionChanged += Owner_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -214,6 +215,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Owners.CollectionChanged -= Owner_CollectionChanged;
+                Owners.Clear();
                 LoadOwner(permissions);
                 Owners.CollectionChanged += Owner_CollectionChanged;
                 MessageBox.Show(ex.Message);

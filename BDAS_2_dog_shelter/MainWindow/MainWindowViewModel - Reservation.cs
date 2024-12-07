@@ -1,28 +1,15 @@
-﻿using BDAS_2_dog_shelter;
-using BDAS_2_dog_shelter.Add.Adress;
-using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Reservation;
+﻿using BDAS_2_dog_shelter.Add.Reservation;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using static BDAS_2_dog_shelter.Secrets;
 
 
 namespace BDAS_2_dog_shelter.MainWindow
@@ -45,7 +32,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandRezervaceRemove(object? SelectedShelters)
         {
-            if ((Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.REZERVACE_DELETE)))
+            if ((Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)))
             {
                 List<Reservation> e = new List<Reservation>();
                 foreach (Reservation d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -55,7 +42,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-        
+
 
 
         private void CommandRezervaceAdd()
@@ -91,7 +78,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     v.IsDBNull(0) ? null : v.GetInt32(0),
                                     v.GetString(1),
                                     v.GetString(2),
-                                    v.IsDBNull(3)?null:v.GetString(3),
+                                    v.IsDBNull(3) ? null : v.GetString(3),
                                     int.Parse(v.GetString(4))
                                 ));
 
@@ -101,7 +88,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     }
                     catch (Exception ex)
-                    {   
+                    {
                         MessageBox.Show(ex.Message);
                     }
                 }
@@ -114,7 +101,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             using (OracleCommand cmd = con.CreateCommand())
             {
 
-                    await SaveReservation(dog);
+                await SaveReservation(dog);
             }
         }
 
@@ -129,7 +116,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_REZERVACE", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_REZERVACE", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_DATUM_REZERVACE", OracleDbType.Date, utulek.DateOfReceipt,ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_DATUM_REZERVACE", OracleDbType.Date, utulek.DateOfReceipt, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_PREVZETI_PSA", OracleDbType.Date, utulek.DateOfTransfer, ParameterDirection.Input));
                     cmd.CommandText = "INS_SET.IU_REZERVACE";
 
@@ -142,6 +129,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Rezervace.CollectionChanged -= Reservation_CollectionChanged;
+                Rezervace.Clear();
                 LoadReservations(permissions);
                 Rezervace.CollectionChanged += Reservation_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -176,6 +164,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Rezervace.CollectionChanged -= Reservation_CollectionChanged;
+                        Rezervace.Clear();
                         LoadReservations(permissions);
                         Rezervace.CollectionChanged += Reservation_CollectionChanged;
                         MessageBox.Show(ex.Message);
@@ -184,5 +173,5 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-    } 
+    }
 }

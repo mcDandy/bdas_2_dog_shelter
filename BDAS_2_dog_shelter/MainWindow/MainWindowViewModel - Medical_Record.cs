@@ -141,6 +141,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 MedicalRec.CollectionChanged -= MedicalRec_CollectionChanged;
+                MedicalRec.Clear();
                 LoadMedicalRec(permissions);
                 MedicalRec.CollectionChanged += MedicalRec_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -175,6 +176,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         MedicalRec.CollectionChanged -= MedicalRec_CollectionChanged;
+                        MedicalRec.Clear();
                         LoadMedicalRec(permissions);
                         MedicalRec.CollectionChanged += MedicalRec_CollectionChanged;
                         MessageBox.Show(ex.Message);

@@ -138,9 +138,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Shelters.CollectionChanged -= Sklad_CollectionChanged;
-                LoadShelters(permissions);
-                Shelters.CollectionChanged += Sklad_CollectionChanged;
+                Storages.CollectionChanged -= Sklad_CollectionChanged;
+                Storages.Clear();
+                LoadStorages(permissions);
+                Storages.CollectionChanged += Sklad_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -173,6 +174,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Storages.CollectionChanged -= Sklad_CollectionChanged;
+                        Storages.Clear();
                         LoadStorages(permissions);
                         Storages.CollectionChanged += Sklad_CollectionChanged;
                         MessageBox.Show(ex.Message);

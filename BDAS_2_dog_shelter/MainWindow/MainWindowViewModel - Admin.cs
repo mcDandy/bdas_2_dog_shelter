@@ -127,6 +127,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Typy.CollectionChanged -= Typy_CollectionChanged;
+                        Typy.Clear();
                         LoadTypes(permissions);
                         Typy.CollectionChanged += Typy_CollectionChanged;
                         MessageBox.Show(ex.Message);
@@ -157,6 +158,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 MessageBox.Show(ex.Message);
                 Typy.CollectionChanged -= Typy_CollectionChanged;
+                Typy.Clear();
                 LoadTypes(permissions);
                 Typy.CollectionChanged += Typy_CollectionChanged;
 

@@ -120,6 +120,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                        Dogs.Clear();
                         LoadDogs(permissions);
                         Dogs.CollectionChanged += Dogs_CollectionChanged;
                         MessageBox.Show(ex.Message);
@@ -191,6 +192,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Dogs.CollectionChanged -= Dogs_CollectionChanged;
+                Dogs.Clear();
                 LoadDogs(permissions); 
                 Dogs.CollectionChanged += Dogs_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -218,7 +220,7 @@ private void CommandAdd()
 {
     if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_INSERT))
     {
-        DogAdd da = new(new Dog(),Dogs.ToList());
+        DogAdd da = new(new Dog(),Dogs.ToList(),Owners.ToList(),Karanteny.ToList());
         if (da.ShowDialog() == true)
         {
                     //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");

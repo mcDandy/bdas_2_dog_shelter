@@ -128,6 +128,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 Karanteny.CollectionChanged -= Karantena_CollectionChanged;
+                Karanteny.Clear();
                 LoadKarantena(permissions);
                 Karanteny.CollectionChanged += Karantena_CollectionChanged;
                 MessageBox.Show(ex.Message);
@@ -162,6 +163,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     catch (Exception ex)//something went wrong
                     {
                         Karanteny.CollectionChanged -= Karantena_CollectionChanged;
+                        Karanteny.Clear();
                         LoadKarantena(permissions);
                         Karanteny.CollectionChanged += Karantena_CollectionChanged;
                         MessageBox.Show(ex.Message);
