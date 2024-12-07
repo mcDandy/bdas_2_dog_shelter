@@ -93,22 +93,22 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT, Permissions.KARANTENA_DELETE))
             { //TODO: nějaká lepší prevence úpravy
-                karantena.CollectionChanged += Karantena_CollectionChanged;
+                Karanteny.CollectionChanged += Karantena_CollectionChanged;
 
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_INSERT, Permissions.MAJITEL_DELETE))
             { //TODO: nějaká lepší prevence úpravy
-                owner.CollectionChanged += Owner_CollectionChanged;
+                Owners.CollectionChanged += Owner_CollectionChanged;
 
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_INSERT, Permissions.PAVILON_DELETE))
             { //TODO: nějaká lepší prevence úpravy
-                pavilon.CollectionChanged += Pavilon_CollectionChanged;
+                Pavilony.CollectionChanged += Pavilon_CollectionChanged;
 
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_INSERT, Permissions.PROCEDURA_DELETE))
             { //TODO: nějaká lepší prevence úpravy
-                procedure.CollectionChanged += Procedure_CollectionChanged;
+                Procedures.CollectionChanged += Procedure_CollectionChanged;
 
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_INSERT, Permissions.ZDR_ZAZNAM_DELETE))
@@ -167,18 +167,18 @@ namespace BDAS_2_dog_shelter.MainWindow
             Typy.Clear();
             LoadTypes(permissions);
             Typy.CollectionChanged += Typy_CollectionChanged;
-            karantena.CollectionChanged -= Karantena_CollectionChanged;
-            karantena.Clear();
+            Karanteny.CollectionChanged -= Karantena_CollectionChanged;
+            Karanteny.Clear();
             LoadKarantena(permissions);
-            karantena.CollectionChanged += Karantena_CollectionChanged;
+            Karanteny.CollectionChanged += Karantena_CollectionChanged;
             Owners.CollectionChanged -= Owner_CollectionChanged;
             Owners.Clear();
             LoadOwner(permissions);
             Owners.CollectionChanged += Owner_CollectionChanged;
-            procedure.CollectionChanged -= Procedure_CollectionChanged;
-            procedure.Clear();
+            Procedures.CollectionChanged -= Procedure_CollectionChanged;
+            Procedures.Clear();
             LoadProcedure(permissions);
-            procedure.CollectionChanged += Procedure_CollectionChanged;
+            Procedures.CollectionChanged += Procedure_CollectionChanged;
             MedicalRec.CollectionChanged -= MedicalRec_CollectionChanged;
             MedicalRec.Clear();
             LoadMedicalRec(permissions);

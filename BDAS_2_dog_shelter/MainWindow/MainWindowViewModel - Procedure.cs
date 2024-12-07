@@ -21,7 +21,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdProcedureAdd => ProcedureadhCMD ??= new RelayCommand(CommandProcedureAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_INSERT)));
         public ICommand cmdProcedureRm => ProcedurermhCMD ??= new RelayCommand<object>(CommandprocedureRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_DELETE)));
         public ICommand cmdProcedureEd => ProcedureedhCMD ??= new RelayCommand<object>(CommandprocedureEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_UPDATE)));
-        public ObservableCollection<Procedure> Procedure { get; set; } = new();
+        public ObservableCollection<Procedure> Procedures { get; set; } = new();
 
         private void CommandprocedureEdit(object? obj)
         {
@@ -37,7 +37,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 foreach (Procedure d in (IEnumerable)SelectedShelters) e.Add(d);
                 foreach (Procedure shelter in e)
                 {
-                    Procedure.Remove(shelter);
+                    Procedures.Remove(shelter);
                 }
             }
         }
@@ -48,8 +48,8 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Procedure.Add(((AddProcedureViewModel)s.DataContext).procedure);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_UPDATE)) Procedure.Last().PropertyChanged += ProcedureChanged;
+                Procedures.Add(((AddProcedureViewModel)s.DataContext).procedure);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_UPDATE)) Procedures.Last().PropertyChanged += ProcedureChanged;
             }
         }
 
@@ -68,10 +68,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                Procedure.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3)));
+                                Procedures.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3)));
                             }
                         }
-                        List<Procedure> DogForest = Procedure.Select<Procedure, Procedure>
+                        List<Procedure> DogForest = Procedures.Select<Procedure, Procedure>
                                (a =>
                                {
                                    a.record = MedicalRec.Where(d => d.id == a.ZdrZaznam).FirstOrDefault();
@@ -79,10 +79,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                                    return a;
                                }).ToList();
 
-                        Procedure.Clear();
+                        Procedures.Clear();
                         foreach (var item in DogForest)
                         {
-                            Procedure.Add(item);
+                            Procedures.Add(item);
                         }
                     }
                     catch (Exception ex)//something went wrong
@@ -128,10 +128,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Procedure.CollectionChanged -= Procedure_CollectionChanged;
-                Procedure.Clear();
+                Procedures.CollectionChanged -= Procedure_CollectionChanged;
+                Procedures.Clear();
                 LoadProcedure(permissions);
-                Procedure.CollectionChanged += Procedure_CollectionChanged;
+                Procedures.CollectionChanged += Procedure_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }
@@ -163,10 +163,10 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Procedure.CollectionChanged -= Procedure_CollectionChanged;
-                        Procedure.Clear();
+                        Procedures.CollectionChanged -= Procedure_CollectionChanged;
+                        Procedures.Clear();
                         LoadProcedure(permissions);
-                        Procedure.CollectionChanged += Procedure_CollectionChanged;
+                        Procedures.CollectionChanged += Procedure_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
