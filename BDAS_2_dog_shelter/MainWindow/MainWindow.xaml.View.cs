@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using BDAS_2_dog_shelter.Tables;
+using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using System.Windows.Input;
 using static BDAS_2_dog_shelter.Secrets;
@@ -31,6 +32,12 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_SELECT)) LoadReservations(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_SELECT)) LoadFood(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT)) LoadMedical(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_SELECT)) LoadKarantena(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_SELECT))  LoadOwner(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_SELECT)) LoadPavilon(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_SELECT)) LoadProcedure(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_SELECT)) LoadMedicalRec(permissions);
+
 
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN))
             { //TODO: nějaká lepší prevence úpravy
@@ -84,7 +91,32 @@ namespace BDAS_2_dog_shelter.MainWindow
                 Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
 
             }
-                           if(Permission.HasAnyOf(permissions, Permissions.ADMIN)) Typy.CollectionChanged += Typy_CollectionChanged;
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT, Permissions.KARANTENA_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                karantena.CollectionChanged += Karantena_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_INSERT, Permissions.MAJITEL_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                owner.CollectionChanged += Owner_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_INSERT, Permissions.PAVILON_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                pavilon.CollectionChanged += Pavilon_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_INSERT, Permissions.PROCEDURA_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                procedure.CollectionChanged += Procedure_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_INSERT, Permissions.ZDR_ZAZNAM_DELETE))
+            { //TODO: nějaká lepší prevence úpravy
+                MedicalRec.CollectionChanged += MedicalRec_CollectionChanged;
+
+            }
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) Typy.CollectionChanged += Typy_CollectionChanged;
         }
 
         RelayCommand rsCMD;
@@ -135,6 +167,22 @@ namespace BDAS_2_dog_shelter.MainWindow
             Typy.Clear();
             LoadTypes(permissions);
             Typy.CollectionChanged += Typy_CollectionChanged;
+            karantena.CollectionChanged -= Karantena_CollectionChanged;
+            karantena.Clear();
+            LoadKarantena(permissions);
+            karantena.CollectionChanged += Karantena_CollectionChanged;
+            Owners.CollectionChanged -= Owner_CollectionChanged;
+            Owners.Clear();
+            LoadOwner(permissions);
+            Owners.CollectionChanged += Owner_CollectionChanged;
+            procedure.CollectionChanged -= Procedure_CollectionChanged;
+            procedure.Clear();
+            LoadProcedure(permissions);
+            procedure.CollectionChanged += Procedure_CollectionChanged;
+            MedicalRec.CollectionChanged -= MedicalRec_CollectionChanged;
+            MedicalRec.Clear();
+            LoadMedicalRec(permissions);
+            MedicalRec.CollectionChanged += MedicalRec_CollectionChanged;
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
@@ -145,6 +193,10 @@ namespace BDAS_2_dog_shelter.MainWindow
         public bool AnySkladPerms => Permission.HasAnyOf(permissions, Permissions.SKLAD_SELECT, Permissions.SKLAD_INSERT, Permissions.SKLAD_DELETE, Permissions.SKLAD_UPDATE, Permissions.ADMIN);
         public bool AnyDogHistoryPerms => Permission.HasAnyOf(permissions, Permissions.HISTORIE_PSA_SELECT, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE, Permissions.HISTORIE_PSA_UPDATE, Permissions.ADMIN);
         public bool AnyMedicalPerms => Permission.HasAnyOf(permissions, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE, Permissions.ADMIN);
+        public bool AnyKaratenaPerms => Permission.HasAnyOf(permissions, Permissions.KARANTENA_SELECT, Permissions.KARANTENA_INSERT, Permissions.KARANTENA_DELETE, Permissions.KARANTENA_UPDATE, Permissions.ADMIN);
+        public bool AnyOwnerPerms => Permission.HasAnyOf(permissions, Permissions.MAJITEL_SELECT, Permissions.MAJITEL_INSERT, Permissions.MAJITEL_DELETE, Permissions.MAJITEL_UPDATE, Permissions.ADMIN);
+        public bool AnyPavilionPerms => Permission.HasAnyOf(permissions, Permissions.PAVILON_SELECT, Permissions.PAVILON_INSERT, Permissions.PAVILON_DELETE, Permissions.PAVILON_UPDATE, Permissions.ADMIN);
+        public bool AnyMedicalRecPerms => Permission.HasAnyOf(permissions, Permissions.ZDR_ZAZNAM_SELECT, Permissions.ZDR_ZAZNAM_INSERT, Permissions.ZDR_ZAZNAM_DELETE, Permissions.ZDR_ZAZNAM_UPDATE, Permissions.ADMIN);
         public bool isAdmin => Permission.HasAnyOf(permissions, Permissions.ADMIN);
     }
 }
