@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ShelterAdd" Height="182" Width="234">
     <Grid>
-        <Button x:Name="button" Content="Add" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
+        <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="18">
             <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">

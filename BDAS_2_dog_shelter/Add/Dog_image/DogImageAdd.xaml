@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="HrackaAdd" Height="300" Width="234">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="78,254,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
+        <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="78,254,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="159,254,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="78,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" >
             <Binding Path="Filename" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
