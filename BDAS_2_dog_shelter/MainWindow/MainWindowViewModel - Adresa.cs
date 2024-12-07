@@ -20,7 +20,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> armCMD;
         private RelayCommand<object> aedCMD;
         public ICommand cmdAAdd => aadCMD ??= new RelayCommand(CommandAdressAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
-        public ICommand cmdA0Rm => armCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
+        public ICommand cmdARm => armCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
         public ICommand cmdAEd => aedCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
         public ObservableCollection<Adress> Adresses { get; set; } = new();
 

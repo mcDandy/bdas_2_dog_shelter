@@ -107,8 +107,8 @@
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonAAdd" Content="Add" Margin="5" Command="{Binding Path=cmdAAdd}"/>
-                    <Button x:Name="buttonAEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonARemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonAEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdAEd}"/>
+                    <Button x:Name="buttonARemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=adresaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdARm}"/>
                     <Button x:Name="buttonA1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonA2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -143,7 +143,7 @@ ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
             </Grid>
         </TabItem>
-        <TabItem Header="Medical" Name="tabMedical" Visibility="{Binding AnyHrackaPerms, Converter={StaticResource BoolToVis}}">
+        <TabItem Header="Medical" Name="tabMedical" Visibility="{Binding AnyMedicalPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -190,9 +190,9 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonKAdd" Content="Add" Margin="5" Command="{Binding Path=cmdKAdd}"/>
-                    <Button x:Name="buttonKEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=krmivoDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdKEd}"/>
-                    <Button x:Name="buttonKRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=krmivoDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdKRm}"/>
+                    <Button x:Name="buttonKAdd" Content="Add" Margin="5" Command="{Binding Path=cmdFAdd}"/>
+                    <Button x:Name="buttonKEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=krmivoDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdFEd}"/>
+                    <Button x:Name="buttonKRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=krmivoDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdFRm}"/>
                     <Button x:Name="buttonK1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonK2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
