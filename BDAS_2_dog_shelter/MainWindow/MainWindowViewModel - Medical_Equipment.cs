@@ -1,28 +1,14 @@
-﻿using BDAS_2_dog_shelter;
-using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Hracka;
-using BDAS_2_dog_shelter.Add.Medical_Equipment;
-using BDAS_2_dog_shelter.Add.Shelter;
+﻿using BDAS_2_dog_shelter.Add.Medical_Equipment;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using static BDAS_2_dog_shelter.Secrets;
 
 
 namespace BDAS_2_dog_shelter.MainWindow
@@ -117,39 +103,6 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private async Task SaveMedical(Hracka utulek)
-        {
-            if (con.State == ConnectionState.Closed) con.Open();
-            try
-            {
-                using (OracleCommand cmd = con.CreateCommand())
-                {
-
-                    cmd.BindByName = true;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_HRACKA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_HRACKA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
-                    
-                    cmd.CommandText = "INS_SET.IU_HRACKA";
-
-                    //Execute the command and use DataReader to display the data
-                    int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
-
-                }
-            }
-            catch (Exception ex)//something went wrong
-            {
-                Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
-                Medical_Equipment.Clear();
-                LoadMedical(permissions);
-                Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
-                MessageBox.Show(ex.Message);
-                return;
-            }
-        }
         private async void Medical_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             foreach (Medical_Equipment medical in e.NewItems ?? new List<Medical_Equipment>())

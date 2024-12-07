@@ -1,7 +1,5 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Storage
 {
     internal class AddStorageViewModel

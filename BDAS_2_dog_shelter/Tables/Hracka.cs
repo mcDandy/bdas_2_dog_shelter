@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.Tables
 {
@@ -43,9 +38,9 @@ namespace BDAS_2_dog_shelter.Tables
         public Hracka(int? id, string nazev, int pocet, int sklad_id)
         {
             this.id = id;
-            this._nazev = nazev;
-            this._pocet = pocet;
-            this._sklad = sklad_id;
+            _nazev = nazev;
+            _pocet = pocet;
+            _sklad = sklad_id;
         }
 
         public Hracka()

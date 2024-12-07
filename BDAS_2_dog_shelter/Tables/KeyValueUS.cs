@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.Tables
 {
@@ -12,7 +11,7 @@ namespace BDAS_2_dog_shelter.Tables
         public KeyValueUS(int? value, string nazev)
         {
             Id = value;
-            this.Nazev = nazev;
+            Nazev = nazev;
         }
 
         public string Nazev { get => nazev; set { if (nazev != value) { nazev = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Nazev))); } } }

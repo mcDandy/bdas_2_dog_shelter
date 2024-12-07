@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.Tables
 {
@@ -39,9 +38,9 @@ namespace BDAS_2_dog_shelter.Tables
         public Feed(int? id, string nazev, int pocet, int sklad_id)
         {
             this.id = id;
-            this._nazev = nazev;
-            this._pocet = pocet;
-            this._sklad = sklad_id;
+            _nazev = nazev;
+            _pocet = pocet;
+            _sklad = sklad_id;
         }
 
         public Feed()

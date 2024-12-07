@@ -1,8 +1,5 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
-using System.Windows.Controls;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Logy
 {
     internal class AddLogsViewModel
@@ -12,8 +9,6 @@ namespace BDAS_2_dog_shelter.Add.Logy
         private TimeOnly eventtime;
         private string user;
         private int? iD;
-        private int? sklad;
-        Tables.Storage storage;
         RelayCommand okCommand;
         private string oldvalue;
         private string newvalue;
@@ -51,12 +46,12 @@ namespace BDAS_2_dog_shelter.Add.Logy
 
         public AddLogsViewModel(Tables.Logs logs)
         {
-            this.d = logs;
+            d = logs;
             EventDateTime = logs.EventTime;
-            this.User = logs.CUser;
-            this.newvalue = logs.NewValue;
+            User = logs.CUser;
+            newvalue = logs.NewValue;
             tablename = logs.TableName;
-            this.oldvalue = logs.OldValue;
+            oldvalue = logs.OldValue;
             Udalost = logs.Operation;
         }
     }

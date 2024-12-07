@@ -1,14 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Net.Sockets;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Tables;
-using Oracle.ManagedDataAccess.Client;
-using static BDAS_2_dog_shelter.Secrets;
 
 namespace BDAS_2_dog_shelter.MainWindow
 {
@@ -20,7 +11,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public MainWindow(ulong permissions)
         {
 
-            this.DataContext = new MainWindowViewModel(permissions);
+            DataContext = new MainWindowViewModel(permissions);
             InitializeComponent();
         }
 

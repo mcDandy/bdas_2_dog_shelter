@@ -1,18 +1,7 @@
-﻿using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Dog_Historie;
-using BDAS_2_dog_shelter.Tables;
-using System;
-using System.Collections.Generic;
+﻿using BDAS_2_dog_shelter.Tables;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace BDAS_2_dog_shelter.Add.Dog_Image
@@ -24,16 +13,16 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
     {
         public DogImageAdd()
         {
-            this.DataContext = new AddDogImageViewModel(new Dog_Images());
+            DataContext = new AddDogImageViewModel(new Dog_Images());
             InitializeComponent();
-            ((AddDogImageViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            ((AddDogImageViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
 
         public DogImageAdd(Dog_Images feed)
         {
-            this.DataContext = new AddDogImageViewModel(feed);
+            DataContext = new AddDogImageViewModel(feed);
             InitializeComponent();
-            ((AddDogImageViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            ((AddDogImageViewModel)DataContext).OkClickFinished += () => DialogResult = true;
 
         }
         private void image_Drop(object sender, DragEventArgs e)
@@ -47,8 +36,8 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
                 image.UriSource = new Uri(o);
                 image.EndInit();
                 ((Image)sender).Source = image;
-                ((AddDogImageViewModel)this.DataContext).Obrazek = image;
-                ((AddDogImageViewModel)this.DataContext).Filename = Path.GetFileName(image.UriSource.LocalPath);
+                ((AddDogImageViewModel)DataContext).Obrazek = image;
+                ((AddDogImageViewModel)DataContext).Filename = Path.GetFileName(image.UriSource.LocalPath);
             }
             catch (NotSupportedException ex)
             {

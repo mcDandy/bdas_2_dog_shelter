@@ -1,14 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using static BDAS_2_dog_shelter.Secrets;// do later https://github.com/upce-fei-course-bcsh2-2425-classroom/exercise-08-mcDandy
@@ -23,7 +17,7 @@ namespace BDAS_2_dog_shelter.Login
         public string Uname { get => _username; set { if (value != _username) { _username = value; register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged(); } } }
         public string Pwd { get => _password; set { if (value != _password) { _password = value;  register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged();} } }
         public List<Object> selectedDogs { get; set; }
-        private ulong perms = 0;
+
         public LoginWindowViewModel()
         {
 

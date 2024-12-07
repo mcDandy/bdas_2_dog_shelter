@@ -52,9 +52,9 @@ namespace BDAS_2_dog_shelter.Tables
         public Storage(int id, int capacity, string name, string? v4)
         {
             this.id = id;
-            this.Capacity = capacity;
-            this.Name = name;
-            this.Type = v4??"";
+            Capacity = capacity;
+            Name = name;
+            Type = v4??"";
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;

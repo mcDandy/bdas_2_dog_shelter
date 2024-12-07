@@ -1,27 +1,14 @@
-﻿using BDAS_2_dog_shelter;
-using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Owner;
-using BDAS_2_dog_shelter.Add.Shelter;
+﻿using BDAS_2_dog_shelter.Add.Owner;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
-using static BDAS_2_dog_shelter.Secrets;
 
 
 namespace BDAS_2_dog_shelter.MainWindow
@@ -187,40 +174,5 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-        private async Task SaveFood(Owner utulek)
-        {
-            if (con.State == ConnectionState.Closed) con.Open();
-            try
-            {
-                using (OracleCommand cmd = con.CreateCommand())
-                {
-
-                    cmd.BindByName = true;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_MAJITEL", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_MAJITEL", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_JMENO", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_PRIJMENI", OracleDbType.Varchar2, utulek.Surname, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ADRESA", OracleDbType.Decimal, utulek.AdresaId, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Phone, ParameterDirection.Input));
-
-                    cmd.CommandText = "INS_SET.IU_MAJITEL";
-
-                    //Execute the command and use DataReader to display the data
-                    int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
-
-                }
-            }
-            catch (Exception ex)//something went wrong
-            {
-                Owners.CollectionChanged -= Owner_CollectionChanged;
-                Owners.Clear();
-                LoadOwner(permissions);
-                Owners.CollectionChanged += Owner_CollectionChanged;
-                MessageBox.Show(ex.Message);
-                return;
-            }
-        }
-    } 
+    }
 }

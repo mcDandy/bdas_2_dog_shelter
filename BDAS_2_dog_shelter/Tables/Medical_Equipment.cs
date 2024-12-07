@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.Tables
 {
@@ -42,9 +37,9 @@ namespace BDAS_2_dog_shelter.Tables
         public Medical_Equipment(int? id, string nazev, int pocet, int sklad_id)
         {
             this.id = id;
-            this.medical_name = nazev;
-            this.count_medical = pocet;
-            this._sklad = sklad_id;
+            medical_name = nazev;
+            count_medical = pocet;
+            _sklad = sklad_id;
         }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;

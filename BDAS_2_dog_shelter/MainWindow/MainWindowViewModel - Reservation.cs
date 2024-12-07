@@ -17,8 +17,7 @@ namespace BDAS_2_dog_shelter.MainWindow
     internal partial class MainWindowViewModel
     {
         private RelayCommand radCMD;
-        private RelayCommand<object> rrmCMD;
-        private RelayCommand<object> redCMD;
+
         public ICommand cmdRAdd => radCMD ??= new RelayCommand(CommandRezervaceAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT)));
         public ICommand cmdR0Rm => armCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)));
         public ICommand cmdREd => aedCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)));

@@ -1,14 +1,8 @@
-﻿using BDAS_2_dog_shelter;
-using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Dog_Historie;
-using BDAS_2_dog_shelter.Add.Hracka;
-using BDAS_2_dog_shelter.Add.Shelter;
+﻿using BDAS_2_dog_shelter.Add.Dog_Historie;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;

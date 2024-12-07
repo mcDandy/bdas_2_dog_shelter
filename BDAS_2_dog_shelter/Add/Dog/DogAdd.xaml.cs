@@ -1,16 +1,8 @@
 ﻿using BDAS_2_dog_shelter.Add.Dog;
 using BDAS_2_dog_shelter.Tables;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -26,18 +18,18 @@ namespace BDAS_2_dog_shelter
 
             InitializeComponent();
             Dog d = new();
-            this.DataContext = new AddDogViewModel(d,psi,owners,quarantines);
-            image.Source = ((AddDogViewModel)this.DataContext).Obrazek;
-            ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            DataContext = new AddDogViewModel(d,psi,owners,quarantines);
+            image.Source = ((AddDogViewModel)DataContext).Obrazek;
+            ((AddDogViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
         public DogAdd (Dog d, List<Tables.Dog> psi, List<Owner> owners, List<Quarantine> quarantines)
         {
             InitializeComponent();
-            this.DataContext = new AddDogViewModel(d,psi,owners,quarantines);
-            ((AddDogViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+            DataContext = new AddDogViewModel(d,psi,owners,quarantines);
+            ((AddDogViewModel)DataContext).OkClickFinished += () => DialogResult = true;
             byte[] b = new byte[256*256*4];
             new Random().NextBytes(b); 
-            image.Source = ((AddDogViewModel)this.DataContext).Obrazek?? BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256 * 4);
+            image.Source = ((AddDogViewModel)DataContext).Obrazek?? BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256 * 4);
         }
 
         public Dog Dog { get; internal set; }
@@ -53,8 +45,8 @@ namespace BDAS_2_dog_shelter
                 image.UriSource = new Uri(o);
                 image.EndInit();
                 ((Image)sender).Source = image;
-                ((AddDogViewModel)this.DataContext).Obrazek = image;
-                ((AddDogViewModel)this.DataContext).Filename = Path.GetFileName(image.UriSource.LocalPath); 
+                ((AddDogViewModel)DataContext).Obrazek = image;
+                ((AddDogViewModel)DataContext).Filename = Path.GetFileName(image.UriSource.LocalPath); 
             }
             catch (NotSupportedException ex)
             {

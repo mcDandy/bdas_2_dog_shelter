@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.Tables
 {
@@ -102,12 +97,12 @@ namespace BDAS_2_dog_shelter.Tables
 
         public Logs(int id, string user, DateTime eventTime, string tableName, string operation, string oldValue, string nevValue)
         {
-            this._operation = operation;
-            this.new_value = nevValue;
-            this.old_value = oldValue;
-            this.c_user = user;
-            this.event_time = eventTime;
-            this.table_name = tableName;
+            _operation = operation;
+            new_value = nevValue;
+            old_value = oldValue;
+            c_user = user;
+            event_time = eventTime;
+            table_name = tableName;
             this.id = id;
         }
 

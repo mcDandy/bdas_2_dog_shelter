@@ -1,7 +1,6 @@
 ﻿using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.feed
 {
     internal class AddFeedViewModel
@@ -40,7 +39,7 @@ namespace BDAS_2_dog_shelter.Add.feed
         {
             this.d = d;
             Nazev = d.Nazev;
-            this.Pocet = d.Pocet;
+            Pocet = d.Pocet;
             ID = d.id;
             SkladID = d.SkladID;
         }
@@ -48,7 +47,7 @@ namespace BDAS_2_dog_shelter.Add.feed
         {
             this.d = d;
             Nazev = d.Nazev;
-            this.Pocet = d.Pocet;
+            Pocet = d.Pocet;
             ID = d.id;
             SkladID = d.SkladID;
         }

@@ -1,8 +1,5 @@
 ﻿using System.Windows;
-using Oracle.ManagedDataAccess.Client;
 using static BDAS_2_dog_shelter.Secrets;
-using System.Security.Cryptography;
-using System.Text;
 using BDAS_2_dog_shelter.Login;
 
 namespace BDAS_2_dog_shelter
@@ -30,7 +27,7 @@ namespace BDAS_2_dog_shelter
 
         private void Colse()
         {
-            this.Close();
+            Close();
         }
     }
 }

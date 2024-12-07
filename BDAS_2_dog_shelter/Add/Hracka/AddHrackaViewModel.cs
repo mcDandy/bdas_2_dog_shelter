@@ -1,6 +1,4 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
 namespace BDAS_2_dog_shelter.Add.Hracka
@@ -74,11 +72,11 @@ namespace BDAS_2_dog_shelter.Add.Hracka
         {
             this.d = d ?? new Tables.Hracka(); // Zajištění, že d není null
             Nazev = d.Nazev;
-            this.Pocet = d.Pocet;
+            Pocet = d.Pocet;
             ID = d.id;
             SkladID = d.SkladID;
             storage = d.Sklad;
-            this.Sklady = storages;
+            Sklady = storages;
             okCommand = new RelayCommand(Ok, CanExecuteOk);
         }
 
@@ -86,7 +84,7 @@ namespace BDAS_2_dog_shelter.Add.Hracka
         {
             this.d = d;
             Nazev = d.Nazev;
-            this.Pocet = d.Pocet;
+            Pocet = d.Pocet;
             ID = d.id;
             SkladID = d.SkladID;
             storage = d.Sklad;

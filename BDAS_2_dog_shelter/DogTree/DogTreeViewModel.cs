@@ -1,13 +1,4 @@
 ﻿using BDAS_2_dog_shelter.Tables;
-using Oracle.ManagedDataAccess.Client;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
-using System.Windows;
 using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.DogTree

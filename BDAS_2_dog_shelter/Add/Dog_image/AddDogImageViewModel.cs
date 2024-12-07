@@ -1,9 +1,7 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Dog_Image
 {
     internal class AddDogImageViewModel : ObservableObject

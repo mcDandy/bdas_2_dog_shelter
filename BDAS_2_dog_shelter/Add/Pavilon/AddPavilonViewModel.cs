@@ -1,7 +1,5 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Pavilon
 {
     internal class AddPavilonViewModel
@@ -34,7 +32,7 @@ namespace BDAS_2_dog_shelter.Add.Pavilon
         {
             this.d = d;
             Nazev = d.PavName;
-            this.Pocet = d.CapacityPav;
+            Pocet = d.CapacityPav;
             ID = d.id;
         }
     }

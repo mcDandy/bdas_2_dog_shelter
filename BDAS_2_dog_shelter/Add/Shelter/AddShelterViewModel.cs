@@ -1,10 +1,8 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Xml.Linq;
 using static BDAS_2_dog_shelter.Secrets;
 
 namespace BDAS_2_dog_shelter.Add.Shelter

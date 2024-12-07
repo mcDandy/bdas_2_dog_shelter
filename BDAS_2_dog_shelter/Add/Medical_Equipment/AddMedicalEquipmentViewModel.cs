@@ -1,7 +1,5 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Medical_Equipment
 {
     internal class MedicalEquipmentViewModelAdd
@@ -37,7 +35,7 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
         {
             this.d = d;
             Nazev = d.MedicalName;
-            this.Pocet = d.CountMedical;
+            Pocet = d.CountMedical;
             ID = d.id;
             SkladID = d.SkladID;
         }

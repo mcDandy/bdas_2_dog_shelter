@@ -1,7 +1,6 @@
 ﻿using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace BDAS_2_dog_shelter.Add.Dog_Historie
 {
@@ -28,11 +27,6 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
             Historie.DogId = SelectedPes.ID;
         }
 
-        // Podmínka pro aktivaci příkazu
-        private bool CanExecuteOk()
-        {
-            return !string.IsNullOrWhiteSpace(historyEntry.EventDescription) && historyEntry.DateOfEvent != default && historyEntry.EventDescription is not null;
-        }
         private string ed;
         private Dog_History historyEntry;
         private Tables.KeyValueUS Typ;
@@ -56,7 +50,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
             id = d.DogId;
             DateOfEvent = d.DateOfEvent;
             SelectedPes = d.Pes;
-            this.Typy = Types;
+            Typy = Types;
         }
     }
 }
