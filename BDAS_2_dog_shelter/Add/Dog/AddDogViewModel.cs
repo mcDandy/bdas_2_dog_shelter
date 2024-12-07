@@ -17,7 +17,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
 {
     internal partial class AddDogViewModel : ObservableObject
     {
-        internal List<Tables.Dog> Psi;
+        public List<Tables.Dog> Psi { get; private set; }
         public AddDogViewModel(Tables.Dog d, List<Tables.Dog> psi) {
             Psi = psi;
             Name = d.Name;
@@ -107,6 +107,13 @@ namespace BDAS_2_dog_shelter.Add.Dog
             get => selectedM;
             set => SetProperty(ref selectedM, value); 
         }
+        
+        private Tables.Dog selectedO;
+
+        public Tables.Dog SelectedO { 
+            get => selectedO;
+            set => SetProperty(ref selectedO, value); 
+        }
 
 
  
@@ -123,7 +130,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Dog.DuvodPrijeti = Duvod;
             Dog.FileName = Filename;
             Dog.MatkaId = SelectedM?.ID;
-            Dog.OtecId = SelectedM?.ID;
+            Dog.OtecId = SelectedO?.ID;
 
             OkClickFinished?.Invoke();
         }

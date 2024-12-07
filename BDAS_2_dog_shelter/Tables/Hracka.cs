@@ -38,7 +38,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private int _sklad;
+        private int? _sklad;
 
         public Hracka(int? id, string nazev, int pocet, int sklad_id)
         {
@@ -56,7 +56,7 @@ namespace BDAS_2_dog_shelter.Tables
         public event PropertyChangedEventHandler? PropertyChanged;
         public event PropertyChangingEventHandler? PropertyChanging;
 
-        public int SkladID
+        public int? SkladID
         {
             get => _sklad;
             set

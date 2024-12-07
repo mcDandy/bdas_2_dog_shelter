@@ -31,8 +31,9 @@ namespace BDAS_2_dog_shelter.Add.Shelter
            d.Email = email;
             d.Name = name;
             d.Telephone = telephone;
-            d.AddressID = addressID;
+            d.AddressID = Adresa.id;
             d.ID = iD;
+            d.Adresa = Adresa;
             OkClickFinished?.Invoke();
         }
 
@@ -85,6 +86,9 @@ namespace BDAS_2_dog_shelter.Add.Shelter
                 return ulek;
             }
         }
+
+        public Tables.Adress Adresa { get; set; }
+
         private List<Tables.Adress> ulek;
 
         public AddShelterViewModel(Tables.Shelter d)
@@ -95,6 +99,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
             Telephone = d.Telephone;
             ID = d.ID;
             AdressID = d.AddressID;
+            
         }
 
         [GeneratedRegex("[+]?[0-9]+")]

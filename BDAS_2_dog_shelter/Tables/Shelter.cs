@@ -63,7 +63,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-
+        public Adress? Adresa { get; set; }
         public Shelter()
         {
             _name = "";

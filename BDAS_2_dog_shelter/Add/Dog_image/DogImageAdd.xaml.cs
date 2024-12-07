@@ -23,12 +23,14 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
     {
         public DogImageAdd()
         {
+            this.DataContext = new DogImageAdd(new Dog_Images());
             InitializeComponent();
         }
 
         public DogImageAdd(Dog_Images feed) : this() 
         {
             this.DataContext = new AddDogImageViewModel(feed);
+            InitializeComponent();
         }
         private void image_Drop(object sender, DragEventArgs e)
         {

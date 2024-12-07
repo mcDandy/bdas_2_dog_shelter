@@ -91,8 +91,9 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     v.IsDBNull(3) ? null : v.GetString(3),
                                     v.GetInt32(4)
                                 ));
-
-                            if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Shelters.Last().PropertyChanged += ShelterChanged;
+                            Shelters.Last().Adresa = Adresses.FirstOrDefault(a => a.id == Shelters.Last().AddressID)
+                            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.UTULEK_UPDATE)) Shelters.Last().PropertyChanged += ShelterChanged;
+                            
                         }
 
                     }
@@ -135,7 +136,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
                     utulek.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
-
+                    utulek.Adresa = Adresses.LastOrDefault(a => a.id == utulek.AddressID);
                 }
             }
             catch (Exception ex)//something went wrong

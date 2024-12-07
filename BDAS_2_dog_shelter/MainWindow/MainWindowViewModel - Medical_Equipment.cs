@@ -45,7 +45,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandMedicalRemove(object? Selectedmedical)
         {
-            if ((permissions & (long)Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) > 0)
+            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.ZDRAVOTNICKY_MATERIAL_DELETE))
             {
                 List<Medical_Equipment> e = new List<Medical_Equipment>();
                 foreach (Medical_Equipment d in (IEnumerable)Selectedmedical) e.Add(d);

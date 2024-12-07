@@ -26,18 +26,18 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand ImgesadCMD;
         private RelayCommand<object> ImgesrmCMD;
         private RelayCommand<object> ImgesedCMD;
-        public ICommand cmdImagesAdd => ImgesadCMD ??= new RelayCommand(CommandImageAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
-        public ICommand cmdImagesRm => ImgesrmCMD ??= new RelayCommand<object>(CommandImageRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)));
-        public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImageEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)));
+        public ICommand cmdImagesAdd => ImgesadCMD ??= new RelayCommand(CommandImagesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
+        public ICommand cmdImagesRm => ImgesrmCMD ??= new RelayCommand<object>(CommandImagesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)));
+        public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImagesEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)));
 
         public ObservableCollection<Dog_Images> Images { get; set; } = new();
 
-        private void CommandImageEdit(object? obj)
+        private void CommandImagesEdit(object? obj)
         {
             DogImageAdd da = new(((IEnumerable)obj).Cast<Dog_Images>().First());
             da.ShowDialog();
         }
-        private void CommandImageRemove(object? SelectedShelters)
+        private void CommandImagesRemove(object? SelectedShelters)
         {
             if (Permission.HasAnyOf(permissions,Permissions.ADMIN))
             {
@@ -49,7 +49,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-        private void CommandImageAdd()
+        private void CommandImagesAdd()
         {
             DogImageAdd s = new DogImageAdd();
             if (s.ShowDialog() == true)

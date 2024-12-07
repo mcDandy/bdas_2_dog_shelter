@@ -71,14 +71,7 @@
                         <DataGridTextColumn Header="Název" Binding="{Binding Name}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="telefon" Binding="{Binding Telephone}"/>
                         <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
-                        <DataGridTemplateColumn Header="Útulek">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=UtulekAdresa}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-
-                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Adresa" Binding="{Binding Adresa}"/>
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
@@ -157,7 +150,7 @@ ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="MedicalDataGrid" CanUserAddRows="False"
-ItemsSource="{Binding Path=Medical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Medical_Equipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
@@ -167,9 +160,9 @@ ItemsSource="{Binding Path=Medical, Mode=TwoWay, UpdateSourceTrigger=PropertyCha
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonMAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonMEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonMRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonMAdd" Content="Add" Margin="5" Command="{Binding Path=cmdMedicalAdd}"/>
+                    <Button x:Name="buttonMEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedicalEd}"/>
+                    <Button x:Name="buttonMRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalDataGrid, Path=SelectedItems}" Command="{Binding Path=MedicalHRm}"/>
                     <Button x:Name="buttonM1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonM2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -293,9 +286,9 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button  Content="Add" Margin="5" Command="{Binding Path=cmdImageAdd}"/>
-                    <Button  Content="Edit" Margin="5" CommandParameter="{Binding ElementName=imdDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdImageEd}"/>
-                    <Button  Content="Remove" Margin="5" CommandParameter="{Binding ElementName=imdDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdImageRm}"/>
+                    <Button  Content="Add" Margin="5" Command="{Binding Path=cmdImagesAdd}"/>
+                    <Button  Content="Edit" Margin="5" CommandParameter="{Binding ElementName=imdDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdImagesEd}"/>
+                    <Button  Content="Remove" Margin="5" CommandParameter="{Binding ElementName=imdDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdImagesRm}"/>
                     <Button  Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button  Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
