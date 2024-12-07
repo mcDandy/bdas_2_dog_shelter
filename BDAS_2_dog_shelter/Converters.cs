@@ -39,8 +39,7 @@ namespace BDAS_2_dog_shelter.Conversion
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null or Validation.TimeRule.RegexClock().isMatch(value as string)) {
-            return TimeOnly.Parse(value as string);
+                return TimeOnly.Parse(value as string);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
