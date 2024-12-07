@@ -91,7 +91,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     v.IsDBNull(3) ? null : v.GetString(3),
                                     v.GetInt32(4)
                                 ));
-                            Shelters.Last().Adresa = Adresses.FirstOrDefault(a => a.id == Shelters.Last().AddressID)
+                            Shelters.Last().Adresa = Adresses.FirstOrDefault(a => a.id == Shelters.Last().AddressID);
                             if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.UTULEK_UPDATE)) Shelters.Last().PropertyChanged += ShelterChanged;
                             
                         }
