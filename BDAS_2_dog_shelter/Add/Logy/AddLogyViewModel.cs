@@ -33,9 +33,9 @@ namespace BDAS_2_dog_shelter.Add.Logy
         }
 
         public TimeOnly EventTime { get => eventtime;  set { eventtime = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public DateOnly EventDate { get => eventdate;  set { eventdate = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string User { get => user;  set => user = value; }
         public int? ID { get => iD;  set => iD = value; }
-        public int? SkladID { get => sklad;  set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
         public Tables.Logs Hracka => d;
 
