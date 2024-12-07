@@ -10,8 +10,8 @@ namespace BDAS_2_dog_shelter.Tables
     public class Medical_Record : INotifyPropertyChanged, INotifyPropertyChanging
     {
         public int? id;
-        private string date_rec;
-        public string DateRec
+        private DateTime date_rec;
+        public DateTime DateRec
         {
             get => date_rec;
             set
@@ -24,8 +24,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private int type_proc;
-        public int TypeProc
+        private int? type_proc;
+        public int? TypeProc
         {
             get => type_proc;
             set
@@ -38,8 +38,17 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Medical_Record() { date_rec = ""; type_proc = 0; }
+        public Medical_Record() { date_rec = DateTime.Now; type_proc = 0; }
+
+        public Medical_Record(int v1, DateTime dateTime, int v2)
+        {
+            id = v1;
+            date_rec = dateTime;
+            type_proc = v2;
+        }
+
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
+    public Tables.Medical_Record medRecord { get; set; }
     }
 }
