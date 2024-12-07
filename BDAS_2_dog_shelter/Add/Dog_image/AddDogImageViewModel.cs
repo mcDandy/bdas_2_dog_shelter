@@ -1,11 +1,12 @@
 ﻿using BDAS_2_dog_shelter.Tables;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Dog_Image
 {
-    internal class AddDogImageViewModel
+    internal class AddDogImageViewModel : ObservableObject
     {
         private Tables.Dog_Images d;
 
@@ -25,7 +26,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
             OkClickFinished?.Invoke();
         }
 
-        public string Filename { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public string Filename { get => name; set { SetProperty(ref name, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
         public Tables.Storage Sklad;
         public List<Tables.Storage> Sklady;
@@ -38,6 +39,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
         {
             _obraze = d.Image;
             name = d.FileName;
+            this.d = d;
         }
     }
 }

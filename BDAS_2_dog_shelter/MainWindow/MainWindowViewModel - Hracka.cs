@@ -38,13 +38,13 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandHrackaEdit(object? obj)
         {
-            HrackaAdd s = new(((IEnumerable)obj).Cast<Hracka>().First());
+            HrackaAdd s = new(((IEnumerable)obj).Cast<Hracka>().First(),Storages.ToList());
             s.ShowDialog();
         }
 
         private void CommandHrackaRemove(object? SelectedShelters)
         {
-            if ((permissions & (long)Permissions.HRACKA_DELETE) > 0)
+            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.HRACKA_DELETE))
             {
                 List<Hracka> e = new List<Hracka>();
                 foreach (Hracka d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -57,7 +57,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandHrackaAdd()
         {
-            HrackaAdd s = new HrackaAdd();
+            HrackaAdd s = new HrackaAdd(Storages.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");

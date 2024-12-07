@@ -112,6 +112,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 using (OracleCommand cmd = con.CreateCommand())
                 {
                     cmd.BindByName = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "INS_SET.IU_DOG_IMAGES"; // Replace this with your actual stored procedure
                     cmd.Parameters.Add("V_ID_IMAGE", OracleDbType.Decimal, history.id ?? (object)DBNull.Value, ParameterDirection.InputOutput);
                     PngBitmapEncoder pe = new PngBitmapEncoder();
@@ -119,7 +120,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MemoryStream ms = new MemoryStream();
                     pe.Save(ms);
                     byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_IMAGE", OracleDbType.Blob, b, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_DOG_IMAGE", OracleDbType.Blob, b, ParameterDirection.Input);
                     cmd.Parameters.Add("V_FILENAME", OracleDbType.Varchar2, history.FileName, ParameterDirection.Input);
 
                     await cmd.ExecuteNonQueryAsync();

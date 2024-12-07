@@ -1,4 +1,5 @@
 ﻿using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Add.Dog_Historie;
 using BDAS_2_dog_shelter.Tables;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,17 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
     {
         public DogImageAdd()
         {
-            this.DataContext = new DogImageAdd(new Dog_Images());
+            this.DataContext = new AddDogImageViewModel(new Dog_Images());
             InitializeComponent();
+            ((AddDogImageViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
 
-        public DogImageAdd(Dog_Images feed) : this() 
+        public DogImageAdd(Dog_Images feed)
         {
             this.DataContext = new AddDogImageViewModel(feed);
             InitializeComponent();
+            ((AddDogImageViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
+
         }
         private void image_Drop(object sender, DragEventArgs e)
         {

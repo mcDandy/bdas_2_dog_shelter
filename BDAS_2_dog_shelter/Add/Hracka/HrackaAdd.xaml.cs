@@ -1,4 +1,5 @@
 ﻿using BDAS_2_dog_shelter.Add.Dog;
+using BDAS_2_dog_shelter.Tables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,17 @@ namespace BDAS_2_dog_shelter.Add.Hracka
     /// </summary>
     public partial class HrackaAdd : Window
     {
-        public HrackaAdd()
+        public HrackaAdd(List<Tables.Storage> storages)
         {
             InitializeComponent();
             Tables.Hracka d = new();
-            this.DataContext = new AddHrackaViewModel(d);
+            this.DataContext = new AddHrackaViewModel(d, storages);
             ((AddHrackaViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
-        public HrackaAdd(Tables.Hracka d)
+        public HrackaAdd(Tables.Hracka d, List<Tables.Storage> storages)
         {
             InitializeComponent();
-            this.DataContext = new AddHrackaViewModel(d);
+            this.DataContext = new AddHrackaViewModel(d, storages);
             ((AddHrackaViewModel)this.DataContext).OkClickFinished += () => this.DialogResult = true;
         }
     }
