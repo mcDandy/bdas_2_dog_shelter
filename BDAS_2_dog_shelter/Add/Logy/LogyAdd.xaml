@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Hracka" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" xmlns:convertors="clr-namespace:BDAS_2_dog_shelter.Conversion"
         mc:Ignorable="d"
-        Title="HrackaAdd" Height="220" Width="234">
+        Title="LogAdd" Height="220" Width="234">
+    <Window.Resources>
+        <convertors:DateTimeToDate x:Key="dtt" />
+    </Window.Resources>
     <Grid>
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="91,167,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="167,167,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,94,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding Udalost,Mode=TwoWay}">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,94,0,0" VerticalAlignment="Top" Width="120" Text="{Binding Udalost,Mode=TwoWay}" SelectedItem="{Binding Udalost,Mode=TwoWay}">
             <ComboBoxItem Content="INSERT"/>
             <ComboBoxItem Content="UPDATE"/>
             <ComboBoxItem Content="DELETE"/>
@@ -32,9 +35,10 @@
         <Label x:Name="label1" Content="DatumČas" HorizontalAlignment="Left" Margin="13,40,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat1" Content="Tabulka" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat2" Content="UDALOST" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="77,42,0,0" VerticalAlignment="Top" SelectedDate="{Binding EventDate}"/>
-        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="189,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35">
-            <Binding Path="Time" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="75,42,0,0" VerticalAlignment="Top" SelectedDate="{Binding EventDate, Converter={StaticResource dtt}}">
+        </DatePicker>
+        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="150,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35">
+            <Binding Path="EventTime" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.Converter>
                     <convertors:StringToTime/>
                 </Binding.Converter>
@@ -45,16 +49,12 @@
         </TextBox>
         <TextBox x:Name="tel_Kopírovat" HorizontalAlignment="Left" Margin="86,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="OldValue" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NumericStringRule/>
-                </Binding.ValidationRules>
+
             </Binding>
         </TextBox>
         <TextBox x:Name="tel_Kopírovat1" HorizontalAlignment="Left" Margin="86,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="NewValue" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NumericStringRule/>
-                </Binding.ValidationRules>
+
             </Binding>
         </TextBox>
         <Label x:Name="label_Kopírovat" Content="Stará hodnota" HorizontalAlignment="Left" Margin="3,116,0,0" VerticalAlignment="Top"/>

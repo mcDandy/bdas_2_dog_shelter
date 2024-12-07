@@ -32,12 +32,25 @@ namespace BDAS_2_dog_shelter.Conversion
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-                return TimeOnly.Parse(value as string);
+            return ((TimeOnly)value).ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((TimeOnly)value).ToString();
+            return TimeOnly.Parse(value as string);
+        }
+    }
+    
+    public class DateTimeToDate : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((DateOnly)value).ToDateTime(TimeOnly.MinValue);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return DateOnly.FromDateTime((DateTime)value);
         }
     }
 
