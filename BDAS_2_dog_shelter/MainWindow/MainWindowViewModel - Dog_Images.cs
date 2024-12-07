@@ -124,7 +124,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add("V_FILENAME", OracleDbType.Varchar2, history.FileName, ParameterDirection.Input);
 
                     await cmd.ExecuteNonQueryAsync();
-                    history.id = Convert.ToInt32(cmd.Parameters["V_ID_IMAGE"].Value);
+                    history.id = Convert.ToInt32(cmd.Parameters["V_ID_IMAGE"].Value.ToString());
                 }
             }
             catch (Exception ex)
