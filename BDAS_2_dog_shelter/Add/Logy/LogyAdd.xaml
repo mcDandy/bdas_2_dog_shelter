@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Hracka" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" xmlns:convertors="clr_namespace:BDAS_2_dog_shelter.Coversion"
+        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Hracka" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" xmlns:convertors="clr-namespace:BDAS_2_dog_shelter.Conversion"
         mc:Ignorable="d"
         Title="HrackaAdd" Height="182" Width="234">
     <Grid>
@@ -13,14 +13,14 @@
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="77,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Pocet" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
-                   <!-- <validators:NumericStringRule/>-->
+                    <validators:NumericStringRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
         <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Nazev" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
-                    <!--<validators:NotEmptyStringRule/>-->
+                    <validators:NotEmptyStringRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
@@ -28,15 +28,14 @@
         <Label x:Name="label_Kopírovat1" Content="Počet" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat2" Content="Sklad" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="77,42,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="203,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35">
+        <TextBox x:Name="time" HorizontalAlignment="Left" Margin="189,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="35">
             <Binding Path="Time" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <!--<Binding.Converter>
+                <Binding.Converter>
                     <convertors:StringToTime/>
                 </Binding.Converter>
                 <Binding.ValidationRules>
                     <validators:TimeRule/>
                 </Binding.ValidationRules>
-            -->
             </Binding>
         </TextBox>
 
