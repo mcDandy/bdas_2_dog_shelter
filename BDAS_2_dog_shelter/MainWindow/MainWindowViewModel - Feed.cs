@@ -1,6 +1,6 @@
 ﻿using BDAS_2_dog_shelter;
 using BDAS_2_dog_shelter.Add.Dog;
-using BDAS_2_dog_shelter.Add.Food;
+using BDAS_2_dog_shelter.Add.feed;
 using BDAS_2_dog_shelter.Add.Hracka;
 using BDAS_2_dog_shelter.Add.Shelter;
 using BDAS_2_dog_shelter.Tables;
@@ -114,16 +114,16 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.IdKrmivo is null ? new("V_ID_KRMIVO", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_KRMIVO", OracleDbType.Decimal, utulek.IdKrmivo, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.FeedName, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Count, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.IdSklad, ParameterDirection.Input));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_KRMIVO", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_KRMIVO", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Nazev, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Pocet, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_KRMIVO";
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.IdKrmivo = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
 
                 }
             }
@@ -154,7 +154,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("ID", dog.IdKrmivo));
+                        cmd.Parameters.Add(new("ID", dog.id));
                         cmd.CommandText = "delete from krmivo where id_krmivo=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
