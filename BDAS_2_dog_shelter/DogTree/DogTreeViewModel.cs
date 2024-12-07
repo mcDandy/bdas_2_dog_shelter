@@ -8,70 +8,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 using System.Windows;
+using System.ComponentModel;
 
 namespace BDAS_2_dog_shelter.DogTree
 {
-    internal class DogTreeViewModel
-    {
-        private Dog dog;
-        public DogTreeViewModel(Dog d) { dog = d; }
-        private void LoadDogTree()
+    internal class DogTreeViewModel :INotifyPropertyChanged
         {
-        //    if (con.State == ConnectionState.Closed) con.Open();
+            private Dog dog;
 
-        //    try
-        //    {
-        //        using (OracleCommand cmd = con.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //        SELECT id_pes, id_otec, id_matka 
-        //        FROM pes 
-        //        CONNECT BY PRIOR id_pes = id_otec OR id_pes = id_matka 
-        //        START WITH id_pes = :DogId";
-        //            cmd.Parameters.Add(new OracleParameter("DogId", dogId));
+            public DogTreeViewModel(Dog d)
+            {
+                dog = d;
+                LoadDogTree(); // Načíst data
+            }
 
-        //            using (OracleDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                Dictionary<int, Dog> dogDictionary = new();
+            public string DogName => dog?.Name ?? "No name";
+            public string FatherName => dog.Otec?.Name ?? "No father"; // Zde používáme vlastnost Otec
+            public string MotherName => dog.Matka?.Name ?? "No mother"; // Zde používáme vlastnost Matka
 
-        //                while (reader.Read())
-        //                {
-        //                    int id = reader.GetInt32(0);
-        //                    int? fatherId = reader.IsDBNull(1) ? (int?)null : reader.GetInt32(1);
-        //                    int? motherId = reader.IsDBNull(2) ? (int?)null : reader.GetInt32(2);
+            private void LoadDogTree()
+            {
+                // Můžete rozšiřovat funkcionalitu, například načítat další data, pokud by byla třeba
+            }
 
-        //                    if (!dogDictionary.ContainsKey(id))
-        //                    {
-        //                        dogDictionary[id] = new Dog { Id = id };
-        //                    }
+            public event PropertyChangedEventHandler? PropertyChanged;
 
-        //                    if (fatherId.HasValue && !dogDictionary.ContainsKey(fatherId.Value))
-        //                    {
-        //                        dogDictionary[fatherId.Value] = new Dog { Id = fatherId.Value };
-        //                    }
-
-        //                    if (motherId.HasValue && !dogDictionary.ContainsKey(motherId.Value))
-        //                    {
-        //                        dogDictionary[motherId.Value] = new Dog { Id = motherId.Value };
-        //                    }
-
-        //                    dogDictionary[id].Father = fatherId.HasValue ? dogDictionary[fatherId.Value] : null;
-        //                    dogDictionary[id].Mother = motherId.HasValue ? dogDictionary[motherId.Value] : null;
-        //                }
-
-        //                if (dogDictionary.ContainsKey(dogId))
-        //                {
-        //                    MainDog = dogDictionary[dogId];
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Chyba při načítání rodokmenu: {ex.Message}");
-        //    }
-        //
+            protected void OnPropertyChanged(string propertyName)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
     }
-}
