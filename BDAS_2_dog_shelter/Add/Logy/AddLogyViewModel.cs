@@ -17,6 +17,7 @@ namespace BDAS_2_dog_shelter.Add.Logy
         RelayCommand okCommand;
         private string oldvalue;
         private string newvalue;
+        private string udalost;
 
         public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => /*Validation.TimeRule.RegexClock().IsMatch(EventTime) &&*/ true);
 
@@ -29,12 +30,15 @@ namespace BDAS_2_dog_shelter.Add.Logy
             d.CUser = user;
             d.OldValue = oldvalue;
             d.NewValue = newvalue;
+            d.Operation = Udalost;
             OkClickFinished?.Invoke();
         }
 
-        public TimeOnly EventTime { get => eventtime;  set { eventtime = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public TimeOnly EventTime { get => eventtime;  set {  eventtime = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public DateOnly EventDate { get => eventdate;  set { eventdate = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string User { get => user;  set => user = value; }
+        public string Udalost { get => udalost;  set => udalost = value; }
+
         public int? ID { get => iD;  set => iD = value; }
 
         public Tables.Logs Hracka => d;
@@ -50,6 +54,7 @@ namespace BDAS_2_dog_shelter.Add.Logy
             this.User = d.CUser;
             this.newvalue = d.NewValue;
             this.oldvalue = d.OldValue;
+            Udalost = d.Operation;
         }
     }
 }
