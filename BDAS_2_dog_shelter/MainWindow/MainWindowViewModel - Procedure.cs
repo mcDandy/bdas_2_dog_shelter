@@ -75,7 +75,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_procedura,nazev,pocet,id_sklad from PROCEDURA";
+                        cmd.CommandText = "select id_procedura,nazev,user,id_sklad from PROCEDURA";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
@@ -87,7 +87,8 @@ namespace BDAS_2_dog_shelter.MainWindow
                         List<Procedure> DogForest = procedure.Select<Procedure, Procedure>
                                (a =>
                                {
-                                   a.record = MedicalRec.Where(d => d.id == a.ZdrZaznam).FirstOrDefault();
+                                   //doplnit logiku
+                                   //a.record = procedure.Where(d => d.id == a.ZdrZaznam).FirstOrDefault();
 
                                    return a;
                                }).ToList();

@@ -1,11 +1,12 @@
 ﻿using BDAS_2_dog_shelter.Tables;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Xml.Linq;
 namespace BDAS_2_dog_shelter.Add.Hracka
 {
-    internal class AddHrackaViewModel
+    internal class AddHrackaViewModel : ObservableObject
     {
         private Tables.Hracka d;
         private string name;
@@ -29,10 +30,10 @@ namespace BDAS_2_dog_shelter.Add.Hracka
             OkClickFinished?.Invoke();
         }
 
-        public string Nazev { get => name;  set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public int Pocet { get => pocet;  set => pocet = value; }
+        public string Nazev { get => name;  set { SetProperty(ref name, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public int Pocet { get => pocet;  set => SetProperty(ref pocet, value); }
         public int? ID { get => iD;  set => iD = value; }
-        public int? SkladID { get => sklad;  set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public int? SkladID { get => sklad;  set { SetProperty(ref sklad, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
         public List<Tables.Storage> Sklady { get; set; }
 

@@ -23,8 +23,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private string event_time;
-        public string EventTime
+        private DateTime event_time;
+        public DateTime EventTime
         {
             get => event_time;
             set
@@ -93,7 +93,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Logs(){ c_user = ""; event_time = ""; table_name = ""; _operation = ""; old_value = ""; new_value = ""; }
+        public Logs(){ c_user = ""; event_time = DateTime.Now; table_name = ""; _operation = ""; old_value = ""; new_value = ""; }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

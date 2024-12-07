@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using BDAS_2_dog_shelter.Validation;
 
 namespace BDAS_2_dog_shelter.Conversion
 {
@@ -34,17 +35,18 @@ namespace BDAS_2_dog_shelter.Conversion
             throw new NotImplementedException();
         }
     }
-   /* public class IDToDog : IValueConverter
+    public class StringToTime : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((List<Dog>)parameter).Where((a) => a.ID == value);
+            if (value is null or Validation.TimeRule.RegexClock().isMatch(value as string)) {
+            return TimeOnly.Parse(value as string);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((Dog)value).ID;
+            return ((TimeOnly)value).ToString();
         }
-    }*/
+    }
 
 }

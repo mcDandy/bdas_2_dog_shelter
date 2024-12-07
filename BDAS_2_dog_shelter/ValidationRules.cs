@@ -22,11 +22,24 @@ namespace BDAS_2_dog_shelter.Validation
             return new ValidationResult(value is string && ((string)value).Trim() != string.Empty && Int32.TryParse(value as string,out int i), "Empty string or not a number");
         }
     }
-    public class EmailOrNull : ValidationRule
+    public partial class EmailOrNull : ValidationRule
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {
-            return new ValidationResult(value is string && (Regex.IsMatch(((string)value).Trim(), "[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\x2e[a-zA-Z0-9]+")||((string)value).Trim() is ""),"Not an number address or empty");
+            return new ValidationResult(value is string && (EmailRegex().IsMatch(((string)value).Trim()) || ((string)value).Trim() is ""),"Not an number address or empty");
         }
+
+        [GeneratedRegex("[a-zA-Z0-9.]+@[a-zA-Z0-9.]+[.][a-zA-Z0-9]+")]
+        private static partial Regex EmailRegex();
+    }
+    public partial class TimeRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            return new ValidationResult(value is string && RegexClock().IsMatch(((string)value).Trim()), "Empty string or not a number");
+        }
+
+        [GeneratedRegex("([2]?[0-4]?)|([0-1][0-9]):[0-5]?[0-9](:[0-5]?[0-9])?")]
+        public static partial Regex RegexClock();
     }
 }
