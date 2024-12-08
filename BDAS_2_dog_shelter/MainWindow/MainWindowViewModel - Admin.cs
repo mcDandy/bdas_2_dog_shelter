@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,19 +19,67 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand tadCMD;
         private RelayCommand<object> trmCMD;
         private RelayCommand<object> tedCMD;
+        private RelayCommand scc;
         public ICommand cmdTAdd => tadCMD ??= new RelayCommand        (CommandTypesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
         public ICommand cmdTRm => trmCMD ??= new RelayCommand<object> (CommandTypesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
         public ICommand cmdTEd => tedCMD ??= new RelayCommand<object> (CommandTypesOK, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
+        public ICommand sc => scc ??= new RelayCommand (ShowSystem);
+
+        private void ShowSystem()
+        {
+            using (OracleCommand cmd = con.CreateCommand())
+            {
+                try
+                {
+                    cmd.CommandText = "select OBJECT_NAME,OBJECT_TYPE from user_objects";
+                    OracleDataReader v = cmd.ExecuteReader();
+                    if (v.HasRows)
+                    {
+                        StringBuilder builder = new StringBuilder();
+                        while (v.Read())
+                        {
+                            builder.AppendLine($"{v.GetString(0)} {v.GetString(1)}");
+                        }
+                        MessageBox.Show( builder.ToString() );
+                    }
+                    List<Hracka> DogForest = Hracky.Select<Hracka, Hracka>
+                           (a =>
+                           {
+                               a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();
+
+                               return a;
+                           }).ToList();
+
+                    Hracky.Clear();
+                    foreach (var item in DogForest)
+                    {
+                        Hracky.Add(item);
+                    }
+                }
+                catch (Exception ex)//something went wrong
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
 
         private void CommandTypesRemove(object? obj)
         {
-            throw new NotImplementedException();
+            
+            {
+                List<KeyValueUS> e = new List<KeyValueUS>();
+                foreach (KeyValueUS d in (IEnumerable<KeyValueUS>)obj) e.Add(d);
+                foreach (KeyValueUS history in e)
+                {
+                    Typy.Remove(history);
+                }
+            }
         }
 
 
         private void CommandTypesOK(object? obj)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private void CommandTypesAdd()

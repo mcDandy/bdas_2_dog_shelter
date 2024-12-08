@@ -419,11 +419,11 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                 </StackPanel>
             </Grid>
         </TabItem>
-        
-        
-        
-        
-        
+
+
+
+
+
         <TabItem Header="Obrazek" Name="tabDImage" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -529,6 +529,9 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                 <Button Content="Remove" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.RowSpan="1" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" CommandParameter="{Binding ElementName=typyList,Path=SelectedItem,Mode=TwoWay}" Command="{Binding cmdTRm}" />
                 <Button Content="Button" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.RowSpan="1" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"/>
                 <TextBox x:Name="textBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Path=SelectedType.Nazev,Mode=TwoWay}"/>
+                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
+                    <Button x:Name="button" Content="Sys katalog" HorizontalAlignment="Left" Height="32" Margin="22,211,0,0" VerticalAlignment="Top" Width="79" Command="{Binding sc}"/>
+                </Border>
 
             </Grid>
         </TabItem>
