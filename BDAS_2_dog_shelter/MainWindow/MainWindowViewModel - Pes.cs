@@ -144,7 +144,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     MemoryStream ms = new MemoryStream();
                     pe.Save(ms);
                     byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_DOG_IMAGE",OracleDbType.Blob,b, ParameterDirection.Input);
+                    cmd.Parameters.Add("V_IMAGE",OracleDbType.Blob,b, ParameterDirection.Input);
                     // cmd.Parameters.Add(new("path"), dog.Obrazek.);
                     cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, DBNull.Value, ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, Path.GetFileName(dog.FileName), ParameterDirection.Input));
 
@@ -184,11 +184,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Dogs.CollectionChanged -= Dogs_CollectionChanged;
-                Dogs.Clear();
-                LoadDogs(permissions); 
-                Dogs.CollectionChanged += Dogs_CollectionChanged;
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Data nejsou správná. Klikněte na Cancel & refresh pro obnovení");
                 return;
             }
         }
