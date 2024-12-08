@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandMedicalEdit(object? obj)
         {
-            MedicalEquipmentAdd s = new(((IEnumerable)obj).Cast<Medical_Equipment>().First());
+            MedicalEquipmentAdd s = new(((IEnumerable)obj).Cast<Medical_Equipment>().First(),Storages.ToList());
             s.ShowDialog();
         }
 
@@ -44,7 +44,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandMedicalAdd()
         {
-            MedicalEquipmentAdd s = new MedicalEquipmentAdd();
+            MedicalEquipmentAdd s = new MedicalEquipmentAdd(Storages.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
