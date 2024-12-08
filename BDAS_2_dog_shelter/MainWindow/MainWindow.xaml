@@ -231,15 +231,15 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="KarantenaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="začátek přijetí" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Konec přijetí" Binding="{Binding EndOfDate}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonKarAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonKarEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonKarRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonKarEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=KarantenaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonKarRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=KarantenaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
                     <Button x:Name="buttonKar1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonKar2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -272,18 +272,18 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
             </Grid>
         </TabItem>
 
-        <TabItem Header="Pavilon" Name="tabPavilon" Visibility="{Binding AnyMajitelPerms, Converter={StaticResource BoolToVis}}">
+        <TabItem Header="Pavilon" Name="tabPavilon" Visibility="{Binding AnyPavilonPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="PavilonDataGrid" CanUserAddRows="False"
-ItemsSource="{Binding Path=Pavilon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="PavilonDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Pavilion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="PavilonDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="Nazev" Binding="{Binding PavName}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Kapacita" Binding="{Binding CapacityPav}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>
@@ -372,8 +372,9 @@ ItemsSource="{Binding Path=MedicalRecord, Mode=TwoWay, UpdateSourceTrigger=Prope
 ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="RezervaceDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Převzetí psa" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="jméno psa" Binding="{Binding pes}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>
