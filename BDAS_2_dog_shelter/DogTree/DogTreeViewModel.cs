@@ -1,52 +1,61 @@
 ﻿using BDAS_2_dog_shelter.Tables;
 using System.ComponentModel;
-using System.Windows.Media.Imaging;
 
-namespace BDAS_2_dog_shelter.DogTree
+public class DogTreeViewModel : INotifyPropertyChanged
 {
-    internal class DogTreeViewModel : INotifyPropertyChanged
+    private Dog _dog;
+
+    public DogTreeViewModel(Dog dog)
     {
-        private Dog _dog;
+        Dog = dog;
+        LoadTreeLevels();
+    }
 
-        public DogTreeViewModel(Dog dog)
+    public Dog Dog
+    {
+        get => _dog;
+        set
         {
-            Dog = dog;
-            LoadDogTree(); // Načíst data
+            _dog = value;
+            OnPropertyChanged(nameof(Dog));
+            OnPropertyChanged(nameof(DogName));
         }
+    }
 
-        public Dog Dog
-        {
-            get => _dog;
-            set
-            {
-                if (_dog != value)
-                {
-                    _dog = value;
-                    OnPropertyChanged(nameof(Dog));
-                    OnPropertyChanged(nameof(DogName));
-                    OnPropertyChanged(nameof(FatherName));
-                    OnPropertyChanged(nameof(MotherName));
-                    // Další vlastnosti, pokud potřebujete
-                }
-            }
-        }
+    // Jméno psa
+    public string DogName => Dog.Name;
 
-        public string DogName => Dog?.Name ?? "No name";
-        public string FatherName => Dog?.Otec?.Name ?? "No father";
-        public string MotherName => Dog?.Matka?.Name ?? "No mother";
+    // Rodiče
+    public DogTreeViewModel? Father { get; private set; }
+    public DogTreeViewModel? Mother { get; private set; }
 
-        public BitmapSource DogImage => Dog?.Obrazek; // Přidáno pro obrázek
+    // Prarodiče (2. generace)
+    public DogTreeViewModel? FatherFather => Father?.Father;
+    public DogTreeViewModel? FatherMother => Father?.Mother;
+    public DogTreeViewModel? MotherFather => Mother?.Father;
+    public DogTreeViewModel? MotherMother => Mother?.Mother;
 
-        private void LoadDogTree()
-        {
-            // Může se implementovat další logika pro načítání dat
-        }
+    // Prarodiče (3. generace)
+    public DogTreeViewModel? FatherFatherFather => FatherFather?.Father;
+    public DogTreeViewModel? FatherFatherMother => FatherFather?.Mother;
+    public DogTreeViewModel? FatherMotherFather => FatherMother?.Father;
+    public DogTreeViewModel? FatherMotherMother => FatherMother?.Mother;
+    public DogTreeViewModel? MotherFatherFather => MotherFather?.Father;
+    public DogTreeViewModel? MotherFatherMother => MotherFather?.Mother;
+    public DogTreeViewModel? MotherMotherFather => MotherMother?.Father;
+    public DogTreeViewModel? MotherMotherMother => MotherMother?.Mother;
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+    private void LoadTreeLevels()
+    {
+        // Rekurzivní načtení stromu pro rodiče
+        Father = Dog.Otec != null ? new DogTreeViewModel(Dog.Otec) : null;
+        Mother = Dog.Matka != null ? new DogTreeViewModel(Dog.Matka) : null;
+    }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
