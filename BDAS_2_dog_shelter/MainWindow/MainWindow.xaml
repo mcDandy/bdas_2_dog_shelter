@@ -279,7 +279,7 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="PavilonDataGrid" CanUserAddRows="False"
-ItemsSource="{Binding Path=Pavilon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="PavilonDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Pavilony, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="PavilonDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Nazev" Binding="{Binding PavName}" ></DataGridTextColumn>
@@ -309,7 +309,7 @@ ItemsSource="{Binding Path=Pavilon, Mode=TwoWay, UpdateSourceTrigger=PropertyCha
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="ProceduraDataGrid" CanUserAddRows="False"
-ItemsSource="{Binding Path=Procedury, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="ProceduraDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="ProceduraDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
@@ -332,7 +332,7 @@ ItemsSource="{Binding Path=Procedury, Mode=TwoWay, UpdateSourceTrigger=PropertyC
         </TabItem>
 
 
-        <TabItem Header="Zdravotní záznamy" Name="tabMedicalRec" Visibility="{Binding AnyZdrZaznamPerms, Converter={StaticResource BoolToVis}}">
+        <TabItem Header="Zdravotní záznamy" Name="tabMedicalRec" Visibility="{Binding AnyMedicalRecPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>

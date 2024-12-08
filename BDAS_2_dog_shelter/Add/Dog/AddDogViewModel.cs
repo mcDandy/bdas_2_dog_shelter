@@ -32,6 +32,10 @@ namespace BDAS_2_dog_shelter.Add.Dog
             int i = 0;
             SelectedUT = Utulek.Select(a => new Tuple<int?, int>(a.Item1, i++)).FirstOrDefault(a => a.Item1 == d.UtulekId).Item2;
             Dog = d;
+            Karantena = Karanteny.Where(a => d.KarantenaId == a.id).FirstOrDefault();
+            selectedM = Psi.Where(a => d?.MatkaId == a?.ID).FirstOrDefault();
+            selectedO = Psi.Where(a => d?.OtecId == a?.ID).FirstOrDefault();
+            Karantena = Karanteny.Where(a => d?.KarantenaId == a?.id).FirstOrDefault();
             //if (Obrazek is null) Obrazek = new();
         }
         public Tables.Dog Dog { get; }
@@ -132,6 +136,8 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Dog.DuvodPrijeti = Duvod;
             Dog.FileName = Filename;
             Dog.MatkaId = SelectedM?.ID;
+            Dog.Matka = selectedM;
+            Dog.Otec = selectedO;
             Dog.OtecId = SelectedO?.ID;
             Dog.MajtelId = Majtel?.id;
             Dog.KarantenaId = Karantena?.id;

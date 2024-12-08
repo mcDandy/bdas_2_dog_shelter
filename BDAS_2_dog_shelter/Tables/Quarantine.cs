@@ -41,7 +41,10 @@ namespace BDAS_2_dog_shelter.Tables
             begin_of_date = dateTime1;
             end_of_date = dateTime2;
         }
-
+        public override string ToString()
+        {
+            return begin_of_date.ToString()+" "+(end_of_date-begin_of_date).TotalDays +" days";
+        }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

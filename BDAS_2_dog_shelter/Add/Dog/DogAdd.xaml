@@ -77,8 +77,10 @@
         <ComboBox x:Name="otec" HorizontalAlignment="Left" Margin="50,307,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Psi, Mode=OneTime}" SelectedItem="{Binding SelectedO, Mode=TwoWay}"/>
         <ComboBox x:Name="matka" HorizontalAlignment="Left" Margin="50,334,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Psi, Mode=OneTime}" SelectedItem="{Binding SelectedM, Mode=TwoWay}"/>
         <ComboBox x:Name="karantena" HorizontalAlignment="Left" Margin="50,361,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Karanteny, Mode=OneTime}" SelectedItem="{Binding Karantena, Mode=TwoWay}"/>
-        <ComboBox x:Name="majtele" HorizontalAlignment="Left" Margin="50,388,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Majtele, Mode=OneTime}" SelectedItem="{Binding Majtel, Mode=TwoWay}"/>
+        <ComboBox x:Name="majtele" HorizontalAlignment="Left" Margin="50,388,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Majitele, Mode=OneTime}" SelectedItem="{Binding Majtel, Mode=TwoWay}"/>
         <Label x:Name="label1_Kopírovat5" Content="Otec" HorizontalAlignment="Left" Margin="10,305,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Kopírovat6" Content="Matka" HorizontalAlignment="Left" Margin="5,332,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Kopírovat7" Content="Karanténa" HorizontalAlignment="Left" Margin="3,359,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Kopírovat8" Content="Majitel" HorizontalAlignment="Left" Margin="3,386,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
