@@ -33,7 +33,7 @@ namespace BDAS_2_dog_shelter.Add.feed
         public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public Tables.Feed feed => d;
 
-        public Feed Krmiva { get; internal set; }
+        public Feed Krmiva { get; set; }
 
         public AddFeedViewModel(Tables.Feed d, List<Tables.Storage> storages)
         {
