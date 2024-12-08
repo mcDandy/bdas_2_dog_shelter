@@ -194,9 +194,13 @@ namespace BDAS_2_dog_shelter.MainWindow
         public bool AnyDogHistoryPerms => Permission.HasAnyOf(permissions, Permissions.HISTORIE_PSA_SELECT, Permissions.HISTORIE_PSA_INSERT, Permissions.HISTORIE_PSA_DELETE, Permissions.HISTORIE_PSA_UPDATE, Permissions.ADMIN);
         public bool AnyMedicalPerms => Permission.HasAnyOf(permissions, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE, Permissions.ADMIN);
         public bool AnyKaratenaPerms => Permission.HasAnyOf(permissions, Permissions.KARANTENA_SELECT, Permissions.KARANTENA_INSERT, Permissions.KARANTENA_DELETE, Permissions.KARANTENA_UPDATE, Permissions.ADMIN);
-        public bool AnyOwnerPerms => Permission.HasAnyOf(permissions, Permissions.MAJITEL_SELECT, Permissions.MAJITEL_INSERT, Permissions.MAJITEL_DELETE, Permissions.MAJITEL_UPDATE, Permissions.ADMIN);
-        public bool AnyPavilionPerms => Permission.HasAnyOf(permissions, Permissions.PAVILON_SELECT, Permissions.PAVILON_INSERT, Permissions.PAVILON_DELETE, Permissions.PAVILON_UPDATE, Permissions.ADMIN);
+        public bool AnyMajitelPerms => Permission.HasAnyOf(permissions, Permissions.MAJITEL_SELECT, Permissions.MAJITEL_INSERT, Permissions.MAJITEL_DELETE, Permissions.MAJITEL_UPDATE, Permissions.ADMIN);
+        public bool AnyPavilonPerms => Permission.HasAnyOf(permissions, Permissions.PAVILON_SELECT, Permissions.PAVILON_INSERT, Permissions.PAVILON_DELETE, Permissions.PAVILON_UPDATE, Permissions.ADMIN);
         public bool AnyMedicalRecPerms => Permission.HasAnyOf(permissions, Permissions.ZDR_ZAZNAM_SELECT, Permissions.ZDR_ZAZNAM_INSERT, Permissions.ZDR_ZAZNAM_DELETE, Permissions.ZDR_ZAZNAM_UPDATE, Permissions.ADMIN);
+        public bool AnyKarantenaPerms => Permission.HasAnyOf(permissions, Permissions.KARANTENA_SELECT, Permissions.KARANTENA_INSERT, Permissions.KARANTENA_DELETE, Permissions.KARANTENA_UPDATE, Permissions.ADMIN);
+        public bool AnyProceduryPerms => Permission.HasAnyOf(permissions, Permissions.PROCEDURA_SELECT, Permissions.PROCEDURA_INSERT, Permissions.PROCEDURA_DELETE, Permissions.PROCEDURA_UPDATE, Permissions.ADMIN);
+        public bool AnyRezervacePerms => Permission.HasAnyOf(permissions, Permissions.REZERVACE_SELECT, Permissions.REZERVACE_INSERT, Permissions.PROCEDURA_DELETE, Permissions.REZERVACE_UPDATE, Permissions.ADMIN);
+
         public bool isAdmin => Permission.HasAnyOf(permissions, Permissions.ADMIN);
     }
 }
