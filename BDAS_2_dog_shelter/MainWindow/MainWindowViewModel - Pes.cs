@@ -201,8 +201,11 @@ public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)
 {
-    DogTree.DogTree DT = new DogTree.DogTree((Dog) obj);
-            DT.ShowDialog();
+    if (obj is Dog selectedDog)
+    {
+        var dogTreeWindow = new DogTree.DogTree(selectedDog);
+        dogTreeWindow.ShowDialog();
+    }
 }
 
 private void CommandAdd()
