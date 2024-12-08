@@ -140,9 +140,9 @@ namespace BDAS_2_dog_shelter.Add.Dog
         private DateTime? date;
 
         public DateTime? Date { get => date; set => SetProperty(ref date, value); }
-        public BitmapSource Obrazek { get;  set; }
-        public string? Filename { get; internal set; }
-        public Tables.Owner Majtel { get; internal set; }
-        public Tables.Owner Karantena { get; internal set; }
+        public BitmapSource Obrazek { get; set; }
+        public string? Filename { get; set; }
+        public Tables.Owner Majtel { get; set; }
+        public Tables.Owner Karantena { get; set; }
     }
 }
