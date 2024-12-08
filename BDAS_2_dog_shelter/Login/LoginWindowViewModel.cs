@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
+using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -18,10 +19,7 @@ namespace BDAS_2_dog_shelter.Login
         public string Pwd { get => _password; set { if (value != _password) { _password = value;  register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged();} } }
         public List<Object> selectedDogs { get; set; }
 
-        public LoginWindowViewModel()
-        {
-
-        }
+       
         public delegate void CloaseRequest();
         public event CloaseRequest OnCloaseRequest;
         private RelayCommand register;
@@ -63,9 +61,18 @@ namespace BDAS_2_dog_shelter.Login
         }
 
         private RelayCommand login;
+        private RelayCommand nologin;
         private string _password;
 
         public ICommand Login => login ??= new RelayCommand(PerformLogin,CanLogin);
+        public ICommand NoLogin => nologin ??= new RelayCommand(WhoCaresAboutLoggingIn);
+
+        private void WhoCaresAboutLoggingIn()
+        {
+            MainWindow.MainWindow mw = new(0);
+            OnCloaseRequest?.Invoke();
+            mw.Show();
+        }
 
         private void PerformLogin()
         {

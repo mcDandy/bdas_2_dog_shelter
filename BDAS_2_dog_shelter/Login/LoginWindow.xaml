@@ -10,7 +10,7 @@
     <Window.DataContext>
         <login:LoginWindowViewModel/>
     </Window.DataContext>
-    <Grid>
+    <Grid Margin="0,0,0,-16">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF1785EC"/>
@@ -25,5 +25,6 @@
         <TextBox x:Name="inp_username" HorizontalAlignment="Left" Margin="29,159,0,0" TextWrapping="Wrap" Text="{Binding Path=Uname, Mode=TwoWay}" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="inp_password" HorizontalAlignment="Left" Margin="29,207,0,0" TextWrapping="Wrap" Text="{Binding Path=Pwd, Mode=TwoWay}" VerticalAlignment="Top" Width="90"/>
         <Image x:Name="image" HorizontalAlignment="Left" Height="100" Margin="18,18,0,0" VerticalAlignment="Top" Width="100" Source="../dog.png"/>
+        <Button Content="Pokračovat bez registrac" HorizontalAlignment="Left" Margin="38,293,0,0" Padding="5" VerticalAlignment="Top" Command="{Binding NoLogin}" RenderTransformOrigin="0.5,0.5"/>
     </Grid>
 </Window>
