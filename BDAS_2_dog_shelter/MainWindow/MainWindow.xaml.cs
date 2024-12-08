@@ -39,5 +39,25 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
 
         }
+        private void KarantenaDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        private void MajitelDataGrid_SelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+        }
+        private void PavilonDataGrid_SelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+        }
+        private void ProceduraDataGrid_SelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+        }
+        private void MedicalRecDataGrid_SelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+        }
+        private void ReservaceDataGrid_SelectionChanged(Object sender, SelectionChangedEventArgs e)
+        {
+        }
+
     }
 }

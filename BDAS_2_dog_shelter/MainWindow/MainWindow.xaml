@@ -220,6 +220,178 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
             </Grid>
         </TabItem>
 
+
+        <TabItem Header="Karantena" Name="tabKarantena" Visibility="{Binding AnyKarantenaPerms, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="KarantenaDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="KarantenaDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonKarAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
+                    <Button x:Name="buttonKarEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonKarRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonKar1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonKar2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Majitele" Name="tabMajitel" Visibility="{Binding AnyMajitelPerms, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="MajitelDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MajitelDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonMajAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
+                    <Button x:Name="buttonMajEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonMajRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonMaj1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonMaj2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Pavilon" Name="tabPavilon" Visibility="{Binding AnyMajitelPerms, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="PavilonDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=Pavilon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="PavilonDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonPavAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
+                    <Button x:Name="buttonPavEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=PavilonDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonPavRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=PavilonDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonPav1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonPav2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+        </TabItem>
+
+
+        <TabItem Header="Procedury" Name="tabProcedura" Visibility="{Binding AnyMajitelPerms, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="ProceduraDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=Procedura, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="ProceduraDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonProcAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
+                    <Button x:Name="buttonProcEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonProcRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonProc1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonProc2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+        </TabItem>
+
+
+        <TabItem Header="Zdravotní záznamy" Name="tabMedicalRec" Visibility="{Binding AnyMajitelPerms, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="MedicalRecordDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=MedicalRecord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalRecDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonMedRecAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
+                    <Button x:Name="buttonMedRecEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonMedRec1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonMedRec2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+        </TabItem>
+
+
+        <TabItem Header="Rezervace" Name="tabRezervace" Visibility="{Binding AnyRezervacePerms, Converter={StaticResource BoolToVis}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DataGrid x:Name="RezervaceDataGrid" CanUserAddRows="False"
+ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="RezervaceDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Column="1">
+                    <Button x:Name="buttonRezAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
+                    <Button x:Name="buttonRezEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=RezervaceDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
+                    <Button x:Name="buttonRezRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=RezervaceDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonRez1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
+                    <Button x:Name="buttonRez2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
+                </StackPanel>
+
+            </Grid>
+
+
+
+        </TabItem>
+
+
         <TabItem Header="Historie psa" Name="tabDHistory" Visibility="{Binding AnyDogHistoryPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
