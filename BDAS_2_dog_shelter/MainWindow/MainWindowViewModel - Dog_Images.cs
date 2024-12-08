@@ -67,6 +67,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
+                                
                                 BitmapDecoder decoder = null;
                                 if (!v.IsDBNull(1))
                                 {
@@ -74,7 +75,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     MemoryStream ms = new MemoryStream(data);
                                     decoder = new PngBitmapDecoder(ms, BitmapCreateOptions.None, BitmapCacheOption.Default);
                                 }
-                                Images.Add(new(v.GetInt32(0), decoder.Frames.First(), v.GetString(2)));
+                                Images.Add(new(v.GetInt32(0), decoder.Frames.First(), v.IsDBNull(2) ? "<Nic>" : v.GetString(2)));
 
                                 if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) Images.Last().PropertyChanged += DogImageChanged;
                             }
