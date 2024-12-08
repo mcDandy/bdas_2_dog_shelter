@@ -9,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
-using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Input;
 
@@ -163,8 +162,8 @@ namespace BDAS_2_dog_shelter.MainWindow
                         return;
                     }
                 }
-                void CommandImpersonateF(object o){ MainWindow mw = new MainWindow(((Tables.Users)o).Perms); }
             }
         }
+        void CommandImpersonateF(object o){ MainWindow mw = new MainWindow(((Tables.Users)o).Perms); }
     }
 }
