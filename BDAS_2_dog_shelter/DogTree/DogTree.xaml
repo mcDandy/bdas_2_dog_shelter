@@ -7,36 +7,28 @@
         mc:Ignorable="d"
         Title="DogEdit" Height="427" Width="506">
     <Grid>
+        <!-- Aktuální pes -->
         <Label x:Name="Dog_main" Content="{Binding DogName}" HorizontalAlignment="Center" Margin="0,343,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left" Content="{Binding MotherName}" HorizontalAlignment="Left" Margin="120,310,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right" Content="{Binding FatherName}" HorizontalAlignment="Left" Margin="347,310,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left2" Content="Label" HorizontalAlignment="Left" Margin="71,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right2" Content="Label" HorizontalAlignment="Left" Margin="170,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left3" Content="Label" HorizontalAlignment="Left" Margin="292,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Do_Right3" Content="Label" HorizontalAlignment="Left" Margin="387,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left4" Content="Label" HorizontalAlignment="Left" Margin="25,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right4" Content="Label" HorizontalAlignment="Left" Margin="90,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left5" Content="Label" HorizontalAlignment="Left" Margin="151,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right5" Content="Label" HorizontalAlignment="Left" Margin="215,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left6" Content="Label" HorizontalAlignment="Left" Margin="273,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right6" Content="Label" HorizontalAlignment="Left" Margin="334,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left7" Content="Label" HorizontalAlignment="Left" Margin="387,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right7" Content="Label" HorizontalAlignment="Left" Margin="430,140,0,0" VerticalAlignment="Top"/>
-        <Image x:Name="Dog_Image_Left4" HorizontalAlignment="Left" Height="49" Margin="25,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right4" HorizontalAlignment="Left" Height="49" Margin="90,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Left5" HorizontalAlignment="Left" Height="49" Margin="150,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right5" HorizontalAlignment="Left" Height="49" Margin="215,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Left6" HorizontalAlignment="Left" Height="49" Margin="269,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right6" HorizontalAlignment="Left" Height="49" Margin="334,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Left7" HorizontalAlignment="Left" Height="49" Margin="384,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right7" HorizontalAlignment="Left" Height="49" Margin="449,67,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Left2" HorizontalAlignment="Left" Height="49" Margin="93,184,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right2" HorizontalAlignment="Left" Height="49" Margin="158,184,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Left3" HorizontalAlignment="Left" Height="49" Margin="307,184,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right3" HorizontalAlignment="Left" Height="49" Margin="372,184,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Left" HorizontalAlignment="Left" Height="49" Margin="120,259,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Right" HorizontalAlignment="Left" Height="49" Margin="347,259,0,0" VerticalAlignment="Top" Width="35"/>
-        <Image x:Name="Dog_Image_Main" HorizontalAlignment="Left" Height="49" Margin="234,281,0,0" VerticalAlignment="Top" Width="35"/>
+
+        <!-- Rodiče -->
+        <Label x:Name="Dog_Left" Content="{Binding Mother.DogName}" HorizontalAlignment="Left" Margin="120,310,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right" Content="{Binding Father.DogName}" HorizontalAlignment="Left" Margin="347,310,0,0" VerticalAlignment="Top"/>
+
+        <!-- Prarodiče -->
+        <Label x:Name="Dog_Left2" Content="{Binding MotherMother.DogName}" HorizontalAlignment="Left" Margin="71,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right2" Content="{Binding MotherFather.DogName}" HorizontalAlignment="Left" Margin="170,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left3" Content="{Binding FatherMother.DogName}" HorizontalAlignment="Left" Margin="292,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right3" Content="{Binding FatherFather.DogName}" HorizontalAlignment="Left" Margin="387,233,0,0" VerticalAlignment="Top"/>
+
+        <!-- Prarodiče (3. generace) -->
+        <Label x:Name="Dog_Left4" Content="{Binding MotherMotherMother.DogName}" HorizontalAlignment="Left" Margin="25,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right4" Content="{Binding MotherMotherFather.DogName}" HorizontalAlignment="Left" Margin="90,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left5" Content="{Binding MotherFatherMother.DogName}" HorizontalAlignment="Left" Margin="151,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right5" Content="{Binding MotherFatherFather.DogName}" HorizontalAlignment="Left" Margin="215,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left6" Content="{Binding FatherMotherMother.DogName}" HorizontalAlignment="Left" Margin="273,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right6" Content="{Binding FatherMotherFather.DogName}" HorizontalAlignment="Left" Margin="334,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left7" Content="{Binding FatherFatherMother.DogName}" HorizontalAlignment="Left" Margin="387,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right7" Content="{Binding FatherFatherFather.DogName}" HorizontalAlignment="Left" Margin="430,140,0,0" VerticalAlignment="Top"/>
     </Grid>
 
 </Window>

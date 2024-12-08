@@ -1,17 +1,14 @@
-﻿using System.Windows;
-using BDAS_2_dog_shelter.Tables;
+﻿using BDAS_2_dog_shelter.Tables;
+using System.Windows;
 
 namespace BDAS_2_dog_shelter.DogTree
 {
-    /// <summary>
-    /// Interakční logika pro DogEdit.xaml
-    /// </summary>
     public partial class DogTree : Window
     {
-        public DogTree(Dog d)
+        public DogTree(Dog rootDog)
         {
-            DataContext = new DogTreeViewModel(d);
             InitializeComponent();
+            DataContext = new DogTreeViewModel(rootDog);
         }
     }
 }
