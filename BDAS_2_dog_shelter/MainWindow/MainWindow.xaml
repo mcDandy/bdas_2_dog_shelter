@@ -29,20 +29,9 @@
                         <DataGridTextColumn Header="Datum přijetí" Binding="{Binding DatumPrijeti}" />
                         <DataGridTextColumn Header="Duvod přijetí" Binding="{Binding DuvodPrijeti}" />
                         <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
-                        <DataGridTemplateColumn Header="Útulek">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Shelters, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Majtel">
-                            <DataGridTemplateColumn.CellTemplate >
-                                <DataTemplate>
-                                    <ComboBox  ItemsSource="{Binding Path=DataContext.Owners, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding Path=ID}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Útulek" Binding="{Binding Utulek}" />
+                        <DataGridTextColumn Header="Majitel" Binding="{Binding Majitel}" />
+
                         <DataGridTextColumn Header="Otec" Binding="{Binding Otec}"/>
                         <DataGridTextColumn Header="Matka" Binding="{Binding Matka}"/>
                     </DataGrid.Columns>
