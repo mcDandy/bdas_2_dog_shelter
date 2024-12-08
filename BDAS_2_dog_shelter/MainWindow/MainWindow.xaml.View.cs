@@ -21,6 +21,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             con.BeginTransaction();
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadImages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadLogs(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadUsers(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.TYPES_SELECT)) LoadTypes(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)) LoadMedical(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
@@ -117,6 +118,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) Typy.CollectionChanged += Typy_CollectionChanged;
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) Users.CollectionChanged += Users_CollectionChanged;
         }
 
         RelayCommand rsCMD;
@@ -183,6 +185,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             MedicalRec.Clear();
             LoadMedicalRec(permissions);
             MedicalRec.CollectionChanged += MedicalRec_CollectionChanged;
+            Users.CollectionChanged -= Users_CollectionChanged;
+            Users.Clear();
+            LoadUsers(permissions);
+            Users.CollectionChanged += Users_CollectionChanged;
         }
 
         public bool AnyDogPerms => Permission.HasAnyOf(permissions, Permissions.PES_SELECT, Permissions.PES_INSERT, Permissions.PES_DELETE, Permissions.PES_UPDATE, Permissions.ADMIN);
