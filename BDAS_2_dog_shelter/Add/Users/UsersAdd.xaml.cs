@@ -10,15 +10,20 @@ namespace BDAS_2_dog_shelter.Add.Users
         public UsersAdd()
         {
             InitializeComponent();
-            Tables.Shelter d = new();
-            DataContext = new AddShelterViewModel(d);
-            ((AddShelterViewModel)DataContext).OkClickFinished += () => DialogResult = true;
+            Tables.Users d = new();
+            DataContext = new AddUsersViewModel(d);
+            ((AddUsersViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
-        public UsersAdd(Tables.Shelter d)
+        public UsersAdd(Tables.Users d)
         {
             InitializeComponent();
-            DataContext = new AddShelterViewModel(d);
-            ((AddShelterViewModel)DataContext).OkClickFinished += () => DialogResult = true;
+            DataContext = new AddUsersViewModel(d);
+            ((AddUsersViewModel)DataContext).OkClickFinished += () => DialogResult = true;
+        }
+
+        private void nam_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }

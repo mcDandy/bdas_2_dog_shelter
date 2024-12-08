@@ -44,4 +44,14 @@ namespace BDAS_2_dog_shelter.Validation
         [GeneratedRegex("([2]?[0-4]?)|([0-1][0-9]):[0-5]?[0-9](:[0-5]?[0-9])?")]
         public static partial Regex RegexClock();
     }
+    public partial class HashRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            return new ValidationResult(value is string && RegexHash().IsMatch(((string)value).Trim()), "Empty string or not a number");
+        }
+
+        [GeneratedRegex("[0-9A-F]{64}")]
+        public static partial Regex RegexHash();
+    }
 }

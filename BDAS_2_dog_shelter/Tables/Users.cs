@@ -4,6 +4,8 @@ namespace BDAS_2_dog_shelter.Tables
 {
     public class Users : INotifyPropertyChanged, INotifyPropertyChanging
     {
+        public int? ID { get; set; }
+
         private string u_name;
         public string Uname
         {
@@ -32,8 +34,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private int perms;
-        public int Perms
+        private ulong perms;
+        public ulong Perms
         {
             get => perms;
             set
@@ -47,6 +49,17 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         public Users() { u_name = ""; password = ""; perms = 0; }
+
+    
+
+        public Users(int? v, string value, string v1, ulong v2)
+        {
+            this.ID = v;
+            u_name = value;
+            Password = v1;
+            Perms = v2;
+        }
+
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

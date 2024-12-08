@@ -18,13 +18,13 @@
             </Binding>
         </TextBox>
         <TextBox x:Name="ema" HorizontalAlignment="Left" Margin="84,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-            <Binding.ValidationRules>
-                <validators:EmailOrNull/>
-            </Binding.ValidationRules>
-        </Binding>
+            <Binding Path="Hash" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                <Binding.ValidationRules>
+                    <validators:HashRule/>
+                </Binding.ValidationRules>
+            </Binding>
         </TextBox>
-        <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="83,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:NotEmptyStringRule/>
