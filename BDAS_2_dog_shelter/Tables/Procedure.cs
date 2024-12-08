@@ -34,28 +34,45 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         private int? zdrZaznam;
-        public int? ZdrZaznam
+        public int? ZdrZaznamid
         {
             get => zdrZaznam;
             set
             {
                 if (zdrZaznam != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(ZdrZaznam)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(ZdrZaznamid)));
                     zdrZaznam = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ZdrZaznam)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ZdrZaznamid)));
+                }
+            }
+        }
+        private int? pid;
+        public int? PesID
+        {
+            get => pid;
+            set
+            {
+                if (pid != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(PesID)));
+                    pid = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PesID)));
                 }
             }
         }
         public Tables.Medical_Record record { get; set; }
+        public Dog Pes { get; internal set; }
+
         public Procedure() { proc_name = ""; descr_name = ""; }
 
-        public Procedure(int v1, string v2, string v3, int v4)
+        public Procedure(int v1, string v2, string v3, int v4,int v5)
         {
             id = v1;
             ProcName = v2;
             descr_name = v3;
-            ZdrZaznam = v4;
+            ZdrZaznamid = v4;
+            pid = v5;
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;

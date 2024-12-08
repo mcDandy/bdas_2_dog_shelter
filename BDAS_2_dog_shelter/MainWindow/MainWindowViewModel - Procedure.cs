@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandprocedureEdit(object? obj)
         {
-            ProcedureAdd s = new(((IEnumerable)obj).Cast<Procedure>().First());
+            ProcedureAdd s = new(((IEnumerable)obj).Cast<Procedure>().First(),MedicalRec.ToList(),Dogs.ToList());
             s.ShowDialog();
         }
 
@@ -44,7 +44,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandProcedureAdd()
         {
-            ProcedureAdd s = new ProcedureAdd();
+            ProcedureAdd s = new ProcedureAdd(MedicalRec.ToList(),Dogs.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
@@ -62,19 +62,19 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_procedura,nazev_procedury,popis_procedury,zdr_zaznam_id_zaznam from W_PROCEDURA";
+                        cmd.CommandText = "select id_procedura,nazev_procedury,popis_procedury,zdr_zaznam_id_zaznam,id_pes from W_PROCEDURA";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
                             while (v.Read())
                             {
-                                Procedures.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3)));
+                                Procedures.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3),v.GetInt32(4)));
                             }
                         }
                         List<Procedure> DogForest = Procedures.Select<Procedure, Procedure>
                                (a =>
                                {
-                                   a.record = MedicalRec.Where(d => d.id == a.ZdrZaznam).FirstOrDefault();
+                                   a.record = MedicalRec.Where(d => d.id == a.ZdrZaznamid).FirstOrDefault();
 
                                    return a;
                                }).ToList();
@@ -116,7 +116,8 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_PROCEDURA", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_PROCEDURA", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_NAZEV_PROCEDURY", OracleDbType.Varchar2, utulek.ProcName, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_POPIS_PROCEDURY", OracleDbType.Varchar2, utulek.DescrName, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_ZDR_ZAZNAM_ID_ZAZNAM", OracleDbType.Decimal, utulek.ZdrZaznam, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_ZDR_ZAZNAM_ID_ZAZNAM", OracleDbType.Decimal, utulek.ZdrZaznamid, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_PES", OracleDbType.Decimal, utulek.PesID, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_PROCEDURA";
 

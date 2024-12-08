@@ -21,7 +21,10 @@ namespace BDAS_2_dog_shelter.Add.Procedure
             d.id = iD;
             d.ProcName = name;
             d.DescrName = description;
-            d.ZdrZaznam = zdrzaznam;
+            d.ZdrZaznamid = zdrzaznam;
+            d.record = Vzaznam;
+            d.PesID = Pes.ID;
+            d.Pes= Pes;
             OkClickFinished?.Invoke();
         }
 
@@ -29,15 +32,24 @@ namespace BDAS_2_dog_shelter.Add.Procedure
         public string DescrName { get => description; set { description = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public int? id { get => iD;  set => iD = value; }
         public int? ZdrZaznam { get => zdrzaznam;  set { zdrzaznam = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } } 
-        public Tables.Procedure procedure => d;
+        public List<Tables.Medical_Record> ZdrZaznamy { get; private set; }
+        public Tables.Medical_Record Vzaznam { get; internal set; }
 
-        public AddProcedureViewModel(Tables.Procedure d)
+        private List<Tables.Dog> dogs;
+
+        public Tables.Procedure procedure => d;
+        public Tables.Dog Pes { get; set; }
+
+        public AddProcedureViewModel(Tables.Procedure d, List<Tables.Medical_Record>? zaznamy, List <Tables.Dog> dogs)
         {
             this.d = d;
             iD = d.id;
             name = d.ProcName;
             description = d.DescrName;
-            zdrzaznam = d.ZdrZaznam;
+            zdrzaznam = d.ZdrZaznamid;
+            ZdrZaznamy = zaznamy;
+            Vzaznam = d.record;
+            this.dogs = dogs;
 
         }
     }
