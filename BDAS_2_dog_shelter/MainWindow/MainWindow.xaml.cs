@@ -12,7 +12,14 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
 
             DataContext = new MainWindowViewModel(permissions);
+            ((MainWindowViewModel)DataContext).OnCloaseRequest += Close;
+
             InitializeComponent();
+        }
+
+        private void Close()
+        {
+            this.Close();
         }
 
         private void utulekDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

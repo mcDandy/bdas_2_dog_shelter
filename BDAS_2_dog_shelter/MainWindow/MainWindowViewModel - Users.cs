@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,6 +22,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> urmuCMD;
         private RelayCommand<object> ueduCMD;
         private RelayCommand<object> uediCMD;
+        public delegate void CloaseRequest();
+        public event CloaseRequest OnCloaseRequest;
+
         public ICommand cmdUSAdd => uaduCMD ??= new RelayCommand(CommandUserAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT)));
         public ICommand cmdUSRm => urmuCMD ??= new RelayCommand<object>(CommandUserRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_DELETE)));
         public ICommand cmdUSEd => ueduCMD ??= new RelayCommand<object>(CommandUserEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)));
@@ -66,13 +70,19 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id,uname,passwd,perms from w_users";
+                        cmd.CommandText = "select user_id,uname,passwd,perms from w_users";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
                             while (v.Read())
                             {
-                                Users.Add(new(v.GetInt32(0),v.GetString(1), v.GetString(2), UInt64.Parse(((OracleDecimal)v.GetOracleValue(3)).ToString())));
+                                var x = v.GetOracleValue(3);
+                                string s = x.ToString();
+                                Int128 i = Int128.Parse(s);
+                                Int128.Clamp(i, 0, UInt64.MaxValue); //Stejný kód co je v login mi tady hází chybu
+                                ulong u = (ulong)i;
+                                int? id = v.GetInt32(0);
+                                Users.Add(new Users(id,v.GetString(1), v.GetString(2), u));
                             }
                         }
                     }
@@ -83,7 +93,11 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-
+        /*
+         MainWindow.MainWindow mw = new(UInt64.Parse(((OracleDecimal)reader.GetOracleValue(0)).ToString()));
+                            OnCloaseRequest?.Invoke();
+                            mw.Show();
+        */
         private async void UsersChanged(object? sender, PropertyChangedEventArgs e)
         {
             Users? dog = sender as Users;
@@ -164,6 +178,6 @@ namespace BDAS_2_dog_shelter.MainWindow
                 }
             }
         }
-        void CommandImpersonateF(object o){ MainWindow mw = new MainWindow(((Tables.Users)o).Perms); }
+        void CommandImpersonateF(object o){ MainWindow mw = new MainWindow(((IEnumerable)o).Cast<Users>().First().Perms); mw.Show(); OnCloaseRequest?.Invoke(); }
     }
 }
