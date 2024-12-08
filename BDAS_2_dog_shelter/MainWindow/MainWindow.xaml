@@ -369,7 +369,7 @@ ItemsSource="{Binding Path=MedicalRecord, Mode=TwoWay, UpdateSourceTrigger=Prope
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="RezervaceDataGrid" CanUserAddRows="False"
-ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="RezervaceDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
