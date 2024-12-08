@@ -5,6 +5,7 @@ using Oracle.ManagedDataAccess.Client;
 using static BDAS_2_dog_shelter.Secrets;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using BDAS_2_dog_shelter.Tables;
 
 
 namespace BDAS_2_dog_shelter.Add.Dog
@@ -17,7 +18,8 @@ namespace BDAS_2_dog_shelter.Add.Dog
         public AddDogViewModel(Tables.Dog d, List<Tables.Dog> psi, List<Tables.Owner> owners, List<Tables.Quarantine> quarantines) {
             Psi = psi;
             Majitele = owners;
-            Majitele.Prepend(null);
+            Majitele = Majitele.Prepend(null).ToList();
+            Psi = Psi.Prepend(null).ToList();
             Karanteny = quarantines;
             Name = d.Name;
             BodyColor = d.BodyColor;
@@ -138,11 +140,13 @@ namespace BDAS_2_dog_shelter.Add.Dog
         }
 
         private DateTime? date;
+        private Quarantine kar;
 
         public DateTime? Date { get => date; set => SetProperty(ref date, value); }
-        public BitmapSource Obrazek { get;  set; }
-        public string? Filename { get; internal set; }
-        public Tables.Owner Majtel { get; internal set; }
-        public Tables.Owner Karantena { get; internal set; }
+        public BitmapSource Obrazek { get; set; }
+        public string? Filename { get; set; }
+        public Tables.Owner Majtel { get; set; }
+        public Tables.Quarantine Karantena { get => kar; set => SetProperty(ref kar, value); }
     }
+    
 }
