@@ -201,7 +201,7 @@ public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)
 {
-    if (((IEnumerable)obj).Cast<Dog>().Count>0)
+    if (((IEnumerable)obj).Cast<Dog>().Count()>0)
     {
                 Dog selectedDog = ((IEnumerable)obj).Cast<Dog>().First();
         var dogTreeWindow = new DogTree.DogTree(selectedDog);
