@@ -65,20 +65,18 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_adresa,ulice,mesto,psc,cislopopisne from adresa";
+                        cmd.CommandText = "select id_REZERVACE,DATUM_REZERVACE,PREVZETI_PSA from w_REZERVACE";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
                         {
 
-                            Adresses.Add
+                            Rezervace.Add
                                 (
                                 new(
                                     v.IsDBNull(0) ? null : v.GetInt32(0),
-                                    v.GetString(1),
-                                    v.GetString(2),
-                                    v.IsDBNull(3) ? null : v.GetString(3),
-                                    int.Parse(v.GetString(4))
+                                    v.GetDateTime(1),
+                                    v.GetDateTime(2)
                                 ));
 
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE))

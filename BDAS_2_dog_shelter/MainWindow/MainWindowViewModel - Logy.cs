@@ -62,7 +62,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select ID,C_USER,EVENT_TIME,TABLE_NAME,OPERATION,OLD_VALUE,NEW_VALUE from LOGS";
+                        cmd.CommandText = "select ID,C_USER,EVENT_TIME,TABLE_NAME,OPERATION,OLD_VALUE,NEW_VALUE from W_LOGS";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {

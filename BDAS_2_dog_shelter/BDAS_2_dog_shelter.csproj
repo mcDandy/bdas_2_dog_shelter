@@ -70,6 +70,9 @@
     <Compile Update="Add\Hracka\HrackaAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Add\Users\UsersAdd.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

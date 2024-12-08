@@ -16,6 +16,19 @@ namespace BDAS_2_dog_shelter.Conversion
             return value.ToString();
         }
     }
+    public class StringToUlongConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ulong i = ulong.Parse(value.ToString()??"0");
+            return i;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value.ToString();
+        }
+    }
     public class SecondItemConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

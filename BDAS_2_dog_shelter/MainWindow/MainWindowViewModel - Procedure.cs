@@ -62,7 +62,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_procedura,nazev_procedury,popis_procedury,zdr_zaznam_id_zaznam from PROCEDURA";
+                        cmd.CommandText = "select id_procedura,nazev_procedury,popis_procedury,zdr_zaznam_id_zaznam from W_PROCEDURA";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {

@@ -64,7 +64,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_utulek,nazev,telefon,EMAIL,id_adresa from utulek";
+                        cmd.CommandText = "select id_utulek,nazev,telefon,EMAIL,id_adresa from W_utulek";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())

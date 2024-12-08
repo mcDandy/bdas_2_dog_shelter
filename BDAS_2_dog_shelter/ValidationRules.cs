@@ -17,6 +17,13 @@ namespace BDAS_2_dog_shelter.Validation
             return new ValidationResult(value is string && ((string)value).Trim() != string.Empty && Int32.TryParse(value as string,out int i), "Empty string or not a number");
         }
     }
+    public class ULongNumericStringRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            return new ValidationResult(value is string && ((string)value).Trim() != string.Empty && ulong.TryParse(value as string,out ulong i), "Empty string or not a number");
+        }
+    }
     public partial class EmailOrNull : ValidationRule
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)

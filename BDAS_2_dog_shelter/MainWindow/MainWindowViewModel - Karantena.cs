@@ -62,7 +62,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_Karantena,DATUM_ZAC_KARANTENY,DATUM_KON_KARANTENY from KARANTENA";
+                        cmd.CommandText = "select id_Karantena,DATUM_ZAC_KARANTENY,DATUM_KON_KARANTENY from W_KARANTENA";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
