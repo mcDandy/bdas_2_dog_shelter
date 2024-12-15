@@ -17,13 +17,16 @@ namespace BDAS_2_dog_shelter.MainWindow
 {
     internal partial class MainWindowViewModel
     {
-        private RelayCommand aadCMD;
-        private RelayCommand<object> armCMD;
-        private RelayCommand<object> aedCMD;
-        public ICommand cmdAAdd => aadCMD ??= new RelayCommand(CommandAdressAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
-        public ICommand cmdARm => armCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
-        public ICommand cmdAEd => aedCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
+        private RelayCommand adressAddCMD;
+        private RelayCommand<object> adressRemoveCMD;
+        private RelayCommand<object> adressEditCMD;
+        public ICommand cmdAAdd => adressAddCMD ??= new RelayCommand(CommandAdressAdd, () => (_adressSelectedIndex>0 && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
+        public ICommand cmdARm => adressRemoveCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => (_adressSelectedIndex > 0 && p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
+        public ICommand cmdAEd => adressEditCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => (_adressSelectedIndex > 0 && p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
         public ObservableCollection<Adress> Adresses { get; set; } = new();
+        private int _adressSelectedIndex = -1;
+        public int AdressSI { get => _adressSelectedIndex; set { if (_adressSelectedIndex != value) {  _adressSelectedIndex = value; adressEditCMD.NotifyCanExecuteChanged(); adressRemoveCMD.NotifyCanExecuteChanged(); } } }
+
 
         private void CommandAdressEdit(object? obj)
         {

@@ -79,7 +79,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 var x = v.GetOracleValue(3);
                                 string s = x.ToString();
                                 Int128 i = Int128.Parse(s);
-                                Int128.Clamp(i, 0, UInt64.MaxValue); //Stejný kód co je v login mi tady hází chybu
+                                Int128.Clamp(i, 0, UInt64.MaxValue); //Stejný kód co je v login mi tady hází chybu - chyba typu - varchar2 -> number
                                 ulong u = (ulong)i;
                                 int? id = v.GetInt32(0);
                                 Users.Add(new Users(id,v.GetString(1), v.GetString(2), u));

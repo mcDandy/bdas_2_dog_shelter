@@ -254,6 +254,19 @@ namespace BDAS_2_dog_shelter.Tables
                     _otec = value;                }
             }
         }
+        
+        private Quarantine? _Q;
+        public Quarantine? Karantena
+        {
+            get => _Q;
+            set
+            {
+                if (_Q != value)
+                {
+                    Debug.WriteLine($"{_Q} => ${value} ");
+                    _Q = value;                }
+            }
+        }
         private Dog? _matka;
         public Dog? Matka
         {
@@ -270,5 +283,6 @@ namespace BDAS_2_dog_shelter.Tables
 
         public Shelter? Utulek { get; set; }
         public Owner Majitel { get; internal set; }
+        public Dog_Images DogImage { get => new Dog_Images(_obrazek_id, _obrazek, FileName); }
     }
 }

@@ -19,8 +19,8 @@
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dogDataGrid" CanUserAddRows="False"
-                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
-
+                    ItemsSource="{Binding Path=Dogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
+                          SelectedIndex="{Binding DogSI,Mode=OneWayToSource}">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Jméno" Binding="{Binding Name}" ></DataGridTextColumn>
@@ -31,6 +31,7 @@
                         <DataGridTextColumn Header="Stav" Binding="{Binding StavPes}" />
                         <DataGridTextColumn Header="Útulek" Binding="{Binding Utulek}" />
                         <DataGridTextColumn Header="Majitel" Binding="{Binding Majitel}" />
+                        <DataGridTextColumn Header="Karanténa" Binding="{Binding Karantena}" />
 
                         <DataGridTextColumn Header="Otec" Binding="{Binding Otec}"/>
                         <DataGridTextColumn Header="Matka" Binding="{Binding Matka}"/>
@@ -112,7 +113,7 @@
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="hrackaDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="hrackaDataGrid" CanUserAddRows="False" SelectedIndex="{Binding HrackySI}"
 ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -168,7 +169,7 @@ ItemsSource="{Binding Path=Medical_Equipment, Mode=TwoWay, UpdateSourceTrigger=P
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="krmivoDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="krmivoDataGrid" CanUserAddRows="False" SelectedIndex="{Binding FoodSI}"
 ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -227,7 +228,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="KarantenaDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="KarantenaDataGrid" CanUserAddRows="False" SelectedIndex="{Binding KarantenaSI}"
 ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="KarantenaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -396,11 +397,14 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
         <TabItem Header="Historie psa" Name="tabDHistory" Visibility="{Binding AnyDogHistoryPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"></ColumnDefinition>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition Width="476*"></ColumnDefinition>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="153*"/>
+                    <ColumnDefinition Width="113*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="dhDataGrid" CanUserAddRows="False"
-    ItemsSource="{Binding Path=Historie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dhDataGrid_SelectionChanged">
+    ItemsSource="{Binding Path=Historie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="dhDataGrid_SelectionChanged" SelectedIndex="{Binding HistorySI}" Grid.ColumnSpan="5" Margin="0,0,113,0">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Datum" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
@@ -410,7 +414,7 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
 
                     </DataGrid.Columns>
                 </DataGrid>
-                <StackPanel Grid.Column="1">
+                <StackPanel Grid.Column="4">
                     <Button x:Name="buttonDOGHAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHistoryAdd}"/>
                     <Button x:Name="buttonDOGHEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryEd}"/>
                     <Button x:Name="buttonDOGHRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=dhDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHistoryRm}"/>
@@ -430,7 +434,7 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="imdDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="imdDataGrid" CanUserAddRows="False" SelectedIndex="{Binding ImagesSI}"
     ItemsSource="{Binding Path=Images, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 

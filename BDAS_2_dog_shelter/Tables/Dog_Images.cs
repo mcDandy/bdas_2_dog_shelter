@@ -37,7 +37,7 @@ namespace BDAS_2_dog_shelter.Tables
         }
         public Dog_Images() { byte[] b = new byte[256 * 256 * 4]; new Random().NextBytes(b); _obrazek = BitmapSource.Create(256, 256, 96, 96, PixelFormats.Bgra32, null, b, 256 * 4); ; file_name = ""; }
 
-        public Dog_Images(int ID, BitmapFrame bitmapFrame, string FILENAME)
+        public Dog_Images(int? ID, BitmapSource bitmapFrame, string FILENAME)
         {
             id = ID;
             Image = bitmapFrame;

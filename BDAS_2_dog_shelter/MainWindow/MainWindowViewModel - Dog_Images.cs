@@ -20,8 +20,12 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> ImgesrmCMD;
         private RelayCommand<object> ImgesedCMD;
         public ICommand cmdImagesAdd => ImgesadCMD ??= new RelayCommand(CommandImagesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
-        public ICommand cmdImagesRm => ImgesrmCMD ??= new RelayCommand<object>(CommandImagesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)));
-        public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImagesEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)));
+        public ICommand cmdImagesRm => ImgesrmCMD ??= new RelayCommand<object>(CommandImagesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)) && ImagesSI > -1);
+        public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImagesEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) && ImagesSI > -1);
+
+        private int imagesi=-1;
+        public int ImagesSI { get => imagesi; set { if (imagesi != value) { imagesi = value; ImgesedCMD.NotifyCanExecuteChanged(); ImgesrmCMD.NotifyCanExecuteChanged(); } } }
+
 
         public ObservableCollection<Dog_Images> Images { get; set; } = new();
 
@@ -98,28 +102,31 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
         }
 
-        private async Task SaveImages(Dog_Images history)
+        private async Task<int> SaveImages(Dog_Images history)
         {
             if (con.State == ConnectionState.Closed) con.Open();
             try
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
-                    cmd.BindByName = true;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "INS_SET.IU_DOG_IMAGES"; // Replace this with your actual stored procedure
-                    cmd.Parameters.Add("V_ID_IMAGE", OracleDbType.Decimal, history.id ?? (object)DBNull.Value, ParameterDirection.InputOutput);
                     PngBitmapEncoder pe = new PngBitmapEncoder();
                     pe.Frames.Add(BitmapFrame.Create(history.Image));
                     MemoryStream ms = new MemoryStream();
                     pe.Save(ms);
                     byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_DOG_IMAGE", OracleDbType.Blob, b, ParameterDirection.Input);
+
+                    cmd.BindByName = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "INS_SET.IU_DOG_IMAGES"; // Replace this with your actual stored procedure
+                    cmd.Parameters.Add("V_ID_IMAGE", OracleDbType.Decimal, history.id ?? (object)DBNull.Value, ParameterDirection.InputOutput);
+
+                    cmd.Parameters.Add("V_IMAGE", OracleDbType.Blob, b, ParameterDirection.Input);
                     cmd.Parameters.Add("V_FILENAME", OracleDbType.Varchar2, history.FileName, ParameterDirection.Input);
 
                     await cmd.ExecuteNonQueryAsync();
                     history.id = Convert.ToInt32(cmd.Parameters["V_ID_IMAGE"].Value.ToString());
                 }
+
             }
             catch (Exception ex)
             {
@@ -130,6 +137,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 Historie.CollectionChanged += DogImages_CollectionChanged;
 
             }
+            return history.id??-1;
         }
         private async void DogImages_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {

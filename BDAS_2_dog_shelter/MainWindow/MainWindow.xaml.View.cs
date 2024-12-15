@@ -23,6 +23,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadLogs(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN)) LoadUsers(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.TYPES_SELECT)) LoadTypes(permissions);
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_SELECT)) LoadKarantena(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)) LoadMedical(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_SELECT)) LoadStorages(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_SELECT)) LoadHracky(permissions);
@@ -33,7 +34,6 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_SELECT)) LoadReservations(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_SELECT)) LoadFood(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_SELECT)) LoadMedical(permissions);
-            if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_SELECT)) LoadKarantena(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_SELECT))  LoadOwner(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_SELECT)) LoadPavilon(permissions);
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_SELECT)) LoadProcedure(permissions);
@@ -132,19 +132,15 @@ namespace BDAS_2_dog_shelter.MainWindow
         }
         private void CommandReset()
         {
-            con.Rollback();
-            Dogs.CollectionChanged -= Dogs_CollectionChanged;
-            Dogs.Clear();
-            LoadDogs(permissions);
-            Dogs.CollectionChanged += Dogs_CollectionChanged;
-            Shelters.CollectionChanged -= Utulek_CollectionChanged;
-            Shelters.Clear();
-            LoadShelters(permissions);
-            Shelters.CollectionChanged += Utulek_CollectionChanged;
             Adresses.CollectionChanged -= Adress_CollectionChanged;
             Adresses.Clear();
             LoadAdresses(permissions);
             Adresses.CollectionChanged += Adress_CollectionChanged;
+            Shelters.CollectionChanged -= Utulek_CollectionChanged;
+            Shelters.Clear();
+            LoadShelters(permissions);
+            Shelters.CollectionChanged += Utulek_CollectionChanged;
+            con.Rollback();
             Storages.CollectionChanged -= Sklad_CollectionChanged;
             Storages.Clear();
             LoadStorages(permissions);
@@ -161,14 +157,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             Krmiva.Clear();
             LoadFood(permissions);
             Krmiva.CollectionChanged += Food_CollectionChanged;
-            Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
-            Medical_Equipment.Clear();
-            LoadMedical(permissions);
-            Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
             Typy.CollectionChanged -= Typy_CollectionChanged;
             Typy.Clear();
             LoadTypes(permissions);
             Typy.CollectionChanged += Typy_CollectionChanged;
+            Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
+            Medical_Equipment.Clear();
+            LoadMedical(permissions);
+            Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
             Karanteny.CollectionChanged -= Karantena_CollectionChanged;
             Karanteny.Clear();
             LoadKarantena(permissions);
@@ -177,6 +173,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Owners.Clear();
             LoadOwner(permissions);
             Owners.CollectionChanged += Owner_CollectionChanged;
+            Dogs.CollectionChanged -= Dogs_CollectionChanged;
+            Dogs.Clear();
+            LoadDogs(permissions);
+            Dogs.CollectionChanged += Dogs_CollectionChanged;
             Procedures.CollectionChanged -= Procedure_CollectionChanged;
             Procedures.Clear();
             LoadProcedure(permissions);

@@ -19,8 +19,8 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand radCMD;
 
         public ICommand cmdRAdd => radCMD ??= new RelayCommand(CommandRezervaceAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT)));
-        public ICommand cmdR0Rm => armCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)));
-        public ICommand cmdREd => aedCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)));
+        public ICommand cmdR0Rm => adressRemoveCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)));
+        public ICommand cmdREd => adressEditCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)));
         public ObservableCollection<Reservation> Rezervace { get; set; } = new();
 
         private void CommandRezervaceEdit(object? obj)

@@ -180,6 +180,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 using (OracleCommand cmd = con.CreateCommand())
                 {
                     cmd.BindByName = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "INS_SET.IU_TYP_UDALOSTI"; // Replace this with your actual stored procedure
                     cmd.Parameters.Add("V_ID_TYPU", OracleDbType.Decimal, dog.Id ?? (object)DBNull.Value, ParameterDirection.InputOutput);
                     cmd.Parameters.Add("V_ID_NAZEV", OracleDbType.Varchar2, dog.Nazev ?? (object)DBNull.Value, ParameterDirection.Input);

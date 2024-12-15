@@ -18,10 +18,15 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand uadhCMD;
         private RelayCommand<object> urmhCMD;
         private RelayCommand<object> uedhCMD;
+        private int _hrackySelectedIndex=-1;
+
         public ICommand cmdHAdd => uadhCMD ??= new RelayCommand(CommandHrackaAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT)));
-        public ICommand cmdHRm => urmhCMD ??= new RelayCommand<object>(CommandHrackaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_DELETE)));
-        public ICommand cmdHEd => uedhCMD ??= new RelayCommand<object>(CommandHrackaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)));
+        public ICommand cmdHRm => urmhCMD ??= new RelayCommand<object>(CommandHrackaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_DELETE)) && HrackySI >- 1);
+        public ICommand cmdHEd => uedhCMD ??= new RelayCommand<object>(CommandHrackaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)) && HrackySI > -1);
         public ObservableCollection<Hracka> Hracky { get; set; } = new();
+
+        public int HrackySI { get => _hrackySelectedIndex; set { if (_hrackySelectedIndex != value) { _hrackySelectedIndex = value; urmhCMD.NotifyCanExecuteChanged(); uedhCMD.NotifyCanExecuteChanged(); } } }
+
 
         private void CommandHrackaEdit(object? obj)
         {

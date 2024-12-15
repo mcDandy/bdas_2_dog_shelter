@@ -19,6 +19,8 @@ namespace BDAS_2_dog_shelter.MainWindow
     internal partial class MainWindowViewModel
     {
         public ObservableCollection<Dog> Dogs { get; set; } = new();
+        private int _dogSelectedIndex=-1;
+        public int DogSI { get => _dogSelectedIndex; set { if (_dogSelectedIndex != value) {_dogSelectedIndex = value; dogEdCMD.NotifyCanExecuteChanged(); dogRmCMD.NotifyCanExecuteChanged();  } } }
 
 
         private void LoadDogs(ulong permissions)
@@ -65,6 +67,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             a.Matka = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault(); 
                             a.Otec = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault();
                             a.Utulek = Shelters.Where(d => d.ID == a.UtulekId).FirstOrDefault();
+                            a.Karantena = Karanteny.Where(d => d.id == a.KarantenaId).FirstOrDefault();
                             return a; 
                         }).ToList();
                     Dogs.CollectionChanged -= Dogs_CollectionChanged;
@@ -89,7 +92,8 @@ namespace BDAS_2_dog_shelter.MainWindow
 
             foreach (Dog dog in e.NewItems ?? new List<Dog>())
             {
-                await SaveDog(dog,true);
+                int id = await SaveImages(dog.DogImage);
+                await SaveDog(dog,id);
 
              }
         
@@ -124,35 +128,14 @@ namespace BDAS_2_dog_shelter.MainWindow
             
         }
 
-        private async Task SaveDog(Dog dog, bool saveImage)
+        private async Task SaveDog(Dog dog, int dogImageId)
         {
+            dog.PropertyChanged -= DogChanged;
+            dog.Obrazek_Id = dogImageId;
+            dog.PropertyChanged += DogChanged;
             if (con.State == System.Data.ConnectionState.Closed) con.Open();
             try
             {
-                if(saveImage)
-                using (OracleCommand cmd = con.CreateCommand())
-                {
-
-                    cmd.BindByName = true;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    // Assign id to the department number 50 
-
-                    cmd.Parameters.Add(dog.Obrazek_Id is null ? new("V_ID_IMAGE", OracleDbType.Decimal, DBNull.Value, ParameterDirection.InputOutput) : new("V_ID_IMAGE", OracleDbType.Decimal, dog.Obrazek_Id, System.Data.ParameterDirection.InputOutput));
-                    // cmd.Parameters.Add(new("imgid", dog.Obrazek.));
-                    PngBitmapEncoder pe = new PngBitmapEncoder();
-                    pe.Frames.Add(BitmapFrame.Create(dog.Obrazek));
-                    MemoryStream ms = new MemoryStream();
-                    pe.Save(ms);
-                    byte[] b = ms.ToArray();
-                    cmd.Parameters.Add("V_IMAGE",OracleDbType.Blob,b, ParameterDirection.Input);
-                    // cmd.Parameters.Add(new("path"), dog.Obrazek.);
-                    cmd.Parameters.Add(dog.Obrazek is null ? new("V_FILENAME", OracleDbType.Varchar2, DBNull.Value, ParameterDirection.Input) : new("V_FILENAME", OracleDbType.Varchar2, Path.GetFileName(dog.FileName), ParameterDirection.Input));
-
-                    cmd.CommandText = "INS_SET.IU_DOG_IMAGES";
-                    int j = await cmd.ExecuteNonQueryAsync();
-
-                    dog.Obrazek_Id = (int)((OracleDecimal)cmd.Parameters[0].Value).ToInt64();
-                }
                 using (OracleCommand cmd = con.CreateCommand())
                 {
 
@@ -184,19 +167,19 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                MessageBox.Show("Data nejsou správná. Klikněte na Cancel & refresh pro obnovení");
+                MessageBox.Show(ex.Message,"Data nejsou správná. Klikněte na Cancel & refresh pro obnovení");
                 return;
             }
         }
 
 
 private RelayCommand addCMD;
-private RelayCommand<object> rmCMD;
+private RelayCommand<object> dogRmCMD;
 private RelayCommand<object> trCMD;
-private RelayCommand<object> edCMD;
+private RelayCommand<object> dogEdCMD;
 public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_INSERT)));
-public ICommand cmdRm => rmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_DELETE)));
-public ICommand cmdEd => edCMD ??= new RelayCommand<object>(CommandEdit, (p) => (p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_UPDATE)));
+public ICommand cmdRm => dogRmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(DogSI >= 0 && p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_DELETE)));
+public ICommand cmdEd => dogEdCMD ??= new RelayCommand<object>(CommandEdit, (p) => (DogSI >= 0 && p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_UPDATE)));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)
@@ -213,14 +196,14 @@ private void CommandAdd()
 {
     if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_INSERT))
     {
-        DogAdd da = new(new Dog(),Dogs.ToList(),Owners.ToList(),Karanteny.ToList());
+        DogAdd da = new(new Dog(),Dogs.ToList(),Owners.ToList(),Karanteny.Where(a => !Dogs.Select(a=>a.KarantenaId).Contains(a.id)).ToList(), Shelters.ToList());
         if (da.ShowDialog() == true)
         {
                     //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                     Dog d = ((AddDogViewModel)da.DataContext).Dog;
 
                     Dogs.Add(((AddDogViewModel)da.DataContext).Dog);
-            if ((permissions & (ulong)Permissions.PES_UPDATE) != 0) Dogs.Last().PropertyChanged += DogChanged;
+            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_UPDATE)) Dogs.Last().PropertyChanged += DogChanged;
         }
     }
 }
@@ -229,13 +212,13 @@ private void CommandEdit(Object o)
 {
     if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PES_UPDATE))
     {
-        DogAdd da = new(((IEnumerable)o).Cast<Dog>().First(),Dogs.ToList(),Owners.ToList(),Karanteny.ToList());
+        DogAdd da = new(((IEnumerable)o).Cast<Dog>().First(),Dogs.ToList(),Owners.ToList(),Karanteny.ToList(), Shelters.ToList());
         if (da.ShowDialog() == true)
         {
                     Dog d = ((AddDogViewModel)da.DataContext).Dog;
                     d.Otec = Dogs.Where(g => g.ID == d.OtecId).FirstOrDefault();
                     d.Matka = Dogs.Where(g => g.ID == d.MatkaId).FirstOrDefault();
-                    d.Utulek = Shelters.Where(g => g.ID == d.UtulekId).FirstOrDefault();
+                    d.Utulek = Shelters.Where(g => g?.ID == d.UtulekId).FirstOrDefault();
 
                 }
     }
@@ -246,7 +229,8 @@ private async void DogChanged(object? sender, PropertyChangedEventArgs e)
     Dog? dog = sender as Dog;
     using (OracleCommand cmd = con.CreateCommand())
     {
-        await SaveDog(dog,e.PropertyName is nameof(dog.Obrazek) or nameof(dog.Obrazek_Id));
+                if (e.PropertyName is nameof(dog.Obrazek) or nameof(dog.Obrazek_Id)) dog.Obrazek_Id = await SaveImages(dog.DogImage);
+        await SaveDog(dog,dog.Obrazek_Id??-1);
     }
 }
 

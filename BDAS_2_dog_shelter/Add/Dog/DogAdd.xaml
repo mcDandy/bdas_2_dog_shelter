@@ -67,7 +67,7 @@
                 </Binding>
             </TextBox.Text>
         </TextBox>
-        <ComboBox x:Name="utulek" HorizontalAlignment="Left" Margin="49,280,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Utulek, Converter={StaticResource SecondItemConverter}, Mode=OneTime}" SelectedIndex="{Binding SelectedUT}">
+        <ComboBox x:Name="utulek" HorizontalAlignment="Left" Margin="49,280,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Utulek, Mode=OneTime}" SelectedItem="{Binding SelectedUT}">
         </ComboBox>
         <Label x:Name="label1_Kopírovat" Content="barva" HorizontalAlignment="Left" Margin="5,178,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Kopírovat1" Content="přijato" HorizontalAlignment="Left" Margin="5,200,0,0" VerticalAlignment="Top"/>

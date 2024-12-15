@@ -15,11 +15,12 @@ namespace BDAS_2_dog_shelter.Add.Dog
         public List<Tables.Dog> Psi { get; private set; }
         public List<Tables.Quarantine> Karanteny { get; internal set; }
         public List<Tables.Owner> Majitele { get; internal set; }
-        public AddDogViewModel(Tables.Dog d, List<Tables.Dog> psi, List<Tables.Owner> owners, List<Tables.Quarantine> quarantines) {
+        public AddDogViewModel(Tables.Dog d, List<Tables.Shelter> utulky, List<Tables.Dog> psi, List<Tables.Owner> owners, List<Tables.Quarantine> quarantines) {
             Psi = psi;
             Majitele = owners;
-            Majitele = Majitele.Prepend(null).ToList();
-            Psi = Psi.Prepend(null).ToList();
+            Majitele = Majitele.Prepend(new("<bez majitele>","","","")).ToList();
+            Psi = Psi.Prepend(new()).ToList();
+            Psi[0].Name = "Bez rodiče";
             Karanteny = quarantines;
             Name = d.Name;
             BodyColor = d.BodyColor;
@@ -29,13 +30,13 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Obrazek = d.Obrazek;
             Filename = d.FileName;
             Majtel = d.Majitel;
+            Utulek = utulky;
             int i = 0;
-            SelectedUT = Utulek.Select(a => new Tuple<int?, int>(a.Item1, i++)).FirstOrDefault(a => a.Item1 == d.UtulekId).Item2;
+            SelectedUT = utulky.Where(a => d?.UtulekId == a.ID).FirstOrDefault();
             Dog = d;
-            Karantena = Karanteny.Where(a => d.KarantenaId == a.id).FirstOrDefault();
+            Karantena = Karanteny.Where(a => d?.KarantenaId == a.id).FirstOrDefault();
             selectedM = Psi.Where(a => d?.MatkaId == a?.ID).FirstOrDefault();
             selectedO = Psi.Where(a => d?.OtecId == a?.ID).FirstOrDefault();
-            Karantena = Karanteny.Where(a => d?.KarantenaId == a?.id).FirstOrDefault();
             //if (Obrazek is null) Obrazek = new();
         }
         public Tables.Dog Dog { get; }
@@ -65,45 +66,13 @@ namespace BDAS_2_dog_shelter.Add.Dog
 
         public int Age { get => age; set { SetProperty(ref age, value); } }
 
-        public List<Tuple<int?, string>> Utulek {
-            get 
-            {
-                if (ulek == null)
-                {
-                    ulek = [new(null, "<Žádný>")];
-
-                    OracleConnection con = new OracleConnection(ConnectionString);
-                    if (con.State == System.Data.ConnectionState.Closed) con.Open();
-                    using (OracleCommand cmd = con.CreateCommand())
-                    {
-                        try
-                        {
-                            cmd.CommandText = "select id_utulek,nazev from utulek";
-                            OracleDataReader v = cmd.ExecuteReader();
-                            if (v.HasRows)
-                            {
-                                while (v.Read())
-                                {
-                                    ulek.Add(new(v.GetInt32(0), v.GetString(1)));
-                                }
-                            }
-                        }
-                        catch (Exception ex)//something went wrong
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-                   
-                }
-                return ulek;
-            }
+        public List<Tables.Shelter> Utulek {
+            get; init;
         }
 
-        private List<Tuple<int?, string>> ulek;
+        private Tables.Shelter selectedUT;
 
-        private int selectedUT;
-
-        public int SelectedUT { 
+        public Tables.Shelter SelectedUT { 
             get => selectedUT;
             set => SetProperty(ref selectedUT, value); 
         }
@@ -127,7 +96,8 @@ namespace BDAS_2_dog_shelter.Add.Dog
         private void Ok()
         {
             Dog.Obrazek = Obrazek;
-            Dog.UtulekId = SelectedUT;
+            Dog.UtulekId = SelectedUT.ID;
+            Dog.Utulek = SelectedUT;
             Dog.StavPes = Stav;
             Dog.Name = Name;
             Dog.Age = Age;
@@ -141,6 +111,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Dog.OtecId = SelectedO?.ID;
             Dog.MajtelId = Majtel?.id;
             Dog.KarantenaId = Karantena?.id;
+            Dog.Karantena = Karantena;
 
             OkClickFinished?.Invoke();
         }
