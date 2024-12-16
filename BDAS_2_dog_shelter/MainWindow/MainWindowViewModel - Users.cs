@@ -33,7 +33,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand CommandImpersonate => ueduCMD ??= new RelayCommand<object>(CommandImpersonateF, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)));
         public ObservableCollection<Users> Users { get; set; } = new();
 
-        public int UsersSI { get => _usrSelectedIndex; set { if (_usrSelectedIndex != value) { _usrSelectedIndex = value; urmuCMD.NotifyCanExecuteChanged(); ueduCMD.NotifyCanExecuteChanged(); } } }
+        public int UsersSI { get => _usrSelectedIndex; set { if (_usrSelectedIndex != value) { _usrSelectedIndex = value; urmuCMD?.NotifyCanExecuteChanged(); ueduCMD?.NotifyCanExecuteChanged(); } } }
 
         private void CommandUserEdit(object? obj)
         {

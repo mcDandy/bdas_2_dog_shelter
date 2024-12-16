@@ -22,7 +22,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdHistoryEd => HistoryedCMD ??= new RelayCommand<object>(CommandHistoryEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) && HistorySI > -1);
 
         private int _dogHistorySelectedIndex = -1;
-        public int HistorySI { get => _dogHistorySelectedIndex; set { if (_dogHistorySelectedIndex != value) { _dogHistorySelectedIndex = value; HistoryedCMD.NotifyCanExecuteChanged(); HistoryrmCMD.NotifyCanExecuteChanged(); } } }
+        public int HistorySI { get => _dogHistorySelectedIndex; set { if (_dogHistorySelectedIndex != value) { _dogHistorySelectedIndex = value; HistoryedCMD?.NotifyCanExecuteChanged(); HistoryrmCMD?.NotifyCanExecuteChanged(); } } }
 
 
         public ObservableCollection<Dog_History> Historie { get; set; } = new();

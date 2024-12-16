@@ -20,7 +20,7 @@ namespace BDAS_2_dog_shelter.MainWindow
     {
         public ObservableCollection<Dog> Dogs { get; set; } = new();
         private int _dogSelectedIndex=-1;
-        public int DogSI { get => _dogSelectedIndex; set { if (_dogSelectedIndex != value) {_dogSelectedIndex = value; dogEdCMD.NotifyCanExecuteChanged(); dogRmCMD.NotifyCanExecuteChanged();  } } }
+        public int DogSI { get => _dogSelectedIndex; set { if (_dogSelectedIndex != value) {_dogSelectedIndex = value; dogEdCMD?.NotifyCanExecuteChanged(); dogRmCMD?.NotifyCanExecuteChanged();  } } }
 
 
         private void LoadDogs(ulong permissions)

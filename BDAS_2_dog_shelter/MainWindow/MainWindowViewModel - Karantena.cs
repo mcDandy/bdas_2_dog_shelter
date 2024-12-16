@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ObservableCollection<Quarantine> Karanteny { get; set; } = new();
         
 
-        public int KarantenaSI { get => _karantenaSelectedIndex; set { if (_karantenaSelectedIndex != value) { _karantenaSelectedIndex = value; KarantenaedhCMD.NotifyCanExecuteChanged(); KarantenarmhCMD.NotifyCanExecuteChanged(); } } }
+        public int KarantenaSI { get => _karantenaSelectedIndex; set { if (_karantenaSelectedIndex != value) { _karantenaSelectedIndex = value; KarantenaedhCMD?.NotifyCanExecuteChanged(); KarantenarmhCMD?.NotifyCanExecuteChanged(); } } }
 
 
         private void CommandKarantenaEdit(object? obj)

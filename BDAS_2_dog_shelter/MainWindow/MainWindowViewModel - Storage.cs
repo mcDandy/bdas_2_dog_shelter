@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdSRm => srmCMD ??= new RelayCommand<object>(CommandSkladRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.SKLAD_DELETE)) && StorageSI >- 1);
         public ObservableCollection<Tables.Storage> Storages { get; set; } = new();
 
-        public int StorageSI { get => _storageSelectedIndex; set { if (_storageSelectedIndex != value) { _storageSelectedIndex = value; sedCMD.NotifyCanExecuteChanged(); srmCMD.NotifyCanExecuteChanged(); } } }
+        public int StorageSI { get => _storageSelectedIndex; set { if (_storageSelectedIndex != value) { _storageSelectedIndex = value; sedCMD?.NotifyCanExecuteChanged(); srmCMD?.NotifyCanExecuteChanged(); } } }
 
         private void CommandSkladEdit(object? obj)
         {

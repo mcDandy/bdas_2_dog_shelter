@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdAEd => adressEditCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => (_adressSelectedIndex > 0 && p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
         public ObservableCollection<Adress> Adresses { get; set; } = new();
         private int _adressSelectedIndex = -1;
-        public int AdressSI { get => _adressSelectedIndex; set { if (_adressSelectedIndex != value) {  _adressSelectedIndex = value; adressEditCMD.NotifyCanExecuteChanged(); adressRemoveCMD.NotifyCanExecuteChanged(); } } }
+        public int AdressSI { get => _adressSelectedIndex; set { if (_adressSelectedIndex != value) {  _adressSelectedIndex = value; adressEditCMD?.NotifyCanExecuteChanged(); adressRemoveCMD?.NotifyCanExecuteChanged(); } } }
 
 
         private void CommandAdressEdit(object? obj)

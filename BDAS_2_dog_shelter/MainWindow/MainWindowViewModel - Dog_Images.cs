@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImagesEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) && ImagesSI > -1);
 
         private int imagesi=-1;
-        public int ImagesSI { get => imagesi; set { if (imagesi != value) { imagesi = value; ImgesedCMD.NotifyCanExecuteChanged(); ImgesrmCMD.NotifyCanExecuteChanged(); } } }
+        public int ImagesSI { get => imagesi; set { if (imagesi != value) { imagesi = value; ImgesedCMD?.NotifyCanExecuteChanged(); ImgesrmCMD?.NotifyCanExecuteChanged(); } } }
 
 
         public ObservableCollection<Dog_Images> Images { get; set; } = new();

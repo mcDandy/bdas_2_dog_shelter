@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdHEd => uedhCMD ??= new RelayCommand<object>(CommandHrackaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)) && HrackySI > -1);
         public ObservableCollection<Hracka> Hracky { get; set; } = new();
 
-        public int HrackySI { get => _hrackySelectedIndex; set { if (_hrackySelectedIndex != value) { _hrackySelectedIndex = value; urmhCMD.NotifyCanExecuteChanged(); uedhCMD.NotifyCanExecuteChanged(); } } }
+        public int HrackySI { get => _hrackySelectedIndex; set { if (_hrackySelectedIndex != value) { _hrackySelectedIndex = value; urmhCMD?.NotifyCanExecuteChanged(); uedhCMD?.NotifyCanExecuteChanged(); } } }
 
 
         private void CommandHrackaEdit(object? obj)

@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdOwnerEd => OwneredhCMD ??= new RelayCommand<object>(CommandOwnerEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_UPDATE)) && OwnerSI > -1);
         public ObservableCollection<Owner> Owners { get; set; } = new();
 
-        public int OwnerSI { get => _ownerSelectedIndex; set { if (_ownerSelectedIndex != value) { _ownerSelectedIndex = value; OwneredhCMD.NotifyCanExecuteChanged(); OwnerrmhCMD.NotifyCanExecuteChanged(); } } }
+        public int OwnerSI { get => _ownerSelectedIndex; set { if (_ownerSelectedIndex != value) { _ownerSelectedIndex = value; OwneredhCMD?.NotifyCanExecuteChanged(); OwnerrmhCMD?.NotifyCanExecuteChanged(); } } }
         private void CommandOwnerEdit(object? obj)
         {
             OwnerAdd s = new(((IEnumerable)obj).Cast<Owner>().First());

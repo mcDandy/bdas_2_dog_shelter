@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdProcedureEd => ProcedureedhCMD ??= new RelayCommand<object>(CommandprocedureEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_UPDATE)) && ProcedureSI > -1);
         public ObservableCollection<Procedure> Procedures { get; set; } = new();
 
-        public int ProcedureSI { get => _selectedProcedureIndex; set { if (_selectedProcedureIndex != value) { _selectedProcedureIndex = value; ProcedureedhCMD.NotifyCanExecuteChanged(); ProcedurermhCMD.NotifyCanExecuteChanged(); } } }
+        public int ProcedureSI { get => _selectedProcedureIndex; set { if (_selectedProcedureIndex != value) { _selectedProcedureIndex = value; ProcedureedhCMD?.NotifyCanExecuteChanged(); ProcedurermhCMD?.NotifyCanExecuteChanged(); } } }
 
         private void CommandprocedureEdit(object? obj)
         {

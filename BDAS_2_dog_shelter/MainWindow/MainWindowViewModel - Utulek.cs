@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdUEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
         public ObservableCollection<Shelter> Shelters { get; set; } = new();
 
-        public int UtulekSI { get => _utulekSelectedIndex; set { if (_utulekSelectedIndex != value) { _utulekSelectedIndex = value; urmCMD.NotifyCanExecuteChanged(); uedCMD.NotifyCanExecuteChanged(); } } }
+        public int UtulekSI { get => _utulekSelectedIndex; set { if (_utulekSelectedIndex != value) { _utulekSelectedIndex = value; urmCMD?.NotifyCanExecuteChanged(); uedCMD?.NotifyCanExecuteChanged(); } } }
 
         private void CommandUtulekEdit(object? obj)
         {

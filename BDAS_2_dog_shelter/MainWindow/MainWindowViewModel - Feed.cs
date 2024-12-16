@@ -27,7 +27,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ObservableCollection<Feed> Krmiva { get; set; } = new();
 
 
-        public int FoodSI { get => _foodSelectedIndex; set { if (_foodSelectedIndex != value) { _foodSelectedIndex = value; urmfCMD.NotifyCanExecuteChanged(); uedfCMD.NotifyCanExecuteChanged(); } } }
+        public int FoodSI { get => _foodSelectedIndex; set { if (_foodSelectedIndex != value) { _foodSelectedIndex = value; urmfCMD?.NotifyCanExecuteChanged(); uedfCMD?.NotifyCanExecuteChanged(); } } }
 
 
 

@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdPavilonEd => PavilonedhCMD ??= new RelayCommand<object>(CommandPavilonEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE)) && PavilonSI > -1);
         public ObservableCollection<Pavilion> Pavilony { get; set; } = new();
 
-        public int PavilonSI { get => _pavilonSelectedIndex; set { if (_pavilonSelectedIndex != value) { _pavilonSelectedIndex = value; PavilonedhCMD.NotifyCanExecuteChanged(); PavilonrmhCMD.NotifyCanExecuteChanged(); } } }
+        public int PavilonSI { get => _pavilonSelectedIndex; set { if (_pavilonSelectedIndex != value) { _pavilonSelectedIndex = value; PavilonedhCMD?.NotifyCanExecuteChanged(); PavilonrmhCMD?.NotifyCanExecuteChanged(); } } }
 
         private void CommandPavilonEdit(object? obj)
         {
