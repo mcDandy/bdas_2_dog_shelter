@@ -19,9 +19,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> urmlCMD;
         private int _logSelectedIndex;
 
-        public ICommand cmdLAdd => uadlCMD ??= new RelayCommand(CommandLogAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN)));
-        public ICommand cmdLRm => urmlCMD ??= new RelayCommand<object>(CommandLogRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)&&LogSI >- 1));
-        public ICommand cmdLEd => uedfCMD ??= new RelayCommand<object>(CommandLogEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN) && LogSI >- 1));
+        public ICommand cmdLAdd => uadlCMD ??= new RelayCommand(CommandLogAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN));
+        public ICommand cmdLRm => urmlCMD ??= new RelayCommand<object>(CommandLogRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)&&LogSI >- 1);
+        public ICommand cmdLEd => uedfCMD ??= new RelayCommand<object>(CommandLogEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN) && LogSI >- 1);
         public ObservableCollection<Logs> Logs { get; set; } = new();
 
         public int LogSI { get => _logSelectedIndex; set { if (_logSelectedIndex != value) { _logSelectedIndex = value; urmlCMD?.NotifyCanExecuteChanged(); uedfCMD?.NotifyCanExecuteChanged(); } } }

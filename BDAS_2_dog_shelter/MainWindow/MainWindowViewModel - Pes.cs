@@ -177,9 +177,9 @@ private RelayCommand addCMD;
 private RelayCommand<object> dogRmCMD;
 private RelayCommand<object> trCMD;
 private RelayCommand<object> dogEdCMD;
-public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => (Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_INSERT)));
-public ICommand cmdRm => dogRmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>(DogSI >= 0 && p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_DELETE)));
-public ICommand cmdEd => dogEdCMD ??= new RelayCommand<object>(CommandEdit, (p) => (DogSI >= 0 && p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_UPDATE)));
+public ICommand cmdAdd => addCMD ??= new RelayCommand(CommandAdd,() => Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_INSERT));
+public ICommand cmdRm => dogRmCMD ??= new RelayCommand<object>(CommandRemove,(p)=>DogSI >= 0 && p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_DELETE));
+public ICommand cmdEd => dogEdCMD ??= new RelayCommand<object>(CommandEdit, (p) => DogSI >= 0 && p is not null && Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.PES_UPDATE));
 public ICommand cmdTree => trCMD ??= new RelayCommand<object>(CommandShowTree);
 
 private void CommandShowTree(object? obj)

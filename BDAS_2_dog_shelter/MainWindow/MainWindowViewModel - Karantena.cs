@@ -19,9 +19,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> KarantenarmhCMD;
         private RelayCommand<object> KarantenaedhCMD;
         private int _karantenaSelectedIndex = -1;
-        public ICommand cmdKarantenaAdd => KarantenaadhCMD ??= new RelayCommand(CommandKarantenaAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT)));
-        public ICommand cmdKarantenaRm => KarantenarmhCMD ??= new RelayCommand<object>(CommandKarantenaRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)&& KarantenaSI>0));
-        public ICommand cmdKarantenaEd => KarantenaedhCMD ??= new RelayCommand<object>(CommandKarantenaEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_UPDATE) && KarantenaSI > 0));
+        public ICommand cmdKarantenaAdd => KarantenaadhCMD ??= new RelayCommand(CommandKarantenaAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT));
+        public ICommand cmdKarantenaRm => KarantenarmhCMD ??= new RelayCommand<object>(CommandKarantenaRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)&& KarantenaSI>0);
+        public ICommand cmdKarantenaEd => KarantenaedhCMD ??= new RelayCommand<object>(CommandKarantenaEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_UPDATE) && KarantenaSI > 0);
         public ObservableCollection<Quarantine> Karanteny { get; set; } = new();
         
 

@@ -20,9 +20,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand adressAddCMD;
         private RelayCommand<object> adressRemoveCMD;
         private RelayCommand<object> adressEditCMD;
-        public ICommand cmdAAdd => adressAddCMD ??= new RelayCommand(CommandAdressAdd, () => (_adressSelectedIndex>0 && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
-        public ICommand cmdARm => adressRemoveCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => (_adressSelectedIndex > 0 && p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
-        public ICommand cmdAEd => adressEditCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => (_adressSelectedIndex > 0 && p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
+        public ICommand cmdAAdd => adressAddCMD ??= new RelayCommand(CommandAdressAdd, () =>  && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT));
+        public ICommand cmdARm => adressRemoveCMD ??= new RelayCommand<object>(CommandAdressRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)&& AdressSI>-1);
+        public ICommand cmdAEd => adressEditCMD ??= new RelayCommand<object>(CommandAdressEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)&& AdressSI>-1;
         public ObservableCollection<Adress> Adresses { get; set; } = new();
         private int _adressSelectedIndex = -1;
         public int AdressSI { get => _adressSelectedIndex; set { if (_adressSelectedIndex != value) {  _adressSelectedIndex = value; adressEditCMD?.NotifyCanExecuteChanged(); adressRemoveCMD?.NotifyCanExecuteChanged(); } } }
@@ -36,7 +36,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandAdressRemove(object? SelectedShelters)
         {
-            if ((Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.ADRESA_DELETE)))
+            if (Permission.HasAnyOf(permissions, Permissions.ADMIN,Permissions.ADRESA_DELETE))
             {
                 List<Adress> e = new List<Adress>();
                 foreach (Adress d in (IEnumerable)SelectedShelters) e.Add(d);
@@ -56,7 +56,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Adresses.Add(((AddAdressViewModel)s.DataContext).Adresa);
-                if ((Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)))
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT))
                     Adresses.Last().PropertyChanged += AdressChanged;
             }
         }
