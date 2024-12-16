@@ -253,7 +253,7 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="MajitelDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="MajitelDataGrid" CanUserAddRows="False" Selected="{Binding OwnerSI}"
 ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MajitelDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -279,7 +279,7 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="PavilonDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="PavilonDataGrid" CanUserAddRows="False" SelectedIndex="{Binding PavilonSI}"
 ItemsSource="{Binding Path=Pavilony, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="PavilonDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -309,7 +309,7 @@ ItemsSource="{Binding Path=Pavilony, Mode=TwoWay, UpdateSourceTrigger=PropertyCh
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="ProceduraDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="ProceduraDataGrid" CanUserAddRows="False" SelectedIndex="{Binding ProcedureSI}"
 ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="ProceduraDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 

@@ -66,5 +66,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
         }
 
+        private void MajitelDataGrid_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
