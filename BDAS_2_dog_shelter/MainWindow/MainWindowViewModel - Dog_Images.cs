@@ -124,7 +124,15 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add("V_FILENAME", OracleDbType.Varchar2, history.FileName, ParameterDirection.Input);
 
                     await cmd.ExecuteNonQueryAsync();
-                    history.id = Convert.ToInt32(cmd.Parameters["V_ID_IMAGE"].Value.ToString());
+
+                    if (cmd.Parameters["V_ID_IMAGE"].Value.ToString() == "null") {
+                        using (OracleCommand cmd1 = con.CreateCommand())
+                        {
+                            cmd1.CommandText = "select max(id_image) from w_dog_images";
+                            history.id = cmd1.ExecuteScalar();
+                        }
+                        }
+                    else history.id = Convert.ToInt32(cmd.Parameters["V_ID_IMAGE"].Value.ToString());
                 }
 
             }
