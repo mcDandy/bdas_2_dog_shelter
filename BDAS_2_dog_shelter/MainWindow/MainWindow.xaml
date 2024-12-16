@@ -460,13 +460,13 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
             </Grid>
         </TabItem>
 
-        <TabItem Header="Logs" Name="tabLogs" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}">
+        <TabItem Header="Logs" Name="tabLogs" Visibility="{Binding isAdmin, Converter={StaticResource BoolToVis}}" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="logDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="logDataGrid" CanUserAddRows="False" SelectedIndex="{Binding LogSI}"
     ItemsSource="{Binding Path=Logs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
