@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdREd => RezervaceEditCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)) && ReservationSI > -1);
         public ObservableCollection<Reservation> Rezervace { get; set; } = new();
 
-        private int ReservationSI { get => _reservationselectedIndex; set { if (_reservationselectedIndex != value) { _reservationselectedIndex = value; RezervaceEditCMD.NotifyCanExecuteChanged(); RezervaceRemoveCMD.NotifyCanExecuteChanged(); } } }
+        public int ReservationSI { get => _reservationselectedIndex; set { if (_reservationselectedIndex != value) { _reservationselectedIndex = value; RezervaceEditCMD.NotifyCanExecuteChanged(); RezervaceRemoveCMD.NotifyCanExecuteChanged(); } } }
 
         private void CommandRezervaceEdit(object? obj)
         {
