@@ -133,7 +133,7 @@ ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
             </Grid>
         </TabItem>
-        <TabItem Header="Medical" Name="tabMedical" Visibility="{Binding AnyMedicalPerms, Converter={StaticResource BoolToVis}}">
+        <TabItem Header="Zdravotní zásoby" Name="tabMedical" Visibility="{Binding AnyMedicalPerms, Converter={StaticResource BoolToVis}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*"></ColumnDefinition>
@@ -319,9 +319,9 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonProcAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonProcEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonProcRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonProcAdd" Content="Add" Margin="5" Command="{Binding Path=cmdProcedureAdd}"/>
+                    <Button x:Name="buttonProcEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdProcedureEd}"/>
+                    <Button x:Name="buttonProcRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdProcedureRm}"/>
                     <Button x:Name="buttonProc1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonProc2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
