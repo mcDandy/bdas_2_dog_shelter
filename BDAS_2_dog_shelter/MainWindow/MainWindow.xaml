@@ -253,7 +253,7 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="MajitelDataGrid" CanUserAddRows="False" Selected="{Binding OwnerSI}"
+                <DataGrid x:Name="MajitelDataGrid" CanUserAddRows="False" SelectedIndex="{Binding OwnerSI}"
 ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MajitelDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -369,7 +369,7 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="RezervaceDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="RezervaceDataGrid" CanUserAddRows="False" SelectedIndex="{Binding ReservationSI}"
 ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
