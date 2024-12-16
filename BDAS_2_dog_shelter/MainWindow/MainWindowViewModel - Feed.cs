@@ -21,9 +21,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> uedfCMD;
         private int _foodSelectedIndex=-1;
 
-        public ICommand cmdFAdd => uadfCMD ??= new RelayCommand(CommandFoodAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_INSERT)));
-        public ICommand cmdFRm => urmfCMD ??= new RelayCommand<object>(CommandFoodRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)) && FoodSI > -1);
-        public ICommand cmdFEd => uedfCMD ??= new RelayCommand<object>(CommandFoodEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)) && FoodSI > -1);
+        public ICommand cmdFAdd => uadfCMD ??= new RelayCommand(CommandFoodAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_INSERT));
+        public ICommand cmdFRm => urmfCMD ??= new RelayCommand<object>(CommandFoodRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE) && FoodSI > -1);
+        public ICommand cmdFEd => uedfCMD ??= new RelayCommand<object>(CommandFoodEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE) && FoodSI > -1);
         public ObservableCollection<Feed> Krmiva { get; set; } = new();
 
 

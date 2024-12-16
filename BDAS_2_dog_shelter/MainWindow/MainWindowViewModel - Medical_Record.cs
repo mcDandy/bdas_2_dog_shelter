@@ -20,9 +20,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> MedRecordedhCMD;
         private int _mrcSelectedIndex;
 
-        public ICommand cmdMedRecordAdd => MedRecordadhCMD ??= new RelayCommand(CommandMedicalRecAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_INSERT)));
-        public ICommand cmdMedRecordRm => MedRecordrmhCMD ??= new RelayCommand<object>(CommandMedicalRecRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_DELETE)&& MedicalRSI >- 1));
-        public ICommand cmdMedRecordEd => MedRecordedhCMD ??= new RelayCommand<object>(CommandMedicalRecEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE) && MedicalRSI >- 1));
+        public ICommand cmdMedRecordAdd => MedRecordadhCMD ??= new RelayCommand(CommandMedicalRecAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_INSERT));
+        public ICommand cmdMedRecordRm => MedRecordrmhCMD ??= new RelayCommand<object>(CommandMedicalRecRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_DELETE)&& MedicalRSI >- 1);
+        public ICommand cmdMedRecordEd => MedRecordedhCMD ??= new RelayCommand<object>(CommandMedicalRecEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE) && MedicalRSI >- 1);
         public ObservableCollection<Medical_Record> MedicalRec { get; set; } = new();
 
         public int MedicalRSI { get => _mrcSelectedIndex; set { if (_mrcSelectedIndex != value) { _mrcSelectedIndex = value; KarantenaedhCMD?.NotifyCanExecuteChanged(); KarantenarmhCMD?.NotifyCanExecuteChanged(); } } }

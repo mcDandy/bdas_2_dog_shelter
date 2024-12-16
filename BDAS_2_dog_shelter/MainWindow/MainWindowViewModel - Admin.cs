@@ -20,9 +20,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> trmCMD;
         private RelayCommand<object> tedCMD;
         private RelayCommand scc;
-        public ICommand cmdTAdd => tadCMD ??= new RelayCommand        (CommandTypesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT)));
-        public ICommand cmdTRm => trmCMD ??= new RelayCommand<object> (CommandTypesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE)));
-        public ICommand cmdTEd => tedCMD ??= new RelayCommand<object> (CommandTypesOK, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE)));
+        public ICommand cmdTAdd => tadCMD ??= new RelayCommand        (CommandTypesAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_INSERT));
+        public ICommand cmdTRm => trmCMD ??= new RelayCommand<object> (CommandTypesRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_DELETE));
+        public ICommand cmdTEd => tedCMD ??= new RelayCommand<object> (CommandTypesOK, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ADRESA_UPDATE));
         public ICommand sc => scc ??= new RelayCommand (ShowSystem);
 
         private void ShowSystem()

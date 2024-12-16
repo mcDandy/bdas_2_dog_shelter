@@ -19,9 +19,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> ProcedurermhCMD;
         private RelayCommand<object> ProcedureedhCMD;
         private int _selectedProcedureIndex = -1;
-        public ICommand cmdProcedureAdd => ProcedureadhCMD ??= new RelayCommand(CommandProcedureAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_INSERT)));
-        public ICommand cmdProcedureRm => ProcedurermhCMD ??= new RelayCommand<object>(CommandprocedureRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_DELETE)) && ProcedureSI > -1);
-        public ICommand cmdProcedureEd => ProcedureedhCMD ??= new RelayCommand<object>(CommandprocedureEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_UPDATE)) && ProcedureSI > -1);
+        public ICommand cmdProcedureAdd => ProcedureadhCMD ??= new RelayCommand(CommandProcedureAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_INSERT));
+        public ICommand cmdProcedureRm => ProcedurermhCMD ??= new RelayCommand<object>(CommandprocedureRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_DELETE) && ProcedureSI > -1);
+        public ICommand cmdProcedureEd => ProcedureedhCMD ??= new RelayCommand<object>(CommandprocedureEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PROCEDURA_UPDATE) && ProcedureSI > -1);
         public ObservableCollection<Procedure> Procedures { get; set; } = new();
 
         public int ProcedureSI { get => _selectedProcedureIndex; set { if (_selectedProcedureIndex != value) { _selectedProcedureIndex = value; ProcedureedhCMD?.NotifyCanExecuteChanged(); ProcedurermhCMD?.NotifyCanExecuteChanged(); } } }

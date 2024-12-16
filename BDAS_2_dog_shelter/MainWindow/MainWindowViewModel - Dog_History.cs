@@ -17,9 +17,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand HistoryadCMD;
         private RelayCommand<object> HistoryrmCMD;
         private RelayCommand<object> HistoryedCMD;
-        public ICommand cmdHistoryAdd => HistoryadCMD ??= new RelayCommand(CommandHistoryAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
-        public ICommand cmdHistoryRm => HistoryrmCMD ??= new RelayCommand<object>(CommandHistoryRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE))&&HistorySI>-1);
-        public ICommand cmdHistoryEd => HistoryedCMD ??= new RelayCommand<object>(CommandHistoryEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) && HistorySI > -1);
+        public ICommand cmdHistoryAdd => HistoryadCMD ??= new RelayCommand(CommandHistoryAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT));
+        public ICommand cmdHistoryRm => HistoryrmCMD ??= new RelayCommand<object>(CommandHistoryRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)&&HistorySI>-1);
+        public ICommand cmdHistoryEd => HistoryedCMD ??= new RelayCommand<object>(CommandHistoryEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE) && HistorySI > -1);
 
         private int _dogHistorySelectedIndex = -1;
         public int HistorySI { get => _dogHistorySelectedIndex; set { if (_dogHistorySelectedIndex != value) { _dogHistorySelectedIndex = value; HistoryedCMD?.NotifyCanExecuteChanged(); HistoryrmCMD?.NotifyCanExecuteChanged(); } } }

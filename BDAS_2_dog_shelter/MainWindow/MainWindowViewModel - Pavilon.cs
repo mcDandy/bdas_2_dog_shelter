@@ -19,9 +19,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> PavilonrmhCMD;
         private RelayCommand<object> PavilonedhCMD;
         private int _pavilonSelectedIndex = -1;
-        public ICommand cmdPavilonAdd => PavilonadhCMD ??= new RelayCommand(CommandPavilonAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_INSERT)));
-        public ICommand cmdPavilonRm => PavilonrmhCMD ??= new RelayCommand<object>(CommandPavilonRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_DELETE)) && PavilonSI > -1);
-        public ICommand cmdPavilonEd => PavilonedhCMD ??= new RelayCommand<object>(CommandPavilonEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE)) && PavilonSI > -1);
+        public ICommand cmdPavilonAdd => PavilonadhCMD ??= new RelayCommand(CommandPavilonAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_INSERT));
+        public ICommand cmdPavilonRm => PavilonrmhCMD ??= new RelayCommand<object>(CommandPavilonRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_DELETE) && PavilonSI > -1);
+        public ICommand cmdPavilonEd => PavilonedhCMD ??= new RelayCommand<object>(CommandPavilonEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE) && PavilonSI > -1);
         public ObservableCollection<Pavilion> Pavilony { get; set; } = new();
 
         public int PavilonSI { get => _pavilonSelectedIndex; set { if (_pavilonSelectedIndex != value) { _pavilonSelectedIndex = value; PavilonedhCMD?.NotifyCanExecuteChanged(); PavilonrmhCMD?.NotifyCanExecuteChanged(); } } }

@@ -19,9 +19,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand ImgesadCMD;
         private RelayCommand<object> ImgesrmCMD;
         private RelayCommand<object> ImgesedCMD;
-        public ICommand cmdImagesAdd => ImgesadCMD ??= new RelayCommand(CommandImagesAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT)));
-        public ICommand cmdImagesRm => ImgesrmCMD ??= new RelayCommand<object>(CommandImagesRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE)) && ImagesSI > -1);
-        public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImagesEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE)) && ImagesSI > -1);
+        public ICommand cmdImagesAdd => ImgesadCMD ??= new RelayCommand(CommandImagesAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_INSERT));
+        public ICommand cmdImagesRm => ImgesrmCMD ??= new RelayCommand<object>(CommandImagesRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_DELETE) && ImagesSI > -1);
+        public ICommand cmdImagesEd => ImgesedCMD ??= new RelayCommand<object>(CommandImagesEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HISTORIE_PSA_UPDATE) && ImagesSI > -1);
 
         private int imagesi=-1;
         public int ImagesSI { get => imagesi; set { if (imagesi != value) { imagesi = value; ImgesedCMD?.NotifyCanExecuteChanged(); ImgesrmCMD?.NotifyCanExecuteChanged(); } } }
@@ -158,6 +158,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 using (OracleCommand cmd = con.CreateCommand())
                 {
+                    
                     try
                     {
                         cmd.CommandText = "DELETE FROM DOG_IMAGES WHERE ID_IMAGE = :ID";
