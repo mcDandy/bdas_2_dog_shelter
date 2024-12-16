@@ -18,11 +18,13 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand OwneradhCMD;
         private RelayCommand<object> OwnerrmhCMD;
         private RelayCommand<object> OwneredhCMD;
+        private int _ownerSelectedIndex = -1;
         public ICommand cmdOwnerAdd => OwneradhCMD ??= new RelayCommand(CommandOwnerAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_INSERT)));
-        public ICommand cmdOwnerRm => OwnerrmhCMD ??= new RelayCommand<object>(CommandOwnerRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_DELETE)));
-        public ICommand cmdOwnerEd => OwneredhCMD ??= new RelayCommand<object>(CommandOwnerEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_UPDATE)));
+        public ICommand cmdOwnerRm => OwnerrmhCMD ??= new RelayCommand<object>(CommandOwnerRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_DELETE)) && OwnerSI > -1);
+        public ICommand cmdOwnerEd => OwneredhCMD ??= new RelayCommand<object>(CommandOwnerEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.MAJITEL_UPDATE)) && OwnerSI > -1);
         public ObservableCollection<Owner> Owners { get; set; } = new();
 
+        public int OwnerSI { get => _ownerSelectedIndex; set { if (_ownerSelectedIndex != value) { _ownerSelectedIndex = value; OwneredhCMD.NotifyCanExecuteChanged(); OwnerrmhCMD.NotifyCanExecuteChanged(); } } }
         private void CommandOwnerEdit(object? obj)
         {
             OwnerAdd s = new(((IEnumerable)obj).Cast<Owner>().First());
