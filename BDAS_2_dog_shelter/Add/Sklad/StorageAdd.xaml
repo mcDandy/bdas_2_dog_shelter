@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Adress" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" d:DataContext="{d:DesignInstance Type=local:AdressAdd}"
         mc:Ignorable="d"
-        Title="ShelterAdd" Height="182" Width="234">
+        Title="StorageAdd" Height="182" Width="234">
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
@@ -23,17 +23,9 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBox x:Name="ema" HorizontalAlignment="Left" Margin="84,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="sType" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NotEmptyStringRule/>
-                </Binding.ValidationRules>
-            </Binding>
-        </TextBox>
 
         <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat" Content="Kapacita" HorizontalAlignment="Left" Margin="26,39,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat1" Content="Popis" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>
