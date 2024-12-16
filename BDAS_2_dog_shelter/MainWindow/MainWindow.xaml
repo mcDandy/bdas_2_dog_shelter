@@ -238,9 +238,9 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonKarAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonKarEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=KarantenaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonKarRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=KarantenaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonKarAdd" Content="Add" Margin="5" Command="{Binding Path=cmdKarantenaAdd}"/>
+                    <Button x:Name="buttonKarEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=KarantenaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdKarantenaEd}"/>
+                    <Button x:Name="buttonKarRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=KarantenaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdKarantenaRm}"/>
                     <Button x:Name="buttonKar1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonKar2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -263,9 +263,9 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonMajAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonMajEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonMajRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonMajAdd" Content="Add" Margin="5" Command="{Binding Path=cmdOwnerAdd}"/>
+                    <Button x:Name="buttonMajEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdOwnerEd}"/>
+                    <Button x:Name="buttonMajRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdOwnerRm}"/>
                     <Button x:Name="buttonMaj1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonMaj2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -289,9 +289,9 @@ ItemsSource="{Binding Path=Pavilony, Mode=TwoWay, UpdateSourceTrigger=PropertyCh
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonPavAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonPavEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=PavilonDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonPavRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=PavilonDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonPavAdd" Content="Add" Margin="5" Command="{Binding Path=cmdPavilonAdd}"/>
+                    <Button x:Name="buttonPavEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=PavilonDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdPavilonEd}"/>
+                    <Button x:Name="buttonPavRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=PavilonDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdPavilonRm}"/>
                     <Button x:Name="buttonPav1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonPav2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -349,9 +349,9 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonMedRecAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonMedRecEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonMedRecAdd" Content="Add" Margin="5" Command="{Binding Path=cmdMedicalAdd}"/>
+                    <Button x:Name="buttonMedRecEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedicalEd}"/>
+                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedicalRm}"/>
                     <Button x:Name="buttonMedRec1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonMedRec2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -380,9 +380,9 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonRezAdd" Content="Add" Margin="5" Command="{Binding Path=cmdHAdd}"/>
-                    <Button x:Name="buttonRezEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=RezervaceDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHEd}"/>
-                    <Button x:Name="buttonRezRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=RezervaceDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdHRm}"/>
+                    <Button x:Name="buttonRezAdd" Content="Add" Margin="5" Command="{Binding Path=cmdRezAdd}"/>
+                    <Button x:Name="buttonRezEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=RezervaceDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRezEd}"/>
+                    <Button x:Name="buttonRezRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=RezervaceDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdRezRm}"/>
                     <Button x:Name="buttonRez1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonRez2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
