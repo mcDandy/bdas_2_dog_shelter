@@ -129,7 +129,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         using (OracleCommand cmd1 = con.CreateCommand())
                         {
                             cmd1.CommandText = "select max(id_image) from w_dog_images";
-                            history.id = cmd1.ExecuteScalar();
+                            history.id = Convert.ToInt32(cmd1.ExecuteScalar().ToString());
                         }
                         }
                     else history.id = Convert.ToInt32(cmd.Parameters["V_ID_IMAGE"].Value.ToString());
