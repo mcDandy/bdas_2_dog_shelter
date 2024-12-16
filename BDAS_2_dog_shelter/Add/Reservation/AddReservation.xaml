@@ -9,8 +9,8 @@
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" VerticalAlignment="Top" Width="120" Height="24"
-                    SelectedDate="{Binding Path=DateTransfer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" RenderTransformOrigin="0.5,0.5">
+        <DatePicker x:Name="nam" HorizontalAlignment="Left" Margin="104,20,0,0" VerticalAlignment="Top" Width="120" Height="24"
+                    SelectedDate="{Binding Path=DateTransfer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" RenderTransformOrigin="0.766,1.285">
             <DatePicker.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -20,8 +20,10 @@
                 </TransformGroup>
             </DatePicker.RenderTransform>
         </DatePicker>
-        <DatePicker x:Name="mam" HorizontalAlignment="Left" Margin="84,49,0,0" VerticalAlignment="Top" Width="120" Height="25"
+        <DatePicker x:Name="mam" HorizontalAlignment="Left" Margin="104,49,0,0" VerticalAlignment="Top" Width="120" Height="25"
                     SelectedDate="{Binding Path=DateReceipt, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Label Content="Datum prevzeti" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top"/>
+        <Label Content="prevzeti psa" HorizontalAlignment="Left" Margin="19,44,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
