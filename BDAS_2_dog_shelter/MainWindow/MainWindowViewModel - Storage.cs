@@ -52,7 +52,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                //Storages.Add(((AddStorageViewModel)s.DataContext).Sklad);
+                Storages.Add(((AddStorageViewModel)s.DataContext).Storage);
                 if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_UPDATE)) Storages.Last().PropertyChanged += StorageChanged;
             }
         }
