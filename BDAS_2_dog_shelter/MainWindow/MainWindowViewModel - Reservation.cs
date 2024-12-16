@@ -17,11 +17,18 @@ namespace BDAS_2_dog_shelter.MainWindow
     internal partial class MainWindowViewModel
     {
         private RelayCommand radCMD;
+        private RelayCommand<object> RezervaceRemoveCMD;
+        private RelayCommand<object> RezervaceEditCMD;
+
+        private int _reservationselectedIndex = -1;
+
 
         public ICommand cmdRAdd => radCMD ??= new RelayCommand(CommandRezervaceAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT)));
-        public ICommand cmdR0Rm => adressRemoveCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)));
-        public ICommand cmdREd => adressEditCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)));
+        public ICommand cmdR0Rm => RezervaceRemoveCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE)) && ReservationSI > -1);
+        public ICommand cmdREd => RezervaceEditCMD ??= new RelayCommand<object>(CommandRezervaceEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE)) && ReservationSI > -1);
         public ObservableCollection<Reservation> Rezervace { get; set; } = new();
+
+        private int ReservationSI { get => _reservationselectedIndex; set { if (_reservationselectedIndex != value) { _reservationselectedIndex = value; RezervaceEditCMD.NotifyCanExecuteChanged(); RezervaceRemoveCMD.NotifyCanExecuteChanged(); } } }
 
         private void CommandRezervaceEdit(object? obj)
         {
