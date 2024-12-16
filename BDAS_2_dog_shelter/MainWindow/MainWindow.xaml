@@ -139,7 +139,7 @@ ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="MedicalDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="MedicalDataGrid" CanUserAddRows="False" SelectedIndex="{Binding MeidcalSI}"
 ItemsSource="{Binding Path=Medical_Equipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -339,8 +339,8 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="MedicalRecordDataGrid" CanUserAddRows="False"
-ItemsSource="{Binding Path=MedicalRec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalRecDataGrid_SelectionChanged">
+                <DataGrid x:Name="MedicalRecordDataGrid" CanUserAddRows="False" SelectedIndex="{Binding MedicalRSI}"
+                    ItemsSource="{Binding Path=MedicalRec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalRecDataGrid_SelectionChanged
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>

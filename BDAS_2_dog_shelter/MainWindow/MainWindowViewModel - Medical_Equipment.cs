@@ -18,10 +18,14 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand MedicaladhCMD;
         private RelayCommand<object> MedicalrmhCMD;
         private RelayCommand<object> MedicaledhCMD;
+        private int _medicalSelectedIndex;
+
         public ICommand cmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT)));
-        public ICommand MedicalHRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE)));
-        public ICommand cmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE)));
+        public ICommand MedicalHRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) && MeidcalSI > -1));
+        public ICommand cmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE) && MeidcalSI > -1));
         public ObservableCollection<Medical_Equipment> Medical_Equipment { get; set; } = new();
+
+        public int MeidcalSI { get => _medicalSelectedIndex; set { if (_medicalSelectedIndex != value) { _medicalSelectedIndex = value; MedicalrmhCMD.NotifyCanExecuteChanged(); MedicaledhCMD.NotifyCanExecuteChanged(); } } }
 
         private void CommandMedicalEdit(object? obj)
         {

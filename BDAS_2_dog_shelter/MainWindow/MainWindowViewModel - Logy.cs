@@ -24,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdLEd => uedfCMD ??= new RelayCommand<object>(CommandLogEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN) && LogSI >- 1));
         public ObservableCollection<Logs> Logs { get; set; } = new();
 
-        public int LogSI { get => _logSelectedIndex; set { if (_logSelectedIndex != value) { _logSelectedIndex = value; KarantenaedhCMD.NotifyCanExecuteChanged(); KarantenarmhCMD.NotifyCanExecuteChanged(); } } }
+        public int LogSI { get => _logSelectedIndex; set { if (_logSelectedIndex != value) { _logSelectedIndex = value; urmlCMD.NotifyCanExecuteChanged(); uedfCMD.NotifyCanExecuteChanged(); } } }
 
 
         private void CommandLogEdit(object? obj)
