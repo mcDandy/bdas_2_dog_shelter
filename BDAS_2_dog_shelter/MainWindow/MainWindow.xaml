@@ -54,7 +54,7 @@
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="utulekDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="utulekDataGrid" CanUserAddRows="False" SelectedIndex="{Binding UtulekSI}"
         ItemsSource="{Binding Path=Shelters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="utulekDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -199,7 +199,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="skladDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="skladDataGrid" CanUserAddRows="False" SelectedIndex="{Binding StorageSI}"
     ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
@@ -340,7 +340,7 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="MedicalRecordDataGrid" CanUserAddRows="False" SelectedIndex="{Binding MedicalRSI}"
-                    ItemsSource="{Binding Path=MedicalRec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalRecDataGrid_SelectionChanged
+                    ItemsSource="{Binding Path=MedicalRec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalRecDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
@@ -495,7 +495,7 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="userDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="userDataGrid" CanUserAddRows="False" SelectedIndex="{Binding UsersSI}"
     ItemsSource="{Binding Path=Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 

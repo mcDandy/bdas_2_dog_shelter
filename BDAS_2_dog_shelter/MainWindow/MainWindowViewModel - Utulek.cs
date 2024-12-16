@@ -18,10 +18,14 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand uadCMD;
         private RelayCommand<object> urmCMD;
         private RelayCommand<object> uedCMD;
+        private int _utulekSelectedIndex = -1;
+
         public ICommand cmdUAdd => uadCMD ??= new RelayCommand(CommandUtulekAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_INSERT)));
         public ICommand cmdURm => urmCMD ??= new RelayCommand<object>(CommandUtulekRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_DELETE)));
         public ICommand cmdUEd => uedCMD ??= new RelayCommand<object>(CommandUtulekEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.UTULEK_UPDATE)));
         public ObservableCollection<Shelter> Shelters { get; set; } = new();
+
+        public int UtulekSI { get => _utulekSelectedIndex; set { if (_utulekSelectedIndex != value) { _utulekSelectedIndex = value; urmCMD.NotifyCanExecuteChanged(); uedCMD.NotifyCanExecuteChanged(); } } }
 
         private void CommandUtulekEdit(object? obj)
         {

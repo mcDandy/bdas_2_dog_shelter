@@ -22,14 +22,18 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> urmuCMD;
         private RelayCommand<object> ueduCMD;
         private RelayCommand<object> uediCMD;
+        private int _usrSelectedIndex;
+
         public delegate void CloaseRequest();
         public event CloaseRequest OnCloaseRequest;
 
-        public ICommand cmdUSAdd => uaduCMD ??= new RelayCommand(CommandUserAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_INSERT)));
-        public ICommand cmdUSRm => urmuCMD ??= new RelayCommand<object>(CommandUserRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_DELETE)));
-        public ICommand cmdUSEd => ueduCMD ??= new RelayCommand<object>(CommandUserEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)));
-        public ICommand CommandImpersonate => ueduCMD ??= new RelayCommand<object>(CommandImpersonateF, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)));
+        public ICommand cmdUSAdd => uaduCMD ??= new RelayCommand(CommandUserAdd, () => (Permission.HasAnyOf(permissions, Permissions.ADMIN)));
+        public ICommand cmdUSRm => urmuCMD ??= new RelayCommand<object>(CommandUserRemove, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)));
+        public ICommand cmdUSEd => ueduCMD ??= new RelayCommand<object>(CommandUserEdit, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)));
+        public ICommand CommandImpersonate => ueduCMD ??= new RelayCommand<object>(CommandImpersonateF, (p) => (p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)));
         public ObservableCollection<Users> Users { get; set; } = new();
+
+        public int UsersSI { get => _usrSelectedIndex; set { if (_usrSelectedIndex != value) { _usrSelectedIndex = value; urmuCMD.NotifyCanExecuteChanged(); ueduCMD.NotifyCanExecuteChanged(); } } }
 
         private void CommandUserEdit(object? obj)
         {
