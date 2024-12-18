@@ -316,7 +316,7 @@ ItemsSource="{Binding Path=Pavilony, Mode=TwoWay, UpdateSourceTrigger=PropertyCh
 ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="ProceduraDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding proc_name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Název" Binding="{Binding ProcName}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Popis" Binding="{Binding DescrName}"/>
 
                     </DataGrid.Columns>
