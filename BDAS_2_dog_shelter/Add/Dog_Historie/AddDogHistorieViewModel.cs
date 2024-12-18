@@ -24,6 +24,8 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
             Historie.TypeId = Typ.Id;
             Historie.EventDescription = EventDescription;
             Historie.DogId = SelectedPes.ID;
+            Historie.Typ = Typ.Nazev; 
+            Historie.Pes = SelectedPes;
             OkClickFinished?.Invoke();
         }
 
@@ -32,7 +34,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         public KeyValueUS Typ { get; set; }
 
 
-        public string EventDescription { get => ed; set { if (value != ed) { ed = value; okCommand.NotifyCanExecuteChanged(); } } }
+        public string EventDescription { get => ed; set { if (value != ed) { ed = value; okCommand?.NotifyCanExecuteChanged(); } } }
         // Instance historie pro binding
         public Dog_History Historie => historyEntry;
 
@@ -48,7 +50,9 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
             this.Dogs = dogs;
             id = d.DogId;
             DateOfEvent = d.DateOfEvent;
+            EventDescription = d.EventDescription;
             SelectedPes = d.Pes;
+            Typ = Types.Where(x => x.Id == d.TypeId).FirstOrDefault();
             Typy = Types;
             historyEntry = d;
         }

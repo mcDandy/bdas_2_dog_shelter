@@ -113,6 +113,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 using (OracleCommand cmd = con.CreateCommand())
                 {
                     cmd.BindByName = true;
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "INS_SET.IU_HISTORIE_PSA"; // Replace this with your actual stored procedure
                     cmd.Parameters.Add("V_ID_HISTORIE", OracleDbType.Decimal, history.ID ?? (object)DBNull.Value, ParameterDirection.InputOutput);
                     cmd.Parameters.Add("V_DATUM_UDALOSTI", OracleDbType.Date, history.DateOfEvent, ParameterDirection.Input);
@@ -121,7 +122,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add("V_ID_PSA", OracleDbType.Decimal, history.DogId ?? (object)DBNull.Value, ParameterDirection.Input);
 
                     await cmd.ExecuteNonQueryAsync();
-                    history.ID = Convert.ToInt32(cmd.Parameters["V_ID_HISTORIE"].Value);
+                    history.ID = Convert.ToInt32(cmd.Parameters["V_ID_HISTORIE"].Value.ToString());
                 }
             }
             catch (Exception ex)
