@@ -2,7 +2,6 @@
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -25,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void LoadDogs(ulong permissions)
         {
-            if (con.State == System.Data.ConnectionState.Closed) con.Open();
+            if (con.State == ConnectionState.Closed) con.Open();
             using (OracleCommand cmd = con.CreateCommand())
             {
                 try
@@ -103,7 +102,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        if (con.State == ConnectionState.Closed) con.Open();
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
@@ -133,7 +132,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             dog.PropertyChanged -= DogChanged;
             dog.Obrazek_Id = dogImageId;
             dog.PropertyChanged += DogChanged;
-            if (con.State == System.Data.ConnectionState.Closed) con.Open();
+            if (con.State == ConnectionState.Closed) con.Open();
             try
             {
                 using (OracleCommand cmd = con.CreateCommand())

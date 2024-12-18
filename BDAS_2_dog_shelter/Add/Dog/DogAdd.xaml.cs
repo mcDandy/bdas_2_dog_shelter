@@ -36,7 +36,7 @@ namespace BDAS_2_dog_shelter
 
         private void image_Drop(object sender, DragEventArgs e)
         {
-            string o = ((string[])e.Data.GetData(System.Windows.DataFormats.FileDrop))[0]; 
+            string o = ((string[])e.Data.GetData(DataFormats.FileDrop))[0]; 
             try
             {
                 BitmapImage image;

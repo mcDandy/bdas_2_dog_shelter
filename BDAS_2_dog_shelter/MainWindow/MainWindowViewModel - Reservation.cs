@@ -154,7 +154,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        if (con.State == System.Data.ConnectionState.Closed) con.Open();
+                        if (con.State == ConnectionState.Closed) con.Open();
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
