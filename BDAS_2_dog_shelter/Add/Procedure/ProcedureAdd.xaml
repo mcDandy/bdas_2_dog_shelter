@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Procedure" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation"
         mc:Ignorable="d"
-        Title="HrackaAdd" Height="182" Width="234">
+        Title="ProcedureAdd" Height="182" Width="234">
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,136,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,136,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,87,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ZdrZaznamy, Mode=OneTime}" SelectedItem="{Binding Vzaznam,Mode=TwoWay}"/>
-        <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="40">
+        <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="78">
             <Binding Path="DescrName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:NumericStringRule/>
@@ -26,8 +25,6 @@
         </TextBox>
         <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat1" Content="Popis" HorizontalAlignment="Left" Margin="29,39,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat2" Content="Sklad" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox_Kopírovat" HorizontalAlignment="Left" Margin="84,114,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Dogs, Mode=OneTime}" SelectedItem="{Binding Pes}"/>
 
     </Grid>
 </Window>
