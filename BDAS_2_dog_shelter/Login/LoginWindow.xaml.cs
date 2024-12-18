@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using static BDAS_2_dog_shelter.Secrets;
 using BDAS_2_dog_shelter.Login;
+using System.Windows.Controls;
 
 namespace BDAS_2_dog_shelter
 {
@@ -24,7 +25,11 @@ namespace BDAS_2_dog_shelter
             ((LoginWindowViewModel)DataContext).OnCloaseRequest += Colse;
 
         }
-
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            { ((dynamic)this.DataContext).Pwd = ((PasswordBox)sender).SecurePassword; }
+        }
         private void Colse()
         {
             Close();

@@ -2,6 +2,8 @@
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
 using System.Reflection.PortableExecutable;
+using System.Runtime.Intrinsics.Arm;
+using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -16,7 +18,7 @@ namespace BDAS_2_dog_shelter.Login
     {
         private string _username;
         public string Uname { get => _username; set { if (value != _username) { _username = value; register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged(); } } }
-        public string Pwd { get => _password; set { if (value != _password) { _password = value;  register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged();} } }
+        public SecureString Pwd { get => _password; set { if (value != _password) { _password = value;  register.NotifyCanExecuteChanged();  login.NotifyCanExecuteChanged();} } }
         public List<Object> selectedDogs { get; set; }
 
        
@@ -42,7 +44,7 @@ namespace BDAS_2_dog_shelter.Login
 
                         // Assign id to the department number 50 
                         OracleParameter id = new OracleParameter("id", Uname);
-                        OracleParameter id1 = new OracleParameter("pw", SHA256.HashData(Encoding.UTF8.GetBytes(Pwd)));
+                        OracleParameter id1 = new OracleParameter("pw", Helpers.HashSecureString(Pwd, SHA256.HashData));
                         cmd.Parameters.Add(id);
                         cmd.Parameters.Add(id1);
 
@@ -62,7 +64,7 @@ namespace BDAS_2_dog_shelter.Login
 
         private RelayCommand login;
         private RelayCommand nologin;
-        private string _password;
+        private SecureString _password;
 
         public ICommand Login => login ??= new RelayCommand(PerformLogin,CanLogin);
         public ICommand NoLogin => nologin ??= new RelayCommand(WhoCaresAboutLoggingIn);
@@ -91,7 +93,7 @@ namespace BDAS_2_dog_shelter.Login
 
                         // Assign id to the department number 50 
                         OracleParameter id = new OracleParameter("id", Uname);
-                        OracleParameter id1 = new OracleParameter("pw", SHA256.HashData(Encoding.UTF8.GetBytes(Pwd)));
+                        OracleParameter id1 = new OracleParameter("pw", Helpers.HashSecureString(Pwd,SHA256.HashData));
                         cmd.Parameters.Add(id);
                         cmd.Parameters.Add(id1);
 
@@ -121,7 +123,7 @@ namespace BDAS_2_dog_shelter.Login
         }
         private bool CanLogin() 
         {
-            if (Uname is null or "" || Pwd is null or "") return false;
+            if (Uname is null or "" || Pwd is null || Pwd.Length==0) return false;
             
             return true;
         }
