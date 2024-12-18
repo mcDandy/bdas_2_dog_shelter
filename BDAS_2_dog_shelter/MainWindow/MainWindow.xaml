@@ -377,7 +377,7 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
 
                         <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding DateOfReceipt}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Převzetí psa" Binding="{Binding DateOfTransfer}"/>
-                        <DataGridTextColumn Header="jméno psa" Binding="{Binding pes}"/>
+                        <DataGridTextColumn Header="Pes" Binding="{Binding Pes}" />
 
                     </DataGrid.Columns>
                 </DataGrid>

@@ -72,7 +72,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_REZERVACE,DATUM_REZERVACE,PREVZETI_PSA from w_REZERVACE";
+                        cmd.CommandText = "select id_REZERVACE,DATUM_REZERVACE,PREVZETI_PSA,id_pes from w_REZERVACE";
                         OracleDataReader v = cmd.ExecuteReader();
 
                         while (v.Read())
@@ -83,7 +83,9 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 new(
                                     v.IsDBNull(0) ? null : v.GetInt32(0),
                                     v.GetDateTime(1),
-                                    v.GetDateTime(2)
+                                    v.GetDateTime(2),
+                                    v.IsDBNull(3) ? null : v.GetInt32(3)
+
                                 ));
 
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE))
