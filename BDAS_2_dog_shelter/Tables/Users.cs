@@ -20,17 +20,17 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private string password;
-        public string Password
+        private string hash;
+        public string Hash
         {
-            get => password;
+            get => hash;
             set
             {
-                if (password != value)
+                if (hash != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Password)));
-                    password = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Password)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Hash)));
+                    hash = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Hash)));
                 }
             }
         }
@@ -48,7 +48,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Users() { u_name = ""; password = ""; perms = 0; }
+        public Users() { u_name = ""; hash = ""; perms = 0; }
 
     
 
@@ -56,7 +56,7 @@ namespace BDAS_2_dog_shelter.Tables
         {
             this.ID = v;
             u_name = value;
-            Password = v1;
+            Hash = v1;
             Perms = v2;
         }
 

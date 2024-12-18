@@ -504,9 +504,9 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button  Content="Add" Margin="5" Command="{Binding Path=cmdLAdd}"/>
-                    <Button  Content="Edit" Margin="5" CommandParameter="{Binding ElementName=userDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdLEd}"/>
-                    <Button  Content="Remove" Margin="5" CommandParameter="{Binding ElementName=userDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdLRm}"/>
+                    <Button  Content="Add" Margin="5" Command="{Binding Path=CmdUSAdd}"/>
+                    <Button  Content="Edit" Margin="5" CommandParameter="{Binding ElementName=userDataGrid, Path=SelectedItems}" Command="{Binding Path=CmdUSEd}"/>
+                    <Button  Content="Remove" Margin="5" CommandParameter="{Binding ElementName=userDataGrid, Path=SelectedItems}" Command="{Binding Path=CmdUSRm}"/>
                     <Button  Content="Přepnout se" Margin="5" Background="LightBlue" CommandParameter="{Binding ElementName=userDataGrid, Path=SelectedItems}" Command="{Binding Path=CommandImpersonate}" Height="40"/>
                     <Button  Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button  Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>

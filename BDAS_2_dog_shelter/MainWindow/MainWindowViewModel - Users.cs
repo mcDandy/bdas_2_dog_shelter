@@ -27,9 +27,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         public delegate void CloaseRequest();
         public event CloaseRequest OnCloaseRequest;
 
-        public ICommand cmdUSAdd => uaduCMD ??= new RelayCommand(CommandUserAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN));
-        public ICommand cmdUSRm => urmuCMD ??= new RelayCommand<object>(CommandUserRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN));
-        public ICommand cmdUSEd => ueduCMD ??= new RelayCommand<object>(CommandUserEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN));
+        public ICommand CmdUSAdd => uaduCMD ??= new RelayCommand(CommandUserAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN));
+        public ICommand CmdUSRm => urmuCMD ??= new RelayCommand<object>(CommandUserRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN)&&UsersSI>-1);
+        public ICommand CmdUSEd => ueduCMD ??= new RelayCommand<object>(CommandUserEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN) && UsersSI > -1);
         public ICommand CommandImpersonate => ueduCMD ??= new RelayCommand<object>(CommandImpersonateF, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN));
         public ObservableCollection<Users> Users { get; set; } = new();
 
@@ -124,7 +124,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.ID is null ? new("V_USER_ID", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_USER_ID", OracleDbType.Decimal, utulek.ID, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_UNAME", OracleDbType.Decimal, utulek.Uname, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_PASSWD", OracleDbType.Decimal, utulek.Password, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_PASSWD", OracleDbType.Decimal, utulek.Hash, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_PERMS", OracleDbType.Decimal, utulek.Perms, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_USERS";

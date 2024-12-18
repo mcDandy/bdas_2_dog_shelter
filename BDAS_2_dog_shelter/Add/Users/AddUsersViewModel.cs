@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.Add.Users
         private void Ok()
         {
             d.Perms = perms;
-            d.Password = hash;
+            d.Hash = hash;
             d.Uname = name;
             OkClickFinished?.Invoke();
         }
@@ -41,7 +41,7 @@ namespace BDAS_2_dog_shelter.Add.Users
             this.d = d;
             Perms = d.Perms;
             Name = d.Uname;
-            Hash = d.Password;
+            Hash = d.Hash;
         }
 
         [GeneratedRegex("[0-9A-F]{64}")]

@@ -56,7 +56,10 @@ namespace BDAS_2_dog_shelter.Tables
             Name = name;
             Type = v4??"";
         }
-
+        public override string ToString()
+        {
+            return Name;
+        }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }
