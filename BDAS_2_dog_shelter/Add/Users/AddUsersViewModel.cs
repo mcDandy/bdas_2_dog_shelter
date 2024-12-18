@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -7,7 +8,7 @@ using static BDAS_2_dog_shelter.Secrets;
 
 namespace BDAS_2_dog_shelter.Add.Users
 {
-    internal partial class AddUsersViewModel
+    internal partial class AddUsersViewModel : ObservableObject
     {
         private Tables.Users d;
         private string name;
@@ -30,9 +31,9 @@ namespace BDAS_2_dog_shelter.Add.Users
             OkClickFinished?.Invoke();
         }
 
-        public ulong Perms { get => perms;  set { perms = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public string Name { get => name;  set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public string Hash { get => hash; set { hash = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public ulong Perms { get => perms;  set { SetProperty(ref perms, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public string Name { get => name;  set { SetProperty(ref name, value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public string Hash { get => hash; set { SetProperty(ref hash,value); if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public Tables.Users Uzivatel => d;
 
         

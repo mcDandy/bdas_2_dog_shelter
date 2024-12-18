@@ -84,7 +84,7 @@
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="adresaDataGrid" CanUserAddRows="False"
+                <DataGrid x:Name="adresaDataGrid" CanUserAddRows="False" SelectedIndex="{Binding AdressSI, Mode=TwoWay}"
         ItemsSource="{Binding Path=Adresses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="adresaDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
