@@ -200,7 +200,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="skladDataGrid" CanUserAddRows="False" SelectedIndex="{Binding StorageSI}"
-    ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+    ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="StorageDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
@@ -267,8 +267,8 @@ ItemsSource="{Binding Path=Owners, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonMajAdd" Content="Add" Margin="5" Command="{Binding Path=cmdOwnerAdd}"/>
-                    <Button x:Name="buttonMajEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdOwnerEd}"/>
-                    <Button x:Name="buttonMajRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdOwnerRm}"/>
+                    <Button x:Name="buttonMajEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MajitelDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdOwnerEd}"/>
+                    <Button x:Name="buttonMajRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MajitelDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdOwnerRm}"/>
                     <Button x:Name="buttonMaj1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonMaj2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
@@ -323,8 +323,8 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                 </DataGrid>
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonProcAdd" Content="Add" Margin="5" Command="{Binding Path=cmdProcedureAdd}"/>
-                    <Button x:Name="buttonProcEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdProcedureEd}"/>
-                    <Button x:Name="buttonProcRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=hrackaDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdProcedureRm}"/>
+                    <Button x:Name="buttonProcEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=ProceduraDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdProcedureEd}"/>
+                    <Button x:Name="buttonProcRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=ProceduraDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdProcedureRm}"/>
                     <Button x:Name="buttonProc1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonProc2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>
