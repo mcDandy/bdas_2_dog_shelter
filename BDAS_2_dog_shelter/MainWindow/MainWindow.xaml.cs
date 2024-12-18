@@ -73,5 +73,8 @@ namespace BDAS_2_dog_shelter.MainWindow
         private void FoodDataGrid_SelectionChanged(object sender, RoutedEventArgs e)
         {
         }
+        private void StorageDataGrid_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
