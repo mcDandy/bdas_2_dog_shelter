@@ -72,7 +72,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                MedicalRec.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetInt32(2)));
+                                int id = v.GetInt32(0);
+                                DateTime d = v.GetDateTime(1); 
+                                int typ = v.GetInt32(2);
+                                MedicalRec.Add(new(id,d,typ));
                             }
                         }
                         List<Medical_Record> DogForest = MedicalRec.Select<Medical_Record, Medical_Record>

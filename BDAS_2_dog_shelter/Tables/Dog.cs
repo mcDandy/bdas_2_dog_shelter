@@ -229,7 +229,7 @@ namespace BDAS_2_dog_shelter.Tables
             _karatnenaID = karantenaid;
             _majtelID = majitelid;
             _otecID = otecid;
-            _majtelID = matkaid;
+            _matkaID = matkaid;
             _obrazek_id = OBRAZEK_ID;
         }
 
@@ -282,7 +282,7 @@ namespace BDAS_2_dog_shelter.Tables
         }
 
         public Shelter? Utulek { get; set; }
-        public Owner Majitel { get; internal set; }
+        public Owner? Majitel { get; internal set; }
         public Dog_Images DogImage { get => new Dog_Images(_obrazek_id, _obrazek, FileName); }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -161,6 +162,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     dog.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
                     dog.Otec = Dogs.Where(g => g.ID == dog.OtecId).FirstOrDefault();
                     dog.Matka = Dogs.Where(g => g.ID == dog.MatkaId).FirstOrDefault();
+                    dog.Majitel = Owners.Where(g => g.id == dog.MajtelId).FirstOrDefault();
                     dog.Utulek = Shelters.Where(g => g.ID == dog.UtulekId).FirstOrDefault(); //TODO: MAJTEL, KARANTENA
                 }
             }
