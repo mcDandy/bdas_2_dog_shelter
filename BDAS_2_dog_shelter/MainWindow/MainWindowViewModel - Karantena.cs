@@ -20,8 +20,8 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> KarantenaedhCMD;
         private int _karantenaSelectedIndex = -1;
         public ICommand cmdKarantenaAdd => KarantenaadhCMD ??= new RelayCommand(CommandKarantenaAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT));
-        public ICommand cmdKarantenaRm => KarantenarmhCMD ??= new RelayCommand<object>(CommandKarantenaRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)&& KarantenaSI>0);
-        public ICommand cmdKarantenaEd => KarantenaedhCMD ??= new RelayCommand<object>(CommandKarantenaEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_UPDATE) && KarantenaSI > 0);
+        public ICommand cmdKarantenaRm => KarantenarmhCMD ??= new RelayCommand<object>(CommandKarantenaRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)&& KarantenaSI>-1);
+        public ICommand cmdKarantenaEd => KarantenaedhCMD ??= new RelayCommand<object>(CommandKarantenaEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_UPDATE) && KarantenaSI > -1);
         public ObservableCollection<Quarantine> Karanteny { get; set; } = new();
         
 
@@ -54,7 +54,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Karanteny.Add(((AddKarantenaViewModel)s.DataContext).karantena);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_DELETE)) Karanteny.Last().PropertyChanged += KarantenaChanged;
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_UPDATE)) Karanteny.Last().PropertyChanged += KarantenaChanged;
             }
         }
 
@@ -74,6 +74,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Karanteny.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetDateTime(2)));
+                                Karanteny.Last().PropertyChanged+=KarantenaChanged;
                             }
                         }
                     }

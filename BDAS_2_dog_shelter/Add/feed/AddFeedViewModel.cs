@@ -11,9 +11,9 @@ namespace BDAS_2_dog_shelter.Add.feed
         private string name;
         private int pocet;
         private int? iD;
-        private int? sklad;
+        private Tables.Storage? sklad;
 
-        public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && sklad is not null and not < 0 && pocet is not < 0);
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && sklad is not null && pocet is not < 0);
 
         public delegate void OkUtulekAddEditDone();
         public event OkUtulekAddEditDone? OkClickFinished;
@@ -22,16 +22,23 @@ namespace BDAS_2_dog_shelter.Add.feed
         {
             d.Nazev = name;
             d.Pocet= pocet;
-            d.SkladID= sklad ?? 0;
+            d.Sklad = sklad;
+            d.SkladID= sklad?.id??0;
             d.id = iD;
+            Krmiva = d;
             OkClickFinished?.Invoke();
         }
 
         public string Nazev { get => name; set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public int Pocet { get => pocet; set => pocet = value; }
         public int? ID { get => iD; set => iD = value; }
-        public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+        public Tables.Storage? Sklad { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+
+        public List<Tables.Storage> Sklady { get; private set; }
+
         public Feed feed => d;
+
+
 
         public Feed Krmiva { get; set; }
 
@@ -41,15 +48,8 @@ namespace BDAS_2_dog_shelter.Add.feed
             Nazev = d.Nazev;
             Pocet = d.Pocet;
             ID = d.id;
-            SkladID = d.SkladID;
-        }
-        public AddFeedViewModel(Feed d)
-        {
-            this.d = d;
-            Nazev = d.Nazev;
-            Pocet = d.Pocet;
-            ID = d.id;
-            SkladID = d.SkladID;
+            Sklad = d.Sklad;
+            Sklady = storages.Where(e => e.Type == "k").ToList();
         }
     }
 }

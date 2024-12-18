@@ -11,8 +11,8 @@
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="začátek" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat1" Content="Konec" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="84,18,0,0" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Left" Margin="84,59,0,0" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="84,18,0,0" VerticalAlignment="Top" SelectedDate="{Binding BeginDate,Mode=TwoWay}"/>
+        <DatePicker HorizontalAlignment="Left" Margin="84,59,0,0" VerticalAlignment="Top" SelectedDate="{Binding EndDate,Mode=TwoWay}"/>
 
     </Grid>
 </Window>
