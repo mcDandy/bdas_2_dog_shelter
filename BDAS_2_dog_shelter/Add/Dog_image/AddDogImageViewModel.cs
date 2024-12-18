@@ -30,13 +30,13 @@ namespace BDAS_2_dog_shelter.Add.Dog_Image
         public List<Tables.Storage> Sklady;
 
 
-        public BitmapSource Obrazek { get => _obraze; set => _obraze = value; }
+        public BitmapSource Obrazek { get => _obraze; set => SetProperty(ref _obraze, value); }
         public Tables.Dog_Images Food => d;
 
         public AddDogImageViewModel(Tables.Dog_Images d)
         {
-            _obraze = d.Image;
-            name = d.FileName;
+            Obrazek = d.Image;
+            Filename = d.FileName;
             this.d = d;
         }
     }
