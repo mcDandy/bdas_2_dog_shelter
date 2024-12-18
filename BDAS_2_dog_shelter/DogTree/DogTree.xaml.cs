@@ -5,10 +5,10 @@ namespace BDAS_2_dog_shelter.DogTree
 {
     public partial class DogTree : Window
     {
-        public DogTree(Dog rootDog)
+        public DogTree(Dog rootDog, Oracle.ManagedDataAccess.Client.OracleConnection connection)
         {
             InitializeComponent();
-            DataContext = new DogTreeViewModel(rootDog);
+            DataContext = new DogTreeViewModel(rootDog,connection);
         }
     }
 }

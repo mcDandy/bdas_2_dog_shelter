@@ -186,7 +186,7 @@ private void CommandShowTree(object? obj)
     if (((IEnumerable)obj).Cast<Dog>().Count()>0)
     {
                 Dog selectedDog = ((IEnumerable)obj).Cast<Dog>().First();
-        var dogTreeWindow = new DogTree.DogTree(selectedDog);
+        var dogTreeWindow = new DogTree.DogTree(selectedDog,con);
         dogTreeWindow.ShowDialog();
     }
 }
