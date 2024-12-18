@@ -1,13 +1,17 @@
 ﻿using BDAS_2_dog_shelter.Tables;
+using Oracle.ManagedDataAccess.Client;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 public class DogTreeViewModel : INotifyPropertyChanged
 {
     private Dog _dog;
+    private OracleConnection _connection;
 
-    public DogTreeViewModel(Dog dog)
+    public DogTreeViewModel(Dog dog, OracleConnection connection)
     {
         Dog = dog;
+        _connection = connection;
         LoadTreeLevels();
     }
 
@@ -47,9 +51,14 @@ public class DogTreeViewModel : INotifyPropertyChanged
 
     private void LoadTreeLevels()
     {
-        // Rekurzivní načtení stromu pro rodiče
-        Father = Dog.Otec != null ? new DogTreeViewModel(Dog.Otec) : null;
-        Mother = Dog.Matka != null ? new DogTreeViewModel(Dog.Matka) : null;
+        // Načtení rodičů
+        List<Dog> parents = LoadDogs((int)Dog.ID);
+
+        if (parents.Count > 0)
+        {
+            Father = new DogTreeViewModel(parents[0], _connection);
+            Mother = new DogTreeViewModel(parents[1], _connection);
+        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -57,5 +66,42 @@ public class DogTreeViewModel : INotifyPropertyChanged
     protected void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public List<Dog> LoadDogs(int dogId)
+    {
+        List<Dog> dogs = new List<Dog>();
+
+        using (var cmd = _connection.CreateCommand())
+        {
+            cmd.CommandText = @"
+                SELECT id_otec, id_matka, id_pes 
+                FROM pes 
+                START WITH id_pes = :dogId 
+                CONNECT BY PRIOR id_pes = id_otec OR PRIOR id_pes = id_matka";
+
+            cmd.Parameters.Add(new OracleParameter("dogId", dogId));
+
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    int idPes = reader.GetInt32(reader.GetOrdinal("id_pes"));
+                    int? idOtec = reader.IsDBNull(reader.GetOrdinal("id_otec")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("id_otec"));
+                    int? idMatka = reader.IsDBNull(reader.GetOrdinal("id_matka")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("id_matka"));
+
+                    Dog dog = new Dog
+                    {
+                        ID = idPes,
+                        Otec = idOtec != null ? new Dog { ID = idOtec.Value } : null,
+                        Matka = idMatka != null ? new Dog { ID = idMatka.Value } : null
+                    };
+
+                    dogs.Add(dog);
+                }
+            }
+        }
+
+        return dogs;
     }
 }
