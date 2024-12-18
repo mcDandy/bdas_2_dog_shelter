@@ -64,7 +64,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     List<Dog> DogForest = Dogs.Select<Dog,Dog> 
                         (a => { 
                             a.Matka = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault(); 
-                            a.Otec = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault();
+                            a.Otec = Dogs.Where(d => d.ID == a.OtecId).FirstOrDefault();
                             a.Utulek = Shelters.Where(d => d.ID == a.UtulekId).FirstOrDefault();
                             a.Karantena = Karanteny.Where(d => d.id == a.KarantenaId).FirstOrDefault();
                             return a; 

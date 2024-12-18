@@ -61,8 +61,8 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private string _email;
-        public string Email
+        private string? _email;
+        public string? Email
         {
             get => _email;
             set
@@ -79,9 +79,9 @@ namespace BDAS_2_dog_shelter.Tables
         public Adress? Adresa { get; internal set; }
 
         public Owner() { _name = ""; _surname = ""; _phone = ""; _email = ""; }
-        public Owner(string name, string surname, string phone, string email) { id = null; _name = name; _surname = surname; _phone = phone; _email = email; }
+        public Owner(string name, string surname, string phone, string? email) { id = null; _name = name; _surname = surname; _phone = phone; _email = email; }
 
-        public Owner(int id,string name, string surname,int adresa, string phone, string email)
+        public Owner(int id,string name, string surname,int adresa, string phone, string? email)
         {
             this.id = id;
             Name = name;
