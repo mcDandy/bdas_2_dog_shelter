@@ -411,7 +411,7 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
 
                         <DataGridTextColumn Header="Datum" Binding="{Binding DateOfEvent}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Popis" Binding="{Binding EventDescription}"/>
-                        <DataGridTextColumn Header="Typ" Binding="{Binding Type}"/>
+                        <DataGridTextColumn Header="Typ" Binding="{Binding Typ}"/>
                         <DataGridTextColumn Header="Pes" Binding="{Binding Pes}" />
 
                     </DataGrid.Columns>

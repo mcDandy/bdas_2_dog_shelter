@@ -13,9 +13,9 @@ namespace BDAS_2_dog_shelter.Add.Dog
     internal partial class AddDogViewModel : ObservableObject
     {
         public List<Tables.Dog> Psi { get; private set; }
-        public List<Tables.Quarantine> Karanteny { get; internal set; }
+        public List<Quarantine> Karanteny { get; internal set; }
         public List<Tables.Owner> Majitele { get; internal set; }
-        public AddDogViewModel(Tables.Dog d, List<Tables.Shelter> utulky, List<Tables.Dog> psi, List<Tables.Owner> owners, List<Tables.Quarantine> quarantines) {
+        public AddDogViewModel(Tables.Dog d, List<Tables.Shelter> utulky, List<Tables.Dog> psi, List<Tables.Owner> owners, List<Quarantine> quarantines) {
             Psi = psi;
             Majitele = owners;
             Majitele = Majitele.Prepend(new("<bez majitele>","","","")).ToList();
@@ -123,7 +123,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
         public BitmapSource Obrazek { get; set; }
         public string? Filename { get; set; }
         public Tables.Owner Majtel { get; set; }
-        public Tables.Quarantine Karantena { get => kar; set => SetProperty(ref kar, value); }
+        public Quarantine Karantena { get => kar; set => SetProperty(ref kar, value); }
     }
     
 }

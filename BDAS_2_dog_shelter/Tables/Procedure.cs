@@ -61,7 +61,7 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Tables.Medical_Record record { get; set; }
+        public Medical_Record record { get; set; }
         public Dog Pes { get; internal set; }
 
         public Procedure() { proc_name = ""; descr_name = ""; }

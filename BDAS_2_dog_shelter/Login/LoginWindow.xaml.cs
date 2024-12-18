@@ -18,7 +18,7 @@ namespace BDAS_2_dog_shelter
             {
                 if (ConnectionString == null) return;
             }
-            catch (System.TypeInitializationException)
+            catch (TypeInitializationException)
             {
                 MessageBox.Show("Nenašel se soubor secrets.json s tajnými konstantami ve složce programu nebo formát souboru není JSON.", "Chyba", MessageBoxButton.OK, MessageBoxImage.Error);
             }

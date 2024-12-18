@@ -76,7 +76,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
                             }
                         }
-                        List<Hracka> DogForest = Hracky.Select<Hracka, Hracka>
+                        List<Hracka> DogForest = Hracky.Select
                                (a =>
                                {
                                    a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();

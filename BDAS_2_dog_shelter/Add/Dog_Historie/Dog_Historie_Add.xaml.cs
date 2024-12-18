@@ -11,11 +11,11 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         public Dog_Historie_Add(List<Tables.Dog> storages, List<KeyValueUS> typy)
         {
             InitializeComponent();
-            Tables.Dog_History d = new();
+            Dog_History d = new();
             DataContext = new AddDogHistoryViewModel(d, storages,typy);
             ((AddDogHistoryViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
-        public Dog_Historie_Add(Tables.Dog_History d, List<Tables.Dog> storages, List<KeyValueUS> typy )
+        public Dog_Historie_Add(Dog_History d, List<Tables.Dog> storages, List<KeyValueUS> typy )
         {
             InitializeComponent();
             DataContext = new AddDogHistoryViewModel(d, storages, typy);

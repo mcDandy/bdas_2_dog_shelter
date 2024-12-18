@@ -86,7 +86,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private async void LogsChanged(object? sender, PropertyChangedEventArgs e)
         {
-            Tables.Logs? dog = sender as Tables.Logs;
+            Logs? dog = sender as Logs;
             using (OracleCommand cmd = con.CreateCommand())
             {
 

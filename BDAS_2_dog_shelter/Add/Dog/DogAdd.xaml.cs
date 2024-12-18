@@ -13,7 +13,7 @@ namespace BDAS_2_dog_shelter
     /// </summary>
     public partial class DogAdd : Window
     {
-        public DogAdd(List<Tables.Dog> psi, List<Owner> owners, List<Quarantine> quarantines, List<Shelter> utulky)
+        public DogAdd(List<Dog> psi, List<Owner> owners, List<Quarantine> quarantines, List<Shelter> utulky)
         {
 
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace BDAS_2_dog_shelter
             image.Source = ((AddDogViewModel)DataContext).Obrazek;
             ((AddDogViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
-        public DogAdd (Dog d, List<Tables.Dog> psi, List<Owner> owners, List<Quarantine> quarantines, List<Shelter> utulky)
+        public DogAdd (Dog d, List<Dog> psi, List<Owner> owners, List<Quarantine> quarantines, List<Shelter> utulky)
         {
             InitializeComponent();
             DataContext = new AddDogViewModel(d,utulky,psi,owners,quarantines);

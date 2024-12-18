@@ -62,7 +62,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                         if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.PES_UPDATE)) Dogs.Last().PropertyChanged += DogChanged;
                     }
-                    List<Dog> DogForest = Dogs.Select<Dog,Dog> 
+                    List<Dog> DogForest = Dogs.Select
                         (a => { 
                             a.Matka = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault(); 
                             a.Otec = Dogs.Where(d => d.ID == a.OtecId).FirstOrDefault();
@@ -248,7 +248,7 @@ private void CommandRemove(object SelectedDogs)
     }
 }
 
-private void gridOnChangeDogUtulek(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+private void gridOnChangeDogUtulek(object sender, SelectionChangedEventArgs e)
 {
     ((Dog)e.AddedItems[0]).UtulekId = ((ComboBox)sender).SelectedIndex;//TODO: e.addedItems je typu který se tam přidával
 }

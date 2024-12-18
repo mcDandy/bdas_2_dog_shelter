@@ -78,7 +78,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 MedicalRec.Add(new(id,d,typ));
                             }
                         }
-                        List<Medical_Record> DogForest = MedicalRec.Select<Medical_Record, Medical_Record>
+                        List<Medical_Record> DogForest = MedicalRec.Select
                                (a =>
                                {
                                    a.medRecord = MedicalRec.Where(d => d.id == a.TypeProc).FirstOrDefault();

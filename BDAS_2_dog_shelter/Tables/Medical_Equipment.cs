@@ -57,6 +57,6 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Tables.Storage Sklad { get; set; }
+        public Storage Sklad { get; set; }
     }
 }

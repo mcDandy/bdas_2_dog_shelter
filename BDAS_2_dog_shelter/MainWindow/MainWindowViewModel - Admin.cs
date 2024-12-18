@@ -42,7 +42,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         }
                         MessageBox.Show( builder.ToString() );
                     }
-                    List<Hracka> DogForest = Hracky.Select<Hracka, Hracka>
+                    List<Hracka> DogForest = Hracky.Select
                            (a =>
                            {
                                a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();

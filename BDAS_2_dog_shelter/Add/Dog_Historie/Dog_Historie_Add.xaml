@@ -10,21 +10,17 @@
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22">
-            <Binding Path="Count" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="EventDescription" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:NumericStringRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="EventDescription" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NotEmptyStringRule/>
-                </Binding.ValidationRules>
-            </Binding>
-        </TextBox>
+        <DatePicker x:Name="nam" SelectedDate="{Binding DateOfEvent, Mode=TwoWay}" HorizontalAlignment="Left" Margin="90,20,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="label" Content="datum" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat1" Content="Popis" HorizontalAlignment="Left" Margin="26,89,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="otec" HorizontalAlignment="Left" Margin="84,45,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Dogs, Mode=OneTime}" SelectedItem="{Binding SelectedPes, Mode=TwoWay}"/>
+        <ComboBox x:Name="otec_Kopírovat" HorizontalAlignment="Left" Margin="84,67,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Typy, Mode=OneTime}" SelectedItem="{Binding Typ, Mode=TwoWay}"/>
 
     </Grid>
 </Window>

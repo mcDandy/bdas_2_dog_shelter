@@ -6,7 +6,6 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
 {
     internal class AddDogHistoryViewModel
     {
-        private Tables.Dog_History d;
         private int? id;
 
         public DateTime DateOfEvent { get; set; }
@@ -15,6 +14,7 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
 
         public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => { return true; });
 
+
         public delegate void OkHistorieAddEditDone();
         public event OkHistorieAddEditDone? OkClickFinished;
 
@@ -22,14 +22,14 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         {
             Historie.DateOfEvent = DateOfEvent;
             Historie.TypeId = Typ.Id;
-            OkClickFinished?.Invoke();
             Historie.EventDescription = EventDescription;
             Historie.DogId = SelectedPes.ID;
+            OkClickFinished?.Invoke();
         }
 
         private string ed;
         private Dog_History historyEntry;
-        private Tables.KeyValueUS Typ;
+        public KeyValueUS Typ { get; set; }
 
 
         public string EventDescription { get => ed; set { if (value != ed) { ed = value; okCommand.NotifyCanExecuteChanged(); } } }
@@ -39,18 +39,18 @@ namespace BDAS_2_dog_shelter.Add.Dog_Historie
         public Tables.Dog SelectedPes { get; set; }
         public List<KeyValueUS> Typy { get; set; }
 
-        public Tables.Dog_History DogHistory => d;
+        public Dog_History DogHistory => historyEntry;
 
-        private List<Tables.Dog> dogs;
+        public List<Tables.Dog> Dogs { get; set; }
 
-        public AddDogHistoryViewModel(Tables.Dog_History d, List<Tables.Dog> dogs, List<KeyValueUS> Types)
+        public AddDogHistoryViewModel(Dog_History d, List<Tables.Dog> dogs, List<KeyValueUS> Types)
         {
-            this.dogs = dogs;
-            this.d = d;
+            this.Dogs = dogs;
             id = d.DogId;
             DateOfEvent = d.DateOfEvent;
             SelectedPes = d.Pes;
             Typy = Types;
+            historyEntry = d;
         }
     }
 }

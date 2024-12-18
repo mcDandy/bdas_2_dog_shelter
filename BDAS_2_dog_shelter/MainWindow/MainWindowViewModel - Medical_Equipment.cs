@@ -75,7 +75,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 Medical_Equipment.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
                             }
                         }
-                        List<Medical_Equipment> DogForest = Medical_Equipment.Select<Medical_Equipment, Medical_Equipment>
+                        List<Medical_Equipment> DogForest = Medical_Equipment.Select
                                (a => {
                                    a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();
 

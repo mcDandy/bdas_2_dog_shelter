@@ -5,7 +5,7 @@ namespace BDAS_2_dog_shelter.Add.feed
 {
     internal class AddFeedViewModel
     {
-        private Tables.Feed d;
+        private Feed d;
 
         RelayCommand okCommand;
         private string name;
@@ -31,11 +31,11 @@ namespace BDAS_2_dog_shelter.Add.feed
         public int Pocet { get => pocet; set => pocet = value; }
         public int? ID { get => iD; set => iD = value; }
         public int? SkladID { get => sklad; set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
-        public Tables.Feed feed => d;
+        public Feed feed => d;
 
         public Feed Krmiva { get; set; }
 
-        public AddFeedViewModel(Tables.Feed d, List<Tables.Storage> storages)
+        public AddFeedViewModel(Feed d, List<Tables.Storage> storages)
         {
             this.d = d;
             Nazev = d.Nazev;
@@ -43,7 +43,7 @@ namespace BDAS_2_dog_shelter.Add.feed
             ID = d.id;
             SkladID = d.SkladID;
         }
-        public AddFeedViewModel(Tables.Feed d)
+        public AddFeedViewModel(Feed d)
         {
             this.d = d;
             Nazev = d.Nazev;

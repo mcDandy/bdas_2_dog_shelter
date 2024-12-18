@@ -74,7 +74,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 Procedures.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3),v.GetInt32(4)));
                             }
                         }
-                        List<Procedure> DogForest = Procedures.Select<Procedure, Procedure>
+                        List<Procedure> DogForest = Procedures.Select
                                (a =>
                                {
                                    a.record = MedicalRec.Where(d => d.id == a.ZdrZaznamid).FirstOrDefault();

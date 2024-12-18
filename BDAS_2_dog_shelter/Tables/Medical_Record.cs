@@ -44,6 +44,6 @@ namespace BDAS_2_dog_shelter.Tables
 
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
-    public Tables.Medical_Record medRecord { get; set; }
+    public Medical_Record medRecord { get; set; }
     }
 }
