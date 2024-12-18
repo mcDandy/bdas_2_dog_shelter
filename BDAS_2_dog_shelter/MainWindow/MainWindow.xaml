@@ -254,11 +254,14 @@ ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="MajitelDataGrid" CanUserAddRows="False" SelectedIndex="{Binding OwnerSI}"
-ItemsSource="{Binding Path=Karanteny, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MajitelDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Owners, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MajitelDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="jméno" Binding="{Binding Name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="příjmení" Binding="{Binding Surname}"/>
+                        <DataGridTextColumn Header="Adresa" Binding="{Binding Adress}"/>
+                        <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}"/>
+                        <DataGridTextColumn Header="email" Binding="{Binding Email}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>
@@ -313,8 +316,8 @@ ItemsSource="{Binding Path=Pavilony, Mode=TwoWay, UpdateSourceTrigger=PropertyCh
 ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="ProceduraDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="Název" Binding="{Binding proc_name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Popis" Binding="{Binding DescrName}"/>
 
                     </DataGrid.Columns>
                 </DataGrid>

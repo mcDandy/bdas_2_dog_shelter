@@ -19,7 +19,7 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
         private void Ok()
         {
             d.MedicalName = name;
-            d.Count = pocet;
+            d.CountMedical = pocet;
             d.SkladID = sklad??0;
             d.id = iD;
             OkClickFinished?.Invoke();
@@ -35,7 +35,7 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
         {
             this.d = d;
             Nazev = d.MedicalName;
-            Pocet = d.Count;
+            Pocet = d.CountMedical;
             ID = d.id;
             SkladID = d.SkladID;
         }

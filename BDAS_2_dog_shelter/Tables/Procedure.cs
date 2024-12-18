@@ -69,7 +69,7 @@ namespace BDAS_2_dog_shelter.Tables
         public Procedure(int v1, string v2, string v3, int v4,int v5)
         {
             id = v1;
-            ProcName = v2;
+            proc_name = v2;
             descr_name = v3;
             ZdrZaznamid = v4;
             pid = v5;
