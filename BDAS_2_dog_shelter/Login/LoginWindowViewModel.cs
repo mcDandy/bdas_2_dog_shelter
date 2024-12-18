@@ -54,9 +54,11 @@ namespace BDAS_2_dog_shelter.Login
                         MessageBox.Show("Registrace úspěšná.");
 
                     }
-                    catch (Exception ex)//something went wrong
+                    catch (OracleException ex)//something went wrong
                     {
-                        MessageBox.Show("Uživatel existuje.");
+                        if(ex.Number is 2627 or 2601)
+                            MessageBox.Show("Uživatel existuje.");
+                        else MessageBox.Show(ex.Message);
                     }
                 }
             }
