@@ -6,8 +6,8 @@ namespace BDAS_2_dog_shelter.Add.Karantena
     {
         private Tables.Quarantine d;
         private int? iD;
-        private DateTime zacatek;
-        private DateTime konec;
+        private DateTime zacatek = DateTime.Now;
+        private DateTime konec = DateTime.Now;
        
         RelayCommand okCommand;
 
@@ -23,8 +23,8 @@ namespace BDAS_2_dog_shelter.Add.Karantena
             d.id = iD;
             OkClickFinished?.Invoke();
         }
-        public DateTime BeginOfDate { get => zacatek; set => zacatek = value; }
-        public DateTime EndOfDate { get => zacatek; set => zacatek = value; }
+        public DateTime BeginDate { get => zacatek; set => zacatek = value; }
+        public DateTime EndDate { get => konec; set => konec = value; }
         public int? ID { get => iD;  set => iD = value; }
         public Tables.Quarantine karantena => d;
 

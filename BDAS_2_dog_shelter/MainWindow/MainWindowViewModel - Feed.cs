@@ -51,12 +51,12 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandFoodAdd()
         {
-            FeedAdd s = new FeedAdd();
+            FeedAdd s = new FeedAdd(new(),Storages.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Krmiva.Add(((AddFeedViewModel)s.DataContext).Krmiva);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_UPDATE)) Hracky.Last().PropertyChanged += FoodChanged;
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_UPDATE)) Krmiva.Last().PropertyChanged += FoodChanged;
             }
         }
 
@@ -76,6 +76,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Krmiva.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
+                                if (Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.KRMIVO_UPDATE)) Krmiva.Last().PropertyChanged += FoodChanged;
                             }
                         }
                     }

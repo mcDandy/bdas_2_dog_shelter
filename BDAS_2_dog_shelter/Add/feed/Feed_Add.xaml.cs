@@ -7,17 +7,11 @@ namespace BDAS_2_dog_shelter.Add.feed
     /// </summary>
     public partial class FeedAdd : Window
     {
-        public FeedAdd()
-        {
-            InitializeComponent();
-            Tables.Feed d = new();
-            DataContext = new AddFeedViewModel(d);
-            ((AddFeedViewModel)DataContext).OkClickFinished += () => DialogResult = true;
-        }
+
         public FeedAdd(Tables.Feed d, List<Tables.Storage> storages)
         {
             InitializeComponent();
-            DataContext = new AddFeedViewModel(d);
+            DataContext = new AddFeedViewModel(d,storages);
             ((AddFeedViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
       
