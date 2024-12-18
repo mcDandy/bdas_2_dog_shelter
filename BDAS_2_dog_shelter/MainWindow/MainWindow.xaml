@@ -343,8 +343,7 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     ItemsSource="{Binding Path=MedicalRec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalRecDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Název" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Počet" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="Datum" Binding="{Binding DateRec}" ></DataGridTextColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>
