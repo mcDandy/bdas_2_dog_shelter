@@ -74,6 +74,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
+                                Hracky.Last().PropertyChanged += HrackaChanged;
                             }
                         }
                         List<Hracka> DogForest = Hracky.Select

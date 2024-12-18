@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using BDAS_2_dog_shelter.Tables;
+using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
 namespace BDAS_2_dog_shelter.Add.Hracka
@@ -40,13 +41,18 @@ namespace BDAS_2_dog_shelter.Add.Hracka
         public int Pocet
         {
             get => pocet;
-            set => pocet = value;
+            set
+            {
+                pocet = value;
+                okCommand?.NotifyCanExecuteChanged();
+            }
         }
 
         public int? ID
         {
             get => iD;
-            set => iD = value;
+            set { iD = value;
+                okCommand?.NotifyCanExecuteChanged(); }
         }
 
         public int? SkladID
@@ -65,7 +71,7 @@ namespace BDAS_2_dog_shelter.Add.Hracka
         public Tables.Storage Storage
         {
             get => storage;
-            set => storage = value;
+            set { storage = value; sklad = storage.id; }
         }
 
         public AddHrackaViewModel(Tables.Hracka d, List<Tables.Storage> storages)
@@ -80,16 +86,6 @@ namespace BDAS_2_dog_shelter.Add.Hracka
             okCommand = new RelayCommand(Ok, CanExecuteOk);
         }
 
-        public AddHrackaViewModel(Tables.Hracka d)
-        {
-            this.d = d;
-            Nazev = d.Nazev;
-            Pocet = d.Pocet;
-            ID = d.id;
-            SkladID = d.SkladID;
-            storage = d.Sklad;
-            okCommand = new RelayCommand(Ok, CanExecuteOk);
-        }
 
         private bool CanExecuteOk()
         {
