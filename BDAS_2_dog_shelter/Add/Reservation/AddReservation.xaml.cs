@@ -13,13 +13,13 @@ namespace BDAS_2_dog_shelter.Add.Reservation
             InitializeComponent();
             Tables.Reservation d = new();
             DataContext = new AddReservationViewModel(d);
-            ((AddAdressViewModel)DataContext).OkClickFinished += () => DialogResult = true;
+            ((AddReservationViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
         public ReservationAdd(Tables.Reservation d)
         {
             InitializeComponent();
             DataContext = new AddReservationViewModel(d);
-            ((AddAdressViewModel)DataContext).OkClickFinished += () => DialogResult = true;
+            ((AddReservationViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
     }
 }
