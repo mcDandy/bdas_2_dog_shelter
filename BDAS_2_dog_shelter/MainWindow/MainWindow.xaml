@@ -170,7 +170,7 @@ ItemsSource="{Binding Path=Medical_Equipment, Mode=TwoWay, UpdateSourceTrigger=P
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="krmivoDataGrid" CanUserAddRows="False" SelectedIndex="{Binding FoodSI}"
-ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="hrackaDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="FoodDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>

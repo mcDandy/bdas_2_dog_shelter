@@ -1,5 +1,4 @@
 ﻿using BDAS_2_dog_shelter.Add.feed;
-using BDAS_2_dog_shelter.Add.Hracka;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
@@ -41,23 +40,23 @@ namespace BDAS_2_dog_shelter.MainWindow
         {
             if ((permissions & (long)Permissions.KRMIVO_DELETE) > 0)
             {
-                List<Hracka> e = new List<Hracka>();
-                foreach (Hracka d in (IEnumerable)SelectedShelters) e.Add(d);
-                foreach (Hracka shelter in e)
+                List<Feed> e = new List<Feed>();
+                foreach (Feed d in (IEnumerable)SelectedShelters) e.Add(d);
+                foreach (Feed shelter in e)
                 {
-                    Hracky.Remove(shelter);
+                    Krmiva.Remove(shelter);
                 }
             }
         }
 
         private void CommandFoodAdd()
         {
-            HrackaAdd s = new HrackaAdd();
+            FeedAdd s = new FeedAdd();
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Hracky.Add(((AddHrackaViewModel)s.DataContext).Hracka);
-                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.HRACKA_UPDATE)) Hracky.Last().PropertyChanged += FoodChanged;
+                Krmiva.Add(((AddFeedViewModel)s.DataContext).Krmiva);
+                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KRMIVO_UPDATE)) Hracky.Last().PropertyChanged += FoodChanged;
             }
         }
 
@@ -76,7 +75,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                Hracky.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
+                                Krmiva.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
                             }
                         }
                     }
