@@ -20,9 +20,9 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand<object> MedicaledhCMD;
         private int _medicalSelectedIndex;
 
-        public ICommand cmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT));
+        public ICommand CmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT));
         public ICommand CmdMedicalRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) && MeidcalSI > -1);
-        public ICommand cmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE) && MeidcalSI > -1);
+        public ICommand CmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE) && MeidcalSI > -1);
         public ObservableCollection<Medical_Equipment> Medical_Equipment { get; set; } = new();
 
         public int MeidcalSI { get => _medicalSelectedIndex; set { if (_medicalSelectedIndex != value) { _medicalSelectedIndex = value; MedicalrmhCMD?.NotifyCanExecuteChanged(); MedicaledhCMD?.NotifyCanExecuteChanged(); } } }
@@ -156,7 +156,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_MATERIAL", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_MATERIAL", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.MedicalName, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.CountMedical, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_POCET", OracleDbType.Decimal, utulek.Count, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_ID_SKLAD", OracleDbType.Decimal, utulek.SkladID, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_ZDRAVOTNICKY_MATERIAL";

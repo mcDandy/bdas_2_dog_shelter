@@ -20,16 +20,16 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         private int count_medical;
-        public int CountMedical
+        public int Count
         {
             get => count_medical;
             set
             {
                 if (count_medical != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(CountMedical)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Count)));
                     count_medical = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CountMedical)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
                 }
             }
         }
