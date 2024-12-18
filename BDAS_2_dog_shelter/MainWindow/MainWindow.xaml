@@ -499,7 +499,7 @@ ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyC
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Uživatel" Binding="{Binding Uname}" />
-                        <DataGridTextColumn Header="Hash" Binding="{Binding Password}" />
+                        <DataGridTextColumn Header="Hash" Binding="{Binding Hash}" />
                         <DataGridTextColumn Header="Perms" Binding="{Binding Perms}" />
                     </DataGrid.Columns>
                 </DataGrid>

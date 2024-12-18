@@ -87,8 +87,10 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 ulong u = (ulong)i;
                                 int? id = v.GetInt32(0);
                                 Users.Add(new Users(id,v.GetString(1), v.GetString(2), u));
+                                Users.Last().PropertyChanged += UsersChanged;
                             }
                         }
+
                     }
                     catch (Exception ex)//something went wrong
                     {
@@ -123,8 +125,8 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(utulek.ID is null ? new("V_USER_ID", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_USER_ID", OracleDbType.Decimal, utulek.ID, System.Data.ParameterDirection.InputOutput));
-                    cmd.Parameters.Add(new("V_UNAME", OracleDbType.Decimal, utulek.Uname, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_PASSWD", OracleDbType.Decimal, utulek.Hash, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_UNAME", OracleDbType.Varchar2, utulek.Uname, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_PASSWD", OracleDbType.Varchar2, utulek.Hash, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_PERMS", OracleDbType.Decimal, utulek.Perms, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_USERS";
