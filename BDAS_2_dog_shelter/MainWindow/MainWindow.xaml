@@ -375,8 +375,8 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
 ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding BeginOfDate}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Převzetí psa" Binding="{Binding EndOfDate}"/>
+                        <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding DateOfReceipt}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Převzetí psa" Binding="{Binding DateOfTransfer}"/>
                         <DataGridTextColumn Header="jméno psa" Binding="{Binding pes}"/>
 
                     </DataGrid.Columns>
