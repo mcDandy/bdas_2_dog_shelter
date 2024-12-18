@@ -351,7 +351,7 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                 <StackPanel Grid.Column="1">
                     <Button x:Name="buttonMedRecAdd" Content="Add" Margin="5" Command="{Binding Path=cmdMedicalAdd}"/>
                     <Button x:Name="buttonMedRecEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedicalEd}"/>
-                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedicalRm}"/>
+                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=CmdMedicalRm}"/>
                     <Button x:Name="buttonMedRec1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonMedRec2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>

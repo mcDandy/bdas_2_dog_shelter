@@ -21,7 +21,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         private int _medicalSelectedIndex;
 
         public ICommand cmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT));
-        public ICommand MedicalHRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) && MeidcalSI > -1);
+        public ICommand CmdMedicalRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) && MeidcalSI > -1);
         public ICommand cmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE) && MeidcalSI > -1);
         public ObservableCollection<Medical_Equipment> Medical_Equipment { get; set; } = new();
 
@@ -66,7 +66,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                 {
                     try
                     {
-                        cmd.CommandText = "select id_material,nazev,user,id_sklad from W_ZDRAVOTNICKY_MATERIAL";
+                        cmd.CommandText = "select id_material,nazev,count,id_sklad from W_ZDRAVOTNICKY_MATERIAL";
                         OracleDataReader v = cmd.ExecuteReader();
                         if (v.HasRows)
                         {
