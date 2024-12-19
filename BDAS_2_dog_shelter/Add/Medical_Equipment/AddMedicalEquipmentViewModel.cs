@@ -8,7 +8,7 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
         private string name;
         private int pocet;
         private int? iD;
-        private int? sklad;
+        private Tables.Storage sklad;
         RelayCommand okCommand;
 
         public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && sklad is not null and not < 0 && pocet is not <0);
@@ -20,7 +20,7 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
         {
             d.MedicalName = name;
             d.Count = pocet;
-            d.SkladID = sklad??0;
+            d.SkladID = sklad?.id??0;
             d.id = iD;
             OkClickFinished?.Invoke();
         }
@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
         public string Nazev { get => name;  set { name = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public int Pocet { get => pocet;  set => pocet = value; }
         public int? ID { get => iD;  set => iD = value; }
-        public int? SkladID { get => sklad;  set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } } 
+        public Tables.Storage? Sklad { get => sklad;  set { sklad = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } } 
         public Tables.Medical_Equipment Medical_equipment => d;
 
         public MedicalEquipmentViewModelAdd(Tables.Medical_Equipment d, List<Tables.Storage> storages)
@@ -37,7 +37,8 @@ namespace BDAS_2_dog_shelter.Add.Medical_Equipment
             Nazev = d.MedicalName;
             Pocet = d.Count;
             ID = d.id;
-            SkladID = d.SkladID;
+            Sklady = storages.Where(s => s.Type == "z");
+            Sklad = d.Sklad;
         }
     }
 }
