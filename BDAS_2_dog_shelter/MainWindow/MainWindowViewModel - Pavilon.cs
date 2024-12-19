@@ -76,6 +76,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Pavilony.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2)));
+                                if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.PAVILON_UPDATE)) Pavilony.Last().PropertyChanged += PavilonChanged;
                             }
                         }
                     }
