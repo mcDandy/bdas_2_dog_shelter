@@ -71,6 +71,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Owners.Add(new(v.GetInt32(0), v.GetString(1), v.GetString(2), v.GetInt32(3), v.GetString(4), v.IsDBNull(5)?null:v.GetString(5)));
+                                if(Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.MAJITEL_UPDATE))Owners.Last().PropertyChanged+=OwnerChanged;
                             }
                         }
                         List<Owner> DogForest = Owners.Select
@@ -119,7 +120,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(new("V_PRIJMENI", OracleDbType.Varchar2, utulek.Surname, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_ADRESA", OracleDbType.Decimal, utulek.AddressID, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Phone, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_TELEFON", OracleDbType.Varchar2, utulek.Phone, ParameterDirection.Input));
                     
                     
                     cmd.CommandText = "INS_SET.IU_MAJITEL";
