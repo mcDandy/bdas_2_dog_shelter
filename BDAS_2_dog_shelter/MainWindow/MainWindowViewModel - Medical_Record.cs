@@ -115,7 +115,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ZAZNAM", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_ZDR_ZAZNAM", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ZAZNAM", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ZDR_ZAZNAM", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_DATUM_ZAZ", OracleDbType.Date, utulek.DateRec, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_TYP_PROCEDURY", OracleDbType.Decimal, utulek.TypeProcId, ParameterDirection.Input));
 
