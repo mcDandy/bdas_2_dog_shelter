@@ -9,7 +9,7 @@
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,94,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Adresses, Mode=OneTime}" SelectedItem="{Binding AdressID}"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,94,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Adresses, Mode=OneTime}" SelectedItem="{Binding Adresa}"/>
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Telephone" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
@@ -18,14 +18,14 @@
             </Binding>
         </TextBox>
         <TextBox x:Name="ema" HorizontalAlignment="Left" Margin="84,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Hash" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:HashRule/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
         <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="83,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Uname" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <validators:NotEmptyStringRule/>
                 </Binding.ValidationRules>
