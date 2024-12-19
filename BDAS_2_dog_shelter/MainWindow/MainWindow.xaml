@@ -140,7 +140,7 @@ ItemsSource="{Binding Path=Hracky, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DataGrid x:Name="MedicalDataGrid" CanUserAddRows="False" SelectedIndex="{Binding MeidcalSI}"
-ItemsSource="{Binding Path=Medical_Equipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalDataGrid_SelectionChanged">
+ItemsSource="{Binding Path=MedEquipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="MedicalDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Název" Binding="{Binding MedicalName}" ></DataGridTextColumn>

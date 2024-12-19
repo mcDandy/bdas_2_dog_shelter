@@ -3,30 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Hracka" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation"
+        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Owner" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation"
         mc:Ignorable="d"
-        Title="OwnerAdd" Height="182" Width="234">
+        Title="OwnerAdd" Height="303" Width="242">
     <Grid>
-        <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
-        <Button x:Name="button1owner" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,94,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Sklady, Mode=OneTime}"/>
+        <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="19,246,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
+        <Button x:Name="button1owner" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="193,246,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,109,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Adresses, Mode=OneTime}" SelectedItem="{Binding AdressID}"/>
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Count" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NumericStringRule/>
-                </Binding.ValidationRules>
+            <Binding Path="Surname" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
             </Binding>
         </TextBox>
-        <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+        <TextBox x:Name="name" HorizontalAlignment="Left" Margin="84,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NotEmptyStringRule/>
-                </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat1" Content="Počet" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat2" Content="Sklad" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
-
+        <Label x:Name="label" Content="jmeno" HorizontalAlignment="Left" Margin="24,20,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Kopírovat1" Content="prijmeni" HorizontalAlignment="Left" Margin="19,66,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label_Kopírovat2" Content="Adresa" HorizontalAlignment="Left" Margin="21,105,0,0" VerticalAlignment="Top"/>
+        <Label Content="Telefon" HorizontalAlignment="Left" Margin="21,144,0,0" VerticalAlignment="Top"/>
+        <Label Content="Email" HorizontalAlignment="Left" Margin="26,181,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="telefon" HorizontalAlignment="Left" Margin="84,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <Binding Path="Telefon" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            </Binding>
+        </TextBox>
+        <TextBox x:Name="email" HorizontalAlignment="Left" Margin="84,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            </Binding>
+        </TextBox>
     </Grid>
 </Window>

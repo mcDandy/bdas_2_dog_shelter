@@ -1,4 +1,5 @@
-﻿using BDAS_2_dog_shelter.Add.Medical_Equipment;
+﻿using BDAS_2_dog_shelter.Add.feed;
+using BDAS_2_dog_shelter.Add.MedicaEquipment;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
@@ -23,7 +24,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand CmdMedicalAdd => MedicaladhCMD ??= new RelayCommand(CommandMedicalAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT));
         public ICommand CmdMedicalRm => MedicalrmhCMD ??= new RelayCommand<object>(CommandMedicalRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE) && MeidcalSI > -1);
         public ICommand CmdMedicalEd => MedicaledhCMD ??= new RelayCommand<object>(CommandMedicalEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE) && MeidcalSI > -1);
-        public ObservableCollection<Medical_Equipment> Medical_Equipment { get; set; } = new();
+        public ObservableCollection<Medical_Equipment> MedEquipment { get; set; } = new();
 
         public int MeidcalSI { get => _medicalSelectedIndex; set { if (_medicalSelectedIndex != value) { _medicalSelectedIndex = value; MedicalrmhCMD?.NotifyCanExecuteChanged(); MedicaledhCMD?.NotifyCanExecuteChanged(); } } }
 
@@ -41,19 +42,19 @@ namespace BDAS_2_dog_shelter.MainWindow
                 foreach (Medical_Equipment d in (IEnumerable)Selectedmedical) e.Add(d);
                 foreach (Medical_Equipment medi in e)
                 {
-                    Medical_Equipment.Remove(medi);
+                    MedEquipment.Remove(medi);
                 }
             }
         }
 
         private void CommandMedicalAdd()
         {
-            MedicalEquipmentAdd s = new MedicalEquipmentAdd(Storages.ToList());
+            MedicalEquipmentAdd s = new MedicalEquipmentAdd(new(), Storages.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Medical_Equipment.Add(((MedicalEquipmentViewModelAdd)s.DataContext).Medical_equipment);
-                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE)) Medical_Equipment.Last().PropertyChanged += MedicalChanged;
+                MedEquipment.Add(((MedicalEquipmentViewModelAdd)s.DataContext).MedEquip);
+                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.ZDRAVOTNICKY_MATERIAL_UPDATE)) MedEquipment.Last().PropertyChanged += MedicalChanged;
             }
         }
 
@@ -72,20 +73,20 @@ namespace BDAS_2_dog_shelter.MainWindow
                         {
                             while (v.Read())
                             {
-                                Medical_Equipment.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
+                                MedEquipment.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
                             }
                         }
-                        List<Medical_Equipment> DogForest = Medical_Equipment.Select
+                        List<Medical_Equipment> DogForest = MedEquipment.Select
                                (a => {
                                    a.Sklad = Storages.Where(d => d.id == a.SkladID).FirstOrDefault();
 
                                    return a;
                                }).ToList();
 
-                        Medical_Equipment.Clear();
+                        MedEquipment.Clear();
                         foreach (var item in DogForest)
                         {
-                            Medical_Equipment.Add(item);
+                            MedEquipment.Add(item);
                         }
                     }
                     catch (Exception ex)//something went wrong
@@ -134,10 +135,10 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     catch (Exception ex)//something went wrong
                     {
-                        Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
-                        Medical_Equipment.Clear();
+                        MedEquipment.CollectionChanged -= Medical_CollectionChanged;
+                        MedEquipment.Clear();
                         LoadMedical(permissions);
-                        Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
+                        MedEquipment.CollectionChanged += Medical_CollectionChanged;
                         MessageBox.Show(ex.Message);
                         return;
                     }
@@ -169,9 +170,9 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             catch (Exception ex)//something went wrong
             {
-                Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
+                MedEquipment.CollectionChanged -= Medical_CollectionChanged;
                 LoadMedical(permissions);
-                Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
+                MedEquipment.CollectionChanged += Medical_CollectionChanged;
                 MessageBox.Show(ex.Message);
                 return;
             }

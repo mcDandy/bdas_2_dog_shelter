@@ -89,7 +89,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDRAVOTNICKY_MATERIAL_INSERT, Permissions.ZDRAVOTNICKY_MATERIAL_DELETE))
             { //TODO: nějaká lepší prevence úpravy
-                Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
+                MedEquipment.CollectionChanged += Medical_CollectionChanged;
 
             }
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.KARANTENA_INSERT, Permissions.KARANTENA_DELETE))
@@ -161,10 +161,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Typy.Clear();
             LoadTypes(permissions);
             Typy.CollectionChanged += Typy_CollectionChanged;
-            Medical_Equipment.CollectionChanged -= Medical_CollectionChanged;
-            Medical_Equipment.Clear();
+            MedEquipment.CollectionChanged -= Medical_CollectionChanged;
+            MedEquipment.Clear();
             LoadMedical(permissions);
-            Medical_Equipment.CollectionChanged += Medical_CollectionChanged;
+            MedEquipment.CollectionChanged += Medical_CollectionChanged;
             Karanteny.CollectionChanged -= Karantena_CollectionChanged;
             Karanteny.Clear();
             LoadKarantena(permissions);

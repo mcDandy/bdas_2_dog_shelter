@@ -1,12 +1,11 @@
 ﻿using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
-namespace BDAS_2_dog_shelter.Add.feed
+namespace BDAS_2_dog_shelter.Add.MedicaEquipment
 {
-    internal class AddFeedViewModel
+    internal class MedicalEquipmentViewModelAdd
     {
-        private Feed d;
-
+        private Medical_Equipment d;
         RelayCommand okCommand;
         private string name;
         private int pocet;
@@ -20,12 +19,12 @@ namespace BDAS_2_dog_shelter.Add.feed
 
         private void Ok()
         {
-            d.Nazev = name;
-            d.Pocet= pocet;
+            d.MedicalName = name;
+            d.Count = pocet;
             d.Sklad = sklad;
-            d.SkladID= sklad?.id??0;
+            d.SkladID = sklad?.id ?? 0;
             d.id = iD;
-            Krmiva = d;
+            MedEquip = d;
             OkClickFinished?.Invoke();
         }
 
@@ -36,20 +35,20 @@ namespace BDAS_2_dog_shelter.Add.feed
 
         public List<Tables.Storage> Sklady { get; private set; }
 
-        public Feed feed => d;
+        public Medical_Equipment medicalEquipment => d;
 
 
 
-        public Feed Krmiva { get; set; }
+        public Medical_Equipment MedEquip { get; set; }
 
-        public AddFeedViewModel(Feed d, List<Tables.Storage> storages)
-        {
-            this.d = d;
-            Nazev = d.Nazev;
-            Pocet = d.Pocet;
-            ID = d.id;
-            Sklad = d.Sklad;
-            Sklady = storages.Where(e => e.Type == "z").ToList();
-        }
+      public MedicalEquipmentViewModelAdd(Medical_Equipment s, List<Tables.Storage> storages)
+{
+    this.d = s ?? throw new ArgumentNullException(nameof(s));
+    Nazev = s.MedicalName;
+    Pocet = s.Count;
+    ID = s.id;
+    Sklad = s.Sklad;
+    Sklady = storages?.Where(e => e.Type == "m").ToList() ?? new List<Tables.Storage>();
+}
     }
 }

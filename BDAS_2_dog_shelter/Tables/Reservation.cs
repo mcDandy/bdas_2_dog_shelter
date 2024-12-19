@@ -52,6 +52,11 @@ namespace BDAS_2_dog_shelter.Tables
         public Reservation(DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
         public Reservation(int? id,DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
         public Reservation(int? id, DateTime dateofreceipt, DateTime dateoftransfer, int dogid) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; dogId = dogid; }
+
+        public Reservation(object value1, DateTime dateTime1, DateTime dateTime2, object value2)
+        {
+        }
+
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

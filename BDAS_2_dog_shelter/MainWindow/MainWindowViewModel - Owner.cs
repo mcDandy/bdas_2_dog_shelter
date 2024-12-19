@@ -75,7 +75,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         }
                         List<Owner> DogForest = Owners.Select
                                (a => {
-                                   a.Adresa = Adresses.Where(d => d.id == a.AdresaId).FirstOrDefault();
+                                   a.Adresa = Adresses.Where(d => d.id == a.AddressID).FirstOrDefault();
 
                                    return a;
                                }).ToList();
@@ -117,7 +117,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_MAJITEL", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_MAJITEL", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_JMENO", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_PRIJMENI", OracleDbType.Varchar2, utulek.Surname, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ADRESA", OracleDbType.Decimal, utulek.AdresaId, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ADRESA", OracleDbType.Decimal, utulek.AddressID, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Phone, ParameterDirection.Input));
                     

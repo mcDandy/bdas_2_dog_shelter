@@ -43,7 +43,7 @@
     <Compile Update="Add\Karantena\KarantenaAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Add\Medical_Equipment\MedicalEquipmentAdd.xaml.cs">
+    <Compile Update="Add\MedicaEquipment\MedicalEquipmentAdd.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Add\Medical_Record\MedicalRecAdd.xaml.cs">

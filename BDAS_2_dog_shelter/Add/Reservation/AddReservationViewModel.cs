@@ -20,7 +20,7 @@ namespace BDAS_2_dog_shelter.Add.Reservation
         {
            d.DateOfTransfer = dot;
             d.DateOfReceipt = dor;
-            d.id = iD;
+            d.Pes = SelectedPes;
             OkClickFinished?.Invoke();
         }
 
@@ -28,12 +28,19 @@ namespace BDAS_2_dog_shelter.Add.Reservation
         public DateTime DateReceipt { get => dor;  set { dor = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public Tables.Reservation Reservation => d;
         public List<Tables.Dog> Dogs { get; set; }
-
-        public AddReservationViewModel(Tables.Reservation d)
+        public Tables.Dog SelectedPes { get; set; }
+        public AddReservationViewModel(Tables.Reservation d, List<Tables.Dog> dogs)
         {
             this.d = d;
             DateTransfer=d.DateOfTransfer;
             DateReceipt = d.DateOfReceipt;
+            SelectedPes = d.Pes;
+
+        }
+
+        public AddReservationViewModel(Tables.Reservation d)
+        {
+            this.d = d;
         }
     }
 }
