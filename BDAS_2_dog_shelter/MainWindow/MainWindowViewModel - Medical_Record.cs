@@ -25,7 +25,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public ICommand cmdMedRecordEd => MedRecordedhCMD ??= new RelayCommand<object>(CommandMedicalRecEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE) && MedicalRSI > 1);
         public ObservableCollection<Medical_Record> MedicalRec { get; set; } = new();
 
-        public int MedicalRSI { get => _mrcSelectedIndex; set { if (_mrcSelectedIndex != value) { _mrcSelectedIndex = value; KarantenaedhCMD?.NotifyCanExecuteChanged(); KarantenarmhCMD?.NotifyCanExecuteChanged(); } } }
+        public int MedicalRSI { get => _mrcSelectedIndex; set { if (_mrcSelectedIndex != value) { _mrcSelectedIndex = value; MedRecordedhCMD?.NotifyCanExecuteChanged(); MedRecordrmhCMD?.NotifyCanExecuteChanged(); } } }
 
         private void CommandMedicalRecEdit(object? obj)
         {

@@ -349,9 +349,9 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     </DataGrid.Columns>
                 </DataGrid>
                 <StackPanel Grid.Column="1">
-                    <Button x:Name="buttonMedRecAdd" Content="Add" Margin="5" Command="{Binding Path=CmdMedicalAdd}"/>
-                    <Button x:Name="buttonMedRecEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=CmdMedicalEd}"/>
-                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=CmdMedicalRm}"/>
+                    <Button x:Name="buttonMedRecAdd" Content="Add" Margin="5" Command="{Binding Path=cmdMedRecordAdd}"/>
+                    <Button x:Name="buttonMedRecEdit" Content="Edit" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedRecordEd}"/>
+                    <Button x:Name="buttonMedRecRemove" Content="Remove" Margin="5" CommandParameter="{Binding ElementName=MedicalRecordDataGrid, Path=SelectedItems}" Command="{Binding Path=cmdMedRecordRm}"/>
                     <Button x:Name="buttonMedRec1" Content="Cancel &amp; Refresh"  Margin="5" Command="{Binding Path=cmdRst}"/>
                     <Button x:Name="buttonMedRec2" Content="Save" Height="20" Margin="5" Command="{Binding Path=cmdCom}"/>
                 </StackPanel>

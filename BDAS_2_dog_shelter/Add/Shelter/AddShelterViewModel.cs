@@ -17,9 +17,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
         private int? addressID;
         RelayCommand okCommand;
 
-        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" &&
-        addressID is not null and not < 0 &&
-        telephone is not null && PhoneRegex().IsMatch(telephone));
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => true);
 
         public delegate void OkUtulekAddEditDone();
         public event OkUtulekAddEditDone? OkClickFinished;
@@ -29,7 +27,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
            d.Email = email;
             d.Name = name;
             d.Telephone = telephone;
-            d.AddressID = Adresa.id;
+           // d.AddressID = Adresa.id;
             d.ID = iD;
             d.Adresa = Adresa;
             OkClickFinished?.Invoke();

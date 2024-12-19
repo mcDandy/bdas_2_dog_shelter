@@ -34,8 +34,7 @@ namespace BDAS_2_dog_shelter.Add.Procedure
         public int? ZdrZaznam { get => zdrzaznam;  set { zdrzaznam = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } } 
         public List<Tables.Medical_Record> ZdrZaznamy { get;  set; }
         public Tables.Medical_Record Vzaznam { get;  set; }
-
-        private List<Tables.Dog> dogs;
+        public List<Tables.Dog> dogs { get; set; }
 
         public Tables.Procedure procedure => d;
         public Tables.Dog Pes { get; set; }
