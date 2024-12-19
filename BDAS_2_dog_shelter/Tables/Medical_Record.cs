@@ -20,6 +20,9 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         private int? type_proc;
+        private DateTime? date;
+        private int? type;
+
         public int? TypeProc
         {
             get => type_proc;
@@ -40,6 +43,13 @@ namespace BDAS_2_dog_shelter.Tables
             id = v1;
             date_rec = dateTime;
             type_proc = v2;
+        }
+
+        public Medical_Record(int? id, DateTime? date, int? type)
+        {
+            this.id = id;
+            this.date = date;
+            this.type = type;
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;

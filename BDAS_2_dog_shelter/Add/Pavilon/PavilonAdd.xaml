@@ -9,24 +9,16 @@
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,94,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Sklady, Mode=OneTime}"/>
         <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Count" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NumericStringRule/>
-                </Binding.ValidationRules>
+            <Binding Path="Pocet" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
             </Binding>
         </TextBox>
         <TextBox x:Name="nam" HorizontalAlignment="Left" Margin="84,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                <Binding.ValidationRules>
-                    <validators:NotEmptyStringRule/>
-                </Binding.ValidationRules>
+            <Binding Path="Nazev" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
             </Binding>
         </TextBox>
         <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat1" Content="Počet" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Kopírovat2" Content="Sklad" HorizontalAlignment="Left" Margin="26,90,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

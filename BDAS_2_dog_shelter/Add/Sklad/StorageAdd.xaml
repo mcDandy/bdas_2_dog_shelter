@@ -23,6 +23,13 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
+        <ComboBox Name="storageTypeComboBox" 
+          SelectedItem="{Binding sType}" 
+          Width="200" Height="30">
+            <ComboBoxItem Content="Hračky" />
+            <ComboBoxItem Content="Zdr. Material" />
+            <ComboBoxItem Content="Krmivo" />
+        </ComboBox>
 
         <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat" Content="Kapacita" HorizontalAlignment="Left" Margin="26,39,0,0" VerticalAlignment="Top"/>

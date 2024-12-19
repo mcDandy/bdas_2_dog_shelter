@@ -28,8 +28,12 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandPavilonEdit(object? obj)
         {
-            PavilonAdd s = new(((IEnumerable)obj).Cast<Pavilion>().First());
-            s.ShowDialog();
+            if (obj is IEnumerable enumerable && enumerable.Cast<Pavilion>().Any())
+            {
+                PavilonAdd s = new PavilonAdd(enumerable.Cast<Pavilion>().First());
+                s.ShowDialog();
+
+            }
         }
 
         private void CommandPavilonRemove(object? SelectedShelters)

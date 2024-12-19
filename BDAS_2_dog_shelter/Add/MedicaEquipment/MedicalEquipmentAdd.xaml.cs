@@ -14,5 +14,6 @@ namespace BDAS_2_dog_shelter.Add.MedicaEquipment
             DataContext = new MedicalEquipmentViewModelAdd(d, storages);
             ((MedicalEquipmentViewModelAdd)DataContext).OkClickFinished += () => DialogResult = true;
         }
+      
     }
 }

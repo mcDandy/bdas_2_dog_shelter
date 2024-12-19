@@ -155,7 +155,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                         // Assign id to the department number 50 
                         cmd.Parameters.Add(new("ID", dog.id));
-                        cmd.CommandText = "delete from sklad where id_usklad=:ID";
+                        cmd.CommandText = "delete from sklad where id_sklad=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();
 

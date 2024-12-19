@@ -10,8 +10,7 @@ namespace BDAS_2_dog_shelter.Add.Pavilon
         private int capacity;
         RelayCommand okCommand;
 
-        public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && iD !=0);
-
+        public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => true);
         public delegate void OkUtulekAddEditDone();
         public event OkUtulekAddEditDone? OkClickFinished;
 

@@ -18,11 +18,11 @@ namespace BDAS_2_dog_shelter.MainWindow
         private RelayCommand MedRecordadhCMD;
         private RelayCommand<object> MedRecordrmhCMD;
         private RelayCommand<object> MedRecordedhCMD;
-        private int _mrcSelectedIndex;
+        private int _mrcSelectedIndex = -1;
 
         public ICommand cmdMedRecordAdd => MedRecordadhCMD ??= new RelayCommand(CommandMedicalRecAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_INSERT));
-        public ICommand cmdMedRecordRm => MedRecordrmhCMD ??= new RelayCommand<object>(CommandMedicalRecRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_DELETE)&& MedicalRSI >- 1);
-        public ICommand cmdMedRecordEd => MedRecordedhCMD ??= new RelayCommand<object>(CommandMedicalRecEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE) && MedicalRSI >- 1);
+        public ICommand cmdMedRecordRm => MedRecordrmhCMD ??= new RelayCommand<object>(CommandMedicalRecRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_DELETE)&& MedicalRSI > 1);
+        public ICommand cmdMedRecordEd => MedRecordedhCMD ??= new RelayCommand<object>(CommandMedicalRecEdit, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE) && MedicalRSI > 1);
         public ObservableCollection<Medical_Record> MedicalRec { get; set; } = new();
 
         public int MedicalRSI { get => _mrcSelectedIndex; set { if (_mrcSelectedIndex != value) { _mrcSelectedIndex = value; KarantenaedhCMD?.NotifyCanExecuteChanged(); KarantenarmhCMD?.NotifyCanExecuteChanged(); } } }
@@ -60,41 +60,35 @@ namespace BDAS_2_dog_shelter.MainWindow
         private void LoadMedicalRec(ulong permissions)
         {
             if (con.State == ConnectionState.Closed) con.Open();
+
             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_SELECT))
             {
-                using (OracleCommand cmd = con.CreateCommand())
+                using (var cmd = con.CreateCommand())
                 {
                     try
                     {
-                        cmd.CommandText = "select id_zaznam,datum_zaz,typ_procedury from W_ZDR_ZAZNAM";
-                        OracleDataReader v = cmd.ExecuteReader();
-                        if (v.HasRows)
+                        cmd.CommandText = "select id_zaznam, datum_zaz, typ_procedury from W_ZDR_ZAZNAM";
+                        using (var v = cmd.ExecuteReader())
                         {
-                            while (v.Read())
+                            if (v.HasRows)
                             {
-                                int id = v.GetInt32(0);
-                                DateTime d = v.GetDateTime(1); 
-                                int typ = v.GetInt32(2);
-                                MedicalRec.Add(new(id,d,typ));
+                             while (v.Read())
+                                {
+                                    MedicalRec.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetInt32(2)));
+                                    if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE)) MedicalRec.Last().PropertyChanged += MedicalRecChanged;
+                                }
                             }
                         }
-                        List<Medical_Record> DogForest = MedicalRec.Select
-                               (a =>
-                               {
-                                   a.medRecord = MedicalRec.Where(d => d.id == a.TypeProc).FirstOrDefault();
 
-                                   return a;
-                               }).ToList();
-
-                        MedicalRec.Clear();
-                        foreach (var item in DogForest)
+                        // Processing relations, assuming TypeProc relates to another record (this logic depends on your schema)
+                        foreach (var record in MedicalRec)
                         {
-                           MedicalRec.Add(item);
+                            record.medRecord = MedicalRec.FirstOrDefault(d => d.id == record.TypeProc);
                         }
                     }
-                    catch (Exception ex)//something went wrong
+                    catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show($"Error loading medical records: {ex.Message}");
                     }
                 }
             }
