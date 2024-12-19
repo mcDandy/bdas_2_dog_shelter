@@ -66,7 +66,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         (a => { 
                             a.Matka = Dogs.Where(d => d.ID == a.MatkaId).FirstOrDefault(); 
                             a.Otec = Dogs.Where(d => d.ID == a.OtecId).FirstOrDefault();
-                            a.Utulek = Shelters.Where(d => d.ID == a.UtulekId).FirstOrDefault();
+                            a.Utulek = Shelters.Where(d => d.id == a.UtulekId).FirstOrDefault();
                             a.Karantena = Karanteny.Where(d => d.id == a.KarantenaId).FirstOrDefault();
                             return a; 
                         }).ToList();
@@ -163,7 +163,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     dog.Otec = Dogs.Where(g => g.ID == dog.OtecId).FirstOrDefault();
                     dog.Matka = Dogs.Where(g => g.ID == dog.MatkaId).FirstOrDefault();
                     dog.Majitel = Owners.Where(g => g.id == dog.MajtelId).FirstOrDefault();
-                    dog.Utulek = Shelters.Where(g => g.ID == dog.UtulekId).FirstOrDefault(); //TODO: MAJTEL, KARANTENA
+                    dog.Utulek = Shelters.Where(g => g.id == dog.UtulekId).FirstOrDefault(); //TODO: MAJTEL, KARANTENA
                 }
             }
             catch (Exception ex)//something went wrong
@@ -219,7 +219,7 @@ private void CommandEdit(Object o)
                     Dog d = ((AddDogViewModel)da.DataContext).Dog;
                     d.Otec = Dogs.Where(g => g.ID == d.OtecId).FirstOrDefault();
                     d.Matka = Dogs.Where(g => g.ID == d.MatkaId).FirstOrDefault();
-                    d.Utulek = Shelters.Where(g => g?.ID == d.UtulekId).FirstOrDefault();
+                    d.Utulek = Shelters.Where(g => g?.id == d.UtulekId).FirstOrDefault();
 
                 }
     }

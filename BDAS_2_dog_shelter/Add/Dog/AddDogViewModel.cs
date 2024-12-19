@@ -32,7 +32,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
             Majtel = d.Majitel;
             Utulek = utulky;
             int i = 0;
-            SelectedUT = utulky.Where(a => d?.UtulekId == a.ID).FirstOrDefault();
+            SelectedUT = utulky.Where(a => d?.UtulekId == a.id).FirstOrDefault();
             Dog = d;
             Karantena = Karanteny.Where(a => d?.KarantenaId == a.id).FirstOrDefault();
             selectedM = Psi.Where(a => d?.MatkaId == a?.ID).FirstOrDefault();
@@ -96,7 +96,7 @@ namespace BDAS_2_dog_shelter.Add.Dog
         private void Ok()
         {
             Dog.Obrazek = Obrazek;
-            Dog.UtulekId = SelectedUT.ID;
+            Dog.UtulekId = SelectedUT.id;
             Dog.Utulek = SelectedUT;
             Dog.StavPes = Stav;
             Dog.Name = Name;
