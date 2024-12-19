@@ -49,7 +49,7 @@ namespace BDAS_2_dog_shelter.Add.feed
             Pocet = d.Pocet;
             ID = d.id;
             Sklad = d.Sklad;
-            Sklady = storages.Where(e => e.Type == "z").ToList();
+            Sklady = storages.Where(e => e.Type == "k").ToList();
         }
     }
 }

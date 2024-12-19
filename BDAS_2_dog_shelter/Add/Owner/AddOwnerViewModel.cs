@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using BDAS_2_dog_shelter.Tables;
+using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 namespace BDAS_2_dog_shelter.Add.Owner
 {
@@ -33,19 +34,23 @@ namespace BDAS_2_dog_shelter.Add.Owner
         public int? AdressID { get => addressID; set { addressID = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string Phone { get => telefon; set { telefon = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public string Email { get => email; set { email = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
+
+        public List<Tables.Adress> Adresses { get; init; }
         public int? ID { get => iD; set => iD = value; }
         public Tables.Owner Owner => d;
         public Tables.Adress Adresa { get; set; }
 
-        public AddOwnerViewModel(Tables.Owner d)
+        public AddOwnerViewModel(Tables.Owner d, List<Tables.Adress>? adresses)
         {
             this.d = d;
             ID = d.id;
             Name = d.Name;
             Surname = d.Surname;
+            Adresa = d.Adresa;
             AdressID = d.AddressID;
             Phone = d.Phone;
             Email = d.Email;
+            Adresses = adresses;
         }
     }
 }

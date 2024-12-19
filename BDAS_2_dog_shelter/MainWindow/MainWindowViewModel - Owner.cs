@@ -27,7 +27,7 @@ namespace BDAS_2_dog_shelter.MainWindow
         public int OwnerSI { get => _ownerSelectedIndex; set { if (_ownerSelectedIndex != value) { _ownerSelectedIndex = value; OwneredhCMD?.NotifyCanExecuteChanged(); OwnerrmhCMD?.NotifyCanExecuteChanged(); } } }
         private void CommandOwnerEdit(object? obj)
         {
-            OwnerAdd s = new(((IEnumerable)obj).Cast<Owner>().First());
+            OwnerAdd s = new(((IEnumerable)obj).Cast<Owner>().First(),Adresses.ToList());
             s.ShowDialog();
         }
 
@@ -46,7 +46,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandOwnerAdd()
         {
-            OwnerAdd s = new OwnerAdd();
+            OwnerAdd s = new OwnerAdd(Adresses.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");

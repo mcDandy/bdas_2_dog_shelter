@@ -175,7 +175,7 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
                         <DataGridTextColumn Header="Název" Binding="{Binding Nazev}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Počet" Binding="{Binding Pocet}"/>
-                        <DataGridTextColumn Header="OPRAVIT" Binding="{Binding Sklad}" />
+                        <DataGridTextColumn Header="Sklad" Binding="{Binding Sklad}" />
 
                     </DataGrid.Columns>
                 </DataGrid>
@@ -257,7 +257,7 @@ ItemsSource="{Binding Path=Owners, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
 
                         <DataGridTextColumn Header="jméno" Binding="{Binding Name}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="příjmení" Binding="{Binding Surname}"/>
-                        <DataGridTextColumn Header="Adresa" Binding="{Binding Adress}"/>
+                        <DataGridTextColumn Header="Adresa" Binding="{Binding Adresa}"/>
                         <DataGridTextColumn Header="Telefon" Binding="{Binding Phone}"/>
                         <DataGridTextColumn Header="email" Binding="{Binding Email}"/>
 

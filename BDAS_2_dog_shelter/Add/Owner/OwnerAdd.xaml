@@ -9,8 +9,8 @@
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="19,246,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1owner" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="193,246,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,109,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Adresses, Mode=OneTime}" SelectedItem="{Binding AdressID}"/>
-        <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="tel_TextChanged">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="84,109,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Adresses, Mode=OneTime}" SelectedItem="{Binding Adresa}"/>
+        <TextBox x:Name="tel" HorizontalAlignment="Left" Margin="84,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Surname" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
             </Binding>
         </TextBox>
@@ -24,7 +24,7 @@
         <Label Content="Telefon" HorizontalAlignment="Left" Margin="21,144,0,0" VerticalAlignment="Top"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="26,181,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="telefon" HorizontalAlignment="Left" Margin="84,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
-            <Binding Path="Telefon" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+            <Binding Path="Phone" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
             </Binding>
         </TextBox>
         <TextBox x:Name="email" HorizontalAlignment="Left" Margin="84,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">

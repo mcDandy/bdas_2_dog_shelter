@@ -76,6 +76,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                             while (v.Read())
                             {
                                 Krmiva.Add(new(v.GetInt32(0), v.GetString(1), v.GetInt32(2), v.GetInt32(3)));
+                                Krmiva.Last().Sklad = Storages.Where(S => S.id == Krmiva.Last().SkladID).FirstOrDefault();
                                 if (Permission.HasAnyOf(permissions,Permissions.ADMIN, Permissions.KRMIVO_UPDATE)) Krmiva.Last().PropertyChanged += FoodChanged;
                             }
                         }
