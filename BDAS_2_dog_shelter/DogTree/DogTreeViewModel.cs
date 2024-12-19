@@ -39,43 +39,26 @@ namespace BDAS_2_dog_shelter.DogTree
             var dogDictionary = new Dictionary<int?, Dog>();
             dogDictionary[rootDog.ID] = rootDog;
 
-            string cmd = "SELECT id_otec, id_matka, id_pes, LEVEL FROM pes START WITH ID_PES = :rootDogId CONNECT BY PRIOR ID_OTEC = ID_PES OR PRIOR ID_MATKA = ID_PES";
+            string cmd = "SELECT id_otec, id_matka, id_pes,  LEVEL FROM pes START WITH ID_PES = :rootDogId CONNECT BY PRIOR ID_OTEC = ID_PES OR PRIOR ID_MATKA = ID_PES";
 
             using var command = new OracleCommand(cmd, _connection);
             command.Parameters.Add(new OracleParameter(":rootDogId", rootDog.ID));
 
             using var reader = command.ExecuteReader();
-
+            List<Dog> d = new List<Dog>();
             while (reader.Read())
             {
-                int idPes = reader.GetInt32(2);
-                int idOtec = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
-                int idMatka = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
-
-                // Najdi nebo vytvoř psa
-                if (!dogDictionary.TryGetValue(idPes, out var currentDog))
-                {
-                    currentDog = new Dog { ID = idPes };
-                    dogDictionary[idPes] = currentDog;
-                }
-
-                // Připoj otce
-                    if (!dogDictionary.TryGetValue(idOtec, out var father))
-                    {
-                        father = new Dog { ID = idOtec };
-                        dogDictionary[idOtec] = father;
-                    }
-                    currentDog.Otec = father;
-
-                // Připoj matku
-                    if (!dogDictionary.TryGetValue(idMatka, out var mother))
-                    {
-                        mother = new Dog { ID = idMatka };
-                        dogDictionary[idMatka] = mother;
-                    }
-                    currentDog.Matka = mother;
+                d.Add(new());
+                d.Last().ID = reader.GetInt32(2);
+                d.Last().MatkaId = reader.IsDBNull(1)?null:reader.GetInt32(1);
+                d.Last().OtecId = reader.IsDBNull(0) ? null : reader.GetInt32(0);
             }
-
+            List<Dog> DogForest = d.Select
+    (a => {
+        a.Matka = d.Where(d => d.ID == a.MatkaId).FirstOrDefault();
+        a.Otec = d.Where(d => d.ID == a.OtecId).FirstOrDefault();
+        return a;
+    }).ToList();
             // Nastavení hierarchie kořenového psa
             MainDog = rootDog;
         }

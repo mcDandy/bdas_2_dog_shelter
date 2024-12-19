@@ -4,29 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Dog Tree" Height="450" Width="600">
+        Title="Dog Tree" Height="450" Width="500">
     <Grid>
         <!-- Aktuální pes -->
-        <Label x:Name="Dog_main" Content="{Binding MainDog.Name}" HorizontalAlignment="Center" Margin="0,343,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_main" Background="AliceBlue" Content="{Binding MainDog.Name}" HorizontalAlignment="Left" Margin="236,345,0,0" VerticalAlignment="Top"/>
 
         <!-- Rodiče -->
-        <Label x:Name="Dog_Left" Content="{Binding MainDog.Matka.Name}" HorizontalAlignment="Left" Margin="120,310,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right" Content="{Binding MainDog.Otec.Name}" HorizontalAlignment="Left" Margin="347,310,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left"  Background="AliceBlue" Content="{Binding MainDog.Matka.Name}" HorizontalAlignment="Left" Margin="120,310,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right"  Background="AliceBlue" Content="{Binding MainDog.Otec.Name}" HorizontalAlignment="Left" Margin="347,310,0,0" VerticalAlignment="Top"/>
 
         <!-- Prarodiče -->
-        <Label x:Name="Dog_Left2" Content="{Binding MainDog.Matka.Matka.Name}" HorizontalAlignment="Left" Margin="71,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right2" Content="{Binding MainDog.Matka.Otec.Name}" HorizontalAlignment="Left" Margin="170,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left3" Content="{Binding MainDog.Otec.Matka.Name}" HorizontalAlignment="Left" Margin="292,233,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right3" Content="{Binding MainDog.Otec.Otec.Name}" HorizontalAlignment="Left" Margin="387,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left2"  Background="AliceBlue" Content="{Binding MainDog.Matka.Matka.Name}" HorizontalAlignment="Left" Margin="71,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right2" Background="AliceBlue" Content="{Binding MainDog.Matka.Otec.Name}" HorizontalAlignment="Left" Margin="170,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left3" Background="AliceBlue" Content="{Binding MainDog.Otec.Matka.Name}" HorizontalAlignment="Left" Margin="292,233,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right3" Background="AliceBlue" Content="{Binding MainDog.Otec.Otec.Name}" HorizontalAlignment="Left" Margin="387,233,0,0" VerticalAlignment="Top"/>
 
         <!-- Prarodiče (3. generace) -->
-        <Label x:Name="Dog_Left4" Content="{Binding MainDog.Matka.Matka.Matka.Name}" HorizontalAlignment="Left" Margin="25,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right4" Content="{Binding MainDog.Matka.Matka.Otec.Name}" HorizontalAlignment="Left" Margin="90,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left5" Content="{Binding MainDog.Matka.Otec.Matka.Name}" HorizontalAlignment="Left" Margin="151,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right5" Content="{Binding MainDog.Matka.Otec.Otec.Name}" HorizontalAlignment="Left" Margin="215,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left6" Content="{Binding MainDog.Otec.Matka.Matka.Name}" HorizontalAlignment="Left" Margin="273,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right6" Content="{Binding MainDog.Otec.Matka.Otec.Name}" HorizontalAlignment="Left" Margin="334,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Left7" Content="{Binding MainDog.Otec.Otec.Matka.Name}" HorizontalAlignment="Left" Margin="387,140,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Dog_Right7" Content="{Binding MainDog.Otec.Otec.Otec.Name}" HorizontalAlignment="Left" Margin="430,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left4" Background="AliceBlue" Content="{Binding MainDog.Matka.Matka.Matka.Name}" HorizontalAlignment="Left" Margin="25,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right4" Background="AliceBlue" Content="{Binding MainDog.Matka.Matka.Otec.Name}" HorizontalAlignment="Left" Margin="90,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left5" Background="AliceBlue" Content="{Binding MainDog.Matka.Otec.Matka.Name}" HorizontalAlignment="Left" Margin="151,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right5" Background="AliceBlue" Content="{Binding MainDog.Matka.Otec.Otec.Name}" HorizontalAlignment="Left" Margin="215,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left6" Background="AliceBlue" Content="{Binding MainDog.Otec.Matka.Matka.Name}" HorizontalAlignment="Left" Margin="273,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right6" Background="AliceBlue" Content="{Binding MainDog.Otec.Matka.Otec.Name}" HorizontalAlignment="Left" Margin="334,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Left7" Background="AliceBlue" Content="{Binding MainDog.Otec.Otec.Matka.Name}" HorizontalAlignment="Left" Margin="387,140,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Dog_Right7" Background="AliceBlue" Content="{Binding MainDog.Otec.Otec.Otec.Name}" HorizontalAlignment="Left" Margin="430,140,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
