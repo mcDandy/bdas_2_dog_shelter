@@ -89,7 +89,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                 ));
 
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE))
-                                Adresses.Last().PropertyChanged += ReservationChanged;
+                                Rezervace.Last().PropertyChanged += ReservationChanged;
                         }
 
                     }
