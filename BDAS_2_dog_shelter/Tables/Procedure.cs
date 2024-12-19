@@ -47,32 +47,18 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        private int? pid;
-        public int? PesID
-        {
-            get => pid;
-            set
-            {
-                if (pid != value)
-                {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(PesID)));
-                    pid = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PesID)));
-                }
-            }
-        }
+ 
         public Medical_Record record { get; set; }
-        public Dog Pes { get; internal set; }
+
 
         public Procedure() { proc_name = ""; descr_name = ""; }
 
-        public Procedure(int v1, string v2, string v3, int v4,int v5)
+        public Procedure(int v1, string v2, string v3)
         {
             id = v1;
             proc_name = v2;
             descr_name = v3;
-            ZdrZaznamid = v4;
-            pid = v5;
+
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;
