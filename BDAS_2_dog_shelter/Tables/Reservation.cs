@@ -33,10 +33,25 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Dog? pes { get; set; }
+        private int? dogId;
+        public int? DogId
+        {
+            get => dogId;
+            set
+            {
+                if (dogId != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DogId)));
+                    dogId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DogId)));
+                }
+            }
+        }
+        public Dog Pes { get; set; }
         public Reservation() { _date_of_receipt = DateTime.Now; _date_of_transfer = DateTime.Now; }
         public Reservation(DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
         public Reservation(int? id,DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
+        public Reservation(int? id, DateTime dateofreceipt, DateTime dateoftransfer, int dogid) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; dogId = dogid; }
         public event PropertyChangingEventHandler? PropertyChanging;
         public event PropertyChangedEventHandler? PropertyChanged;
     }

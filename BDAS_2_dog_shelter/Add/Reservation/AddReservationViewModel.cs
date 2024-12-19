@@ -27,6 +27,7 @@ namespace BDAS_2_dog_shelter.Add.Reservation
         public DateTime DateTransfer { get => dot;  set { dot = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public DateTime DateReceipt { get => dor;  set { dor = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
         public Tables.Reservation Reservation => d;
+        public List<Tables.Dog> Dogs { get; set; }
 
         public AddReservationViewModel(Tables.Reservation d)
         {

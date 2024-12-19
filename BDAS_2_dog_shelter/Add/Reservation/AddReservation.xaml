@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Adress" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" d:DataContext="{d:DesignInstance Type=local:AdressAdd}"
         mc:Ignorable="d"
-        Title="ShelterAdd" Height="182" Width="234">
+        Title="ReservationAdd" Height="182" Width="234">
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
@@ -24,6 +24,8 @@
                     SelectedDate="{Binding Path=DateReceipt, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
         <Label Content="Datum prevzeti" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top"/>
         <Label Content="prevzeti psa" HorizontalAlignment="Left" Margin="19,44,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="otec" HorizontalAlignment="Left" Margin="104,79,0,0" VerticalAlignment="Top" Width="120" ItemsSource="{Binding Dogs, Mode=OneTime}" SelectedItem="{Binding SelectedPes, Mode=TwoWay}"/>
+        <Label Content="vyber psa" HorizontalAlignment="Left" Margin="19,75,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
