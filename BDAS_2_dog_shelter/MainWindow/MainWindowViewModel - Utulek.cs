@@ -55,7 +55,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
                 Shelters.Add(((AddShelterViewModel)s.DataContext).Utulek);
-                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_UPDATE)) Shelters.Last().PropertyChanged += ShelterChanged;
+                if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.UTULEK_UPDATE)) Shelters.Last().PropertyChanged += ShelterChanged;
             }
         }
 
@@ -117,7 +117,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.ID is null ? new("V_ID_UTULEK", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Decimal, utulek.ID, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_UTULEK", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_UTULEK", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_NAZEV", OracleDbType.Varchar2, utulek.Name,ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_TELEFON", OracleDbType.Varchar2, utulek.Telephone, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_EMAIL", OracleDbType.Varchar2, utulek.Email, ParameterDirection.Input));
@@ -127,7 +127,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
-                    utulek.ID = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
+                    utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
                     utulek.Adresa = Adresses.LastOrDefault(a => a.id == utulek.AddressID);
                 }
             }
@@ -159,7 +159,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         cmd.BindByName = true;
 
                         // Assign id to the department number 50 
-                        cmd.Parameters.Add(new("ID", dog.ID));
+                        cmd.Parameters.Add(new("ID", dog.id));
                         cmd.CommandText = "delete from utulek where id_utulek=:ID";
                         //Execute the command and use DataReader to display the data
                         int i = await cmd.ExecuteNonQueryAsync();

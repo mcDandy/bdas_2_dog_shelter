@@ -28,7 +28,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
             d.Name = name;
             d.Telephone = telephone;
            // d.AddressID = Adresa.id;
-            d.ID = iD;
+            d.id = iD;
             d.AddressID = addressID;
             OkClickFinished?.Invoke();
         }
@@ -93,7 +93,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
             Name = d.Name;
             Email = d.Email;
             Telephone = d.Telephone;
-            ID = d.ID;
+            ID = d.id;
             AdressID = d.AddressID;
             
         }

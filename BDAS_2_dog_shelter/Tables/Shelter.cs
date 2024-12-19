@@ -19,7 +19,6 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        internal int? ID { get; set; } = null;
         private string _telephone;
         public string Telephone
         {
@@ -69,11 +68,12 @@ namespace BDAS_2_dog_shelter.Tables
             _name = "";
             _telephone = "";
             _email = "";
+
         }
 
         public Shelter(int utId, string name, string telephone, string? email, int adrID)
         {
-            ID = utId;
+            id = utId;
             _name = name;
             _telephone = telephone;
             _email = email;
