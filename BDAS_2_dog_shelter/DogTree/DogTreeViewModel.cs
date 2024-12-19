@@ -3,140 +3,86 @@ using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 
-public class DogTreeViewModel : INotifyPropertyChanged
+namespace BDAS_2_dog_shelter.DogTree
 {
-    private Dog _dog;
-    private OracleConnection _connection;
-
-    public DogTreeViewModel(Dog dog, OracleConnection connection)
+    public class DogTreeViewModel : INotifyPropertyChanged
     {
-        Dog = dog ?? throw new ArgumentNullException(nameof(dog)); // Ensure dog is not null
-        _connection = connection ?? throw new ArgumentNullException(nameof(connection));
-        LoadTreeLevelsAsync().ConfigureAwait(false);
-    }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-    public Dog Dog
-    {
-        get => _dog;
-        set
+        private Dog _mainDog;
+        public Dog MainDog
         {
-            _dog = value;
-            OnPropertyChanged(nameof(Dog));
-            OnPropertyChanged(nameof(DogName));
-        }
-    }
-
-    // Dog name
-    public string DogName => Dog?.Name ?? "Unknown Dog"; // Safe access to Name
-
-    // Parents
-    public DogTreeViewModel? Father { get; private set; }
-    public DogTreeViewModel? Mother { get; private set; }
-
-    private async Task LoadTreeLevelsAsync()
-    {
-        try
-        {
-            List<Dog> parents = await LoadDogsAsync((int)Dog.ID);
-            if (parents.Count > 0)
+            get => _mainDog;
+            set
             {
-                Father = new DogTreeViewModel(parents[0], _connection);
-                if (parents.Count > 1)
+                if (_mainDog != value)
                 {
-                    Mother = new DogTreeViewModel(parents[1], _connection);
+                    _mainDog = value;
+                    OnPropertyChanged(nameof(MainDog));
                 }
             }
-            OnPropertyChanged(nameof(Father));
-            OnPropertyChanged(nameof(Mother));
-            OnPropertyChanged(nameof(Ancestors));
         }
-        catch (Exception ex)
-        {
-            // Implement proper error logging here
-            Console.WriteLine($"Error loading tree levels: {ex.Message}");
-        }
-    }
 
-    public List<DogTreeViewModel> Ancestors
-    {
-        get
-        {
-            List<DogTreeViewModel> ancestors = new List<DogTreeViewModel>();
-            ancestors.AddRange(GetAncestors(1)); // Parents
-            ancestors.AddRange(GetAncestors(2)); // Grandparents
-            return ancestors;
-        }
-    }
+        private OracleConnection _connection;
 
-    public List<DogTreeViewModel> GetAncestors(int levels)
-    {
-        var ancestors = new List<DogTreeViewModel>();
-        if (levels > 0)
+        public DogTreeViewModel(Dog rootDog, OracleConnection connection)
         {
-            if (Father != null)
+            _mainDog = rootDog;
+            _connection = connection;
+            LoadDogTree(rootDog);
+        }
+
+        private void LoadDogTree(Dog rootDog)
+        {
+            // Dictionary pro vyhledávání psů podle ID
+            var dogDictionary = new Dictionary<int?, Dog>();
+            dogDictionary[rootDog.ID] = rootDog;
+
+            string cmd = "SELECT id_otec, id_matka, id_pes, LEVEL FROM pes START WITH ID_PES = :rootDogId CONNECT BY PRIOR ID_OTEC = ID_PES OR PRIOR ID_MATKA = ID_PES";
+
+            using var command = new OracleCommand(cmd, _connection);
+            command.Parameters.Add(new OracleParameter(":rootDogId", rootDog.ID));
+
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
             {
-                ancestors.Add(Father);
-                ancestors.AddRange(Father.GetAncestors(levels - 1));
-            }
-            if (Mother != null)
-            {
-                ancestors.Add(Mother);
-                ancestors.AddRange(Mother.GetAncestors(levels - 1));
-            }
-        }
-        return ancestors;
-    }
+                int idPes = reader.GetInt32(2);
+                int idOtec = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                int idMatka = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    public async Task<List<Dog>> LoadDogsAsync(int dogId)
-    {
-        var dogs = new List<Dog>();
-
-        using (var cmd = _connection.CreateCommand())
-        {
-            cmd.CommandText = @"
-                SELECT id_pes, id_matka, id_otec
-                FROM pes
-                START WITH id_pes = :dogId 
-                CONNECT BY PRIOR id_pes = id_otec OR PRIOR id_pes = id_matka";
-
-            cmd.Parameters.Add(new OracleParameter("dogId", dogId));
-
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
+                // Najdi nebo vytvoř psa
+                if (!dogDictionary.TryGetValue(idPes, out var currentDog))
                 {
-                    int idPes = reader.GetInt32(reader.GetOrdinal("id_pes"));
-                    int? idOtec = reader.IsDBNull(reader.GetOrdinal("id_otec")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("id_otec"));
-                    int? idMatka = reader.IsDBNull(reader.GetOrdinal("id_matka")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("id_matka"));
+                    currentDog = new Dog { ID = idPes };
+                    dogDictionary[idPes] = currentDog;
+                }
 
-                    Dog dog = new Dog
+                // Připoj otce
+                    if (!dogDictionary.TryGetValue(idOtec, out var father))
                     {
-                        ID = idPes,
-                        Otec = idOtec != null ? new Dog { ID = idOtec.Value } : null,
-                        Matka = idMatka != null ? new Dog { ID = idMatka.Value } : null
-                    };
+                        father = new Dog { ID = idOtec };
+                        dogDictionary[idOtec] = father;
+                    }
+                    currentDog.Otec = father;
 
-                    dogs.Add(dog);
-                }
+                // Připoj matku
+                    if (!dogDictionary.TryGetValue(idMatka, out var mother))
+                    {
+                        mother = new Dog { ID = idMatka };
+                        dogDictionary[idMatka] = mother;
+                    }
+                    currentDog.Matka = mother;
             }
+
+            // Nastavení hierarchie kořenového psa
+            MainDog = rootDog;
         }
 
-        return dogs;
-    }
-
-    public static async Task<DogTreeViewModel> CreateAsync(Dog dog, OracleConnection connection)
-    {
-        var viewModel = new DogTreeViewModel(dog, connection);
-        await viewModel.LoadTreeLevelsAsync();
-        return viewModel;
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
