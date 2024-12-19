@@ -3,9 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Adress" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" d:DataContext="{d:DesignInstance Type=local:AdressAdd}"
+         xmlns:System="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Storage" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" d:DataContext="{d:DesignInstance Type=local:StorageAdd}"
         mc:Ignorable="d"
         Title="StorageAdd" Height="182" Width="234">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="enumValues"
+       MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:SkladTypy"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <Grid>
         <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
@@ -24,11 +33,9 @@
             </Binding>
         </TextBox>
         <ComboBox Name="storageTypeComboBox" 
-          SelectedItem="{Binding sType}" 
-          Width="200" Height="30">
-            <ComboBoxItem Content="Hračky" />
-            <ComboBoxItem Content="Zdr. Material" />
-            <ComboBoxItem Content="Krmivo" />
+          SelectedItem="{Binding SType}" 
+          Width="200" Height="30"
+          ItemsSource="{Binding Source={StaticResource enumValues}}">   
         </ComboBox>
 
         <Label x:Name="label" Content="Název" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>

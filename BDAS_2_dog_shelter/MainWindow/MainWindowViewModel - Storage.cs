@@ -81,7 +81,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     v.IsDBNull(3) ? null : v.GetString(3)
                                 ));
 
-                            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_UPDATE)) Storages.Last().PropertyChanged += ShelterChanged;
+                            if (Permission.HasAnyOf(permissions,Permissions.ADMIN,Permissions.SKLAD_UPDATE)) Storages.Last().PropertyChanged += StorageChanged;
                         }
 
                     }

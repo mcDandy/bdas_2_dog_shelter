@@ -2,17 +2,21 @@
 using System.Windows.Input;
 namespace BDAS_2_dog_shelter.Add.Storage
 {
+
     internal class AddStorageViewModel
     {
+
+
         private Tables.Storage d;
         private string stype;
         private int cap;
         private string name;
         private int? iD;
         RelayCommand okCommand;
+        private SkladTypy? st;
 
         // Command for confirming the selection
-        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => stype is not null && stype != "" && Capacity > 0);
+        public ICommand OkCommand => okCommand ??= new RelayCommand(Ok, () => sType is not null && sType != "" && Capacity > 0 && Name.Length>0);
 
         // Delegate and event for notifying when the action is done
         public delegate void OkStorageAddEditDone();
@@ -29,17 +33,25 @@ namespace BDAS_2_dog_shelter.Add.Storage
         }
 
         // Property for storage type, will be bound to ComboBox
-        public string sType
+        public string? sType
         {
-            get => stype;
-            set
+            get => st switch
             {
-                stype = value;
-                if (okCommand is not null) okCommand.NotifyCanExecuteChanged();
-                SetStorageType();  // Call the method to update the type based on selection
-            }
-        }
-
+                SkladTypy.Zdr_Material => "z",
+                SkladTypy.Hracky => "h",
+                SkladTypy.Krmivo => "k",
+                _=>null
+            };
+            set { st = value switch
+            {
+                "z" => SkladTypy.Zdr_Material,
+                "h" => SkladTypy.Hracky,
+                "k" => SkladTypy.Krmivo,
+                _ => null
+            };
+            okCommand?.NotifyCanExecuteChanged();
+            } }
+            public SkladTypy? SType { get => st; set { st = value; okCommand.NotifyCanExecuteChanged(); } }
         // Property for capacity, can be adjusted as needed
         public int Capacity { get => cap; set { cap = value; if (okCommand is not null) okCommand.NotifyCanExecuteChanged(); } }
 
@@ -60,24 +72,6 @@ namespace BDAS_2_dog_shelter.Add.Storage
             Capacity = d.Capacity;
             Name = d.Name;
             ID = d.id;
-        }
-
-        // Method that will update the storage type based on selection
-        private void SetStorageType()
-        {
-            // Set 'sType' based on the selected value in ComboBox
-            if (sType == "Hračky")
-            {
-                stype = "h";
-            }
-            else if (sType == "Zdr. Material")
-            {
-                stype = "z";
-            }
-            else if (sType == "Krmivo")
-            {
-                stype = "k";
-            }
         }
     }
 }
