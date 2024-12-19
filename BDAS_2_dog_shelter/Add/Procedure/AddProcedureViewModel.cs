@@ -22,8 +22,6 @@ namespace BDAS_2_dog_shelter.Add.Procedure
             d.id = iD;
             d.ProcName = name;
             d.DescrName = description;
-            d.ZdrZaznamid = zdrzaznam;
-            d.PesID = pesID;
             OkClickFinished?.Invoke();
         }
 
