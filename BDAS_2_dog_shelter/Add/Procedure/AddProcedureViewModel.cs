@@ -9,6 +9,7 @@ namespace BDAS_2_dog_shelter.Add.Procedure
         private string name;
         private string description;
         private int? zdrzaznam;
+        private int? pesID;
         RelayCommand okCommand;
 
         public ICommand OkHCommand => okCommand ??= new RelayCommand(Ok, () => name is not null and not "" && description is not null and not "");
@@ -22,9 +23,7 @@ namespace BDAS_2_dog_shelter.Add.Procedure
             d.ProcName = name;
             d.DescrName = description;
             d.ZdrZaznamid = zdrzaznam;
-            d.record = Vzaznam;
-            d.PesID = Pes.ID;
-            d.Pes= Pes;
+            d.PesID = pesID;
             OkClickFinished?.Invoke();
         }
 
@@ -47,7 +46,6 @@ namespace BDAS_2_dog_shelter.Add.Procedure
             description = d.DescrName;
             zdrzaznam = d.ZdrZaznamid;
             ZdrZaznamy = zaznamy;
-            Vzaznam = d.record;
             this.dogs = dogs;
 
         }
