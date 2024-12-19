@@ -127,8 +127,10 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     //Execute the command and use DataReader to display the data
                     int i = await cmd.ExecuteNonQueryAsync();
+                    utulek.PropertyChanged -= ShelterChanged;
                     utulek.id = Convert.ToInt32(cmd.Parameters[0].Value.ToString());
                     utulek.Adresa = Adresses.LastOrDefault(a => a.id == utulek.AddressID);
+                    utulek.PropertyChanged += ShelterChanged;
                 }
             }
             catch (Exception ex)//something went wrong

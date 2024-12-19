@@ -20,7 +20,7 @@
         <TextBox x:Name="ema" HorizontalAlignment="Left" Margin="84,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
             <Binding Path="Email" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
                 <Binding.ValidationRules>
-                    <validators:HashRule/>
+                    <validators:EmailOrNull/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
