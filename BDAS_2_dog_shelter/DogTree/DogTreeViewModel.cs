@@ -1,5 +1,6 @@
 ﻿using BDAS_2_dog_shelter.Tables;
 using Oracle.ManagedDataAccess.Client;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 public class DogTreeViewModel : INotifyPropertyChanged

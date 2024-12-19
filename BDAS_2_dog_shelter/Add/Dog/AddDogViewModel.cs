@@ -1,5 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Oracle.ManagedDataAccess.Client;
+using static BDAS_2_dog_shelter.Secrets;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BDAS_2_dog_shelter.Tables;
