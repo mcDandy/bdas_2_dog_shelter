@@ -76,7 +76,7 @@ public class DogTreeViewModel : INotifyPropertyChanged
         {
             cmd.CommandText = @"
                 SELECT id_otec, id_matka, id_pes 
-                FROM pes 
+                FROM pes WHERE level<=3
                 START WITH id_pes = :dogId 
                 CONNECT BY PRIOR id_pes = id_otec OR PRIOR id_pes = id_matka";
 
