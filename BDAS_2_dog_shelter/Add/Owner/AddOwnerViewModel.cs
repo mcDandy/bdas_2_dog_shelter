@@ -26,6 +26,7 @@ namespace BDAS_2_dog_shelter.Add.Owner
             d.Phone = telefon;
             d.Email = email;
             d.AddressID = Adresa.id;
+            d.Adresa = Adresa;
             OkClickFinished?.Invoke();
         }
 
