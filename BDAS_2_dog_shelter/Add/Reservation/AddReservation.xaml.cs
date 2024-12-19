@@ -10,17 +10,7 @@ namespace BDAS_2_dog_shelter.Add.Reservation
     /// </summary>
     public partial class AddReservation : Window
     {
-        public AddReservation()
-        {
-        }
 
-        public AddReservation(Tables.Reservation d)
-        {
-            InitializeComponent();
-            DataContext = new AddReservationViewModel(d);
-            ((AddReservationViewModel)DataContext).OkClickFinished += () => DialogResult = true;
-
-        }
         public AddReservation(List < Tables.Dog > storages)
         {
             InitializeComponent();

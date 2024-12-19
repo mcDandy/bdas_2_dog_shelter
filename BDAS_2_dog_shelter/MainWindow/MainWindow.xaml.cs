@@ -13,7 +13,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
             DataContext = new MainWindowViewModel(permissions);
             ((MainWindowViewModel)DataContext).OnCloaseRequest += CloseWindow;
-
+         //   ((MainWindowViewModel)DataContext).OnForceRefreshRequest += ()=>{ RezervaceDataGrid.DataContext = null;RezervaceDataGrid.DataContext = ((MainWindowViewModel)DataContext).Rezervace; RezervaceDataGrid.InvalidateVisual(); };
             InitializeComponent();
         }
 

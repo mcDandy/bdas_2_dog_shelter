@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Adress" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" d:DataContext="{d:DesignInstance Type=local:AdressAdd}"
+        xmlns:local="clr-namespace:BDAS_2_dog_shelter.Add.Reservation" xmlns:tables="clr-namespace:BDAS_2_dog_shelter.Tables" xmlns:validators="clr-namespace:BDAS_2_dog_shelter.Validation" d:DataContext="{d:DesignInstance Type=local:AdressAdd}"
         mc:Ignorable="d"
         Title="AddReservation" Height="182" Width="234">
     <Grid>
-        <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkHCommand}"/>
+        <Button x:Name="button" Content="Potvrdit" HorizontalAlignment="Left" Margin="84,124,0,0" VerticalAlignment="Top" Command="{Binding OkCommand}"/>
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="nam" HorizontalAlignment="Left" Margin="104,20,0,0" VerticalAlignment="Top" Width="120" Height="24"
                     SelectedDate="{Binding Path=DateTransfer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" RenderTransformOrigin="0.766,1.285">

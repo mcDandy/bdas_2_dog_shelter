@@ -22,6 +22,8 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private int _reservationselectedIndex = -1;
 
+        public delegate void FrefRequest();
+        public event FrefRequest OnForceRefreshRequest;
 
         public ICommand CmdRezAdd => radCMD ??= new RelayCommand(CommandRezervaceAdd, () => Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT));
         public ICommand CmdRezRm => RezervaceRemoveCMD ??= new RelayCommand<object>(CommandRezervaceRemove, (p) => p is not null && Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_DELETE) && ReservationSI > -1);
@@ -32,7 +34,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandRezervaceEdit(object? obj)
         {
-            AddReservation s = new(((IEnumerable)obj).Cast<Reservation>().First());
+            AddReservation s = new(((IEnumerable)obj).Cast<Reservation>().First(),Dogs.ToList());
             s.ShowDialog();
         }
 
@@ -53,13 +55,13 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandRezervaceAdd()
         {
-            AddReservation s = new AddReservation();
+            AddReservation s = new AddReservation(Dogs.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
-                Adresses.Add(((AddAdressViewModel)s.DataContext).Adresa);
+                Rezervace.Add(((AddReservationViewModel)s.DataContext).Reservation);
                 if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_INSERT))
-                    Adresses.Last().PropertyChanged += ReservationChanged;
+                    Rezervace.Last().PropertyChanged += ReservationChanged;
             }
         }
 
@@ -78,8 +80,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                         while (v.Read())
                         {
 
-                            Rezervace.Add
-                                (
+                            Rezervace.Add(
                                 new(
                                     v.IsDBNull(0) ? null : v.GetInt32(0),
                                     v.GetDateTime(1),
@@ -87,7 +88,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                                     v.IsDBNull(3) ? null : v.GetInt32(3)
 
                                 ));
-
+                            Rezervace.Last().Pes = Dogs.Where(a => Rezervace.Last().DogId == a.ID).FirstOrDefault();
                             if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.REZERVACE_UPDATE))
                                 Rezervace.Last().PropertyChanged += ReservationChanged;
                         }
@@ -106,7 +107,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             Reservation? dog = sender as Reservation;
             using (OracleCommand cmd = con.CreateCommand())
             {
-
+                OnForceRefreshRequest?.Invoke();
                 await SaveReservation(dog);
             }
         }
@@ -124,6 +125,7 @@ namespace BDAS_2_dog_shelter.MainWindow
                     cmd.Parameters.Add(utulek.id is null ? new("V_ID_REZERVACE", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_REZERVACE", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_DATUM_REZERVACE", OracleDbType.Date, utulek.DateOfReceipt, ParameterDirection.Input));
                     cmd.Parameters.Add(new("V_PREVZETI_PSA", OracleDbType.Date, utulek.DateOfTransfer, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_ID_PES", OracleDbType.Decimal, utulek.Pes.ID, ParameterDirection.Input));
                     cmd.CommandText = "INS_SET.IU_REZERVACE";
 
                     //Execute the command and use DataReader to display the data

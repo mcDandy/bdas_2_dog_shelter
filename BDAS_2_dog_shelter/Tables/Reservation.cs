@@ -34,6 +34,8 @@ namespace BDAS_2_dog_shelter.Tables
             }
         }
         private int? dogId;
+        private Dog dog;
+
         public int? DogId
         {
             get => dogId;
@@ -47,11 +49,20 @@ namespace BDAS_2_dog_shelter.Tables
                 }
             }
         }
-        public Dog Pes { get; set; }
+        public Dog Pes { get => dog; set
+            {
+                if (dog != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(DogId)));
+                    dog = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DogId)));
+                }
+            }
+        }
         public Reservation() { _date_of_receipt = DateTime.Now; _date_of_transfer = DateTime.Now; }
         public Reservation(DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
-        public Reservation(int? id,DateTime dateofreceipt, DateTime dateoftransfer) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
-        public Reservation(int? id, DateTime dateofreceipt, DateTime dateoftransfer, int? dogid) { _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; dogId = dogid; }
+        public Reservation(int? id,DateTime dateofreceipt, DateTime dateoftransfer) { this.id = id; _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; }
+        public Reservation(int? id, DateTime dateofreceipt, DateTime dateoftransfer, int? dogid) { this.id = id; _date_of_receipt = dateofreceipt; _date_of_transfer = dateoftransfer; dogId = dogid; }
 
         public Reservation(object value1, DateTime dateTime1, DateTime dateTime2, object value2)
         {

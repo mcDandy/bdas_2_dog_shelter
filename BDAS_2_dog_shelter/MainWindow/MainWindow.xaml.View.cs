@@ -149,10 +149,6 @@ namespace BDAS_2_dog_shelter.MainWindow
             Hracky.Clear();
             LoadHracky(permissions);
             Hracky.CollectionChanged += Hracka_CollectionChanged;
-            Rezervace.CollectionChanged -= Reservation_CollectionChanged;
-            Rezervace.Clear();
-            LoadReservations(permissions);
-            Rezervace.CollectionChanged += Reservation_CollectionChanged;
             Krmiva.CollectionChanged -= Food_CollectionChanged;
             Krmiva.Clear();
             LoadFood(permissions);
@@ -177,6 +173,10 @@ namespace BDAS_2_dog_shelter.MainWindow
             Dogs.Clear();
             LoadDogs(permissions);
             Dogs.CollectionChanged += Dogs_CollectionChanged;
+            Rezervace.CollectionChanged -= Reservation_CollectionChanged;
+            Rezervace.Clear();
+            LoadReservations(permissions);
+            Rezervace.CollectionChanged += Reservation_CollectionChanged;
             Procedures.CollectionChanged -= Procedure_CollectionChanged;
             Procedures.Clear();
             LoadProcedure(permissions);

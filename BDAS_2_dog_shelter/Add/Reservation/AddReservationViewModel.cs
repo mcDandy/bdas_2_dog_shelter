@@ -35,7 +35,7 @@ namespace BDAS_2_dog_shelter.Add.Reservation
             DateTransfer=d.DateOfTransfer;
             DateReceipt = d.DateOfReceipt;
             SelectedPes = d.Pes;
-
+            this.Dogs = dogs;
         }
 
         public AddReservationViewModel(Tables.Reservation d)

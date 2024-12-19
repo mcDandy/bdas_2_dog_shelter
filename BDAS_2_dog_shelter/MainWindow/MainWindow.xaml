@@ -371,13 +371,13 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     <ColumnDefinition Width="30*"></ColumnDefinition>
                     <ColumnDefinition Width="5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <DataGrid x:Name="RezervaceDataGrid" CanUserAddRows="False" SelectedIndex="{Binding ReservationSI}"
+                <DataGrid  x:Name="RezervaceDataGrid" CanUserAddRows="False" SelectedIndex="{Binding ReservationSI}"
 ItemsSource="{Binding Path=Rezervace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding DateOfReceipt}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="Převzetí psa" Binding="{Binding DateOfTransfer}"/>
-                        <DataGridTextColumn Header="Pes" Binding="{Binding Pes}" />
+                        <DataGridTextColumn Header="Datum Rezerace" Binding="{Binding DateOfReceipt,Mode=TwoWay}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Převzetí psa" Binding="{Binding DateOfTransfer,Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Pes" Binding="{Binding Pes,Mode=OneWay}" />
 
                     </DataGrid.Columns>
                 </DataGrid>
