@@ -1,5 +1,4 @@
-﻿using BDAS_2_dog_shelter.Add.Medical_Record;
-using BDAS_2_dog_shelter.Tables;
+﻿using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 namespace BDAS_2_dog_shelter.Add.MedicaEquipment
@@ -25,6 +24,7 @@ namespace BDAS_2_dog_shelter.Add.MedicaEquipment
             d.MedicalName = name;
             d.Count = pocet;
             d.SkladID = storage?.id ?? 0;
+            d.Sklad = storage;
             d.id = iD;
             OkClickFinished?.Invoke();
         }
@@ -89,7 +89,7 @@ namespace BDAS_2_dog_shelter.Add.MedicaEquipment
             ID = d.id;
             SkladID = d.SkladID;
             storage = d.Sklad;
-            Sklady = storages;
+            Sklady = storages.Where(a=>a.Type == "z").ToList();
         }
     }
 }

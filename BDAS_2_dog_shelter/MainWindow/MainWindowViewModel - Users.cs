@@ -1,15 +1,12 @@
-﻿using BDAS_2_dog_shelter.Add.Hracka;
-using BDAS_2_dog_shelter.Add.Users;
+﻿using BDAS_2_dog_shelter.Add.Users;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.Types;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
-using System.Reflection.PortableExecutable;
 using System.Windows;
 using System.Windows.Input;
 

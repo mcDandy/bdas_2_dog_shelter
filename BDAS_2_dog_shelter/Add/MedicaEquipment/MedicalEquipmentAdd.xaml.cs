@@ -1,5 +1,4 @@
-﻿using BDAS_2_dog_shelter.Add.feed;
-using System.Windows;
+﻿using System.Windows;
 
 namespace BDAS_2_dog_shelter.Add.MedicaEquipment
 {

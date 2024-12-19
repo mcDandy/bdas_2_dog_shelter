@@ -1,5 +1,4 @@
-﻿using BDAS_2_dog_shelter.Add.feed;
-using BDAS_2_dog_shelter.Add.MedicaEquipment;
+﻿using BDAS_2_dog_shelter.Add.MedicaEquipment;
 using BDAS_2_dog_shelter.Tables;
 using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;

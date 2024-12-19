@@ -1,5 +1,4 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using System.Windows.Input;
 
 namespace BDAS_2_dog_shelter.Add.Hracka

@@ -1,5 +1,4 @@
-﻿using BDAS_2_dog_shelter.Tables;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using System.Windows.Input;
 using static BDAS_2_dog_shelter.Secrets;

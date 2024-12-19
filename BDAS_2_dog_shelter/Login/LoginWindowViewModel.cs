@@ -1,11 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
-using System.Reflection.PortableExecutable;
-using System.Runtime.Intrinsics.Arm;
 using System.Security;
 using System.Security.Cryptography;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using static BDAS_2_dog_shelter.Secrets;// do later https://github.com/upce-fei-course-bcsh2-2425-classroom/exercise-08-mcDandy
