@@ -345,6 +345,7 @@ ItemsSource="{Binding Path=Procedures, Mode=TwoWay, UpdateSourceTrigger=Property
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Datum" Binding="{Binding DateRec}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="typ" Binding="{Binding Type}" ></DataGridTextColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

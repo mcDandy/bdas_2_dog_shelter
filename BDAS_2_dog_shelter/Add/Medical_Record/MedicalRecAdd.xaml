@@ -11,8 +11,8 @@
         <Button x:Name="button1" Content="Cancel" IsCancel="True" HorizontalAlignment="Left" Margin="165,124,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="Datum" HorizontalAlignment="Left" Margin="26,16,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_Kopírovat1" Content="Počet" HorizontalAlignment="Left" Margin="26,62,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="84,24,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Left" Margin="84,70,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <DatePicker HorizontalAlignment="Left" Margin="84,24,0,0" VerticalAlignment="Top" Width="120" SelectedDate="{Binding DateRec}"/>
+        <ComboBox HorizontalAlignment="Left"  VerticalAlignment="Top" Width="120" ItemsSource="{Binding Types,Mode=OneTime}" SelectedItem="{Binding Type}"/>
 
     </Grid>
 </Window>

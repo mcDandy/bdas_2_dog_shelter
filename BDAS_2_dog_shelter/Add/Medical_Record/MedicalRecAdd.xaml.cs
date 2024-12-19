@@ -7,17 +7,17 @@ namespace BDAS_2_dog_shelter.Add.Medical_Record
     /// </summary>
     public partial class MedicalRecAdd : Window
     {
-        public MedicalRecAdd()
+        public MedicalRecAdd(List<Tables.KeyValueUS> typy)
         {
             InitializeComponent();
             Tables.Medical_Record d = new();
-            DataContext = new AddMedicalRecViewModel(d);
+            DataContext = new AddMedicalRecViewModel(d,typy);
             ((AddMedicalRecViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
-        public MedicalRecAdd(Tables.Medical_Record d)
+        public MedicalRecAdd(Tables.Medical_Record d, List<Tables.KeyValueUS> typy)
         {
             InitializeComponent();
-            DataContext = new AddMedicalRecViewModel(d);
+            DataContext = new AddMedicalRecViewModel(d,typy);
             ((AddMedicalRecViewModel)DataContext).OkClickFinished += () => DialogResult = true;
         }
     }

@@ -29,7 +29,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandMedicalRecEdit(object? obj)
         {
-            MedicalRecAdd s = new(((IEnumerable)obj).Cast<Medical_Record>().First());
+            MedicalRecAdd s = new(((IEnumerable)obj).Cast<Medical_Record>().First(),Typy.ToList());
             s.ShowDialog();
         }
 
@@ -48,7 +48,7 @@ namespace BDAS_2_dog_shelter.MainWindow
 
         private void CommandMedicalRecAdd()
         {
-            MedicalRecAdd s = new MedicalRecAdd();
+            MedicalRecAdd s = new MedicalRecAdd(Typy.ToList());
             if (s.ShowDialog() == true)
             {
                 //new("test", 10, "Cyan", DateTime.Now, ".", "Naživu");
@@ -75,15 +75,16 @@ namespace BDAS_2_dog_shelter.MainWindow
                              while (v.Read())
                                 {
                                     MedicalRec.Add(new(v.GetInt32(0), v.GetDateTime(1), v.GetInt32(2)));
+                                    MedicalRec.Last().Type = Typy.Where(a => a.Id == MedicalRec.Last().TypeProcId).FirstOrDefault();
                                     if (Permission.HasAnyOf(permissions, Permissions.ADMIN, Permissions.ZDR_ZAZNAM_UPDATE)) MedicalRec.Last().PropertyChanged += MedicalRecChanged;
                                 }
                             }
                         }
 
-                        // Processing relations, assuming TypeProc relates to another record (this logic depends on your schema)
+                        // Processing relations, assuming TypeProcId relates to another record (this logic depends on your schema)
                         foreach (var record in MedicalRec)
                         {
-                            record.medRecord = MedicalRec.FirstOrDefault(d => d.id == record.TypeProc);
+                            record.medRecord = MedicalRec.FirstOrDefault(d => d.id == record.TypeProcId);
                         }
                     }
                     catch (Exception ex)
@@ -114,9 +115,9 @@ namespace BDAS_2_dog_shelter.MainWindow
 
                     cmd.BindByName = true;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ZDR_ZAZNAM", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_ZDR_ZAZNAM", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
+                    cmd.Parameters.Add(utulek.id is null ? new("V_ID_ZAZNAM", OracleDbType.Decimal, DBNull.Value, System.Data.ParameterDirection.InputOutput) : new("V_ID_ZDR_ZAZNAM", OracleDbType.Decimal, utulek.id, System.Data.ParameterDirection.InputOutput));
                     cmd.Parameters.Add(new("V_DATUM_ZAZ", OracleDbType.Date, utulek.DateRec, ParameterDirection.Input));
-                    cmd.Parameters.Add(new("V_ID_TYP_PROCEDURY", OracleDbType.Decimal, utulek.TypeProc, ParameterDirection.Input));
+                    cmd.Parameters.Add(new("V_TYP_PROCEDURY", OracleDbType.Decimal, utulek.TypeProcId, ParameterDirection.Input));
 
                     cmd.CommandText = "INS_SET.IU_ZDR_ZAZNAM";
 

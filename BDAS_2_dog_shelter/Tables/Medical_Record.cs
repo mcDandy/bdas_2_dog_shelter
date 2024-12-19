@@ -21,18 +21,30 @@ namespace BDAS_2_dog_shelter.Tables
         }
         private int? type_proc;
         private DateTime? date;
-        private int? type;
+        private KeyValueUS type;
 
-        public int? TypeProc
+        public Tables.KeyValueUS Type { get => type;
+            set
+            {
+                if (type != value)
+                {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Type)));
+                    type = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Type)));
+                }
+            }
+        }
+
+        public int? TypeProcId
         {
             get => type_proc;
             set
             {
                 if (type_proc != value)
                 {
-                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(TypeProc)));
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(TypeProcId)));
                     type_proc = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeProc)));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TypeProcId)));
                 }
             }
         }
@@ -49,7 +61,7 @@ namespace BDAS_2_dog_shelter.Tables
         {
             this.id = id;
             this.date = date;
-            this.type = type;
+            this.type_proc = type;
         }
 
         public event PropertyChangingEventHandler? PropertyChanging;
