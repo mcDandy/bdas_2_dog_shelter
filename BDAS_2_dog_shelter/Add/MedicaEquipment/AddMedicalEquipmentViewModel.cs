@@ -26,6 +26,8 @@ namespace BDAS_2_dog_shelter.Add.MedicaEquipment
             d.Count = pocet;
             d.SkladID = storage?.id ?? 0;
             d.id = iD;
+            MedEquip = d;
+            d.Sklad = storage;
             OkClickFinished?.Invoke();
         }
 
@@ -89,7 +91,7 @@ namespace BDAS_2_dog_shelter.Add.MedicaEquipment
             ID = d.id;
             SkladID = d.SkladID;
             storage = d.Sklad;
-            Sklady = storages;
+            Sklady = storages.Where(a=>a.Type== "z").ToList();
         }
     }
 }

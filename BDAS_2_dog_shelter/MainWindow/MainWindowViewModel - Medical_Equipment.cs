@@ -171,6 +171,7 @@ namespace BDAS_2_dog_shelter.MainWindow
             catch (Exception ex)//something went wrong
             {
                 MedEquipment.CollectionChanged -= Medical_CollectionChanged;
+                MedEquipment.Clear();
                 LoadMedical(permissions);
                 MedEquipment.CollectionChanged += Medical_CollectionChanged;
                 MessageBox.Show(ex.Message);
