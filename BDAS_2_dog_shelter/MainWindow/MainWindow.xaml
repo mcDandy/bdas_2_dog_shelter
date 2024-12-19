@@ -203,7 +203,8 @@ ItemsSource="{Binding Path=Krmiva, Mode=TwoWay, UpdateSourceTrigger=PropertyChan
     ItemsSource="{Binding Path=Storages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectionChanged="StorageDataGrid_SelectionChanged">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="typ" Binding="{Binding Type}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Název" Binding="{Binding Name}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="Zkratka typu" Binding="{Binding Type}" ></DataGridTextColumn>
                         <DataGridTextColumn Header="Kapacita" Binding="{Binding Capacity}"/>
 
                     </DataGrid.Columns>
