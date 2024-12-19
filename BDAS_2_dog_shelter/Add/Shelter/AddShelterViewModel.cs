@@ -29,7 +29,7 @@ namespace BDAS_2_dog_shelter.Add.Shelter
             d.Telephone = telephone;
            // d.AddressID = Adresa.id;
             d.ID = iD;
-            d.Adresa = Adresa;
+            d.AddressID = addressID;
             OkClickFinished?.Invoke();
         }
 
